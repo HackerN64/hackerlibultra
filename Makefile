@@ -1,6 +1,6 @@
-COMPARE ?= 1
-MODERN_LD ?= 0
-MODERN_GCC ?= 0
+COMPARE ?= 0
+MODERN_LD ?= 1
+MODERN_GCC ?= 1
 
 ifneq ($(MODERN_LD),0)
 COMPARE := 0
@@ -11,7 +11,7 @@ endif
 # libultra_rom, libultra_d, libultra
 TARGET ?= libgultra_rom
 VERSION ?= L
-CROSS ?= mips-linux-gnu-
+CROSS ?= mips64-elf-
 
 ifeq ($(findstring libgultra,$(TARGET)),libgultra)
 COMPILER := gcc
