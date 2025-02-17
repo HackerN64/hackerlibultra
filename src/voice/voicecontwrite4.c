@@ -26,7 +26,7 @@ s32 __osVoiceContWrite4(OSMesgQueue* mq, int channel, u16 address, u8* buffer) {
 
         ptr = (u8*)&__osPfsPifRam;
 
-        if ((__osContLastCmd != CONT_CMD_WRITE4_VOICE) || ((u32)__osPfsLastChannel != channel)) {
+        if ((__osContLastCmd != CONT_CMD_WRITE4_VOICE) || (__osPfsLastChannel != channel)) {
             __osContLastCmd = CONT_CMD_WRITE4_VOICE;
             __osPfsLastChannel = channel;
 
