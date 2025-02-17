@@ -64,7 +64,7 @@ void alCSeqNextEvent(ALCSeq *seq,ALEvent *evt)
 {
     u32     i;
     u32     firstTime = 0xFFFFFFFF;
-    u32     firstTrack;
+    u32     firstTrack = 0;
     u32     lastTicks = seq->lastDeltaTicks;
 
 #ifdef _DEBUG
