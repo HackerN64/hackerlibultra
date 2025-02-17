@@ -420,9 +420,7 @@ s32 alLoadParam(void *filter, s32 paramID, void *param) {
     }
 }
 
-Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags)
-
-{
+Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags) {
 
     s32 dramAlign, dramLoc;
 
