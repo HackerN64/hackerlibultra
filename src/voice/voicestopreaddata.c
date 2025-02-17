@@ -57,7 +57,7 @@ s32 osVoiceStopReadData(OSVoiceHandle* hd) {
     }
 #if BUILD_VERSION >= VERSION_K 
     if (i >= 20) {
-        ret == CONT_ERR_VOICE_NO_RESPONSE;
+        ret = CONT_ERR_VOICE_NO_RESPONSE;
     }
 #endif
 
