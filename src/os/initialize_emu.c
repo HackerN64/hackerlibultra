@@ -1,5 +1,6 @@
 #ifndef _FINALROM
 
+#include "stdlib.h"
 #include "PR/os_internal.h"
 #include "PR/rdb.h"
 #include "PRinternal/osint.h"
@@ -12,7 +13,7 @@ typedef struct {
 } __osExceptionVector;
 
 static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
-    sizeof sent = 0;
+    size_t sent = 0;
 
     while (sent < n) {
         sent += __osRdbSend(buf + sent, n - sent, RDB_TYPE_GtoH_PRINT);
