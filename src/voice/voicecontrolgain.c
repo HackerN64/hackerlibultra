@@ -11,8 +11,8 @@
 #include "voiceinternal.h"
 
 s32 osVoiceControlGain(OSVoiceHandle *hd, s32 analog, s32 digital) {
-    s32 ret;
-    u8 cmd;
+    s32       ret;
+    u8        cmd;
 
     static u8 digital_table[] = { 0x00, 0x80, 0x40, 0xC0, 0x20, 0xA0, 0x60, 0xE0 };
 

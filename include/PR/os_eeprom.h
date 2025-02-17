@@ -55,13 +55,13 @@ extern "C" {
 
 /* EEPROM TYPE */
 
-#define EEPROM_TYPE_4K 0x01
-#define EEPROM_TYPE_16K 0x02
+#define EEPROM_TYPE_4K    0x01
+#define EEPROM_TYPE_16K   0x02
 
 /* definition for EEPROM */
 
-#define EEPROM_MAXBLOCKS 64
-#define EEP16K_MAXBLOCKS 256
+#define EEPROM_MAXBLOCKS  64
+#define EEP16K_MAXBLOCKS  256
 #define EEPROM_BLOCK_SIZE 8
 
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)

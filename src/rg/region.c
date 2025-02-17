@@ -8,8 +8,8 @@
 
 void *osCreateRegion(void *startAddress, u32 length, u32 bufferSize, u32 alignSize) {
     register OSRegion *rp;
-    register int i;
-    register char *addr;
+    register int       i;
+    register char     *addr;
 
     assert(startAddress != NULL);
 

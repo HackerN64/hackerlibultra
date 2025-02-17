@@ -2,10 +2,10 @@
 #include "PR/os_internal_flash.h"
 
 s32 osFlashWriteArray(u32 page_num) {
-    u32 status;
-    OSTimer mytimer;
+    u32         status;
+    OSTimer     mytimer;
     OSMesgQueue timerMesgQueue;
-    OSMesg dummy;
+    OSMesg      dummy;
 
     if ((u32) __osFlashVersion == NEW_FLASH) {
         osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_PAGE_PROGRAM);

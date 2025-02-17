@@ -6,8 +6,8 @@
 s32 osGbpakReadId(OSPfs *pfs, OSGbpakId *id, u8 *status) {
     s32 i;
     s32 ret;
-    u8 isum;
-    u8 buf[96];
+    u8  isum;
+    u8  buf[96];
 #if BUILD_VERSION >= VERSION_K
     u8 temp[32];
 #endif

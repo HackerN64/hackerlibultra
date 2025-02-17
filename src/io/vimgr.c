@@ -12,13 +12,13 @@ u32 __additional_scanline = 0;
 static OSThread viThread;
 static STACK(viThreadStack, OS_VIM_STACKSIZE) ALIGNED(0x10);
 static OSMesgQueue viEventQueue ALIGNED(0x8);
-static OSMesg viEventBuf[5] ALIGNED(0x8);
-static OSIoMesg viRetraceMsg ALIGNED(0x8);
-static OSIoMesg viCounterMsg ALIGNED(0x8);
+static OSMesg                   viEventBuf[5] ALIGNED(0x8);
+static OSIoMesg viRetraceMsg    ALIGNED(0x8);
+static OSIoMesg viCounterMsg    ALIGNED(0x8);
 
-static void viMgrMain(void *arg);
-void osCreateViManager(OSPri pri) {
-    u32 savedMask;
+static void                     viMgrMain(void *arg);
+void                            osCreateViManager(OSPri pri) {
+    u32   savedMask;
     OSPri oldPri;
     OSPri myPri;
 
@@ -73,11 +73,11 @@ void osCreateViManager(OSPri pri) {
 
 static void viMgrMain(void *arg) {
     __OSViContext *vc;
-    OSDevMgr *dm;
-    OSIoMesg *mb;
-    static u16 retrace;
-    s32 first;
-    u32 count;
+    OSDevMgr      *dm;
+    OSIoMesg      *mb;
+    static u16     retrace;
+    s32            first;
+    u32            count;
 
     mb = NULL;
     first = 0;

@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSynSetVol(ALSynth *synth, ALVoice *v, s16 volume, ALMicroTime t) {
-    ALParam *update;
+    ALParam  *update;
     ALFilter *f;
 
     if (v->pvoice) {

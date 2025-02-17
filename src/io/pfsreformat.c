@@ -4,12 +4,12 @@
 #include "PRinternal/siint.h"
 
 s32 osPfsReFormat(OSPfs *pfs, OSMesgQueue *queue, int channel) {
-    int j;
-    int i;
+    int       j;
+    int       i;
     __OSInode inode;
-    u8 tmp_data[32];
-    u8 *ptr;
-    s32 ret;
+    u8        tmp_data[32];
+    u8       *ptr;
+    s32       ret;
     __osSiGetAccess();
     ret = __osPfsGetStatus(queue, channel);
 

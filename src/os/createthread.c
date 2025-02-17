@@ -5,9 +5,9 @@
 
 extern __OSThreadprofile_s thprof[];
 
-void osCreateThread(OSThread *t, OSId id, void (*entry)(void *), void *arg, void *sp, OSPri p) {
+void                       osCreateThread(OSThread *t, OSId id, void (*entry)(void *), void *arg, void *sp, OSPri p) {
     register u32 saveMask;
-    OSIntMask mask;
+    OSIntMask    mask;
 
 #ifdef _DEBUG
     if ((u32) sp & 0x7) {

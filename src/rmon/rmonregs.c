@@ -104,7 +104,7 @@ static void CleanupFromRCPop(int isVector) {
 
 int __rmonGetGRegisters(KKHeader *req) {
     register KKObjectRequest *request = (KKObjectRequest *) req;
-    KKGregEvent reply;
+    KKGregEvent               reply;
 
     STUBBED_PRINTF(("GetGRegisters\n"));
 
@@ -113,8 +113,8 @@ int __rmonGetGRegisters(KKHeader *req) {
     reply.header.error = TV_ERROR_NO_ERROR;
 
     if (request->header.method == RMON_CPU) {
-        OSThread *tptr = __rmonGetTCB(request->object);
-        u64 *tcbregptr;
+        OSThread    *tptr = __rmonGetTCB(request->object);
+        u64         *tcbregptr;
         register s32 i;
 
         if (tptr == NULL) {
@@ -142,13 +142,13 @@ int __rmonGetGRegisters(KKHeader *req) {
 
 int __rmonSetGRegisters(KKHeader *req) {
     register KKGRegsetRequest *request = (KKGRegsetRequest *) req;
-    KKObjectEvent reply;
+    KKObjectEvent              reply;
 
     STUBBED_PRINTF(("SetGRegisters\n"));
 
     if (request->header.method == RMON_CPU) {
-        OSThread *tptr = __rmonGetTCB(request->tid);
-        u64 *tcbregptr;
+        OSThread    *tptr = __rmonGetTCB(request->tid);
+        u64         *tcbregptr;
         register int i;
 
         if (tptr == NULL) {
@@ -179,9 +179,9 @@ int __rmonSetGRegisters(KKHeader *req) {
 
 int __rmonGetFRegisters(KKHeader *req) {
     register KKObjectRequest *request = (KKObjectRequest *) req;
-    KKFPregEvent reply;
-    OSThread *tptr;
-    volatile float f UNUSED;
+    KKFPregEvent              reply;
+    OSThread                 *tptr;
+    volatile float f          UNUSED;
 
     STUBBED_PRINTF(("GetFRegisters\n"));
 
@@ -211,9 +211,9 @@ int __rmonGetFRegisters(KKHeader *req) {
 
 int __rmonSetFRegisters(KKHeader *req) {
     register KKFPRegsetRequest *request = (KKFPRegsetRequest *) req;
-    KKObjectEvent reply;
-    OSThread *tptr;
-    volatile float f UNUSED;
+    KKObjectEvent               reply;
+    OSThread                   *tptr;
+    volatile float f            UNUSED;
 
     STUBBED_PRINTF(("SetFRegisters\n"));
 
@@ -258,8 +258,8 @@ static u32 rmonGetRcpRegister(int regNumber) {
 
 int __rmonGetSRegs(KKHeader *req) {
     register KKObjectRequest *request = (KKObjectRequest *) req;
-    KKCpSregEvent reply;
-    register int i;
+    KKCpSregEvent             reply;
+    register int              i;
 
     STUBBED_PRINTF(("GetSRegisters\n"));
 
@@ -294,8 +294,8 @@ int __rmonGetSRegs(KKHeader *req) {
 
 int __rmonSetSRegs(KKHeader *req) {
     register KKCpScalarRegsetRequest *request = (KKCpScalarRegsetRequest *) req;
-    KKObjectEvent reply;
-    register int i;
+    KKObjectEvent                     reply;
+    register int                      i;
 
     STUBBED_PRINTF(("SetSRegisters\n"));
 
@@ -325,12 +325,12 @@ int __rmonSetSRegs(KKHeader *req) {
 }
 
 int __rmonGetVRegs(KKHeader *req) {
-    char *cPtr;
-    int sent;
-    int dataSize;
+    char                     *cPtr;
+    int                       sent;
+    int                       dataSize;
     register KKObjectRequest *request = (KKObjectRequest *) req;
-    KKCpVregEvent reply;
-    register int i;
+    KKCpVregEvent             reply;
+    register int              i;
 
     STUBBED_PRINTF(("GetVRegisters\n"));
 
@@ -365,8 +365,8 @@ int __rmonGetVRegs(KKHeader *req) {
 
 int __rmonSetVRegs(KKHeader *req) {
     register KKCpVectorRegsetRequest *request = (KKCpVectorRegsetRequest *) req;
-    KKObjectEvent reply;
-    register int i;
+    KKObjectEvent                     reply;
+    register int                      i;
 
     STUBBED_PRINTF(("SetVRegs\n"));
 
@@ -392,7 +392,7 @@ int __rmonSetVRegs(KKHeader *req) {
 u32 __rmonGetRegisterContents(int method, int threadNumber, int regNumber) {
     if (method == RMON_CPU) {
         /* CPU register */
-        u32 *regPointer;
+        u32      *regPointer;
         OSThread *tptr;
 
         if (regNumber >= GREG_IDX_AT && regNumber < GREG_IDX_K0) {

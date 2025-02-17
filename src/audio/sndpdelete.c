@@ -29,7 +29,7 @@ void alSndpDelete(ALSndPlayer *sndp) {
      */
 #ifdef _DEBUG
     {
-        int i, notStopped = 0;
+        int           i, notStopped = 0;
         ALSoundState *sState = sndp->sndState;
 
         for (i = 0; i < sndp->maxSounds; i++)

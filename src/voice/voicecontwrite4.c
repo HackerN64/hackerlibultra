@@ -14,11 +14,11 @@
 
 s32 __osVoiceContWrite4(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) {
     s32 ret = 0;
-    u8 status;
+    u8  status;
     int i;
     u8 *ptr;
     s32 retry = 2;
-    u8 crc;
+    u8  crc;
 
     __osSiGetAccess();
 

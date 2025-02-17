@@ -2,7 +2,7 @@
 #include "PRinternal/osint.h"
 
 OSThread *__osGetNextFaultedThread(OSThread *lastFault) {
-    register int saveMask = __osDisableInt();
+    register int       saveMask = __osDisableInt();
     register OSThread *fault;
 
     fault = lastFault == NULL ? __osActiveQueue : lastFault;

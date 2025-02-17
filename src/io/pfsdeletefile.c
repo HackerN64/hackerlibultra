@@ -7,15 +7,15 @@ s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, 
 #if BUILD_VERSION < VERSION_J
     int k;
 #endif
-    s32 ret;
+    s32       ret;
     __OSInode inode;
-    __OSDir dir;
+    __OSDir   dir;
 #if BUILD_VERSION < VERSION_J
     u16 sum = 0;
 #endif
     __OSInodeUnit last_page;
-    u8 startpage;
-    u8 bank;
+    u8            startpage;
+    u8            bank;
 
     if (company_code == 0 || game_code == 0) {
         return PFS_ERR_INVALID;
@@ -85,7 +85,7 @@ s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, 
 s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u8 bank, __OSInodeUnit *last_page) {
     __OSInodeUnit next_page;
     __OSInodeUnit old_page;
-    s32 ret = 0;
+    s32           ret = 0;
 
     next_page.ipage = (bank << 8) + start_page;
 
@@ -106,8 +106,8 @@ s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u16 *sum, u
                         int flag) {
     __OSInodeUnit next_page;
     __OSInodeUnit old_page;
-    s32 ret;
-    int offset;
+    s32           ret;
+    int           offset;
     ret = 0;
     next_page = inode->inode_page[start_page];
 
@@ -155,7 +155,7 @@ s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u16 *sum, u
 s32 __osBlockSum(OSPfs *pfs, u8 page_no, u16 *sum, u8 bank) {
     int i;
     s32 ret;
-    u8 data[32];
+    u8  data[32];
     ret = 0;
     pfs->activebank = bank;
     ERRCK(__osPfsSelectBank(pfs));

@@ -17,8 +17,8 @@
 
 s32 osVoiceClearDictionary(OSVoiceHandle *hd, u8 words) {
     s32 ret;
-    u8 stat;
-    u8 buf[4];
+    u8  stat;
+    u8  buf[4];
 
     ret = __osVoiceGetStatus(hd->__mq, hd->__channel, &stat);
     if (ret != 0) {

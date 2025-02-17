@@ -5,16 +5,16 @@
 
 #include "PRinternal/macros.h"
 
-static int readHostInitialized = FALSE;
+static int                           readHostInitialized = FALSE;
 static OSMesgQueue readHostMesgQueue ALIGNED(0x8);
-static OSMesg readHostMesgBuf[1];
+static OSMesg                        readHostMesgBuf[1];
 
-u32 __osRdb_Read_Data_Buf;
-u32 __osRdb_Read_Data_Ct;
+u32                                  __osRdb_Read_Data_Buf;
+u32                                  __osRdb_Read_Data_Ct;
 
-void osReadHost(void *dramAddr, u32 nbytes) {
+void                                 osReadHost(void *dramAddr, u32 nbytes) {
     char tstr[4];
-    u32 sent = 0;
+    u32  sent = 0;
 
     if (!readHostInitialized) {
         osCreateMesgQueue(&readHostMesgQueue, readHostMesgBuf, ARRLEN(readHostMesgBuf));

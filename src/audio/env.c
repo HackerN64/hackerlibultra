@@ -49,23 +49,23 @@ extern f64 __pow(f64, f64);
  * prototypes for private enveloper functions
  */
 static Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p);
-static s16 _getRate(f64 vol, f64 tgt, s32 count, u16 *ratel);
+static s16   _getRate(f64 vol, f64 tgt, s32 count, u16 *ratel);
 
-static f32 _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel);
+static f32   _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel);
 
 /***********************************************************************
  * Enveloper filter public interfaces
  ***********************************************************************/
 Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
+    Acmd       *ptr = p;
     ALEnvMixer *e = (ALEnvMixer *) filter;
-    s16 inp;
-    s32 lastOffset;
-    s32 thisOffset = sampleOffset;
-    s32 samples;
-    s16 loutp = 0;
-    s32 fVol;
-    ALParam *thisParam;
+    s16         inp;
+    s32         lastOffset;
+    s32         thisOffset = sampleOffset;
+    s32         samples;
+    s16         loutp = 0;
+    s32         fVol;
+    ALParam    *thisParam;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -91,8 +91,8 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
         switch (e->ctrlList->type) {
             case (AL_FILTER_START_VOICE_ALT): {
                 ALStartParamAlt *param = (ALStartParamAlt *) e->ctrlList;
-                ALFilter *f = (ALFilter *) e;
-                s32 tmp;
+                ALFilter        *f = (ALFilter *) e;
+                s32              tmp;
 
                 if (param->unity) {
                     (*e->filter.setParam)(&e->filter, AL_FILTER_SET_UNITY_PITCH, 0);
@@ -231,7 +231,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
             } break;
 
             case (AL_FILTER_FREE_VOICE): {
-                ALSynth *drvr = &alGlobals->drvr;
+                ALSynth     *drvr = &alGlobals->drvr;
                 ALFreeParam *param = (ALFreeParam *) e->ctrlList;
                 param->pvoice->offset = 0;
                 _freePVoice(drvr, (PVoice *) param->pvoice);
@@ -275,7 +275,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
 }
 
 s32 alEnvmixerParam(void *filter, s32 paramID, void *param) {
-    ALFilter *f = (ALFilter *) filter;
+    ALFilter   *f = (ALFilter *) filter;
     ALEnvMixer *e = (ALEnvMixer *) filter;
 
     switch (paramID) {
@@ -318,9 +318,9 @@ s32 alEnvmixerParam(void *filter, s32 paramID, void *param) {
 #line 350
 #endif
 static Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
+    Acmd       *ptr = p;
     ALEnvMixer *e = (ALEnvMixer *) filter;
-    ALFilter *source = e->filter.source;
+    ALFilter   *source = e->filter.source;
 
     /* filter must be playing and request non-zero output samples to pull. */
     if (e->motion != AL_PLAYING || !outCount)
@@ -371,7 +371,7 @@ static Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount, s32 
     return ptr;
 }
 
-#define EXP_MASK 0x7f800000
+#define EXP_MASK  0x7f800000
 #define MANT_MASK 0x807fffff
 
 f64 _frexpf(f64 value, s32 *eptr) {
@@ -435,10 +435,10 @@ static s16 _getRate(f64 vol, f64 tgt, s32 count, u16 *ratel) {
     if (vol <= 0)
         vol = 1; /* zero and neg values not allowed */
 
-#define NBITS (3)
-#define NPOS (1 << NBITS)
+#define NBITS     (3)
+#define NPOS      (1 << NBITS)
 #define NFRACBITS (30)
-#define M_LN2 0.69314718055994530942
+#define M_LN2     0.69314718055994530942
     /*
      * rww's parametric pow()
      Goal: compute a = (tgt/vol)^(1/count)

@@ -8,7 +8,7 @@
 #include "PRinternal/controller.h"
 #include "PR/os_voice.h"
 
-#define VOICE_CRC_LENGTH 8
+#define VOICE_CRC_LENGTH    8
 #define VOICE_CRC_GENERATOR 0x85
 
 /**

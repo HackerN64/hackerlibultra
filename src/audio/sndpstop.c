@@ -21,7 +21,7 @@
 #include "sndp.h"
 
 void alSndpStop(ALSndPlayer *sndp) {
-    ALSndpEvent evt;
+    ALSndpEvent   evt;
     ALSoundState *sState = sndp->sndState;
 
     /*

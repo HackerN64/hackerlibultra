@@ -7,7 +7,7 @@ s32 __osGbpakSetBank(OSPfs *pfs, u8 bank);
 s32 osGbpakReadWrite(OSPfs *pfs, u16 flag, u16 address, u8 *buffer, u16 size) {
     s32 i;
     s32 ret;
-    u8 bank;
+    u8  bank;
 
     bank = (u8) (address >> 0xE);
 

@@ -38,8 +38,8 @@ void alEvtqNew(ALEventQueue *evtq, ALEventListItem *items, s32 itemCount) {
 
 ALMicroTime alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt) {
     ALEventListItem *item;
-    ALMicroTime delta;
-    OSIntMask mask;
+    ALMicroTime      delta;
+    OSIntMask        mask;
 
     mask = osSetIntMask(OS_IM_NONE);
 
@@ -68,9 +68,9 @@ ALMicroTime alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt) {
 void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, ALMicroTime delta) {
     ALEventListItem *item;
     ALEventListItem *nextItem;
-    ALLink *node;
-    s32 postAtEnd = 0;
-    OSIntMask mask;
+    ALLink          *node;
+    s32              postAtEnd = 0;
+    OSIntMask        mask;
 
     mask = osSetIntMask(OS_IM_NONE);
 
@@ -116,8 +116,8 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, ALMicroTime delta) {
 }
 
 void alEvtqFlush(ALEventQueue *evtq) {
-    ALLink *thisNode;
-    ALLink *nextNode;
+    ALLink   *thisNode;
+    ALLink   *nextNode;
     OSIntMask mask;
 
     mask = osSetIntMask(OS_IM_NONE);
@@ -137,10 +137,10 @@ void alEvtqFlush(ALEventQueue *evtq) {
   This routine flushes events according their type.
 */
 void alEvtqFlushType(ALEventQueue *evtq, s16 type) {
-    ALLink *thisNode;
-    ALLink *nextNode;
+    ALLink          *thisNode;
+    ALLink          *nextNode;
     ALEventListItem *thisItem, *nextItem;
-    OSIntMask mask;
+    OSIntMask        mask;
 
     mask = osSetIntMask(OS_IM_NONE);
 
@@ -163,9 +163,9 @@ void alEvtqFlushType(ALEventQueue *evtq, s16 type) {
 
 #ifdef _DEBUG_INTERNAL
 void alEvtqPrintEvtQueue(ALEventQueue *evtq) {
-    s32 count1 = 0;
-    s32 count2 = 0;
-    ALLink *node;
+    s32              count1 = 0;
+    s32              count2 = 0;
+    ALLink          *node;
     ALEventListItem *item;
 
     /* count free events */
@@ -189,11 +189,11 @@ void alEvtqPrintEvtQueue(ALEventQueue *evtq) {
 
 char *MidiStatus2Str(char status, char *str);
 
-void alEvtqPrintAllocEvts(ALEventQueue *evtq) {
-    ALLink *node;
+void  alEvtqPrintAllocEvts(ALEventQueue *evtq) {
+    ALLink          *node;
     ALEventListItem *item;
-    ALMicroTime itemTime = 0;
-    char str[32];
+    ALMicroTime      itemTime = 0;
+    char             str[32];
 
     PRINTF("----- Allocated Events -----\n");
     for (node = evtq->allocList.next; node != 0; node = node->next) {

@@ -11,8 +11,8 @@
 
 s32 osVoiceStartReadData(OSVoiceHandle *hd) {
     s32 ret;
-    u8 stat;
-    u8 temp[4];
+    u8  stat;
+    u8  temp[4];
 
     ret = __osVoiceGetStatus(hd->__mq, hd->__channel, &stat);
     if (ret != 0) {

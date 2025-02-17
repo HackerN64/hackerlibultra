@@ -34,7 +34,7 @@
  * the following arrays contain default parameters for
  * a few hopefully useful effects.
  */
-#define ms *(((s32) ((f32) 44.1)) & ~0x7)
+#define ms    *(((s32) ((f32) 44.1)) & ~0x7)
 
 static s32 SMALLROOM_PARAMS[26] = {
     /* sections	   length */
@@ -79,7 +79,7 @@ input  output  fbcoef  ffcoef   gain     rate   depth     coef   */
 
 static s32 NULL_PARAMS[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-void _init_lpfilter(ALLowPass *lp) {
+void       _init_lpfilter(ALLowPass *lp) {
     s32 i, temp;
     s16 fc;
     f64 ffc, fcoef;
@@ -102,10 +102,10 @@ void _init_lpfilter(ALLowPass *lp) {
 }
 
 void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp) {
-    u16 i, j, k;
-    s32 *param = 0;
+    u16       i, j, k;
+    s32      *param = 0;
     ALFilter *f = (ALFilter *) r;
-    ALDelay *d;
+    ALDelay  *d;
 
     alFilterNew(f, 0, alFxParam, AL_FX);
     f->handler = alFxPull;
@@ -173,7 +173,7 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp) {
              *		120,000/ln(2) = 173123.40...
              */
 #define CONVERT 173123.404906676
-#define LENGTH (d->output - d->input)
+#define LENGTH  (d->output - d->input)
             d->rsgain = (((f32) param[j++]) / CONVERT) * LENGTH;
             d->rsval = 1.0;
             d->rsdelta = 0.0;

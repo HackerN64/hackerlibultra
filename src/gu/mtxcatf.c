@@ -33,7 +33,7 @@
 #include "guint.h"
 
 void guMtxCatF(float mf[4][4], float nf[4][4], float res[4][4]) {
-    int i, j, k;
+    int   i, j, k;
     float temp[4][4];
 
     for (i = 0; i < 4; i++) {

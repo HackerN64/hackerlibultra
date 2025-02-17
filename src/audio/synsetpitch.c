@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSynSetPitch(ALSynth *synth, ALVoice *v, f32 pitch) {
-    ALParam *update;
+    ALParam  *update;
     ALFilter *f;
 
     if (v->pvoice) {

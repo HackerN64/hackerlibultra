@@ -5,15 +5,15 @@
 #include "PRinternal/siint.h"
 
 static void __osPackEepWriteData(u8 address, u8 *buffer);
-s32 osEepromWrite(OSMesgQueue *mq, u8 address, u8 *buffer) {
+s32         osEepromWrite(OSMesgQueue *mq, u8 address, u8 *buffer) {
     s32 ret = 0;
 #if BUILD_VERSION < VERSION_J
     int i;
 #endif
-    u16 type;
-    u8 *ptr = (u8 *) &__osEepPifRam.ramarray;
+    u16                  type;
+    u8                  *ptr = (u8 *) &__osEepPifRam.ramarray;
     __OSContEepromFormat eepromformat;
-    OSContStatus sdata;
+    OSContStatus         sdata;
 #if BUILD_VERSION >= VERSION_L
     u8 temp[8];
 #endif
@@ -113,9 +113,9 @@ s32 osEepromWrite(OSMesgQueue *mq, u8 address, u8 *buffer) {
 }
 
 static void __osPackEepWriteData(u8 address, u8 *buffer) {
-    u8 *ptr = (u8 *) &__osEepPifRam.ramarray;
+    u8                  *ptr = (u8 *) &__osEepPifRam.ramarray;
     __OSContEepromFormat eepromformat;
-    int i;
+    int                  i;
 
 #if BUILD_VERSION < VERSION_J
     for (i = 0; i < ARRLEN(__osEepPifRam.ramarray); i++) {
@@ -143,9 +143,9 @@ static void __osPackEepWriteData(u8 address, u8 *buffer) {
 }
 
 s32 __osEepStatus(OSMesgQueue *mq, OSContStatus *data) {
-    s32 ret = 0;
-    int i;
-    u8 *ptr = (u8 *) __osEepPifRam.ramarray;
+    s32                  ret = 0;
+    int                  i;
+    u8                  *ptr = (u8 *) __osEepPifRam.ramarray;
     __OSContRequesFormat requestformat;
 
     for (i = 0; i < ARRLEN(__osEepPifRam.ramarray) + 1; i++) {

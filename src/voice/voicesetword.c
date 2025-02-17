@@ -14,8 +14,8 @@ s32 osVoiceSetWord(OSVoiceHandle *hd, u8 *word) {
     s32 j;
     s32 k;
     s32 ret;
-    u8 stat;
-    u8 buf[40];
+    u8  stat;
+    u8  buf[40];
 
     ret = __osVoiceGetStatus(hd->__mq, hd->__channel, &stat);
     if (ret != 0) {

@@ -4,8 +4,8 @@
 
 void __osPackResetData(void);
 
-s32 osContReset(OSMesgQueue *mq, OSContStatus *data) {
-    u8 pattern;
+s32  osContReset(OSMesgQueue *mq, OSContStatus *data) {
+    u8  pattern;
     s32 ret;
 
     __osSiGetAccess();

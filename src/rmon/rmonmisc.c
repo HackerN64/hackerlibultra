@@ -20,7 +20,7 @@
 
 int __rmonSetFault(KKHeader *req) {
     KKFaultRequest *request = (KKFaultRequest *) req;
-    KKObjectEvent reply;
+    KKObjectEvent   reply;
 
     STUBBED_PRINTF(("SetFault\n"));
 
@@ -32,21 +32,21 @@ int __rmonSetFault(KKHeader *req) {
     return TV_ERROR_NO_ERROR;
 }
 
-OSMesgQueue __rmonMQ ALIGNED(0x8);
+OSMesgQueue __rmonMQ         ALIGNED(0x8);
 static OSThread rmonIOThread ALIGNED(0x8);
-static OSMesg rmonMsgs[8] ALIGNED(0x8);
+static OSMesg                rmonMsgs[8] ALIGNED(0x8);
 static STACK(rmonIOStack, 0x4000) ALIGNED(0x10);
-static OSMesg rmonPiMsgs[8] ALIGNED(0x8);
+static OSMesg               rmonPiMsgs[8] ALIGNED(0x8);
 static OSMesgQueue rmonPiMQ ALIGNED(0x8);
 
-void __rmonInit(void) {
+void                        __rmonInit(void) {
     osCreateMesgQueue(&__rmonMQ, rmonMsgs, ARRLEN(rmonMsgs));
     osSetEventMesg(OS_EVENT_CPU_BREAK, &__rmonMQ, (OSMesg) RMON_MESG_CPU_BREAK);
     osSetEventMesg(OS_EVENT_SP_BREAK, &__rmonMQ, (OSMesg) RMON_MESG_SP_BREAK);
     osSetEventMesg(OS_EVENT_FAULT, &__rmonMQ, (OSMesg) RMON_MESG_FAULT);
     osSetEventMesg(OS_EVENT_THREADSTATUS, &__rmonMQ, NULL);
     osCreateThread(&rmonIOThread, 0, (void (*)(void *)) __rmonIOhandler, NULL, STACK_START(rmonIOStack),
-                   OS_PRIORITY_MAX);
+                                          OS_PRIORITY_MAX);
     osCreatePiManager(OS_PRIORITY_PIMGR, &rmonPiMQ, rmonPiMsgs, ARRLEN(rmonPiMsgs));
     osStartThread(&rmonIOThread);
 }

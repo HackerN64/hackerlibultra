@@ -3,7 +3,7 @@
 #include "PR/rcp.h"
 
 OSYieldResult osSpTaskYielded(OSTask *tp) {
-    u32 status;
+    u32           status;
     OSYieldResult result;
 
     status = __osSpGetStatus();

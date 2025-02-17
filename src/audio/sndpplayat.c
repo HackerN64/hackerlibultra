@@ -21,7 +21,7 @@
 #include "sndp.h"
 
 void alSndpPlayAt(ALSndPlayer *sndp, ALMicroTime delta) {
-    ALSndpEvent evt;
+    ALSndpEvent   evt;
     ALSoundState *sState = sndp->sndState;
 
     evt.common.type = AL_SNDP_PLAY_EVT;

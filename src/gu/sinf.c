@@ -61,9 +61,9 @@ static const fu zero = { 0x00000000 };
 float fsin(float x) {
     double dx, xsq, poly;
     double dn;
-    int n;
+    int    n;
     double result;
-    int ix, xpt;
+    int    ix, xpt;
 
     ix = *(int *) &x;
     xpt = (ix >> 22);

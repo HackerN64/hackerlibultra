@@ -25,10 +25,10 @@
 s32 alSeqpGetChlProgram(ALSeqPlayer *seqp, u8 chan)
 
 {
-    s32 i;
-    ALBank *b = seqp->bank;
+    s32           i;
+    ALBank       *b = seqp->bank;
     ALInstrument *inst;
-    ALChanState s;
+    ALChanState   s;
 
     s = seqp->chanState[chan];
     for (i = 0; i < b->instCount; i++) {

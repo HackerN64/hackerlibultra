@@ -9,19 +9,19 @@
 
 s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, int file_size_in_bytes,
                       s32 *file_no) {
-    int start_page;
-    int decleared;
-    int last_page;
-    int old_last_page = 0;
-    s32 ret = 0;
-    int file_size_in_pages;
-    __OSInode inode;
-    __OSInode backup_inode;
-    __OSDir dir;
-    u8 bank;
-    u8 old_bank = 0;
-    int firsttime = 0;
-    s32 bytes;
+    int           start_page;
+    int           decleared;
+    int           last_page;
+    int           old_last_page = 0;
+    s32           ret = 0;
+    int           file_size_in_pages;
+    __OSInode     inode;
+    __OSInode     backup_inode;
+    __OSDir       dir;
+    u8            bank;
+    u8            old_bank = 0;
+    int           firsttime = 0;
+    s32           bytes;
     __OSInodeUnit fpage;
 
     if (company_code == 0 || game_code == 0) {
@@ -153,20 +153,20 @@ static s32 __osClearPage(OSPfs *pfs, int page_num, u8 *data, u8 bank);
 
 s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, int file_size_in_bytes,
                       s32 *file_no) {
-    int start_page;
-    int decleared;
-    int last_page;
-    int old_last_page = 0;
-    int j;
-    s32 ret = 0;
-    int file_size_in_pages;
-    __OSInode inode;
-    __OSInode backup_inode;
-    __OSDir dir;
-    u8 bank;
-    u8 old_bank = 0;
-    int firsttime = 0;
-    s32 bytes;
+    int           start_page;
+    int           decleared;
+    int           last_page;
+    int           old_last_page = 0;
+    int           j;
+    s32           ret = 0;
+    int           file_size_in_pages;
+    __OSInode     inode;
+    __OSInode     backup_inode;
+    __OSDir       dir;
+    u8            bank;
+    u8            old_bank = 0;
+    int           firsttime = 0;
+    s32           bytes;
     __OSInodeUnit fpage;
 
     if (company_code == 0 || game_code == 0) {
@@ -265,7 +265,7 @@ s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, int file_size_in_pages, int
     int j;
     int spage;
     int old_page;
-    u8 tmp_data[BLOCKSIZE];
+    u8  tmp_data[BLOCKSIZE];
     int i;
     s32 ret = 0;
     int offset = bank > 0 ? 1 : pfs->inode_start_page;
@@ -335,11 +335,11 @@ static s32 __osClearPage(OSPfs *pfs, int page_no, u8 *data, u8 bank) {
 
 #ifdef _DEBUG
 s32 __osDumpInode(OSPfs *pfs) {
-    int j;
+    int       j;
     __OSInode inode;
-    s32 ret = 0;
-    __OSDir dir;
-    u8 bank;
+    s32       ret = 0;
+    __OSDir   dir;
+    u8        bank;
 #if BUILD_VERSION >= VERSION_J
     u8 startbank = PFS_ID_BANK_256K;
 #endif

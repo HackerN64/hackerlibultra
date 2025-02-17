@@ -22,10 +22,10 @@
 #include "synthInternals.h"
 
 Acmd *alMainBusPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
+    Acmd      *ptr = p;
     ALMainBus *m = (ALMainBus *) filter;
     ALFilter **sources = m->sources;
-    s32 i;
+    s32        i;
 
     /*
      * clear the output buffers here

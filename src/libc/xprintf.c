@@ -9,7 +9,7 @@
 #ident "$Revision: 1.23 $"
 
 #define isdigit(x) ((x >= '0' && x <= '9'))
-#define LDSIGN(x) (((unsigned short *) &(x))[0] & 0x8000)
+#define LDSIGN(x)  (((unsigned short *) &(x))[0] & 0x8000)
 
 #define ATOI(dst, src)                                                                                                 \
     for (dst = 0; isdigit(*src); ++src) {                                                                              \
@@ -38,18 +38,18 @@ static char zeroes[] = "00000000000000000000000000000000";
 
 static void _Putfld(_Pft *px, va_list *pap, char code, char *ac);
 
-int _Printf(void *pfn(void *, const char *, size_t), void *arg, const char *fmt, va_list ap) {
+int         _Printf(void *pfn(void *, const char *, size_t), void *arg, const char *fmt, va_list ap) {
     _Pft x;
 
     x.nchar = 0;
 
     while (1) {
-        const char *s;
-        char c;
-        const char *t;
-        static const char fchar[] = { ' ', '+', '-', '#', '0', '\0' };
+        const char               *s;
+        char                      c;
+        const char               *t;
+        static const char         fchar[] = { ' ', '+', '-', '#', '0', '\0' };
         static const unsigned int fbit[] = { FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS, FLAGS_HASH, FLAGS_ZERO, 0 };
-        char ac[32];
+        char                      ac[32];
         s = fmt;
 
         for (c = *s; c != 0 && c != '%';) {

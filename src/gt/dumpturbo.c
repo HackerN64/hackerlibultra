@@ -33,7 +33,7 @@ static u32 numtextures;
 
 #define UNSEG_ADDR(sa)                                                                                                 \
     ((u32 *) (((globp) ? (((int) (sa) & 0x00ffffff) + globp->sp.segBases[(int) (sa) >> 24]) : (int) (sa)) | 0x80000000))
-#define PHYS(a) ((int) ((int) (a) & 0x7fffffff))
+#define PHYS(a)   ((int) ((int) (a) & 0x7fffffff))
 #define UNPHYS(a) ((u32 *) ((int) (a) | 0x80000000))
 
 #define DOPRINT(a, r)                                                                                                  \
@@ -42,11 +42,11 @@ static u32 numtextures;
 
 #define UCODE_SIZE_MAX (4096 * 1)
 void gtDumpTurbo(OSTask *tp, u8 flags) {
-    int i;
-    gtGfx *gtlistp;
+    int          i;
+    gtGfx       *gtlistp;
     gtGlobState *globp = 0;
-    gtState *statep;
-    u32 dat, *datp, *addr;
+    gtState     *statep;
+    u32          dat, *datp, *addr;
 
     PRINTF("\nGBI_DUMP_START:\n");
     PRINTF("$ %08x\n", PHYS(tp));

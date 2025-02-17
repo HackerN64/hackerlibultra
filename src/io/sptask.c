@@ -14,7 +14,7 @@
     }                                                                                                                  \
     (void) 0
 
-static OSTask tmp_task;
+static OSTask  tmp_task;
 
 static OSTask *_VirtualToPhysicalTask(OSTask *intp) {
     OSTask *tp;

@@ -38,16 +38,16 @@ static s32 _timeToSamplesNoRound(ALSynth *ALSynth, s32 micros);
  * Synthesis driver public interfaces
  ***********************************************************************/
 void alSynNew(ALSynth *drvr, ALSynConfig *c) {
-    s32 i;
-    ALVoice *vv;
-    PVoice *pv;
-    ALVoice *vvoices;
-    PVoice *pvoices;
-    ALHeap *hp = c->heap;
-    ALSave *save;
+    s32       i;
+    ALVoice  *vv;
+    PVoice   *pv;
+    ALVoice  *vvoices;
+    PVoice   *pvoices;
+    ALHeap   *hp = c->heap;
+    ALSave   *save;
     ALFilter *sources;
-    ALParam *params;
-    ALParam *paramPtr;
+    ALParam  *params;
+    ALParam  *paramPtr;
 
     drvr->head = NULL;
     drvr->numPVoices = c->maxPVoices;
@@ -142,12 +142,12 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
 Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen) {
     ALPlayer *client;
     ALFilter *output;
-    ALSynth *drvr = &alGlobals->drvr;
-    s16 tmp = 0; /* Starting buffer in DMEM */
-    Acmd *cmdlEnd = cmdList;
-    Acmd *cmdPtr;
-    s32 nOut;
-    s16 *lOutBuf = outBuf;
+    ALSynth  *drvr = &alGlobals->drvr;
+    s16       tmp = 0; /* Starting buffer in DMEM */
+    Acmd     *cmdlEnd = cmdList;
+    Acmd     *cmdPtr;
+    s32       nOut;
+    s16      *lOutBuf = outBuf;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -287,7 +287,7 @@ s32 _timeToSamples(ALSynth *synth, s32 micros) {
 
 static s32 __nextSampleTime(ALSynth *drvr, ALPlayer **client) {
     ALMicroTime delta = 0x7fffffff; /* max delta for s32 */
-    ALPlayer *cl;
+    ALPlayer   *cl;
 #if BUILD_VERSION < VERSION_J // Adjust line numbers to match assert
 #line 306
 #endif

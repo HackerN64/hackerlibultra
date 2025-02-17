@@ -10,7 +10,7 @@ extern void *__printfunc;
 #if BUILD_VERSION <= VERSION_J
 
 #ifndef _FINALROM
-extern u32 __kmc_pt_mode;
+extern u32   __kmc_pt_mode;
 
 static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
     u32 sent = 0;
@@ -25,7 +25,7 @@ static volatile unsigned int *stat = (unsigned *) 0xbff08004;
 static volatile unsigned int *wport = (unsigned *) 0xbff08000;
 static volatile unsigned int *piok = (unsigned *) PHYS_TO_K1(PI_STATUS_REG);
 
-static void rmonPutchar(char c) {
+static void                   rmonPutchar(char c) {
     while (*piok & (PI_STATUS_DMA_BUSY | PI_STATUS_IO_BUSY)) {
     }
 
@@ -36,11 +36,11 @@ static void rmonPutchar(char c) {
 }
 
 static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
-    int i;
-    char c;
-    char *p;
-    char *q;
-    char xbuf[128];
+    int        i;
+    char       c;
+    char      *p;
+    char      *q;
+    char       xbuf[128];
     static int column = 0;
 
     p = xbuf;
@@ -87,7 +87,7 @@ static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
 #endif
 
 void osSyncPrintf(const char *fmt, ...) {
-    int ans;
+    int     ans;
     va_list ap;
 
 #ifndef _FINALROM
@@ -102,7 +102,7 @@ void osSyncPrintf(const char *fmt, ...) {
 }
 
 void rmonPrintf(const char *fmt, ...) {
-    int ans;
+    int     ans;
     va_list ap;
 
 #ifndef _FINALROM
@@ -127,7 +127,7 @@ void __osSyncVPrintf(const char *fmt, va_list ap) {
 }
 
 void osSyncPrintf(const char *fmt, ...) {
-    int ans;
+    int     ans;
     va_list ap;
 
 #ifndef _FINALROM
@@ -138,7 +138,7 @@ void osSyncPrintf(const char *fmt, ...) {
 }
 
 void rmonPrintf(const char *fmt, ...) {
-    int ans;
+    int     ans;
     va_list ap;
 
 #ifndef _FINALROM

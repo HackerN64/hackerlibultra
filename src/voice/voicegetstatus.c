@@ -10,10 +10,10 @@
 
 s32 __osVoiceGetStatus(OSMesgQueue *mq, s32 port, u8 *status) {
     __OSContRequesFormatShort header;
-    s32 ret = 0;
-    s32 i;
-    u8 *ptr = (u8 *) &__osContPifRam.ramarray;
-    s32 retry = 2;
+    s32                       ret = 0;
+    s32                       i;
+    u8                       *ptr = (u8 *) &__osContPifRam.ramarray;
+    s32                       retry = 2;
 
     __osSiGetAccess();
 

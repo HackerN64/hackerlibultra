@@ -24,17 +24,17 @@
 #ident "$Revision: 1.4 $"
 #endif
 
-int __rmonActive = FALSE;
+int          __rmonActive = FALSE;
 
-static vu32 somethingToDo;
-static u32 inbuffer[280] ALIGNED(0x10);
-static u8 cmdinptr;
-static u8 cmdoutptr;
-static int state;
+static vu32  somethingToDo;
+static u32   inbuffer[280] ALIGNED(0x10);
+static u8    cmdinptr;
+static u8    cmdoutptr;
+static int   state;
 static char *inPointer;
 
-void __rmonSendHeader(KKHeader *const block, u32 blockSize, u32 type) {
-    int sent;
+void         __rmonSendHeader(KKHeader *const block, u32 blockSize, u32 type) {
+    int   sent;
     char *cPtr = (char *) block;
 
     block->rev = KK_REV;
@@ -48,7 +48,7 @@ void __rmonSendHeader(KKHeader *const block, u32 blockSize, u32 type) {
 
 void __rmonSendReply(KKHeader *const block, u32 blockSize, u32 replyType) {
     char *cPtr;
-    int sent = 0;
+    int   sent = 0;
 
     block->length = blockSize;
     cPtr = (char *) &blockSize;
@@ -64,12 +64,12 @@ void __rmonSendReply(KKHeader *const block, u32 blockSize, u32 replyType) {
 }
 
 void __rmonSendData(char *const block, unsigned int blockSize) {
-    int *blockPointer = (int *) block;
+    int         *blockPointer = (int *) block;
     unsigned int wordCount = (u32) (blockSize + 3) / 4;
-    u32 data;
+    u32          data;
     union {
         char bufBytes[4];
-        u32 bufWord;
+        u32  bufWord;
     } buffer;
 
     if (((u32) block & 3) == 0) {

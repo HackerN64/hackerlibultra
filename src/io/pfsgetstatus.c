@@ -9,9 +9,9 @@ void __osPfsRequestOneChannel(int channel);
 #endif
 void __osPfsGetOneChannelData(int channel, OSContStatus *data);
 
-s32 __osPfsGetStatus(OSMesgQueue *queue, int channel) {
-    s32 ret = 0;
-    OSMesg dummy;
+s32  __osPfsGetStatus(OSMesgQueue *queue, int channel) {
+    s32          ret = 0;
+    OSMesg       dummy;
     OSContStatus data;
 
 #if BUILD_VERSION >= VERSION_J
@@ -46,9 +46,9 @@ void __osPfsRequestOneChannel(int channel, u8 cmd) {
 #else
 void __osPfsRequestOneChannel(int channel) {
 #endif
-    u8 *ptr;
+    u8                       *ptr;
     __OSContRequesFormatShort requestformat;
-    int i;
+    int                       i;
 
 #if BUILD_VERSION >= VERSION_J
     __osContLastCmd = CONT_CMD_END;
@@ -80,9 +80,9 @@ void __osPfsRequestOneChannel(int channel) {
 }
 
 void __osPfsGetOneChannelData(int channel, OSContStatus *data) {
-    u8 *ptr = (u8 *) &__osPfsPifRam;
+    u8                       *ptr = (u8 *) &__osPfsPifRam;
     __OSContRequesFormatShort requestformat;
-    int i;
+    int                       i;
 
     for (i = 0; i < channel; i++) {
         ptr++;

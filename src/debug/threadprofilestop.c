@@ -2,9 +2,9 @@
 
 void osThreadProfileStop(void) {
     register u32 saveMask;
-    int i;
-    OSId id;
-    u32 now_time = osGetCount();
+    int          i;
+    OSId         id;
+    u32          now_time = osGetCount();
 
     saveMask = __osDisableInt();
 

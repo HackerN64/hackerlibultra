@@ -72,34 +72,34 @@ extern "C" {
  *
  */
 typedef struct {
-    u32 type;
-    u32 flags;
+    u32  type;
+    u32  flags;
 
     u64 *ucode_boot;
-    u32 ucode_boot_size;
+    u32  ucode_boot_size;
 
     u64 *ucode;
-    u32 ucode_size;
+    u32  ucode_size;
 
     u64 *ucode_data;
-    u32 ucode_data_size;
+    u32  ucode_data_size;
 
     u64 *dram_stack;
-    u32 dram_stack_size;
+    u32  dram_stack_size;
 
     u64 *output_buff;
     u64 *output_buff_size;
 
     u64 *data_ptr;
-    u32 data_size;
+    u32  data_size;
 
     u64 *yield_data_ptr;
-    u32 yield_data_size;
+    u32  yield_data_size;
 
 } OSTask_t;
 
 typedef union {
-    OSTask_t t;
+    OSTask_t      t;
     long long int force_structure_alignment;
 } OSTask;
 
@@ -121,14 +121,14 @@ typedef u32 OSYieldResult;
 /*
  * Task Flags field
  */
-#define OS_TASK_YIELDED 0x0001
-#define OS_TASK_DP_WAIT 0x0002
+#define OS_TASK_YIELDED  0x0001
+#define OS_TASK_DP_WAIT  0x0002
 #define OS_TASK_LOADABLE 0x0004
-#define OS_TASK_SP_ONLY 0x0008
-#define OS_TASK_USR0 0x0010
-#define OS_TASK_USR1 0x0020
-#define OS_TASK_USR2 0x0040
-#define OS_TASK_USR3 0x0080
+#define OS_TASK_SP_ONLY  0x0008
+#define OS_TASK_USR0     0x0010
+#define OS_TASK_USR1     0x0020
+#define OS_TASK_USR2     0x0040
+#define OS_TASK_USR3     0x0080
 
 /*
  * Size of Yield buffer.  The taskHdrPtr->t.yield_data_ptr must point to a
@@ -161,10 +161,10 @@ typedef u32 OSYieldResult;
 /*
  * this macro simulates atomic action.
  */
-#define osSpTaskStart(tp)                                                                              \
-    {                                                                                                  \
-        osSpTaskLoad((tp));                                                                            \
-        osSpTaskStartGo((tp));                                                                         \
+#define osSpTaskStart(tp)                                                                                              \
+    {                                                                                                                  \
+        osSpTaskLoad((tp));                                                                                            \
+        osSpTaskStartGo((tp));                                                                                         \
     }
 
 /**************************************************************************
@@ -182,10 +182,10 @@ typedef u32 OSYieldResult;
 /*
  * break this up into two steps for debugging.
  */
-extern void osSpTaskLoad(OSTask *tp);
-extern void osSpTaskStartGo(OSTask *tp);
+extern void          osSpTaskLoad(OSTask *tp);
+extern void          osSpTaskStartGo(OSTask *tp);
 
-extern void osSpTaskYield(void);
+extern void          osSpTaskYield(void);
 extern OSYieldResult osSpTaskYielded(OSTask *tp);
 
 #endif /* _LANGUAGE_C */

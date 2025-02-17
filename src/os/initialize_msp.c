@@ -11,13 +11,13 @@ typedef struct {
     /* 0xC */ unsigned int inst4;
 } __osExceptionVector;
 
-extern __osExceptionVector __ptExceptionPreamble[];
+extern __osExceptionVector    __ptExceptionPreamble[];
 
 static volatile unsigned int *stat = (unsigned *) 0xbff08004;
 static volatile unsigned int *wport = (unsigned *) 0xbff08000;
 static volatile unsigned int *piok = (unsigned *) PHYS_TO_K1(PI_STATUS_REG);
 
-static void rmonPutchar(char c) {
+static void                   rmonPutchar(char c) {
     u32 data;
 
     while (TRUE) {
@@ -30,11 +30,11 @@ static void rmonPutchar(char c) {
 }
 
 static void *msp_proutSyncPrintf(void *str, const char *buf, int n) {
-    int i;
-    char c;
-    char *p;
-    char *q;
-    char xbuf[128];
+    int        i;
+    char       c;
+    char      *p;
+    char      *q;
+    char       xbuf[128];
     static int column = 0;
 
     p = &xbuf;
@@ -81,12 +81,12 @@ static void *msp_proutSyncPrintf(void *str, const char *buf, int n) {
 
 extern u32 __kmc_pt_mode;
 
-void __osInitialize_msp(void) {
+void       __osInitialize_msp(void) {
     if (!__kmc_pt_mode) {
         int (*fnc)();
-        unsigned int *src;
-        unsigned int *dst;
-        unsigned int monadr;
+        unsigned int          *src;
+        unsigned int          *dst;
+        unsigned int           monadr;
         volatile unsigned int *mon;
         volatile unsigned int *stat;
 
@@ -117,7 +117,7 @@ void __osInitialize_msp(void) {
             if (monadr != 0xBFF00000) {
                 unsigned int *src;
                 unsigned int *dst = monadr | 0x20000000;
-                unsigned int ct = 0x2000 / 4;
+                unsigned int  ct = 0x2000 / 4;
 
                 src = 0xBFF00000;
 

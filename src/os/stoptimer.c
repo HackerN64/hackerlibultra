@@ -5,7 +5,7 @@
 
 int osStopTimer(OSTimer *t) {
     register u32 savedMask;
-    OSTimer *timep;
+    OSTimer     *timep;
 
 #ifdef _DEBUG
     if (!__osViDevMgr.active) {

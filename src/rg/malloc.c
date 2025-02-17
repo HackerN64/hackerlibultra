@@ -8,7 +8,7 @@
 
 void *osMalloc(void *region) {
     register OSRegion *rp = region;
-    char *addr;
+    char              *addr;
 
 #ifdef _DEBUG
     assert(rp != NULL);

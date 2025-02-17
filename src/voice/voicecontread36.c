@@ -14,7 +14,7 @@
 
 s32 __osVoiceContRead36(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) {
     s32 ret = 0;
-    u8 status;
+    u8  status;
     s32 i;
     u8 *ptr;
     s32 retry = 2;

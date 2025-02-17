@@ -83,9 +83,9 @@
 #if BUILD_VERSION >= VERSION_J
 
 #define ADDRESS_CRC_MESSAGE_LENGTH 10
-#define ADDRESS_CRC_LENGTH 5
-#define ADDRESS_CRC_GENERATOR 0x15
-#define ADDRESS_CRC_MASK ((1 << ADDRESS_CRC_LENGTH) - 1)
+#define ADDRESS_CRC_LENGTH         5
+#define ADDRESS_CRC_GENERATOR      0x15
+#define ADDRESS_CRC_MASK           ((1 << ADDRESS_CRC_LENGTH) - 1)
 
 /**
  * CRC-5 with the generating polynomial \f$ x^5 + x^4 + x^2 + 1 \f$, AKA 0x15 = 0b(1)1 0101.
@@ -132,8 +132,8 @@ u8 __osContAddressCrc(u16 addr) {
 }
 
 #define DATA_CRC_MESSAGE_BYTES 32
-#define DATA_CRC_LENGTH 8
-#define DATA_CRC_GENERATOR 0x85
+#define DATA_CRC_LENGTH        8
+#define DATA_CRC_GENERATOR     0x85
 
 /**
  * CRC-8 with generating polynomial \f$ x^8 + x^7 + x^2 + 1 \f$, AKA 0x85 = 0b(1) 1000 0101.
@@ -177,8 +177,8 @@ u8 __osContDataCrc(u8 *data) {
 #else
 
 u8 __osContAddressCrc(u16 addr) {
-    u8 temp = 0;
-    u8 temp2;
+    u8  temp = 0;
+    u8  temp2;
     int i;
 
     for (i = 0; i < 16; i++) {
@@ -194,8 +194,8 @@ u8 __osContAddressCrc(u16 addr) {
 }
 
 u8 __osContDataCrc(u8 *data) {
-    u8 temp = 0;
-    u8 temp2;
+    u8  temp = 0;
+    u8  temp2;
     int i;
     int j;
 

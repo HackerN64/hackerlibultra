@@ -10,30 +10,30 @@ static STACK(piThreadStack, OS_PIM_STACKSIZE) ALIGNED(0x10);
 #ifndef _FINALROM
 static OSThread ramromThread ALIGNED(0x8);
 static STACK(ramromThreadStack, 0x400) ALIGNED(0x10);
-static OSMesgQueue getRamromQ ALIGNED(0x8);
-static OSMesg getRamromBuf[1];
+static OSMesgQueue getRamromQ  ALIGNED(0x8);
+static OSMesg                  getRamromBuf[1];
 static OSMesgQueue freeRamromQ ALIGNED(0x8);
-static OSMesg freeRamromBuf[1];
-static void ramromMain(void *);
+static OSMesg                  freeRamromBuf[1];
+static void                    ramromMain(void *);
 #endif
 
 static OSMesgQueue piEventQueue ALIGNED(0x8);
-static OSMesg piEventBuf[1];
+static OSMesg                   piEventBuf[1];
 
-OSDevMgr __osPiDevMgr = { 0 };
-OSPiHandle *__osPiTable = NULL;
+OSDevMgr                        __osPiDevMgr = { 0 };
+OSPiHandle                     *__osPiTable = NULL;
 #if BUILD_VERSION >= VERSION_J
 OSPiHandle __Dom1SpeedParam ALIGNED(0x8);
 OSPiHandle __Dom2SpeedParam ALIGNED(0x8);
-OSPiHandle *__osCurrentHandle[2] ALIGNED(0x8) = { &__Dom1SpeedParam, &__Dom2SpeedParam };
+OSPiHandle                 *__osCurrentHandle[2] ALIGNED(0x8) = { &__Dom1SpeedParam, &__Dom2SpeedParam };
 #else
 extern OSPiHandle CartRomHandle;
 extern OSPiHandle LeoDiskHandle;
-OSPiHandle *__osCurrentHandle[2] ALIGNED(0x8) = { &CartRomHandle, &LeoDiskHandle };
+OSPiHandle       *__osCurrentHandle[2] ALIGNED(0x8) = { &CartRomHandle, &LeoDiskHandle };
 #endif
 
 void osCreatePiManager(OSPri pri, OSMesgQueue *cmdQ, OSMesg *cmdBuf, s32 cmdMsgCnt) {
-    u32 savedMask;
+    u32   savedMask;
     OSPri oldPri;
     OSPri myPri;
 
@@ -88,7 +88,7 @@ void osCreatePiManager(OSPri pri, OSMesgQueue *cmdQ, OSMesg *cmdBuf, s32 cmdMsgC
 #ifndef _FINALROM
 static void ramromMain(void *arg) {
     u32 sent;
-    u8 tmp[3];
+    u8  tmp[3];
 
     osCreateMesgQueue(&getRamromQ, getRamromBuf, 1);
     osCreateMesgQueue(&freeRamromQ, freeRamromBuf, 1);

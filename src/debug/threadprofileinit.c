@@ -2,7 +2,7 @@
 
 void osThreadProfileInit(void) {
     register u32 saveMask = __osDisableInt();
-    OSId i;
+    OSId         i;
 
     __osThprofFunc = NULL;
     __osThprofFlag = 1;

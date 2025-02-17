@@ -2,10 +2,10 @@
 #include "PRinternal/controller.h"
 
 s32 osPfsNumFiles(OSPfs *pfs, s32 *max_files, s32 *files_used) {
-    int j;
-    s32 ret;
+    int     j;
+    s32     ret;
     __OSDir dir;
-    int files = 0;
+    int     files = 0;
 
     PFS_CHECK_STATUS();
 #if BUILD_VERSION >= VERSION_J

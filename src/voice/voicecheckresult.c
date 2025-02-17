@@ -9,7 +9,7 @@
 
 s32 __osVoiceCheckResult(OSVoiceHandle *hd, u8 *stat) {
     s32 ret;
-    u8 buf[2];
+    u8  buf[2];
 
     ret = __osVoiceGetStatus(hd->__mq, hd->__channel, stat);
     if (ret == 0) {

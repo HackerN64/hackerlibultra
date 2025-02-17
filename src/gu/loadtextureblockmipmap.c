@@ -21,11 +21,11 @@
 // TODO: this comes from a header
 #ident "$Revision: 1.49 $"
 
-#define TRAM_SIZE 4096 /* in bytes */
-#define TRAM_WSIZE 8   /* TRAM word size in bytes */
-#define TRAM_LSIZE 8   /* TRAM load word size in bytes */
-#define MM_MAX_LEVEL 7 /* number of mipmap levels 0 to MM_MAX_LEVEL */
-#define MM_MIN_SIZE 1  /* smallest mipmap tile */
+#define TRAM_SIZE    4096 /* in bytes */
+#define TRAM_WSIZE   8    /* TRAM word size in bytes */
+#define TRAM_LSIZE   8    /* TRAM load word size in bytes */
+#define MM_MAX_LEVEL 7    /* number of mipmap levels 0 to MM_MAX_LEVEL */
+#define MM_MIN_SIZE  1    /* smallest mipmap tile */
 
 struct texelSizeParams {
     unsigned char gran;
@@ -42,43 +42,43 @@ struct Tile {
 };
 
 /* tram mipmaps */
-static struct Tile mipmap[MM_MAX_LEVEL + 1] ALIGNED(0x8);
+static struct Tile            mipmap[MM_MAX_LEVEL + 1] ALIGNED(0x8);
 static struct texelSizeParams sizeParams[4] = { 16, 3, 1, 0, 8, 2, 2, 1, 4, 1, 4, 2, 2, 0, 8, 3 };
 
-static int max_mipmap;
-static unsigned char *tram;
-static int txlsize;
-static int errNo = 0;
-static int NA = 0;          /* Not applicable */
-static unsigned int length; /* total texels in mipmap */
-static int level;           /* total levels in mipmap */
+static int                    max_mipmap;
+static unsigned char         *tram;
+static int                    txlsize;
+static int                    errNo = 0;
+static int                    NA = 0; /* Not applicable */
+static unsigned int           length; /* total texels in mipmap */
+static int                    level;  /* total levels in mipmap */
 
-static void get3x3(struct Tile *tile, int *s, int *t, int *texel, int shift, int size);
+static void                   get3x3(struct Tile *tile, int *s, int *t, int *texel, int shift, int size);
 static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile, unsigned char pal,
                              unsigned char cms, unsigned char cmt, unsigned char masks, unsigned char maskt,
                              unsigned char shifts, unsigned char shiftt);
 static void kernel(int i, int r1, int g1, int b1, int a1, float *r2, float *g2, float *b2, float *a2);
 
 #define unpack_ia16(c, i, a) i = (c & 0xff00) >> 8, a = (c & 0xff)
-#define pack_ia16(i, a) (i << 8) | a
+#define pack_ia16(i, a)      (i << 8) | a
 
-#define unpack_ia8(c, i, a) i = ((c & 0xf0) >> 4), a = (c & 0xf)
-#define pack_ia8(i, a) (a & 0xf) | ((i & 0xf) << 4)
+#define unpack_ia8(c, i, a)  i = ((c & 0xf0) >> 4), a = (c & 0xf)
+#define pack_ia8(i, a)       (a & 0xf) | ((i & 0xf) << 4)
 
-#define unpack_ia4(c, i, a) i = ((c & 0xe) >> 1), a = (c & 0x1)
-#define pack_ia4(i, a) ((i & 0x7) << 1) | ((a & 0x1))
+#define unpack_ia4(c, i, a)  i = ((c & 0xe) >> 1), a = (c & 0x1)
+#define pack_ia4(i, a)       ((i & 0x7) << 1) | ((a & 0x1))
 
-#define unpack_i4(c, i) i = (c & 0xf)
-#define pack_i4(i) (i)
+#define unpack_i4(c, i)      i = (c & 0xf)
+#define pack_i4(i)           (i)
 
-#define unpack_i8(c, i) i = (c & 0xff)
-#define pack_i8(i) (i)
+#define unpack_i8(c, i)      i = (c & 0xff)
+#define pack_i8(i)           (i)
 
-#define unpack_ci8(c, ci) unpack_i8(c, ci)
-#define pack_ci8(ci) pack_i8(ci)
+#define unpack_ci8(c, ci)    unpack_i8(c, ci)
+#define pack_ci8(ci)         pack_i8(ci)
 
-#define unpack_ci4(c, ci) unpack_i4(c, ci)
-#define pack_ci4(ci) pack_i4(ci)
+#define unpack_ci4(c, ci)    unpack_i4(c, ci)
+#define pack_ci4(ci)         pack_i4(ci)
 
 #define unpack_rgba(c, r, g, b, a)                                                                                     \
     (r = (c & 0xf800) >> 11), g = ((c & 0x07c0) >> 6), b = ((c & 0x003e) >> 1), a = (c & 0x1)
@@ -106,11 +106,11 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
                              unsigned char shifts, unsigned char shiftt, unsigned char cfs, unsigned char cft) {
 
     unsigned char *iaddr, *taddr;
-    int im_bytes, tr_bytes;
-    int h, b;
-    int flip;
-    char startUnAligned;
-    char endUnAligned;
+    int            im_bytes, tr_bytes;
+    int            h, b;
+    int            flip;
+    char           startUnAligned;
+    char           endUnAligned;
 
     txlsize = sizeParams[im->siz].tsize; /* texel size in nibbles */
                                          /* to next line size */
@@ -187,20 +187,20 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
 
     { /* generate mip map for this tile */
         unsigned char *taddr, *saddr;
-        int shift = (int) sizeParams[im->siz].shift;
-        int s, t, si, ti, sii, tii;
-        int s4[9];
-        int t4[9];
-        int tex4[9];
-        int r0, g0, b0, a0, r1, g1, b1, a1;
-        float r2, g2, b2, a2;
-        float dummy;
-        int i0, ci0, ia0, i1, ci1, ia1;
-        float i2, ci2, ia2;
-        int texel;
-        int i, trip;
-        unsigned int tempaddr;
-        int ntexels = ((TRAM_LSIZE / txlsize) << 1); /* texels per line */
+        int            shift = (int) sizeParams[im->siz].shift;
+        int            s, t, si, ti, sii, tii;
+        int            s4[9];
+        int            t4[9];
+        int            tex4[9];
+        int            r0, g0, b0, a0, r1, g1, b1, a1;
+        float          r2, g2, b2, a2;
+        float          dummy;
+        int            i0, ci0, ia0, i1, ci1, ia1;
+        float          i2, ci2, ia2;
+        int            texel;
+        int            i, trip;
+        unsigned int   tempaddr;
+        int            ntexels = ((TRAM_LSIZE / txlsize) << 1); /* texels per line */
 
         level = 0; /* need to check for memory overflow */
         while ((mipmap[level].s > 1) || (mipmap[level].t > 1)) {
@@ -585,14 +585,14 @@ static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char 
         Extract quad of texels for filtering.  Compute bank and row addresses.
 ******************************************************************************/
 static void get3x3(struct Tile *tile, int *s, int *t, int *texel, int shift, int size) {
-    int i;
-    int bank, row;
-    unsigned int addr;
-    int overlap;
+    int           i;
+    int           bank, row;
+    unsigned int  addr;
+    int           overlap;
     unsigned char r, g, b, a;
     unsigned long tex;
     struct Image *im;
-    unsigned int ss, tt;
+    unsigned int  ss, tt;
 
     for (i = 0; i < 9; i++) {
         ss = s[i];

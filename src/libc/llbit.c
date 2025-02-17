@@ -4,7 +4,7 @@ s64 __ll_bit_extract(u64 *addr, unsigned int start_bit, unsigned int length) {
     unsigned int words;
     unsigned int lbits;
     unsigned int rbits;
-    u64 mask;
+    u64          mask;
 
     words = start_bit / 64;
     lbits = start_bit & (64 - 1);
@@ -20,7 +20,7 @@ u64 __ull_bit_extract(u64 *addr, unsigned int start_bit, unsigned int length) {
     unsigned int words;
     unsigned int lbits;
     unsigned int rbits;
-    u64 mask;
+    u64          mask;
 
     words = start_bit / 64;
     lbits = start_bit & (64 - 1);
@@ -32,9 +32,9 @@ u64 __ull_bit_extract(u64 *addr, unsigned int start_bit, unsigned int length) {
 }
 
 u64 __ll_bit_insert(u64 *addr, unsigned int start_bit, unsigned int length, u64 val) {
-    unsigned int words;
-    unsigned int lbits;
-    unsigned int rbits;
+    unsigned int       words;
+    unsigned int       lbits;
+    unsigned int       rbits;
     unsigned long long llval;
     unsigned long long mask;
 

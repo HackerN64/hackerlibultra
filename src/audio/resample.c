@@ -35,12 +35,12 @@ extern u32 cnt_index, resampler_num, resampler_cnt, resampler_max, resampler_min
  ***********************************************************************/
 Acmd *alResamplePull(void *filter, s16 *outp, s32 outCnt, s32 sampleOffset, Acmd *p) {
     ALResampler *f = (ALResampler *) filter;
-    Acmd *ptr = p;
-    s16 inp;
-    s32 inCount;
-    ALFilter *source = f->filter.source;
-    s32 incr;
-    f32 finCount;
+    Acmd        *ptr = p;
+    s16          inp;
+    s32          inCount;
+    ALFilter    *source = f->filter.source;
+    s32          incr;
+    f32          finCount;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -103,7 +103,7 @@ Acmd *alResamplePull(void *filter, s16 *outp, s32 outCnt, s32 sampleOffset, Acmd
 }
 
 s32 alResampleParam(void *filter, s32 paramID, void *param) {
-    ALFilter *f = (ALFilter *) filter;
+    ALFilter    *f = (ALFilter *) filter;
     ALResampler *r = (ALResampler *) filter;
     union {
         f32 f;

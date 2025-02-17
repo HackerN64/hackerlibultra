@@ -26,7 +26,7 @@
 
 void guAlignF(float mf[4][4], float a, float x, float y, float z) {
     static float dtor = 3.1415926 / 180.0;
-    float s, c, h, hinv;
+    float        s, c, h, hinv;
 
     guNormalize(&x, &y, &z);
 

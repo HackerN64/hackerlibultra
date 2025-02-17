@@ -23,12 +23,12 @@ s32 osPfsRepairId(OSPfs *pfs) {
 #else
 
 s32 osPfsRepairId(OSPfs *pfs) {
-    int k;
-    u16 sum;
-    u16 isum;
-    u8 temp[32];
-    __OSPackId newid;
-    s32 ret;
+    int         k;
+    u16         sum;
+    u16         isum;
+    u8          temp[32];
+    __OSPackId  newid;
+    s32         ret;
     __OSPackId *id;
 
     SET_ACTIVEBANK_TO_ZERO();

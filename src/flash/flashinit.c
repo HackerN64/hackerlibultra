@@ -2,14 +2,14 @@
 #include "PR/os_internal_flash.h"
 #include "PRinternal/macros.h"
 
-u32 __osFlashID[4] ALIGNED(0x8);
-OSIoMesg __osFlashMsg ALIGNED(0x8);
+u32                           __osFlashID[4] ALIGNED(0x8);
+OSIoMesg __osFlashMsg         ALIGNED(0x8);
 OSMesgQueue __osFlashMessageQ ALIGNED(0x8);
-OSPiHandle __osFlashHandler ALIGNED(0x8);
-OSMesg __osFlashMsgBuf[1];
-s32 __osFlashVersion;
+OSPiHandle __osFlashHandler   ALIGNED(0x8);
+OSMesg                        __osFlashMsgBuf[1];
+s32                           __osFlashVersion;
 
-OSPiHandle *osFlashInit(void) {
+OSPiHandle                   *osFlashInit(void) {
     u32 flash_type;
     u32 flash_maker;
 

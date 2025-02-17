@@ -4,9 +4,9 @@
 #include "PRinternal/viint.h"
 
 OSTime osGetTime(void) {
-    u32 tmptime;
-    u32 elapseCount;
-    OSTime currentCount;
+    u32          tmptime;
+    u32          elapseCount;
+    OSTime       currentCount;
     register u32 saveMask;
 
 #ifdef _DEBUG

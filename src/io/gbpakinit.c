@@ -3,14 +3,14 @@
 #include "PRinternal/controller.h"
 #include "PRinternal/controller_gbpak.h"
 
-OSTimer __osGbpakTimer;
+OSTimer                     __osGbpakTimer;
 OSMesgQueue __osGbpakTimerQ ALIGNED(0x8);
-OSMesg __osGbpakTimerMsg;
+OSMesg                      __osGbpakTimerMsg;
 
-s32 osGbpakInit(OSMesgQueue *mq, OSPfs *pfs, int channel) {
+s32                         osGbpakInit(OSMesgQueue *mq, OSPfs *pfs, int channel) {
     int i;
     s32 ret;
-    u8 temp[BLOCKSIZE];
+    u8  temp[BLOCKSIZE];
 
     pfs->status = 0;
 

@@ -6,10 +6,10 @@
 unsigned int __osRdbSendMessage = 0;
 unsigned int __osRdbWriteOK = 1;
 
-void __osSyncPutChars(int type, int length, const char *buf) {
+void         __osSyncPutChars(int type, int length, const char *buf) {
     rdbPacket packet;
-    int i;
-    u32 mask;
+    int       i;
+    u32       mask;
 
     packet.type = type;
     packet.length = length;

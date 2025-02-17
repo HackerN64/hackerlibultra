@@ -51,9 +51,9 @@ s32 __osMotorAccess(OSPfs *pfs, s32 flag) {
 }
 
 static void __osMakeMotorData(int channel, OSPifRam *mdata) {
-    u8 *ptr = (u8 *) mdata->ramarray;
+    u8                   *ptr = (u8 *) mdata->ramarray;
     __OSContRamReadFormat ramreadformat;
-    int i;
+    int                   i;
 
     ramreadformat.dummy = CONT_CMD_NOP;
     ramreadformat.txsize = CONT_CMD_WRITE_PAK_TX;
@@ -75,7 +75,7 @@ static void __osMakeMotorData(int channel, OSPifRam *mdata) {
 
 s32 osMotorInit(OSMesgQueue *mq, OSPfs *pfs, int channel) {
     s32 ret;
-    u8 temp[32];
+    u8  temp[32];
 
     pfs->queue = mq;
     pfs->channel = channel;
@@ -136,14 +136,14 @@ s32 osMotorInit(OSMesgQueue *mq, OSPfs *pfs, int channel) {
 
 OSPifRam _MotorStopData[MAXCONTROLLERS] ALIGNED(0x8);
 OSPifRam _MotorStartData[MAXCONTROLLERS] ALIGNED(0x8);
-u8 _motorstopbuf[32] ALIGNED(0x8);
-u8 _motorstartbuf[32] ALIGNED(0x8);
-u32 __osMotorinitialized[MAXCONTROLLERS] = { 0, 0, 0, 0 };
+u8       _motorstopbuf[32] ALIGNED(0x8);
+u8       _motorstartbuf[32] ALIGNED(0x8);
+u32      __osMotorinitialized[MAXCONTROLLERS] = { 0, 0, 0, 0 };
 
-s32 osMotorStop(OSPfs *pfs) {
-    int i;
-    s32 ret;
-    u8 *ptr;
+s32      osMotorStop(OSPfs *pfs) {
+    int                   i;
+    s32                   ret;
+    u8                   *ptr;
     __OSContRamReadFormat ramreadformat;
 
     ptr = (u8 *) &__osPfsPifRam;
@@ -180,9 +180,9 @@ s32 osMotorStop(OSPfs *pfs) {
 
 s32 osMotorStart(OSPfs *pfs) {
 
-    int i;
-    s32 ret;
-    u8 *ptr;
+    int                   i;
+    s32                   ret;
+    u8                   *ptr;
     __OSContRamReadFormat ramreadformat;
 
     ptr = (u8 *) &__osPfsPifRam;
@@ -218,9 +218,9 @@ s32 osMotorStart(OSPfs *pfs) {
 }
 
 static void _MakeMotorData(int channel, u16 address, u8 *buffer, OSPifRam *mdata) {
-    u8 *ptr = (u8 *) mdata->ramarray;
+    u8                   *ptr = (u8 *) mdata->ramarray;
     __OSContRamReadFormat ramreadformat;
-    int i;
+    int                   i;
 
     for (i = 0; i < ARRLEN(mdata->ramarray); i++) {
         mdata->ramarray[i] = 0;
@@ -253,7 +253,7 @@ static void _MakeMotorData(int channel, u16 address, u8 *buffer, OSPifRam *mdata
 s32 osMotorInit(OSMesgQueue *mq, OSPfs *pfs, int channel) {
     int i;
     s32 ret;
-    u8 temp[32];
+    u8  temp[32];
 
     pfs->queue = mq;
     pfs->channel = channel;

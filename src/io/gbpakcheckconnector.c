@@ -10,8 +10,8 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status) {
     u16 oldaddr = 0;
     u16 daddr = 0;
     u16 num;
-    u8 buf[3][4][BLOCKSIZE];
-    u8 buf_status[3][4];
+    u8  buf[3][4][BLOCKSIZE];
+    u8  buf_status[3][4];
 
     ret = osGbpakGetStatus(pfs, status);
 

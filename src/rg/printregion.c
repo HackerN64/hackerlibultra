@@ -7,7 +7,7 @@
 
 void __osPrintRegion(void *region) {
     register OSRegion *rp = region;
-    int i;
+    int                i;
 
     rmonPrintf("Region = 0x%x\n", rp);
     rmonPrintf("\tstartBufferAddress = 0x%x\n", RP(startBufferAddress));

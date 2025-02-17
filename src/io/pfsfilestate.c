@@ -3,10 +3,10 @@
 #include "PRinternal/controller.h"
 
 s32 osPfsFileState(OSPfs *pfs, s32 file_no, OSPfsState *state) {
-    s32 ret;
-    int pages;
-    __OSInode inode;
-    __OSDir dir;
+    s32           ret;
+    int           pages;
+    __OSInode     inode;
+    __OSDir       dir;
     __OSInodeUnit next_page;
 #if BUILD_VERSION < VERSION_J
     int j;

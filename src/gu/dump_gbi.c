@@ -29,12 +29,12 @@
 #include "bstring.h"
 
 #undef PRINTF
-#define PRINTF osSyncPrintf
+#define PRINTF         osSyncPrintf
 
-#define DL_STACKSIZE 11
+#define DL_STACKSIZE   11
 static u32            *Gp[DL_STACKSIZE];
 
-#define TX_MAX 100
+#define TX_MAX         100
 static u32	textures[TX_MAX];
 static u32	numtextures;
 

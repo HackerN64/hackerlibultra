@@ -2,10 +2,10 @@
 #include "PR/os_internal_flash.h"
 
 s32 osFlashSectorErase(u32 page_num) {
-    u32 status;
-    OSTimer mytimer;
+    u32         status;
+    OSTimer     mytimer;
     OSMesgQueue timerMesgQueue;
-    OSMesg dummy;
+    OSMesg      dummy;
 
     // start sector erase operation
     osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_SECTOR_ERASE | page_num);

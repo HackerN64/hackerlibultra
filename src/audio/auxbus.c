@@ -22,10 +22,10 @@
 #include "synthInternals.h"
 
 Acmd *alAuxBusPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
-    ALAuxBus *m = (ALAuxBus *) filter;
+    Acmd      *ptr = p;
+    ALAuxBus  *m = (ALAuxBus *) filter;
     ALFilter **sources = m->sources;
-    s32 i;
+    s32        i;
 
     /*
      * clear the output buffers here
@@ -41,7 +41,7 @@ Acmd *alAuxBusPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd
 }
 
 s32 alAuxBusParam(void *filter, s32 paramID, void *param) {
-    ALAuxBus *m = (ALAuxBus *) filter;
+    ALAuxBus  *m = (ALAuxBus *) filter;
     ALFilter **sources = m->sources;
 
     switch (paramID) {

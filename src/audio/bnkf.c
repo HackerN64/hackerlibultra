@@ -31,7 +31,7 @@ static void _bnkfPatchInst(ALInstrument *i, s32 offset, s32 table);
 static void _bnkfPatchSound(ALSound *s, s32 offset, s32 table);
 static void _bnkfPatchWaveTable(ALWaveTable *w, s32 offset, s32 table);
 
-void alSeqFileNew(ALSeqFile *file, u8 *base) {
+void        alSeqFileNew(ALSeqFile *file, u8 *base) {
     s32 offset = (s32) base;
     s32 i;
 

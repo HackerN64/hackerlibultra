@@ -6,15 +6,15 @@
 
 extern OSPiHandle *__osDiskHandle;
 
-u8 leoDiskStack[OS_PIM_STACKSIZE] ALIGNED(0x10);
+u8                 leoDiskStack[OS_PIM_STACKSIZE] ALIGNED(0x10);
 
-static void __osLeoAbnormalResume(void);
-static void __osLeoResume(void);
+static void        __osLeoAbnormalResume(void);
+static void        __osLeoResume(void);
 
-s32 __osLeoInterrupt(void) {
-    u32 stat = 0;
-    volatile u32 pi_stat;
-    u32 bm_stat;
+s32                __osLeoInterrupt(void) {
+    u32            stat = 0;
+    volatile u32   pi_stat;
+    u32            bm_stat;
     __OSTranxInfo *info = &__osDiskHandle->transferInfo;
     __OSBlockInfo *blockInfo = &info->block[info->blockNum];
 
@@ -165,7 +165,7 @@ s32 __osLeoInterrupt(void) {
 
 static void __osLeoAbnormalResume(void) {
     __OSTranxInfo *info = &__osDiskHandle->transferInfo;
-    u32 pi_stat;
+    u32            pi_stat;
 
     WAIT_ON_IOBUSY(pi_stat);
     IO_WRITE(LEO_BM_CTL, info->bmCtlShadow | LEO_BM_CTL_RESET);
@@ -178,8 +178,8 @@ static void __osLeoAbnormalResume(void) {
 
 static void __osLeoResume(void) {
     __OSEventState *es = &__osEventStateTab[OS_EVENT_PI];
-    OSMesgQueue *mq = es->messageQueue;
-    s32 last;
+    OSMesgQueue    *mq = es->messageQueue;
+    s32             last;
 
     if (mq == NULL || MQ_IS_FULL(mq)) {
         return;

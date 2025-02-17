@@ -7,25 +7,25 @@
 
 #if BUILD_VERSION >= VERSION_J || !defined(_FINALROM)
 
-static volatile unsigned int *ptwtmode = (unsigned *) 0xbff08014;
-static volatile unsigned int *ptstat = (unsigned *) 0xbff08004;
-static volatile unsigned int *ptport = (unsigned *) 0xbff08000;
-static volatile unsigned int *n64piok = (unsigned *) PHYS_TO_K1(PI_STATUS_REG);
+static volatile unsigned int  *ptwtmode = (unsigned *) 0xbff08014;
+static volatile unsigned int  *ptstat = (unsigned *) 0xbff08004;
+static volatile unsigned int  *ptport = (unsigned *) 0xbff08000;
+static volatile unsigned int  *n64piok = (unsigned *) PHYS_TO_K1(PI_STATUS_REG);
 
 static OSMesgQueue waitPtQueue ALIGNED(0x8);
-static OSMesg waitPtQueueBuf;
-static u32 isWaitPtQueueCreated = FALSE;
+static OSMesg                  waitPtQueueBuf;
+static u32                     isWaitPtQueueCreated = FALSE;
 
-void __osPiRelAccess(void);
-void __osPiGetAccess(void);
+void                           __osPiRelAccess(void);
+void                           __osPiGetAccess(void);
 
-static void createWaitPtQueue(void) {
+static void                    createWaitPtQueue(void) {
     osCreateMesgQueue(&waitPtQueue, &waitPtQueueBuf, 1);
     isWaitPtQueueCreated = TRUE;
 }
 
 static u32 getPT_wait(void) {
-    OSTimer waitTimer;
+    OSTimer    waitTimer;
     u32 status UNUSED;
 
     for (;;) {
@@ -67,16 +67,16 @@ static u32 getPT(void) {
 }
 
 void osReadHost_pt(void *dramAddr, u32 nbytes) {
-    u8 *tPtr;
-    u32 buf[256];
+    u8  *tPtr;
+    u32  buf[256];
     u32 *bp;
-    u32 data;
-    u32 ct;
-    u32 ct1;
-    u32 ct1_bak;
-    u32 shift;
-    u32 cmd;
-    u32 size;
+    u32  data;
+    u32  ct;
+    u32  ct1;
+    u32  ct1_bak;
+    u32  shift;
+    u32  cmd;
+    u32  size;
 
     if (nbytes == 0) {
         return;
@@ -145,14 +145,14 @@ osReadHost_ret:
 }
 
 void osWriteHost_pt(void *dramAddr, u32 nbytes) {
-    u8 *tPtr;
-    u32 buf[256];
+    u8  *tPtr;
+    u32  buf[256];
     u32 *bp;
-    u32 ct;
-    u32 ct1;
-    u32 ct1_bak;
-    u32 cmd;
-    u32 size;
+    u32  ct;
+    u32  ct1;
+    u32  ct1_bak;
+    u32  cmd;
+    u32  size;
 
     if (nbytes == 0) {
         return;

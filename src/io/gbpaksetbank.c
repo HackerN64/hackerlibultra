@@ -4,7 +4,7 @@
 s32 __osGbpakSetBank(OSPfs *pfs, u8 bank) {
     int i;
     s32 ret;
-    u8 temp[BLOCKSIZE];
+    u8  temp[BLOCKSIZE];
 
     if (bank > 2) {
         return PFS_ERR_INVALID;

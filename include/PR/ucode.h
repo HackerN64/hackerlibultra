@@ -40,7 +40,7 @@ extern "C" {
  * by the graphics ucode. This stack is used primarily for the
  * matrix stack, so it needs to be AT LEAST (10 * 64bytes) in size.
  */
-#define SP_DRAM_STACK_SIZE8 (1024)
+#define SP_DRAM_STACK_SIZE8  (1024)
 #define SP_DRAM_STACK_SIZE64 (SP_DRAM_STACK_SIZE8 >> 3)
 
 /*
@@ -49,7 +49,7 @@ extern "C" {
  * This value is used in apps to tell the OS how much ucode to
  * load.
  */
-#define SP_UCODE_SIZE 4096
+#define SP_UCODE_SIZE        4096
 
 /*
  * This is 1/2 the size of DMEM, which is the maximum amount of
@@ -57,7 +57,7 @@ extern "C" {
  * This value is dependent on all of the task ucodes, and is therefore
  * fixed per release.
  */
-#define SP_UCODE_DATA_SIZE 2048
+#define SP_UCODE_DATA_SIZE   2048
 
 /**************************************************************************
  *

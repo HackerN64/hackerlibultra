@@ -2,7 +2,7 @@
 
 OSTime osThreadProfileReadTime(OSId id) {
     OSTime adjust = 0;
-    u32 now_time = osGetCount();
+    u32    now_time = osGetCount();
 
 #ifndef NDEBUG
     if (!__osThprofFlag) {
@@ -24,9 +24,9 @@ OSTime osThreadProfileReadTime(OSId id) {
 }
 
 OSTime osThreadProfileReadTimeTh(OSThread *thread) {
-    OSId id;
+    OSId   id;
     OSTime adjust = 0;
-    u32 now_time = osGetCount();
+    u32    now_time = osGetCount();
 
 #ifndef NDEBUG
     if (!__osThprofFlag) {
