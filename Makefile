@@ -5,14 +5,6 @@ TARGET ?= libgultra_rom
 VERSION ?= L
 CROSS ?= mips64-elf-
 
-ifeq ($(findstring libgultra,$(TARGET)),libgultra)
-COMPILER := gcc
-else ifeq ($(findstring libultra,$(TARGET)),libultra)
-COMPILER := ido
-else
-$(error Invalid Target)
-endif
-
 BUILD_ROOT := build
 BUILD_DIR := $(BUILD_ROOT)/$(VERSION)/$(TARGET)
 BUILD_AR := $(BUILD_DIR)/$(TARGET).a
@@ -31,8 +23,6 @@ DEBUGFLAG := -DNDEBUG
 endif
 
 -include makefiles/modern_gcc.mk
-
-export COMPILER_PATH := $(COMPILER_DIR)
 
 ifeq ($(findstring _rom,$(TARGET)),_rom)
 CPPFLAGS += -D_FINALROM

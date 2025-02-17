@@ -1,8 +1,6 @@
 
-COMPILER_DIR := $(dir $(which $(CROSS)gcc))
 AS := $(CROSS)gcc -x assembler-with-cpp
 CC := $(CROSS)gcc
-AR_OLD := $(CROSS)ar
 
 WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unused-function -Wno-unused-parameter -Wno-unused-variable -Wno-builtin-declaration-mismatch
 WARNINGS += -Wno-int-conversion -Wno-incompatible-pointer-types -Wno-implicit-function-declaration # TODO: Try adjusting code to remove these
