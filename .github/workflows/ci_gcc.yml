@@ -23,7 +23,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Install package requirements
-      run: sudo apt-get install -y binutils-mips-linux-gnu build-essential python3
+      run: sudo apt-get install -y gcc-mips-linux-gnu binutils-mips-linux-gnu build-essential python3
 
     - name: Setup
       run: make setup -j $(nproc) TARGET=libgultra${{ matrix.suffix }} VERSION=${{ matrix.version }}
