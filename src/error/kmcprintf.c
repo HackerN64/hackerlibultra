@@ -227,17 +227,16 @@ static void kmcErrorHandler(s16 code, s16 numArgs, ...);
 OSErrorHandler __kmcErrorHandler = kmcErrorHandler;
 
 static void kmcErrorHandler(s16 code, s16 numArgs, ...) {
-    int ans;
     va_list ap;
-    char* fmt;
+    const char* fmt;
 
     fmt = __os_error_message[code];
     va_start(ap, numArgs);
 
     if (__kmc_pt_mode) {
-        ans = _Printf(kmc_proutSyncPrintf, NULL, fmt, ap);
+        _Printf(kmc_proutSyncPrintf, NULL, fmt, ap);
     } else {
-        ans = _Printf(proutSyncPrintf, NULL, fmt, ap);
+        _Printf(proutSyncPrintf, NULL, fmt, ap);
     }
 
     osSyncPrintf("\n");
