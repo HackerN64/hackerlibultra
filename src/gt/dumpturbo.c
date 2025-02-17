@@ -33,9 +33,9 @@ static u32	textures[TX_MAX] ALIGNED(0x8);
 static u32	numtextures;
 
 #define UNSEG_ADDR(sa)	((u32 *) (((globp)?				   \
-			(((int)(sa) & 0x00ffffff) + 			   \
+			(((u32)(sa) & 0x00ffffff) + 			   \
 					globp->sp.segBases[(int)(sa)>>24]) \
-			: (int)(sa)) | 0x80000000))
+			: (u32)(sa)) | 0x80000000))
 #define PHYS(a)		((int) ((int)(a) & 0x7fffffff))
 #define UNPHYS(a)	((u32 *) ((int)(a) | 0x80000000))
 
@@ -58,25 +58,25 @@ gtDumpTurbo(OSTask *tp,u8 flags)
 	PRINTF("\nGBI_DUMP_START:\n");
 	PRINTF("$ %08x\n",PHYS(tp));
 
-	for (i=(int)tp; i<(int)tp+sizeof(OSTask); i+=4) {
+	for (i=(int)tp; i < (int)(tp+sizeof(OSTask)); i+=4) {
 		PRINTF("<%08x\n",(int) *((u32 *) i));
 	}
 
 #if 1
 	PRINTF("? %08x\n",PHYS(tp->t.ucode_boot));
 	for (i=(int)tp->t.ucode_boot; 
-			i<(int)tp->t.ucode_boot+tp->t.ucode_boot_size; i+=4) {
+			i < (int)(tp->t.ucode_boot+tp->t.ucode_boot_size); i+=4) {
 		PRINTF("|%08x\n",(int) *((u32 *) i));
 	}
 	
 	PRINTF("? %08x\n",PHYS(tp->t.ucode));
-	for (i=(int)tp->t.ucode; i<(int)tp->t.ucode+UCODE_SIZE_MAX; i+=4) {
+	for (i=(int)tp->t.ucode; i < (int)(tp->t.ucode+UCODE_SIZE_MAX); i+=4) {
 		PRINTF("|%08x\n",(int) *((u32 *) i));
 	}
 	
 	PRINTF("? %08x\n",PHYS(tp->t.ucode_data));
 	for (i=(int)tp->t.ucode_data; 
-			i<(int)tp->t.ucode_data+tp->t.ucode_data_size; i+=4) {
+			i < (int)(tp->t.ucode_data+tp->t.ucode_data_size); i+=4) {
 		PRINTF("|%08x\n",(int) *((u32 *) i));
 	}
 	
