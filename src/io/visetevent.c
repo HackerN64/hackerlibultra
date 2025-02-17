@@ -3,53 +3,10 @@
 #include "assert.h"
 #include "PRinternal/viint.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 
-void osViSetEvent(OSMesgQueue* mq, OSMesg m, u32 retraceCount) {
+void osViSetEvent(OSMesgQueue *mq, OSMesg m, u32 retraceCount) {
     register u32 saveMask;
 
 #ifdef _DEBUG

@@ -10,7 +10,7 @@
 #include "PR/os_voice.h"
 #include "voiceinternal.h"
 
-s32 osVoiceSetWord(OSVoiceHandle* hd, u8* word) {
+s32 osVoiceSetWord(OSVoiceHandle *hd, u8 *word) {
     s32 j;
     s32 k;
     s32 ret;

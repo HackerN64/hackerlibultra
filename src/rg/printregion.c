@@ -5,8 +5,8 @@
 #include "PR/rmon.h"
 #include "PR/region.h"
 
-void __osPrintRegion(void* region) {
-    register OSRegion* rp = region;
+void __osPrintRegion(void *region) {
+    register OSRegion *rp = region;
     int i;
 
     rmonPrintf("Region = 0x%x\n", rp);
@@ -19,8 +19,9 @@ void __osPrintRegion(void* region) {
     rmonPrintf("\tMemory Header Layout:\n");
 
     for (i = 0; i < RP(bufferCount); i++) {
-        rmonPrintf("\tBuf[%d]:\tAddress: 0x%x  Value: 0x%x\n", i, RP(startBufferAddress) + i * RP(bufferSize),
-                   *(u16*)(RP(startBufferAddress) + i * RP(bufferSize)));
+        rmonPrintf("\tBuf[%d]:\tAddress: 0x%x  Value: 0x%x\n", i,
+                   RP(startBufferAddress) + i * RP(bufferSize),
+                   *(u16 *) (RP(startBufferAddress) + i * RP(bufferSize)));
     }
 }
 

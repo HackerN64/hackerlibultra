@@ -8,8 +8,10 @@ s32 osFlashSectorErase(u32 page_num) {
     OSMesg dummy;
 
     // start sector erase operation
-    osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_SECTOR_ERASE | page_num);
-    osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_EXECUTE_ERASE);
+    osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG,
+                 FLASH_CMD_SECTOR_ERASE | page_num);
+    osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG,
+                 FLASH_CMD_EXECUTE_ERASE);
 
     // wait for completion by polling erase-busy flag
     osCreateMesgQueue(&timerMesgQueue, &dummy, 1);

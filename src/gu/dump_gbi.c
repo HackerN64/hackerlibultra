@@ -15,29 +15,26 @@
  * Interpret Task with GBI display list and dump it for debugging.
  */
 
-
 /**************************************************
  *
- *          guDumpGbiDL no longer supported        
- *   applications should use guParseGbiDL with the 
- *   GU_PARSEGBI_DUMPONLY  flag set.               
+ *          guDumpGbiDL no longer supported
+ *   applications should use guParseGbiDL with the
+ *   GU_PARSEGBI_DUMPONLY  flag set.
  *
  **************************************************/
 
-
 #if 0
-
 
 #include "ultra64.h"
 #include "bstring.h"
 
-#undef  PRINTF
-#define PRINTF      osSyncPrintf
+#undef PRINTF
+#define PRINTF osSyncPrintf
 
-#define DL_STACKSIZE	11
+#define DL_STACKSIZE 11
 static u32            *Gp[DL_STACKSIZE];
 
-#define TX_MAX		100
+#define TX_MAX 100
 static u32	textures[TX_MAX];
 static u32	numtextures;
 
@@ -205,7 +202,7 @@ guDumpGbi(u32 *gfxp)
         }
 }
 
-#define UCODE_SIZE_MAX (4096*3)
+#define UCODE_SIZE_MAX (4096 * 3)
 void
 guDumpGbiDL(OSTask *tp,u8 flags)
 {

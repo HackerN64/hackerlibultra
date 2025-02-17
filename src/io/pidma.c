@@ -2,7 +2,8 @@
 #include "PR/ultraerror.h"
 #include "PRinternal/piint.h"
 
-s32 osPiStartDma(OSIoMesg* mb, s32 priority, s32 direction, u32 devAddr, void* dramAddr, u32 size, OSMesgQueue* mq) {
+s32 osPiStartDma(OSIoMesg *mb, s32 priority, s32 direction, u32 devAddr, void *dramAddr, u32 size,
+                 OSMesgQueue *mq) {
     register s32 ret;
     if (!__osPiDevMgr.active) {
 #ifdef _DEBUG
@@ -27,7 +28,7 @@ s32 osPiStartDma(OSIoMesg* mb, s32 priority, s32 direction, u32 devAddr, void* d
         return -1;
     }
 
-    if ((u32)dramAddr & 0x7) {
+    if ((u32) dramAddr & 0x7) {
         __osError(ERR_OSPISTARTDMA_ADDR, 1, dramAddr);
         return -1;
     }
@@ -57,9 +58,9 @@ s32 osPiStartDma(OSIoMesg* mb, s32 priority, s32 direction, u32 devAddr, void* d
     mb->piHandle = NULL;
 
     if (priority == OS_MESG_PRI_HIGH) {
-        ret = osJamMesg(osPiGetCmdQueue(), (OSMesg)mb, OS_MESG_NOBLOCK);
+        ret = osJamMesg(osPiGetCmdQueue(), (OSMesg) mb, OS_MESG_NOBLOCK);
     } else {
-        ret = osSendMesg(osPiGetCmdQueue(), (OSMesg)mb, OS_MESG_NOBLOCK);
+        ret = osSendMesg(osPiGetCmdQueue(), (OSMesg) mb, OS_MESG_NOBLOCK);
     }
 
     return ret;

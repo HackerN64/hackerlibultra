@@ -2,11 +2,11 @@
 #include "PR/os_internal.h"
 #include "PRinternal/controller.h"
 
-#define CHECK_IPAGE(p)                                                                                        \
-    (((p).ipage >= pfs->inode_start_page) && ((p).inode_t.bank < pfs->banks) && ((p).inode_t.page >= 0x01) && \
-     ((p).inode_t.page < 0x80))
+#define CHECK_IPAGE(p)                                                                                 \
+    (((p).ipage >= pfs->inode_start_page) && ((p).inode_t.bank < pfs->banks)                           \
+     && ((p).inode_t.page >= 0x01) && ((p).inode_t.page < 0x80))
 
-static s32 __osPfsGetNextPage(OSPfs* pfs, u8* bank, __OSInode* inode, __OSInodeUnit* page) {
+static s32 __osPfsGetNextPage(OSPfs *pfs, u8 *bank, __OSInode *inode, __OSInodeUnit *page) {
     s32 ret;
 
     if (page->inode_t.bank != *bank) {
@@ -25,18 +25,19 @@ static s32 __osPfsGetNextPage(OSPfs* pfs, u8* bank, __OSInode* inode, __OSInodeU
     }
     return 0;
 }
-s32 osPfsReadWriteFile(OSPfs* pfs, s32 file_no, u8 flag, int offset, int size_in_bytes, u8* data_buffer) {
+s32 osPfsReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, int offset, int size_in_bytes,
+                       u8 *data_buffer) {
     s32 ret;
     __OSDir dir;
     __OSInode inode;
     __OSInodeUnit cur_page;
     int cur_block;
     int siz_block;
-    u8* buffer;
+    u8 *buffer;
     u8 bank;
     u16 blockno;
 
-    if ((file_no >= (s32)pfs->dir_size) || (file_no < 0)) {
+    if ((file_no >= (s32) pfs->dir_size) || (file_no < 0)) {
         return PFS_ERR_INVALID;
     }
 
@@ -51,7 +52,7 @@ s32 osPfsReadWriteFile(OSPfs* pfs, s32 file_no, u8 flag, int offset, int size_in
     PFS_CHECK_STATUS();
     PFS_CHECK_ID();
     SET_ACTIVEBANK_TO_ZERO();
-    ERRCK(__osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8*)&dir));
+    ERRCK(__osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8 *) &dir));
 
     if (dir.company_code == 0 || dir.game_code == 0) {
         return PFS_ERR_INVALID;
@@ -114,7 +115,7 @@ s32 osPfsReadWriteFile(OSPfs* pfs, s32 file_no, u8 flag, int offset, int size_in
 #else
         ERRCK(SELECT_BANK(pfs, 0));
 #endif
-        ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8*)&dir, FALSE));
+        ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8 *) &dir, FALSE));
     }
 
 #if BUILD_VERSION >= VERSION_J

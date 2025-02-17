@@ -3,12 +3,12 @@
 #include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
-s32 osPfsReFormat(OSPfs* pfs, OSMesgQueue* queue, int channel) {
+s32 osPfsReFormat(OSPfs *pfs, OSMesgQueue *queue, int channel) {
     int j;
     int i;
     __OSInode inode;
     u8 tmp_data[32];
-    u8* ptr;
+    u8 *ptr;
     s32 ret;
     __osSiGetAccess();
     ret = __osPfsGetStatus(queue, channel);
@@ -42,9 +42,10 @@ s32 osPfsReFormat(OSPfs* pfs, OSMesgQueue* queue, int channel) {
         inode.inode_page[j].ipage = 3;
     }
 
-    inode.inode_page[0].ipage = __osSumcalc((u8*)(inode.inode_page + pfs->inode_start_page),
-                                            (ARRLEN(inode.inode_page) - pfs->inode_start_page) * sizeof(__OSInodeUnit));
-    ptr = (u8*)&inode;
+    inode.inode_page[0].ipage =
+        __osSumcalc((u8 *) (inode.inode_page + pfs->inode_start_page),
+                    (ARRLEN(inode.inode_page) - pfs->inode_start_page) * sizeof(__OSInodeUnit));
+    ptr = (u8 *) &inode;
 
     for (j = 0; j < PFS_ONE_PAGE; j++) {
         ERRCK(__osContRamWrite(queue, channel, pfs->inode_table + j, ptr + j * BLOCKSIZE, FALSE));
@@ -56,15 +57,15 @@ s32 osPfsReFormat(OSPfs* pfs, OSMesgQueue* queue, int channel) {
             inode.inode_page[j].ipage = 3;
         }
 
-        inode.inode_page[0].ipage =
-            __osSumcalc((u8*)(inode.inode_page + 1), (ARRLEN(inode.inode_page) - 1) * sizeof(__OSInodeUnit));
-        ptr = (u8*)&inode;
+        inode.inode_page[0].ipage = __osSumcalc((u8 *) (inode.inode_page + 1),
+                                                (ARRLEN(inode.inode_page) - 1) * sizeof(__OSInodeUnit));
+        ptr = (u8 *) &inode;
 
         for (j = 0; j < PFS_ONE_PAGE; j++) {
-            ERRCK(
-                __osContRamWrite(queue, channel, pfs->inode_table + i * PFS_ONE_PAGE + j, ptr + j * BLOCKSIZE, FALSE));
-            ERRCK(
-                __osContRamWrite(queue, channel, pfs->minode_table + i * PFS_ONE_PAGE + j, ptr + j * BLOCKSIZE, FALSE));
+            ERRCK(__osContRamWrite(queue, channel, pfs->inode_table + i * PFS_ONE_PAGE + j,
+                                   ptr + j * BLOCKSIZE, FALSE));
+            ERRCK(__osContRamWrite(queue, channel, pfs->minode_table + i * PFS_ONE_PAGE + j,
+                                   ptr + j * BLOCKSIZE, FALSE));
         }
     }
 

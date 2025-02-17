@@ -9,65 +9,62 @@
 #ident "$Revision: 1.23 $"
 
 #define isdigit(x) ((x >= '0' && x <= '9'))
-#define LDSIGN(x) (((unsigned short *)&(x))[0] & 0x8000)
+#define LDSIGN(x) (((unsigned short *) &(x))[0] & 0x8000)
 
-#define ATOI(dst, src)                   \
-    for (dst = 0; isdigit(*src); ++src)  \
-    {                                    \
-        if (dst < 999)                   \
-            dst = dst * 10 + *src - '0'; \
+#define ATOI(dst, src)                                                                                 \
+    for (dst = 0; isdigit(*src); ++src) {                                                              \
+        if (dst < 999)                                                                                 \
+            dst = dst * 10 + *src - '0';                                                               \
     }
 
 #define MAX_PAD ((sizeof(spaces) - 1))
-#define PAD(s, n)                                             \
-    if (0 < (n))                                              \
-    {                                                         \
-        int i, j = (n);                                       \
-        for (; 0 < j; j -= i)                                 \
-        {                                                     \
-            i = MAX_PAD < (unsigned int)j ? (int)MAX_PAD : j; \
-            PUT(s, i);                                        \
-        }                                                     \
+#define PAD(s, n)                                                                                      \
+    if (0 < (n)) {                                                                                     \
+        int i, j = (n);                                                                                \
+        for (; 0 < j; j -= i) {                                                                        \
+            i = MAX_PAD < (unsigned int) j ? (int) MAX_PAD : j;                                        \
+            PUT(s, i);                                                                                 \
+        }                                                                                              \
     }
-#define PUT(s, n)                                \
-    if (0 < (n))                                 \
-    {                                            \
-        if ((arg = (*pfn)(arg, s, n)) != NULL) \
-            x.nchar += (n);                      \
-        else                                     \
-            return x.nchar;                      \
+#define PUT(s, n)                                                                                      \
+    if (0 < (n)) {                                                                                     \
+        if ((arg = (*pfn)(arg, s, n)) != NULL)                                                         \
+            x.nchar += (n);                                                                            \
+        else                                                                                           \
+            return x.nchar;                                                                            \
     }
 static char spaces[] = "                                ";
 static char zeroes[] = "00000000000000000000000000000000";
 
 static void _Putfld(_Pft *px, va_list *pap, char code, char *ac);
 
-int _Printf(void* pfn(void*,const char*,size_t), void *arg, const char *fmt, va_list ap) {
+int _Printf(void *pfn(void *, const char *, size_t), void *arg, const char *fmt, va_list ap) {
     _Pft x;
-    
+
     x.nchar = 0;
 
     while (1) {
         const char *s;
         char c;
         const char *t;
-        static const char fchar[] = {' ', '+', '-', '#', '0', '\0'};
-        static const unsigned int fbit[] = {FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS, FLAGS_HASH, FLAGS_ZERO, 0};
+        static const char fchar[] = { ' ', '+', '-', '#', '0', '\0' };
+        static const unsigned int fbit[] = { FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS,
+                                             FLAGS_HASH,  FLAGS_ZERO, 0 };
         char ac[32];
         s = fmt;
 
         for (c = *s; c != 0 && c != '%';) {
             c = *++s;
         }
-        
+
         PUT(fmt, s - fmt);
-        
+
         if (c == 0) {
             return x.nchar;
         }
-        
+
         fmt = ++s;
-        
+
         for (x.flags = 0; (t = strchr(fchar, *s)) != NULL; s++) {
             x.flags |= fbit[t - fchar];
         }
@@ -80,24 +77,22 @@ int _Printf(void* pfn(void*,const char*,size_t), void *arg, const char *fmt, va_
                 x.flags |= FLAGS_MINUS;
             }
             s++;
-        } else 
+        } else
             ATOI(x.width, s);
-
 
         if (*s != '.') {
             x.prec = -1;
         } else if (*++s == '*') {
             x.prec = va_arg(ap, int);
             ++s;
-        } else 
-            for (x.prec = 0; isdigit(*s); s++) { 
-                if (x.prec < 999) 
-                    x.prec = x.prec * 10 + *s - '0'; 
+        } else
+            for (x.prec = 0; isdigit(*s); s++) {
+                if (x.prec < 999)
+                    x.prec = x.prec * 10 + *s - '0';
             }
 
-
         x.qual = strchr("hlL", *s) ? *s++ : '\0';
-        
+
         if (x.qual == 'l' && *s == 'l') {
             x.qual = 'L';
             ++s;
@@ -106,16 +101,14 @@ int _Printf(void* pfn(void*,const char*,size_t), void *arg, const char *fmt, va_
         _Putfld(&x, &ap, *s, ac);
         x.width -= x.n0 + x.nz0 + x.n1 + x.nz1 + x.n2 + x.nz2;
 
-       {
+        {
 
             if (!(x.flags & FLAGS_MINUS)) {
                 int i, j;
-                if (0 < (x.width))
-                {
+                if (0 < (x.width)) {
                     i, j = x.width;
-                    for (; 0 < j; j -= i)
-                    {
-                        i = MAX_PAD < (unsigned int)j ? (int)MAX_PAD : j;
+                    for (; 0 < j; j -= i) {
+                        i = MAX_PAD < (unsigned int) j ? (int) MAX_PAD : j;
                         PUT(spaces, i);
                     }
                 }
@@ -140,8 +133,7 @@ int _Printf(void* pfn(void*,const char*,size_t), void *arg, const char *fmt, va_
 }
 
 static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
-    px->n0 = px->nz0 = px->n1 = px->nz1 = px->n2 =
-        px->nz2 = 0;
+    px->n0 = px->nz0 = px->n1 = px->nz1 = px->n2 = px->nz2 = 0;
 
     switch (code) {
         case 'c':
@@ -158,7 +150,7 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
             }
 
             if (px->qual == 'h') {
-                px->v.ll = (short)px->v.ll;
+                px->v.ll = (short) px->v.ll;
             }
 
             if (px->v.ll < 0) {
@@ -169,7 +161,7 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
                 ac[px->n0++] = ' ';
             }
 
-            px->s = (char *)&ac[px->n0];
+            px->s = (char *) &ac[px->n0];
 
             _Litob(px, code);
             break;
@@ -186,9 +178,9 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
             }
 
             if (px->qual == 'h') {
-                px->v.ll = (unsigned short)px->v.ll;
+                px->v.ll = (unsigned short) px->v.ll;
             } else if (px->qual == 0) {
-                px->v.ll = (unsigned int)px->v.ll;
+                px->v.ll = (unsigned int) px->v.ll;
             }
 
             if (px->flags & FLAGS_HASH) {
@@ -199,7 +191,7 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
                 }
             }
 
-            px->s = (char *)&ac[px->n0];
+            px->s = (char *) &ac[px->n0];
             _Litob(px, code);
             break;
         case 'e':
@@ -216,7 +208,7 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
             else if (px->flags & FLAGS_SPACE)
                 ac[px->n0++] = ' ';
 
-            px->s = (char *)&ac[px->n0];
+            px->s = (char *) &ac[px->n0];
             _Ldtob(px, code);
             break;
 
@@ -233,18 +225,18 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
 
             break;
         case 'p':
-            px->v.ll = (long)va_arg(*pap, void *);
-            px->s = (char *)&ac[px->n0];
+            px->v.ll = (long) va_arg(*pap, void *);
+            px->s = (char *) &ac[px->n0];
             _Litob(px, 'x');
             break;
         case 's':
             px->s = va_arg(*pap, char *);
             px->n1 = strlen(px->s);
-            
+
             if (px->prec >= 0 && px->prec < px->n1) {
                 px->n1 = px->prec;
             }
-            
+
             break;
         case '%':
             ac[px->n0++] = '%';

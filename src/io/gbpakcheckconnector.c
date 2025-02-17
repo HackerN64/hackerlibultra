@@ -2,7 +2,7 @@
 #include "PR/os_internal.h"
 #include "PRinternal/controller.h"
 
-s32 osGbpakCheckConnector(OSPfs* pfs, u8* status) {
+s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status) {
     s32 ret;
     s32 bufn = 1;
     s32 oldbufn = 0;
@@ -64,7 +64,8 @@ s32 osGbpakCheckConnector(OSPfs* pfs, u8* status) {
 
                 do {
                     if (buf_status[bufn][num] == 0) {
-                        ERRCK(osGbpakReadWrite(pfs, OS_READ, address + daddr, buf[bufn][num], BLOCKSIZE));
+                        ERRCK(
+                            osGbpakReadWrite(pfs, OS_READ, address + daddr, buf[bufn][num], BLOCKSIZE));
                         buf_status[bufn][num] = 1;
                     }
 

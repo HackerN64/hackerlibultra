@@ -3,10 +3,10 @@
 #include "PRinternal/osint.h"
 #include "PRinternal/viint.h"
 
-int osSetTimer(OSTimer* t, OSTime countdown, OSTime interval, OSMesgQueue* mq, OSMesg msg) {
+int osSetTimer(OSTimer *t, OSTime countdown, OSTime interval, OSMesgQueue *mq, OSMesg msg) {
     OSTime time;
 #if BUILD_VERSION >= VERSION_K
-    OSTimer* next;
+    OSTimer *next;
     u32 count;
     u32 value;
     u32 saveMask;

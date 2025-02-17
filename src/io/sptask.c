@@ -8,15 +8,16 @@
 #ident "$Revision: 1.4 $"
 #endif
 
-#define _osVirtualToPhysical(ptr)              \
-    if (ptr != NULL) {                         \
-        ptr = (void*)osVirtualToPhysical(ptr); \
-    } (void)0
+#define _osVirtualToPhysical(ptr)                                                                      \
+    if (ptr != NULL) {                                                                                 \
+        ptr = (void *) osVirtualToPhysical(ptr);                                                       \
+    }                                                                                                  \
+    (void) 0
 
 static OSTask tmp_task;
 
-static OSTask* _VirtualToPhysicalTask(OSTask* intp) {
-    OSTask* tp;
+static OSTask *_VirtualToPhysicalTask(OSTask *intp) {
+    OSTask *tp;
     tp = &tmp_task;
     bcopy(intp, tp, sizeof(OSTask));
 
@@ -30,23 +31,23 @@ static OSTask* _VirtualToPhysicalTask(OSTask* intp) {
     return tp;
 }
 
-void osSpTaskLoad(OSTask* intp) {
-    OSTask* tp;
+void osSpTaskLoad(OSTask *intp) {
+    OSTask *tp;
 
 #ifdef _DEBUG
-    if ((intp->t.dram_stack != 0x0) && ((u32)intp->t.dram_stack & 0xf)) {
+    if ((intp->t.dram_stack != 0x0) && ((u32) intp->t.dram_stack & 0xf)) {
         __osError(ERR_OSSPTASKLOAD_DRAM, 1, intp->t.dram_stack);
         return;
     }
-    if ((intp->t.output_buff != 0x0) && ((u32)intp->t.output_buff & 0xf)) {
+    if ((intp->t.output_buff != 0x0) && ((u32) intp->t.output_buff & 0xf)) {
         __osError(ERR_OSSPTASKLOAD_OUT, 1, intp->t.output_buff);
         return;
     }
-    if ((intp->t.output_buff_size != 0x0) && ((u32)intp->t.output_buff_size & 0xf)) {
+    if ((intp->t.output_buff_size != 0x0) && ((u32) intp->t.output_buff_size & 0xf)) {
         __osError(ERR_OSSPTASKLOAD_OUTSIZE, 1, intp->t.output_buff_size);
         return;
     }
-    if ((intp->t.yield_data_ptr != 0x0) && ((u32)intp->t.yield_data_ptr & 0xf)) {
+    if ((intp->t.yield_data_ptr != 0x0) && ((u32) intp->t.yield_data_ptr & 0xf)) {
         __osError(ERR_OSSPTASKLOAD_YIELD, 1, intp->t.yield_data_ptr);
         return;
     }
@@ -59,24 +60,29 @@ void osSpTaskLoad(OSTask* intp) {
         tp->t.ucode_data_size = tp->t.yield_data_size;
         intp->t.flags &= ~OS_TASK_YIELDED;
         if (tp->t.flags & OS_TASK_LOADABLE) {
-            tp->t.ucode = (u64*)IO_READ((u32)intp->t.yield_data_ptr + OS_YIELD_DATA_SIZE - 4);
+            tp->t.ucode = (u64 *) IO_READ((u32) intp->t.yield_data_ptr + OS_YIELD_DATA_SIZE - 4);
         }
     }
 
     osWritebackDCache(tp, sizeof(OSTask));
     __osSpSetStatus(SP_CLR_YIELD | SP_CLR_YIELDED | SP_CLR_TASKDONE | SP_SET_INTR_BREAK);
 
-    while (__osSpSetPc(SP_IMEM_START) == -1) {}
+    while (__osSpSetPc(SP_IMEM_START) == -1) {
+    }
 
-    while (__osSpRawStartDma(1, (SP_IMEM_START - sizeof(*tp)), tp, sizeof(OSTask)) == -1) {}
+    while (__osSpRawStartDma(1, (SP_IMEM_START - sizeof(*tp)), tp, sizeof(OSTask)) == -1) {
+    }
 
-    while (__osSpDeviceBusy()) {}
+    while (__osSpDeviceBusy()) {
+    }
 
-    while (__osSpRawStartDma(1, SP_IMEM_START, tp->t.ucode_boot, tp->t.ucode_boot_size) == -1) {}
+    while (__osSpRawStartDma(1, SP_IMEM_START, tp->t.ucode_boot, tp->t.ucode_boot_size) == -1) {
+    }
 }
 
-void osSpTaskStartGo(OSTask* tp) {
-    while (__osSpDeviceBusy()) {}
+void osSpTaskStartGo(OSTask *tp) {
+    while (__osSpDeviceBusy()) {
+    }
 
     __osSpSetStatus(SP_SET_INTR_BREAK | SP_CLR_SSTEP | SP_CLR_BROKE | SP_CLR_HALT);
 }

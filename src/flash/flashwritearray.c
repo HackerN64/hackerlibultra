@@ -7,12 +7,14 @@ s32 osFlashWriteArray(u32 page_num) {
     OSMesgQueue timerMesgQueue;
     OSMesg dummy;
 
-    if ((u32)__osFlashVersion == NEW_FLASH) {
-        osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_PAGE_PROGRAM);
+    if ((u32) __osFlashVersion == NEW_FLASH) {
+        osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG,
+                     FLASH_CMD_PAGE_PROGRAM);
     }
 
     // start program page operation
-    osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_PROGRAM_PAGE | page_num);
+    osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG,
+                 FLASH_CMD_PROGRAM_PAGE | page_num);
 
     // wait for completion by polling write-busy flag
     osCreateMesgQueue(&timerMesgQueue, &dummy, 1);

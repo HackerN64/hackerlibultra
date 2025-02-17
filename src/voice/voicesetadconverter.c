@@ -9,12 +9,12 @@
 #include "PRinternal/controller_voice.h"
 #include "PRinternal/siint.h"
 
-#define SWRITEFORMAT(ptr) ((__OSVoiceSWriteFormat*)(ptr))
+#define SWRITEFORMAT(ptr) ((__OSVoiceSWriteFormat *) (ptr))
 
-s32 __osVoiceSetADConverter(OSMesgQueue* mq, s32 channel, u8 data) {
+s32 __osVoiceSetADConverter(OSMesgQueue *mq, s32 channel, u8 data) {
     s32 ret = 0;
     int i;
-    u8* ptr;
+    u8 *ptr;
     u8 status;
     int retry = 2;
 
@@ -22,13 +22,15 @@ s32 __osVoiceSetADConverter(OSMesgQueue* mq, s32 channel, u8 data) {
 
     do {
 
-        ptr = (u8*)__osPfsPifRam.ramarray;
+        ptr = (u8 *) __osPfsPifRam.ramarray;
 
         if ((__osContLastCmd != CONT_CMD_SWRITE_VOICE) || (__osPfsLastChannel != channel)) {
             __osContLastCmd = CONT_CMD_SWRITE_VOICE;
             __osPfsLastChannel = channel;
 
-            for (i = 0; i < channel; i++) { *ptr++ = CONT_CMD_REQUEST_STATUS; }
+            for (i = 0; i < channel; i++) {
+                *ptr++ = CONT_CMD_REQUEST_STATUS;
+            }
 
             __osPfsPifRam.pifstatus = CONT_CMD_EXE;
 

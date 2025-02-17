@@ -6,11 +6,11 @@
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 
-s32 osDpSetNextBuffer(void* bufPtr, u64 size) {
+s32 osDpSetNextBuffer(void *bufPtr, u64 size) {
     register u32 stat;
 
 #ifdef _DEBUG
-    if ((u32)bufPtr & 0x7) {
+    if ((u32) bufPtr & 0x7) {
         __osError(ERR_OSDPSETNEXTBUFFER_ADDR, 1, bufPtr);
         return -1;
     }

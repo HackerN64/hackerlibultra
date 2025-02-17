@@ -12,10 +12,10 @@
 #define VOICE_CRC_GENERATOR 0x85
 
 /**
- * This function is essentially the same as __osContDataCrc, but allows for a variable message length, specified by
- * `numBytes`.
+ * This function is essentially the same as __osContDataCrc, but allows for a variable message length,
+ * specified by `numBytes`.
  */
-u8 __osVoiceContDataCrc(u8* data, u32 length) {
+u8 __osVoiceContDataCrc(u8 *data, u32 length) {
     s32 temp = 0;
     u32 i;
     u32 j;
