@@ -25,10 +25,10 @@
 #ident "$Revision: 1.17 $"
 
 void alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c) {
-    u8           *ptr;
-    ALEvent       evt;
+    u8 *ptr;
+    ALEvent evt;
     ALSoundState *sState;
-    u32           i;
+    u32 i;
 
     /*
      * Init member variables
@@ -70,7 +70,7 @@ void alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c) {
  *************************************************************/
 ALMicroTime _sndpVoiceHandler(void *node) {
     ALSndPlayer *sndp = (ALSndPlayer *) node;
-    ALSndpEvent  evt;
+    ALSndpEvent evt;
 
     do {
         switch (sndp->nextEvent.type) {
@@ -95,16 +95,16 @@ ALMicroTime _sndpVoiceHandler(void *node) {
 
 void _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event) {
     ALVoiceConfig vc;
-    ALSound      *snd;
-    ALVoice      *voice;
-    ALPan         pan;
-    f32           pitch;
-    ALSndpEvent   evt;
-    ALMicroTime   delta;
+    ALSound *snd;
+    ALVoice *voice;
+    ALPan pan;
+    f32 pitch;
+    ALSndpEvent evt;
+    ALMicroTime delta;
 
-    s16           vol;
-    s16           tmp;
-    s32           vtmp;
+    s16 vol;
+    s16 tmp;
+    s32 vtmp;
     ALSoundState *state;
 
     state = event->common.state;
@@ -227,12 +227,12 @@ void _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event) {
     }
 }
 static void _removeEvents(ALEventQueue *evtq, ALSoundState *state) {
-    ALLink          *thisNode;
-    ALLink          *nextNode;
+    ALLink *thisNode;
+    ALLink *nextNode;
     ALEventListItem *thisItem;
     ALEventListItem *nextItem;
-    ALSndpEvent     *thisEvent;
-    OSIntMask        mask;
+    ALSndpEvent *thisEvent;
+    OSIntMask mask;
 
     mask = osSetIntMask(OS_IM_NONE);
 

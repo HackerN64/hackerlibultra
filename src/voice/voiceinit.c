@@ -11,10 +11,10 @@
 #include "voiceinternal.h"
 
 s32 osVoiceInit(OSMesgQueue *mq, OSVoiceHandle *handle, int channel) {
-    s32       ret;
-    s32       i;
-    u8        stat = 0;
-    u8        buf[4];
+    s32 ret;
+    s32 i;
+    u8 stat = 0;
+    u8 buf[4];
     static u8 cmd[] = { 0x1E, 0x6E, 0x08, 0x56, 0x03 };
 
     handle->__channel = channel;

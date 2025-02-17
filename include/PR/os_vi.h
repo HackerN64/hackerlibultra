@@ -76,9 +76,9 @@ typedef struct {
  * Structure for VI mode
  */
 typedef struct {
-    u8             type;       /* Mode type */
-    OSViCommonRegs comRegs;    /* Common registers for both fields */
-    OSViFieldRegs  fldRegs[2]; /* Registers for Field 1  & 2 */
+    u8 type;                  /* Mode type */
+    OSViCommonRegs comRegs;   /* Common registers for both fields */
+    OSViFieldRegs fldRegs[2]; /* Registers for Field 1  & 2 */
 } OSViMode;
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
@@ -92,77 +92,77 @@ typedef struct {
 /*
  * Video Interface (VI) mode type
  */
-#define OS_VI_NTSC_LPN1            0 /* NTSC */
-#define OS_VI_NTSC_LPF1            1
-#define OS_VI_NTSC_LAN1            2
-#define OS_VI_NTSC_LAF1            3
-#define OS_VI_NTSC_LPN2            4
-#define OS_VI_NTSC_LPF2            5
-#define OS_VI_NTSC_LAN2            6
-#define OS_VI_NTSC_LAF2            7
-#define OS_VI_NTSC_HPN1            8
-#define OS_VI_NTSC_HPF1            9
-#define OS_VI_NTSC_HAN1            10
-#define OS_VI_NTSC_HAF1            11
-#define OS_VI_NTSC_HPN2            12
-#define OS_VI_NTSC_HPF2            13
+#define OS_VI_NTSC_LPN1 0 /* NTSC */
+#define OS_VI_NTSC_LPF1 1
+#define OS_VI_NTSC_LAN1 2
+#define OS_VI_NTSC_LAF1 3
+#define OS_VI_NTSC_LPN2 4
+#define OS_VI_NTSC_LPF2 5
+#define OS_VI_NTSC_LAN2 6
+#define OS_VI_NTSC_LAF2 7
+#define OS_VI_NTSC_HPN1 8
+#define OS_VI_NTSC_HPF1 9
+#define OS_VI_NTSC_HAN1 10
+#define OS_VI_NTSC_HAF1 11
+#define OS_VI_NTSC_HPN2 12
+#define OS_VI_NTSC_HPF2 13
 
-#define OS_VI_PAL_LPN1             14 /* PAL */
-#define OS_VI_PAL_LPF1             15
-#define OS_VI_PAL_LAN1             16
-#define OS_VI_PAL_LAF1             17
-#define OS_VI_PAL_LPN2             18
-#define OS_VI_PAL_LPF2             19
-#define OS_VI_PAL_LAN2             20
-#define OS_VI_PAL_LAF2             21
-#define OS_VI_PAL_HPN1             22
-#define OS_VI_PAL_HPF1             23
-#define OS_VI_PAL_HAN1             24
-#define OS_VI_PAL_HAF1             25
-#define OS_VI_PAL_HPN2             26
-#define OS_VI_PAL_HPF2             27
+#define OS_VI_PAL_LPN1 14 /* PAL */
+#define OS_VI_PAL_LPF1 15
+#define OS_VI_PAL_LAN1 16
+#define OS_VI_PAL_LAF1 17
+#define OS_VI_PAL_LPN2 18
+#define OS_VI_PAL_LPF2 19
+#define OS_VI_PAL_LAN2 20
+#define OS_VI_PAL_LAF2 21
+#define OS_VI_PAL_HPN1 22
+#define OS_VI_PAL_HPF1 23
+#define OS_VI_PAL_HAN1 24
+#define OS_VI_PAL_HAF1 25
+#define OS_VI_PAL_HPN2 26
+#define OS_VI_PAL_HPF2 27
 
-#define OS_VI_MPAL_LPN1            28 /* MPAL - mainly Brazil */
-#define OS_VI_MPAL_LPF1            29
-#define OS_VI_MPAL_LAN1            30
-#define OS_VI_MPAL_LAF1            31
-#define OS_VI_MPAL_LPN2            32
-#define OS_VI_MPAL_LPF2            33
-#define OS_VI_MPAL_LAN2            34
-#define OS_VI_MPAL_LAF2            35
-#define OS_VI_MPAL_HPN1            36
-#define OS_VI_MPAL_HPF1            37
-#define OS_VI_MPAL_HAN1            38
-#define OS_VI_MPAL_HAF1            39
-#define OS_VI_MPAL_HPN2            40
-#define OS_VI_MPAL_HPF2            41
+#define OS_VI_MPAL_LPN1 28 /* MPAL - mainly Brazil */
+#define OS_VI_MPAL_LPF1 29
+#define OS_VI_MPAL_LAN1 30
+#define OS_VI_MPAL_LAF1 31
+#define OS_VI_MPAL_LPN2 32
+#define OS_VI_MPAL_LPF2 33
+#define OS_VI_MPAL_LAN2 34
+#define OS_VI_MPAL_LAF2 35
+#define OS_VI_MPAL_HPN1 36
+#define OS_VI_MPAL_HPF1 37
+#define OS_VI_MPAL_HAN1 38
+#define OS_VI_MPAL_HAF1 39
+#define OS_VI_MPAL_HPN2 40
+#define OS_VI_MPAL_HPF2 41
 
-#define OS_VI_FPAL_LPN1            42 /* FPAL - Full screen PAL */
-#define OS_VI_FPAL_LPF1            43
-#define OS_VI_FPAL_LAN1            44
-#define OS_VI_FPAL_LAF1            45
-#define OS_VI_FPAL_LPN2            46
-#define OS_VI_FPAL_LPF2            47
-#define OS_VI_FPAL_LAN2            48
-#define OS_VI_FPAL_LAF2            49
-#define OS_VI_FPAL_HPN1            50
-#define OS_VI_FPAL_HPF1            51
-#define OS_VI_FPAL_HAN1            52
-#define OS_VI_FPAL_HAF1            53
-#define OS_VI_FPAL_HPN2            54
-#define OS_VI_FPAL_HPF2            55
+#define OS_VI_FPAL_LPN1 42 /* FPAL - Full screen PAL */
+#define OS_VI_FPAL_LPF1 43
+#define OS_VI_FPAL_LAN1 44
+#define OS_VI_FPAL_LAF1 45
+#define OS_VI_FPAL_LPN2 46
+#define OS_VI_FPAL_LPF2 47
+#define OS_VI_FPAL_LAN2 48
+#define OS_VI_FPAL_LAF2 49
+#define OS_VI_FPAL_HPN1 50
+#define OS_VI_FPAL_HPF1 51
+#define OS_VI_FPAL_HAN1 52
+#define OS_VI_FPAL_HAF1 53
+#define OS_VI_FPAL_HPN2 54
+#define OS_VI_FPAL_HPF2 55
 
 /*
  * Video Interface (VI) special features
  */
-#define OS_VI_GAMMA_ON             0x0001
-#define OS_VI_GAMMA_OFF            0x0002
-#define OS_VI_GAMMA_DITHER_ON      0x0004
-#define OS_VI_GAMMA_DITHER_OFF     0x0008
-#define OS_VI_DIVOT_ON             0x0010
-#define OS_VI_DIVOT_OFF            0x0020
-#define OS_VI_DITHER_FILTER_ON     0x0040
-#define OS_VI_DITHER_FILTER_OFF    0x0080
+#define OS_VI_GAMMA_ON          0x0001
+#define OS_VI_GAMMA_OFF         0x0002
+#define OS_VI_GAMMA_DITHER_ON   0x0004
+#define OS_VI_GAMMA_DITHER_OFF  0x0008
+#define OS_VI_DIVOT_ON          0x0010
+#define OS_VI_DIVOT_OFF         0x0020
+#define OS_VI_DITHER_FILTER_ON  0x0040
+#define OS_VI_DITHER_FILTER_OFF 0x0080
 
 /*
  * Video Interface (VI) mode attribute bit
@@ -263,23 +263,23 @@ extern OSViMode osViModeFpalHpf2;
  */
 
 /* Video interface (Vi) */
-extern u32   osViGetStatus(void);
-extern u32   osViGetCurrentMode(void);
-extern u32   osViGetCurrentLine(void);
-extern u32   osViGetCurrentField(void);
+extern u32 osViGetStatus(void);
+extern u32 osViGetCurrentMode(void);
+extern u32 osViGetCurrentLine(void);
+extern u32 osViGetCurrentField(void);
 extern void *osViGetCurrentFramebuffer(void);
 extern void *osViGetNextFramebuffer(void);
-extern void  osViSetXScale(f32);
-extern void  osViSetYScale(f32);
-extern void  osViExtendVStart(u32);
-extern void  osViSetSpecialFeatures(u32);
-extern void  osViSetMode(OSViMode *);
-extern void  osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void  osViSwapBuffer(void *);
-extern void  osViBlack(u8);
-extern void  osViFade(u8, u16);
-extern void  osViRepeatLine(u8);
-extern void  osCreateViManager(OSPri);
+extern void osViSetXScale(f32);
+extern void osViSetYScale(f32);
+extern void osViExtendVStart(u32);
+extern void osViSetSpecialFeatures(u32);
+extern void osViSetMode(OSViMode *);
+extern void osViSetEvent(OSMesgQueue *, OSMesg, u32);
+extern void osViSwapBuffer(void *);
+extern void osViBlack(u8);
+extern void osViFade(u8, u16);
+extern void osViRepeatLine(u8);
+extern void osCreateViManager(OSPri);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

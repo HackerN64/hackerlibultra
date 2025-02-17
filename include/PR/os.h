@@ -76,11 +76,11 @@ extern "C" {
  *	SIM (SI Manager)
  *
  */
-#define OS_PIM_STACKSIZE   4096
-#define OS_VIM_STACKSIZE   4096
-#define OS_SIM_STACKSIZE   4096
+#define OS_PIM_STACKSIZE 4096
+#define OS_VIM_STACKSIZE 4096
+#define OS_SIM_STACKSIZE 4096
 
-#define OS_MIN_STACKSIZE   72
+#define OS_MIN_STACKSIZE 72
 
 /*
  * Leo Disk
@@ -88,9 +88,9 @@ extern "C" {
 
 /* transfer mode */
 
-#define LEO_BLOCK_MODE     1
-#define LEO_TRACK_MODE     2
-#define LEO_SECTOR_MODE    3
+#define LEO_BLOCK_MODE  1
+#define LEO_TRACK_MODE  2
+#define LEO_SECTOR_MODE 3
 
 /*
  * Boot addresses

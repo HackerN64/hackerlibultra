@@ -3,12 +3,12 @@
 #include "PRinternal/controller.h"
 
 s32 osPfsFreeBlocks(OSPfs *pfs, s32 *bytes_not_used) {
-    int       j;
-    int       pages = 0;
+    int j;
+    int pages = 0;
     __OSInode inode;
-    s32       ret = 0;
-    u8        bank;
-    int       offset;
+    s32 ret = 0;
+    u8 bank;
+    int offset;
 
     PFS_CHECK_STATUS();
 #if BUILD_VERSION >= VERSION_J

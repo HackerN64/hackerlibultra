@@ -21,7 +21,7 @@
 #include "sndp.h"
 
 ALSndId alSndpAllocate(ALSndPlayer *sndp, ALSound *sound) {
-    ALSndId       i;
+    ALSndId i;
     ALSoundState *sState = sndp->sndState;
 
     for (i = 0; i < sndp->maxSounds; i++) {

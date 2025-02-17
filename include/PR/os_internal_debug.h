@@ -31,7 +31,7 @@ extern "C" {
 
 /* Debug port */
 extern void __osSyncPutChars(int, int, const char *);
-extern int  __osAtomicDec(unsigned int *p);
+extern int __osAtomicDec(unsigned int *p);
 
 #endif /* _LANGUAGE_C */
 

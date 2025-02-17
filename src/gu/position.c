@@ -26,8 +26,8 @@
 
 void guPositionF(float mf[4][4], float r, float p, float h, float s, float x, float y, float z) {
     static float dtor = 3.1415926 / 180.0;
-    float        sinr, sinp, sinh;
-    float        cosr, cosp, cosh;
+    float sinr, sinp, sinh;
+    float cosr, cosp, cosh;
 
     r *= dtor;
     p *= dtor;

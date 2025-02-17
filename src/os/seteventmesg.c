@@ -9,7 +9,7 @@ u32 __osPreNMI = FALSE;
 #endif
 
 void osSetEventMesg(OSEvent event, OSMesgQueue *mq, OSMesg msg) {
-    register u32    saveMask;
+    register u32 saveMask;
     __OSEventState *es;
 
 #ifdef _DEBUG

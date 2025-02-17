@@ -9,7 +9,7 @@
 
 void osFree(void *region, void *addr) {
     register OSRegion *rp = region;
-    int                i;
+    int i;
 
 #ifdef _DEBUG
     assert((region != NULL) && (addr != NULL));

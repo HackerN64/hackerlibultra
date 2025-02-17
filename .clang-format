@@ -6,14 +6,7 @@ ColumnLimit: 120
 PointerAlignment: Right
 AllowShortFunctionsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
-AlignConsecutiveDeclarations:
-    Enabled: true
-    AcrossEmptyLines: true
-    AcrossComments: false
-AlignConsecutiveMacros:
-    Enabled: true
-    AcrossComments: true
-    AcrossEmptyLines: true
+AlignConsecutiveMacros: true
 BinPackArguments: true
 BinPackParameters: true
 SpaceAfterCStyleCast: true

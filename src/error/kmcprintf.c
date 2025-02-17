@@ -6,7 +6,7 @@
 #include "ultraerror.h"
 #include "../libc/xstdio.h"
 
-extern u32   __kmc_pt_mode;
+extern u32 __kmc_pt_mode;
 
 static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
     size_t sent = 0;
@@ -21,7 +21,7 @@ static volatile unsigned int *stat = (unsigned *) 0xbff08004;
 static volatile unsigned int *wport = (unsigned *) 0xbff08000;
 static volatile unsigned int *piok = (unsigned *) PHYS_TO_K1(PI_STATUS_REG);
 
-static void                   rmonPutchar(char c) {
+static void rmonPutchar(char c) {
     while (*piok & (PI_STATUS_DMA_BUSY | PI_STATUS_IO_BUSY)) {
     }
 
@@ -32,11 +32,11 @@ static void                   rmonPutchar(char c) {
 }
 
 static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
-    int        i;
-    char       c;
-    char      *p;
-    char      *q;
-    char       xbuf[128];
+    int i;
+    char c;
+    char *p;
+    char *q;
+    char xbuf[128];
     static int column = 0;
 
     p = &xbuf;
@@ -81,7 +81,7 @@ static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
     return (void *) 1;
 }
 
-char        NULSTR[] = "";
+char NULSTR[] = "";
 
 const char *__os_error_message[] = {
     NULSTR,
@@ -223,13 +223,13 @@ const char *__os_error_message[] = {
     NULSTR,
 };
 
-static void    kmcErrorHandler(s16 code, s16 numArgs, ...);
+static void kmcErrorHandler(s16 code, s16 numArgs, ...);
 OSErrorHandler __kmcErrorHandler = kmcErrorHandler;
 
-static void    kmcErrorHandler(s16 code, s16 numArgs, ...) {
-    int     ans;
+static void kmcErrorHandler(s16 code, s16 numArgs, ...) {
+    int ans;
     va_list ap;
-    char   *fmt;
+    char *fmt;
 
     fmt = __os_error_message[code];
     va_start(ap, numArgs);

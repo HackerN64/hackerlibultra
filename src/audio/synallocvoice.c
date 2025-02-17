@@ -25,10 +25,10 @@
 s32 _allocatePVoice(ALSynth *drvr, PVoice **pvoice, s16 priority);
 
 s32 alSynAllocVoice(ALSynth *drvr, ALVoice *voice, ALVoiceConfig *vc) {
-    PVoice   *pvoice = 0;
+    PVoice *pvoice = 0;
     ALFilter *f;
-    ALParam  *update;
-    s32       stolen;
+    ALParam *update;
+    s32 stolen;
 
 #ifdef _DEBUG
     /* need two updates if voice is stolen */
@@ -98,7 +98,7 @@ s32 alSynAllocVoice(ALSynth *drvr, ALVoice *voice, ALVoiceConfig *vc) {
 s32 _allocatePVoice(ALSynth *drvr, PVoice **pvoice, s16 priority) {
     ALLink *dl;
     PVoice *pv;
-    s32     stolen = 0;
+    s32 stolen = 0;
 
     if ((dl = drvr->pLameList.next) != 0) { /* check the lame list first */
         *pvoice = (PVoice *) dl;

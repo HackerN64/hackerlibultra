@@ -3,14 +3,14 @@
 #include "PR/rdb.h"
 
 // not included in final rom, but __osThreadSave is here for some reason
-OSThread         __osThreadSave;
+OSThread __osThreadSave;
 
 extern OSThread *__osRunningThread;
-extern u32       __osRdb_IP6_Empty;
+extern u32 __osRdb_IP6_Empty;
 
 #ifndef _FINALROM
 
-static u8  buffer[12];
+static u8 buffer[12];
 static u32 numChars = 0;
 
 static u32 string_to_u32(u8 *s) {
@@ -26,7 +26,7 @@ static u32 string_to_u32(u8 *s) {
 
 static void send_packet(u8 *s, u32 n) {
     rdbPacket packet;
-    u32       i;
+    u32 i;
 
     packet.type = 0xC;
     packet.length = n;

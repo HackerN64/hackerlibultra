@@ -2,18 +2,18 @@
 #include "PR/os_internal.h"
 #include "PRinternal/osint.h"
 
-OSTime   __osCurrentTime;
-u32      __osBaseCounter;
-u32      __osViIntrCount;
-u32      __osTimerCounter;
-OSTimer  __osBaseTimer;
+OSTime __osCurrentTime;
+u32 __osBaseCounter;
+u32 __osViIntrCount;
+u32 __osTimerCounter;
+OSTimer __osBaseTimer;
 OSTimer *__osTimerList = &__osBaseTimer;
 
 #ifndef _FINALROM
 OSMesgQueue __osProfTimerQ ALIGNED(0x8);
-OSProf                    *__osProfileList;
-OSProf                    *__osProfileListEnd;
-u32                        __osProfileOverflowBin;
+OSProf *__osProfileList;
+OSProf *__osProfileListEnd;
+u32 __osProfileOverflowBin;
 #endif
 
 void __osTimerServicesInit(void) {
@@ -28,12 +28,12 @@ void __osTimerServicesInit(void) {
 
 void __osTimerInterrupt(void) {
     OSTimer *t;
-    u32      count;
-    u32      elapsed_cycles;
+    u32 count;
+    u32 elapsed_cycles;
 
 #ifndef _FINALROM
-    u32     pc;
-    s32     offset;
+    u32 pc;
+    s32 offset;
     OSProf *prof = __osProfileList;
 #endif
 
@@ -100,7 +100,7 @@ void __osTimerInterrupt(void) {
 
 void __osSetTimerIntr(OSTime tim) {
     OSTime NewTime;
-    u32    savedMask;
+    u32 savedMask;
 
 #if BUILD_VERSION >= VERSION_K
     if (tim < 468) {
@@ -117,8 +117,8 @@ void __osSetTimerIntr(OSTime tim) {
 
 OSTime __osInsertTimer(OSTimer *t) {
     OSTimer *timep;
-    OSTime   tim;
-    u32      savedMask = __osDisableInt();
+    OSTime tim;
+    u32 savedMask = __osDisableInt();
 
     timep = __osTimerList->next;
     tim = t->value;

@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSndpSetPan(ALSndPlayer *sndp, ALPan pan) {
-    ALSndpEvent   evt;
+    ALSndpEvent evt;
     ALSoundState *sState = sndp->sndState;
 
 #ifdef _DEBUG

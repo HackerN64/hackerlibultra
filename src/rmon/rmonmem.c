@@ -24,7 +24,7 @@
 #ident "$Revision: 1.4 $"
 #endif
 
-u8   __rmonUtilityBuffer[256] ALIGNED(0x8);
+u8 __rmonUtilityBuffer[256] ALIGNED(0x8);
 
 void __rmonWriteWordTo(u32 *addr, u32 val) {
     while (__osSpRawWriteIo((u32) addr, val) != 0) {
@@ -61,12 +61,12 @@ static void strcpy(char *dest, char *srce) {
 }
 
 int __rmonReadMem(KKHeader *req) {
-    char          *cPtr;
-    int            sent;
-    int            dataSize;
+    char *cPtr;
+    int sent;
+    int dataSize;
     KKReadRequest *request = (KKReadRequest *) req;
     KKBufferEvent *reply = (KKBufferEvent *) __rmonUtilityBuffer;
-    u8            *blockStart;
+    u8 *blockStart;
 
     STUBBED_PRINTF(("ReadMem @ %08x for %d\n", request->addr, request->nbytes));
 
@@ -107,7 +107,7 @@ int __rmonReadMem(KKHeader *req) {
 
 int __rmonWriteMem(KKHeader *req) {
     register KKWriteRequest *request = (KKWriteRequest *) req;
-    KKObjectEvent            reply;
+    KKObjectEvent reply;
 
     STUBBED_PRINTF(("WriteMem\n"));
 
@@ -146,7 +146,7 @@ int __rmonWriteMem(KKHeader *req) {
             }
             __rmonWriteWordTo((u32 *) (request->writeHeader.addr & ~3), word);
         } else {
-            int  wordCount = request->writeHeader.nbytes / sizeof(u32);
+            int wordCount = request->writeHeader.nbytes / sizeof(u32);
             u32 *wordPointer = (u32 *) request->buffer;
 
             if (request->writeHeader.nbytes % sizeof(u32) != 0) {
@@ -173,7 +173,7 @@ int __rmonWriteMem(KKHeader *req) {
 
 int __rmonListProcesses(KKHeader *req) {
     KKObjectRequest *request = (KKObjectRequest *) req;
-    KKObjsEvent      reply;
+    KKObjsEvent reply;
 
     STUBBED_PRINTF(("ListProcesses\n"));
 
@@ -195,7 +195,7 @@ int __rmonLoadProgram(KKHeader *request UNUSED) {
 
 int __rmonGetExeName(KKHeader *req) {
     KKObjectRequest *request = (KKObjectRequest *) req;
-    KKBufferEvent   *reply = (KKBufferEvent *) __rmonUtilityBuffer;
+    KKBufferEvent *reply = (KKBufferEvent *) __rmonUtilityBuffer;
 
     STUBBED_PRINTF(("GetExeName\n"));
 
@@ -215,7 +215,7 @@ int __rmonGetExeName(KKHeader *req) {
 
 int __rmonGetRegionCount(KKHeader *req) {
     KKObjectRequest *request = (KKObjectRequest *) req;
-    KKNumberEvent    reply;
+    KKNumberEvent reply;
 
     STUBBED_PRINTF(("GetRegionCount\n"));
 
@@ -232,8 +232,8 @@ int __rmonGetRegionCount(KKHeader *req) {
 
 int __rmonGetRegions(KKHeader *req) {
     KKObjectRequest *request = (KKObjectRequest *) req;
-    KKRegionEvent   *reply = (KKRegionEvent *) __rmonUtilityBuffer;
-    int              numRegions;
+    KKRegionEvent *reply = (KKRegionEvent *) __rmonUtilityBuffer;
+    int numRegions;
 
     STUBBED_PRINTF(("GetRegions\n"));
 

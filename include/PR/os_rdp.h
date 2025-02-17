@@ -73,10 +73,10 @@ extern "C" {
  */
 
 /* Display processor interface (Dp) */
-extern u32  osDpGetStatus(void);
+extern u32 osDpGetStatus(void);
 extern void osDpSetStatus(u32);
 extern void osDpGetCounters(u32 *);
-extern s32  osDpSetNextBuffer(void *, u64);
+extern s32 osDpSetNextBuffer(void *, u64);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

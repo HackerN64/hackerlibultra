@@ -22,15 +22,15 @@ modified versions thereof.
 extern "C" {
 #endif
 
-#define _MIPS_ISA_MIPS1  1 /* R2/3K */
-#define _MIPS_ISA_MIPS2  2 /* R4K/6K */
-#define _MIPS_ISA_MIPS3  3 /* R4K */
-#define _MIPS_ISA_MIPS4  4 /* TFP */
+#define _MIPS_ISA_MIPS1 1 /* R2/3K */
+#define _MIPS_ISA_MIPS2 2 /* R4K/6K */
+#define _MIPS_ISA_MIPS3 3 /* R4K */
+#define _MIPS_ISA_MIPS4 4 /* TFP */
 
 #define _MIPS_SIM_ABI32  1 /* MIPS MSIG calling convention */
 #define _MIPS_SIM_NABI32 2 /* MIPS new 32-bit abi */
                            /* NABI32 is 64bit calling convention but 32bit type sizes) */
-#define _MIPS_SIM_ABI64  3 /* MIPS 64 calling convention */
+#define _MIPS_SIM_ABI64 3  /* MIPS 64 calling convention */
 
 /* libgultra doesn't match with the .type directive but iQue sdk asm.h uses it */
 #ifdef BBPLAYER
@@ -50,7 +50,7 @@ extern "C" {
 #if defined(BBPLAYER) || defined(__sgi)
 #define XLEAF(x)                                                                                                       \
     .globl x;                                                                                                          \
-    .aent  x, 0;                                                                                                       \
+    .aent x, 0;                                                                                                        \
     x:
 #else
 #define XLEAF(x) .globl x
@@ -58,7 +58,7 @@ extern "C" {
 
 #ifdef BBPLAYER
 #define END(proc)                                                                                                      \
-    .end  proc;                                                                                                        \
+    .end proc;                                                                                                         \
     .size proc, .- proc
 #else
 #define END(proc) .end proc
@@ -84,9 +84,9 @@ extern "C" {
     .set reorder
 
 #define CACHE(op, reg)                                                                                                 \
-    .set  noreorder;                                                                                                   \
+    .set noreorder;                                                                                                    \
     cache op, reg;                                                                                                     \
-    .set  reorder
+    .set reorder
 
 #define MFC0(reg, op)                                                                                                  \
     .set noreorder;                                                                                                    \

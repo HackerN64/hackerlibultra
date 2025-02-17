@@ -31,7 +31,7 @@ extern "C" {
 
 /* Error handling */
 
-extern void      __osError(s16, s16, ...);
+extern void __osError(s16, s16, ...);
 extern OSThread *__osGetCurrFaultedThread(void);
 extern OSThread *__osGetNextFaultedThread(OSThread *);
 

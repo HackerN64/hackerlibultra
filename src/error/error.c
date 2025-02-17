@@ -5,10 +5,10 @@
 #include "PR/ultraerror.h"
 #include "PRinternal/macros.h"
 
-void                  __osLogWrite(OSLog *log, s16 code, s16 numArgs, va_list argPtr);
-static void           __osDefaultHandler(s16 code, s16 numArgs, ...);
+void __osLogWrite(OSLog *log, s16 code, s16 numArgs, va_list argPtr);
+static void __osDefaultHandler(s16 code, s16 numArgs, ...);
 
-static u32            errorLogData[19] ALIGNED(0x8);
+static u32 errorLogData[19] ALIGNED(0x8);
 static OSLog errorLog ALIGNED(0x8) = {
     OS_ERROR_MAGIC,       // magic
     sizeof(errorLogData), // len
@@ -19,7 +19,7 @@ static OSLog errorLog ALIGNED(0x8) = {
 
 OSErrorHandler __osErrorHandler = __osDefaultHandler;
 
-static void    __osDefaultHandler(s16 code, s16 numArgs, ...) {
+static void __osDefaultHandler(s16 code, s16 numArgs, ...) {
     va_list argPtr;
     va_start(argPtr, numArgs);
 

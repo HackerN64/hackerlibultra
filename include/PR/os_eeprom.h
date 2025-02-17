@@ -55,8 +55,8 @@ extern "C" {
 
 /* EEPROM TYPE */
 
-#define EEPROM_TYPE_4K    0x01
-#define EEPROM_TYPE_16K   0x02
+#define EEPROM_TYPE_4K  0x01
+#define EEPROM_TYPE_16K 0x02
 
 /* definition for EEPROM */
 

@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSynSetPan(ALSynth *synth, ALVoice *v, u8 pan) {
-    ALParam  *update;
+    ALParam *update;
     ALFilter *f;
 
     if (v->pvoice) {

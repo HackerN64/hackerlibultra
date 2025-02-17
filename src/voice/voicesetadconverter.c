@@ -15,7 +15,7 @@ s32 __osVoiceSetADConverter(OSMesgQueue *mq, s32 channel, u8 data) {
     s32 ret = 0;
     int i;
     u8 *ptr;
-    u8  status;
+    u8 status;
     int retry = 2;
 
     __osSiGetAccess();

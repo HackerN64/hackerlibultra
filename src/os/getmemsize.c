@@ -10,9 +10,9 @@
 
 u32 osGetMemSize(void) {
     vu32 *ptr;
-    u32   size = SIZE_4MB;
-    u32   data0;
-    u32   data1;
+    u32 size = SIZE_4MB;
+    u32 data0;
+    u32 data1;
 
     while (size < SIZE_8MB) {
         ptr = (vu32 *) (K1BASE + size);
@@ -40,7 +40,7 @@ u32 osGetMemSize(void) {
 
 u32 osGetMemSize(void) {
     u32 *memory;
-    u32  memsize = SIZE_4MB - STEP;
+    u32 memsize = SIZE_4MB - STEP;
     do {
         memsize += STEP;
         memory = (u32 *) (memsize + K1BASE);

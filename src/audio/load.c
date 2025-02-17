@@ -36,21 +36,21 @@ extern u32 cnt_index, adpcm_num, adpcm_cnt, adpcm_max, adpcm_min, lastCnt[];
 
 static Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags);
 
-Acmd        *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd         *ptr = p;
-    s16           inp;
-    s32           tsam;
-    s32           nframes;
-    s32           nbytes;
-    s32           overFlow;
-    s32           startZero;
-    s32           nOver;
-    s32           nSam;
-    s32           op;
-    s32           nLeft;
-    s32           bEnd;
-    s32           decoded = 0;
-    s32           looped = 0;
+Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
+    Acmd *ptr = p;
+    s16 inp;
+    s32 tsam;
+    s32 nframes;
+    s32 nbytes;
+    s32 overFlow;
+    s32 startZero;
+    s32 nOver;
+    s32 nSam;
+    s32 op;
+    s32 nLeft;
+    s32 bEnd;
+    s32 decoded = 0;
+    s32 looped = 0;
 
     ALLoadFilter *f = (ALLoadFilter *) filter;
 
@@ -204,18 +204,18 @@ Acmd        *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset
 }
 
 Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd         *ptr = p;
-    s32           nbytes;
-    s32           dramLoc;
-    s32           dramAlign;
-    s32           dmemAlign;
-    s32           overFlow;
-    s32           startZero;
-    s32           nSam;
-    s32           op;
+    Acmd *ptr = p;
+    s32 nbytes;
+    s32 dramLoc;
+    s32 dramAlign;
+    s32 dmemAlign;
+    s32 overFlow;
+    s32 startZero;
+    s32 nSam;
+    s32 op;
 
     ALLoadFilter *f = (ALLoadFilter *) filter;
-    ALFilter     *a = (ALFilter *) filter;
+    ALFilter *a = (ALFilter *) filter;
 
     if (outCount == 0)
         return ptr;
@@ -346,7 +346,7 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
 
 s32 alLoadParam(void *filter, s32 paramID, void *param) {
     ALLoadFilter *a = (ALLoadFilter *) filter;
-    ALFilter     *f = (ALFilter *) filter;
+    ALFilter *f = (ALFilter *) filter;
 
     switch (paramID) {
         case (AL_FILTER_SET_WAVETABLE):

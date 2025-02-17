@@ -8,10 +8,10 @@
 #ident "$Revision: 1.17 $"
 
 static __OSViContext vi[2] ALIGNED(0x8) = { 0 };
-__OSViContext       *__osViCurr = &vi[0];
-__OSViContext       *__osViNext = &vi[1];
+__OSViContext *__osViCurr = &vi[0];
+__OSViContext *__osViNext = &vi[1];
 
-void                 __osViInit(void) {
+void __osViInit(void) {
     bzero(vi, sizeof(vi));
     __osViCurr = &vi[0];
     __osViNext = &vi[1];

@@ -4,11 +4,11 @@
 
 void __osDevMgrMain(void *args) {
     OSIoMesg *mb;
-    OSMesg    em;
-    OSMesg    dummy;
-    s32       ret;
+    OSMesg em;
+    OSMesg dummy;
+    s32 ret;
     OSDevMgr *dm;
-    s32       messageSend = 0;
+    s32 messageSend = 0;
 
     dm = (OSDevMgr *) args;
     mb = NULL;

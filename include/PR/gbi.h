@@ -111,14 +111,14 @@
 #define G_SPECIAL_2      0xd4
 #define G_SPECIAL_3      0xd3
 
-#define G_VTX            0x01
-#define G_MODIFYVTX      0x02
-#define G_CULLDL         0x03
-#define G_BRANCH_Z       0x04
-#define G_TRI1           0x05
-#define G_TRI2           0x06
-#define G_QUAD           0x07
-#define G_LINE3D         0x08
+#define G_VTX       0x01
+#define G_MODIFYVTX 0x02
+#define G_CULLDL    0x03
+#define G_BRANCH_Z  0x04
+#define G_TRI1      0x05
+#define G_TRI2      0x06
+#define G_QUAD      0x07
+#define G_LINE3D    0x08
 #else                         /* F3DEX_GBI_2 */
 
 /* DMA commands: */
@@ -169,33 +169,33 @@
 #endif /* F3DEX_GBI_2 */
 
 /* RDP commands: */
-#define G_SETCIMG              0xff /*  -1 */
-#define G_SETZIMG              0xfe /*  -2 */
-#define G_SETTIMG              0xfd /*  -3 */
-#define G_SETCOMBINE           0xfc /*  -4 */
-#define G_SETENVCOLOR          0xfb /*  -5 */
-#define G_SETPRIMCOLOR         0xfa /*  -6 */
-#define G_SETBLENDCOLOR        0xf9 /*  -7 */
-#define G_SETFOGCOLOR          0xf8 /*  -8 */
-#define G_SETFILLCOLOR         0xf7 /*  -9 */
-#define G_FILLRECT             0xf6 /* -10 */
-#define G_SETTILE              0xf5 /* -11 */
-#define G_LOADTILE             0xf4 /* -12 */
-#define G_LOADBLOCK            0xf3 /* -13 */
-#define G_SETTILESIZE          0xf2 /* -14 */
-#define G_LOADTLUT             0xf0 /* -16 */
-#define G_RDPSETOTHERMODE      0xef /* -17 */
-#define G_SETPRIMDEPTH         0xee /* -18 */
-#define G_SETSCISSOR           0xed /* -19 */
-#define G_SETCONVERT           0xec /* -20 */
-#define G_SETKEYR              0xeb /* -21 */
-#define G_SETKEYGB             0xea /* -22 */
-#define G_RDPFULLSYNC          0xe9 /* -23 */
-#define G_RDPTILESYNC          0xe8 /* -24 */
-#define G_RDPPIPESYNC          0xe7 /* -25 */
-#define G_RDPLOADSYNC          0xe6 /* -26 */
-#define G_TEXRECTFLIP          0xe5 /* -27 */
-#define G_TEXRECT              0xe4 /* -28 */
+#define G_SETCIMG         0xff /*  -1 */
+#define G_SETZIMG         0xfe /*  -2 */
+#define G_SETTIMG         0xfd /*  -3 */
+#define G_SETCOMBINE      0xfc /*  -4 */
+#define G_SETENVCOLOR     0xfb /*  -5 */
+#define G_SETPRIMCOLOR    0xfa /*  -6 */
+#define G_SETBLENDCOLOR   0xf9 /*  -7 */
+#define G_SETFOGCOLOR     0xf8 /*  -8 */
+#define G_SETFILLCOLOR    0xf7 /*  -9 */
+#define G_FILLRECT        0xf6 /* -10 */
+#define G_SETTILE         0xf5 /* -11 */
+#define G_LOADTILE        0xf4 /* -12 */
+#define G_LOADBLOCK       0xf3 /* -13 */
+#define G_SETTILESIZE     0xf2 /* -14 */
+#define G_LOADTLUT        0xf0 /* -16 */
+#define G_RDPSETOTHERMODE 0xef /* -17 */
+#define G_SETPRIMDEPTH    0xee /* -18 */
+#define G_SETSCISSOR      0xed /* -19 */
+#define G_SETCONVERT      0xec /* -20 */
+#define G_SETKEYR         0xeb /* -21 */
+#define G_SETKEYGB        0xea /* -22 */
+#define G_RDPFULLSYNC     0xe9 /* -23 */
+#define G_RDPTILESYNC     0xe8 /* -24 */
+#define G_RDPPIPESYNC     0xe7 /* -25 */
+#define G_RDPLOADSYNC     0xe6 /* -26 */
+#define G_TEXRECTFLIP     0xe5 /* -27 */
+#define G_TEXRECT         0xe4 /* -28 */
 
 /*
  * The following commands are the "generated" RDP commands; the user
@@ -228,10 +228,10 @@
  */
 
 /* masks to build RDP triangle commands: */
-#define G_RDP_TRI_FILL_MASK    0x08
-#define G_RDP_TRI_SHADE_MASK   0x04
-#define G_RDP_TRI_TXTR_MASK    0x02
-#define G_RDP_TRI_ZBUFF_MASK   0x01
+#define G_RDP_TRI_FILL_MASK  0x08
+#define G_RDP_TRI_SHADE_MASK 0x04
+#define G_RDP_TRI_TXTR_MASK  0x02
+#define G_RDP_TRI_ZBUFF_MASK 0x01
 
 /*
  * HACK:
@@ -246,30 +246,30 @@
  *
  * THIS WILL BE REMOVED FOR HARDWARE VERSION 2.0!
  */
-#define BOWTIE_VAL             0
+#define BOWTIE_VAL 0
 
 /* gets added to RDP command, in order to test for addres fixup: */
-#define G_RDP_ADDR_FIXUP       3 /* |RDP cmds| <= this, do addr fixup */
+#define G_RDP_ADDR_FIXUP 3 /* |RDP cmds| <= this, do addr fixup */
 #ifdef _LANGUAGE_ASSEMBLY
 #define G_RDP_TEXRECT_CHECK ((-1 * G_TEXRECTFLIP) & 0xff)
 #endif
 
 /* macros for command parsing: */
-#define GDMACMD(x)                 (x)
-#define GIMMCMD(x)                 (G_IMMFIRST - (x))
-#define GRDPCMD(x)                 (0xff - (x))
+#define GDMACMD(x) (x)
+#define GIMMCMD(x) (G_IMMFIRST - (x))
+#define GRDPCMD(x) (0xff - (x))
 
-#define G_DMACMDSIZ                128
-#define G_IMMCMDSIZ                64
-#define G_RDPCMDSIZ                64
+#define G_DMACMDSIZ 128
+#define G_IMMCMDSIZ 64
+#define G_RDPCMDSIZ 64
 
 /*
  * Coordinate shift values, number of bits of fraction
  */
-#define G_TEXTURE_IMAGE_FRAC       2
-#define G_TEXTURE_SCALE_FRAC       16
-#define G_SCALE_FRAC               8
-#define G_ROTATE_FRAC              16
+#define G_TEXTURE_IMAGE_FRAC 2
+#define G_TEXTURE_SCALE_FRAC 16
+#define G_SCALE_FRAC         8
+#define G_ROTATE_FRAC        16
 
 /*
  * Parameters to graphics commands
@@ -284,7 +284,7 @@
  * Note : this number is NOT the viewport z-scale constant.
  * See the comment next to G_MAXZ for more info.
  */
-#define G_MAXFBZ                   0x3fff /* 3b exp, 11b mantissa */
+#define G_MAXFBZ 0x3fff /* 3b exp, 11b mantissa */
 
 #define GPACK_RGBA5551(r, g, b, a) ((((r) << 8) & 0xf800) | (((g) << 3) & 0x7c0) | (((b) >> 2) & 0x3e) | ((a) & 0x1))
 #define GPACK_ZDZ(z, dz)           ((z) << 2 | (dz))
@@ -376,100 +376,100 @@
 #define G_TX_LOADTILE   7
 #define G_TX_RENDERTILE 0
 
-#define G_TX_NOMIRROR   0
-#define G_TX_WRAP       0
-#define G_TX_MIRROR     0x1
-#define G_TX_CLAMP      0x2
-#define G_TX_NOMASK     0
-#define G_TX_NOLOD      0
+#define G_TX_NOMIRROR 0
+#define G_TX_WRAP     0
+#define G_TX_MIRROR   0x1
+#define G_TX_CLAMP    0x2
+#define G_TX_NOMASK   0
+#define G_TX_NOLOD    0
 #endif
 
 /*
  * G_SETIMG fmt: set image formats
  */
-#define G_IM_FMT_RGBA               0
-#define G_IM_FMT_YUV                1
-#define G_IM_FMT_CI                 2
-#define G_IM_FMT_IA                 3
-#define G_IM_FMT_I                  4
+#define G_IM_FMT_RGBA 0
+#define G_IM_FMT_YUV  1
+#define G_IM_FMT_CI   2
+#define G_IM_FMT_IA   3
+#define G_IM_FMT_I    4
 
 /*
  * G_SETIMG siz: set image pixel size
  */
-#define G_IM_SIZ_4b                 0
-#define G_IM_SIZ_8b                 1
-#define G_IM_SIZ_16b                2
-#define G_IM_SIZ_32b                3
-#define G_IM_SIZ_DD                 5
+#define G_IM_SIZ_4b  0
+#define G_IM_SIZ_8b  1
+#define G_IM_SIZ_16b 2
+#define G_IM_SIZ_32b 3
+#define G_IM_SIZ_DD  5
 
-#define G_IM_SIZ_4b_BYTES           0
-#define G_IM_SIZ_4b_TILE_BYTES      G_IM_SIZ_4b_BYTES
-#define G_IM_SIZ_4b_LINE_BYTES      G_IM_SIZ_4b_BYTES
+#define G_IM_SIZ_4b_BYTES      0
+#define G_IM_SIZ_4b_TILE_BYTES G_IM_SIZ_4b_BYTES
+#define G_IM_SIZ_4b_LINE_BYTES G_IM_SIZ_4b_BYTES
 
-#define G_IM_SIZ_8b_BYTES           1
-#define G_IM_SIZ_8b_TILE_BYTES      G_IM_SIZ_8b_BYTES
-#define G_IM_SIZ_8b_LINE_BYTES      G_IM_SIZ_8b_BYTES
+#define G_IM_SIZ_8b_BYTES      1
+#define G_IM_SIZ_8b_TILE_BYTES G_IM_SIZ_8b_BYTES
+#define G_IM_SIZ_8b_LINE_BYTES G_IM_SIZ_8b_BYTES
 
-#define G_IM_SIZ_16b_BYTES          2
-#define G_IM_SIZ_16b_TILE_BYTES     G_IM_SIZ_16b_BYTES
-#define G_IM_SIZ_16b_LINE_BYTES     G_IM_SIZ_16b_BYTES
+#define G_IM_SIZ_16b_BYTES      2
+#define G_IM_SIZ_16b_TILE_BYTES G_IM_SIZ_16b_BYTES
+#define G_IM_SIZ_16b_LINE_BYTES G_IM_SIZ_16b_BYTES
 
-#define G_IM_SIZ_32b_BYTES          4
-#define G_IM_SIZ_32b_TILE_BYTES     2
-#define G_IM_SIZ_32b_LINE_BYTES     2
+#define G_IM_SIZ_32b_BYTES      4
+#define G_IM_SIZ_32b_TILE_BYTES 2
+#define G_IM_SIZ_32b_LINE_BYTES 2
 
-#define G_IM_SIZ_4b_LOAD_BLOCK      G_IM_SIZ_16b
-#define G_IM_SIZ_8b_LOAD_BLOCK      G_IM_SIZ_16b
-#define G_IM_SIZ_16b_LOAD_BLOCK     G_IM_SIZ_16b
-#define G_IM_SIZ_32b_LOAD_BLOCK     G_IM_SIZ_32b
+#define G_IM_SIZ_4b_LOAD_BLOCK  G_IM_SIZ_16b
+#define G_IM_SIZ_8b_LOAD_BLOCK  G_IM_SIZ_16b
+#define G_IM_SIZ_16b_LOAD_BLOCK G_IM_SIZ_16b
+#define G_IM_SIZ_32b_LOAD_BLOCK G_IM_SIZ_32b
 
-#define G_IM_SIZ_4b_SHIFT           2
-#define G_IM_SIZ_8b_SHIFT           1
-#define G_IM_SIZ_16b_SHIFT          0
-#define G_IM_SIZ_32b_SHIFT          0
+#define G_IM_SIZ_4b_SHIFT  2
+#define G_IM_SIZ_8b_SHIFT  1
+#define G_IM_SIZ_16b_SHIFT 0
+#define G_IM_SIZ_32b_SHIFT 0
 
-#define G_IM_SIZ_4b_INCR            3
-#define G_IM_SIZ_8b_INCR            1
-#define G_IM_SIZ_16b_INCR           0
-#define G_IM_SIZ_32b_INCR           0
+#define G_IM_SIZ_4b_INCR  3
+#define G_IM_SIZ_8b_INCR  1
+#define G_IM_SIZ_16b_INCR 0
+#define G_IM_SIZ_32b_INCR 0
 
 /*
  * G_SETCOMBINE: color combine modes
  */
 /* Color combiner constants: */
-#define G_CCMUX_COMBINED            0
-#define G_CCMUX_TEXEL0              1
-#define G_CCMUX_TEXEL1              2
-#define G_CCMUX_PRIMITIVE           3
-#define G_CCMUX_SHADE               4
-#define G_CCMUX_ENVIRONMENT         5
-#define G_CCMUX_CENTER              6
-#define G_CCMUX_SCALE               6
-#define G_CCMUX_COMBINED_ALPHA      7
-#define G_CCMUX_TEXEL0_ALPHA        8
-#define G_CCMUX_TEXEL1_ALPHA        9
-#define G_CCMUX_PRIMITIVE_ALPHA     10
-#define G_CCMUX_SHADE_ALPHA         11
-#define G_CCMUX_ENV_ALPHA           12
-#define G_CCMUX_LOD_FRACTION        13
-#define G_CCMUX_PRIM_LOD_FRAC       14
-#define G_CCMUX_NOISE               7
-#define G_CCMUX_K4                  7
-#define G_CCMUX_K5                  15
-#define G_CCMUX_1                   6
-#define G_CCMUX_0                   31
+#define G_CCMUX_COMBINED        0
+#define G_CCMUX_TEXEL0          1
+#define G_CCMUX_TEXEL1          2
+#define G_CCMUX_PRIMITIVE       3
+#define G_CCMUX_SHADE           4
+#define G_CCMUX_ENVIRONMENT     5
+#define G_CCMUX_CENTER          6
+#define G_CCMUX_SCALE           6
+#define G_CCMUX_COMBINED_ALPHA  7
+#define G_CCMUX_TEXEL0_ALPHA    8
+#define G_CCMUX_TEXEL1_ALPHA    9
+#define G_CCMUX_PRIMITIVE_ALPHA 10
+#define G_CCMUX_SHADE_ALPHA     11
+#define G_CCMUX_ENV_ALPHA       12
+#define G_CCMUX_LOD_FRACTION    13
+#define G_CCMUX_PRIM_LOD_FRAC   14
+#define G_CCMUX_NOISE           7
+#define G_CCMUX_K4              7
+#define G_CCMUX_K5              15
+#define G_CCMUX_1               6
+#define G_CCMUX_0               31
 
 /* Alpha combiner constants: */
-#define G_ACMUX_COMBINED            0
-#define G_ACMUX_TEXEL0              1
-#define G_ACMUX_TEXEL1              2
-#define G_ACMUX_PRIMITIVE           3
-#define G_ACMUX_SHADE               4
-#define G_ACMUX_ENVIRONMENT         5
-#define G_ACMUX_LOD_FRACTION        0
-#define G_ACMUX_PRIM_LOD_FRAC       6
-#define G_ACMUX_1                   6
-#define G_ACMUX_0                   7
+#define G_ACMUX_COMBINED      0
+#define G_ACMUX_TEXEL0        1
+#define G_ACMUX_TEXEL1        2
+#define G_ACMUX_PRIMITIVE     3
+#define G_ACMUX_SHADE         4
+#define G_ACMUX_ENVIRONMENT   5
+#define G_ACMUX_LOD_FRACTION  0
+#define G_ACMUX_PRIM_LOD_FRAC 6
+#define G_ACMUX_1             6
+#define G_ACMUX_0             7
 
 /* typical CC cycle 1 modes */
 #define G_CC_PRIMITIVE              0, 0, 0, PRIMITIVE, 0, 0, 0, PRIMITIVE
@@ -505,123 +505,123 @@
 #define G_CC_BLENDPEDECALA          PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, TEXEL0
 
 /* oddball modes */
-#define _G_CC_BLENDPE               ENVIRONMENT, PRIMITIVE, TEXEL0, PRIMITIVE, TEXEL0, 0, SHADE, 0
-#define _G_CC_BLENDPEDECALA         ENVIRONMENT, PRIMITIVE, TEXEL0, PRIMITIVE, 0, 0, 0, TEXEL0
-#define _G_CC_TWOCOLORTEX           PRIMITIVE, SHADE, TEXEL0, SHADE, 0, 0, 0, SHADE
+#define _G_CC_BLENDPE       ENVIRONMENT, PRIMITIVE, TEXEL0, PRIMITIVE, TEXEL0, 0, SHADE, 0
+#define _G_CC_BLENDPEDECALA ENVIRONMENT, PRIMITIVE, TEXEL0, PRIMITIVE, 0, 0, 0, TEXEL0
+#define _G_CC_TWOCOLORTEX   PRIMITIVE, SHADE, TEXEL0, SHADE, 0, 0, 0, SHADE
 /* used for 1-cycle sparse mip-maps, primitive color has color of lowest LOD */
-#define _G_CC_SPARSEST              PRIMITIVE, TEXEL0, LOD_FRACTION, TEXEL0, PRIMITIVE, TEXEL0, LOD_FRACTION, TEXEL0
-#define G_CC_TEMPLERP               TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0
+#define _G_CC_SPARSEST PRIMITIVE, TEXEL0, LOD_FRACTION, TEXEL0, PRIMITIVE, TEXEL0, LOD_FRACTION, TEXEL0
+#define G_CC_TEMPLERP  TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0
 
 /* typical CC cycle 1 modes, usually followed by other cycle 2 modes */
-#define G_CC_TRILERP                TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0
-#define G_CC_INTERFERENCE           TEXEL0, 0, TEXEL1, 0, TEXEL0, 0, TEXEL1, 0
+#define G_CC_TRILERP      TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0
+#define G_CC_INTERFERENCE TEXEL0, 0, TEXEL1, 0, TEXEL0, 0, TEXEL1, 0
 
 /*
  *  One-cycle color convert operation
  */
-#define G_CC_1CYUV2RGB              TEXEL0, K4, K5, TEXEL0, 0, 0, 0, SHADE
+#define G_CC_1CYUV2RGB TEXEL0, K4, K5, TEXEL0, 0, 0, 0, SHADE
 
 /*
  *  NOTE: YUV2RGB expects TF step1 color conversion to occur in 2nd clock.
  * Therefore, CC looks for step1 results in TEXEL1
  */
-#define G_CC_YUV2RGB                TEXEL1, K4, K5, TEXEL1, 0, 0, 0, 0
+#define G_CC_YUV2RGB TEXEL1, K4, K5, TEXEL1, 0, 0, 0, 0
 
 /* typical CC cycle 2 modes */
-#define G_CC_PASS2                  0, 0, 0, COMBINED, 0, 0, 0, COMBINED
-#define G_CC_MODULATEI2             COMBINED, 0, SHADE, 0, 0, 0, 0, SHADE
-#define G_CC_MODULATEIA2            COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0
-#define G_CC_MODULATERGB2           G_CC_MODULATEI2
-#define G_CC_MODULATERGBA2          G_CC_MODULATEIA2
-#define G_CC_MODULATEI_PRIM2        COMBINED, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE
-#define G_CC_MODULATEIA_PRIM2       COMBINED, 0, PRIMITIVE, 0, COMBINED, 0, PRIMITIVE, 0
-#define G_CC_MODULATERGB_PRIM2      G_CC_MODULATEI_PRIM2
-#define G_CC_MODULATERGBA_PRIM2     G_CC_MODULATEIA_PRIM2
-#define G_CC_DECALRGB2              0, 0, 0, COMBINED, 0, 0, 0, SHADE
+#define G_CC_PASS2              0, 0, 0, COMBINED, 0, 0, 0, COMBINED
+#define G_CC_MODULATEI2         COMBINED, 0, SHADE, 0, 0, 0, 0, SHADE
+#define G_CC_MODULATEIA2        COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0
+#define G_CC_MODULATERGB2       G_CC_MODULATEI2
+#define G_CC_MODULATERGBA2      G_CC_MODULATEIA2
+#define G_CC_MODULATEI_PRIM2    COMBINED, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE
+#define G_CC_MODULATEIA_PRIM2   COMBINED, 0, PRIMITIVE, 0, COMBINED, 0, PRIMITIVE, 0
+#define G_CC_MODULATERGB_PRIM2  G_CC_MODULATEI_PRIM2
+#define G_CC_MODULATERGBA_PRIM2 G_CC_MODULATEIA_PRIM2
+#define G_CC_DECALRGB2          0, 0, 0, COMBINED, 0, 0, 0, SHADE
 /*
  * ?
 #define	G_CC_DECALRGBA2		COMBINED, SHADE, COMBINED_ALPHA, SHADE, 0, 0, 0, SHADE
 */
-#define G_CC_BLENDI2                ENVIRONMENT, SHADE, COMBINED, SHADE, 0, 0, 0, SHADE
-#define G_CC_BLENDIA2               ENVIRONMENT, SHADE, COMBINED, SHADE, COMBINED, 0, SHADE, 0
-#define G_CC_CHROMA_KEY2            TEXEL0, CENTER, SCALE, 0, 0, 0, 0, 0
-#define G_CC_HILITERGB2             ENVIRONMENT, COMBINED, TEXEL0, COMBINED, 0, 0, 0, SHADE
-#define G_CC_HILITERGBA2            ENVIRONMENT, COMBINED, TEXEL0, COMBINED, ENVIRONMENT, COMBINED, TEXEL0, COMBINED
-#define G_CC_HILITERGBDECALA2       ENVIRONMENT, COMBINED, TEXEL0, COMBINED, 0, 0, 0, TEXEL0
-#define G_CC_HILITERGBPASSA2        ENVIRONMENT, COMBINED, TEXEL0, COMBINED, 0, 0, 0, COMBINED
+#define G_CC_BLENDI2          ENVIRONMENT, SHADE, COMBINED, SHADE, 0, 0, 0, SHADE
+#define G_CC_BLENDIA2         ENVIRONMENT, SHADE, COMBINED, SHADE, COMBINED, 0, SHADE, 0
+#define G_CC_CHROMA_KEY2      TEXEL0, CENTER, SCALE, 0, 0, 0, 0, 0
+#define G_CC_HILITERGB2       ENVIRONMENT, COMBINED, TEXEL0, COMBINED, 0, 0, 0, SHADE
+#define G_CC_HILITERGBA2      ENVIRONMENT, COMBINED, TEXEL0, COMBINED, ENVIRONMENT, COMBINED, TEXEL0, COMBINED
+#define G_CC_HILITERGBDECALA2 ENVIRONMENT, COMBINED, TEXEL0, COMBINED, 0, 0, 0, TEXEL0
+#define G_CC_HILITERGBPASSA2  ENVIRONMENT, COMBINED, TEXEL0, COMBINED, 0, 0, 0, COMBINED
 
 /*
  * G_SETOTHERMODE_L sft: shift count
  */
-#define G_MDSFT_ALPHACOMPARE        0
-#define G_MDSFT_ZSRCSEL             2
-#define G_MDSFT_RENDERMODE          3
-#define G_MDSFT_BLENDER             16
+#define G_MDSFT_ALPHACOMPARE 0
+#define G_MDSFT_ZSRCSEL      2
+#define G_MDSFT_RENDERMODE   3
+#define G_MDSFT_BLENDER      16
 
 /*
  * G_SETOTHERMODE_H sft: shift count
  */
-#define G_MDSFT_BLENDMASK           0 /* unsupported */
-#define G_MDSFT_ALPHADITHER         4
-#define G_MDSFT_RGBDITHER           6
+#define G_MDSFT_BLENDMASK   0 /* unsupported */
+#define G_MDSFT_ALPHADITHER 4
+#define G_MDSFT_RGBDITHER   6
 
-#define G_MDSFT_COMBKEY             8
-#define G_MDSFT_TEXTCONV            9
-#define G_MDSFT_TEXTFILT            12
-#define G_MDSFT_TEXTLUT             14
-#define G_MDSFT_TEXTLOD             16
-#define G_MDSFT_TEXTDETAIL          17
-#define G_MDSFT_TEXTPERSP           19
-#define G_MDSFT_CYCLETYPE           20
-#define G_MDSFT_COLORDITHER         22 /* unsupported in HW 2.0 */
-#define G_MDSFT_PIPELINE            23
+#define G_MDSFT_COMBKEY     8
+#define G_MDSFT_TEXTCONV    9
+#define G_MDSFT_TEXTFILT    12
+#define G_MDSFT_TEXTLUT     14
+#define G_MDSFT_TEXTLOD     16
+#define G_MDSFT_TEXTDETAIL  17
+#define G_MDSFT_TEXTPERSP   19
+#define G_MDSFT_CYCLETYPE   20
+#define G_MDSFT_COLORDITHER 22 /* unsupported in HW 2.0 */
+#define G_MDSFT_PIPELINE    23
 
 /* G_SETOTHERMODE_H gPipelineMode */
-#define G_PM_1PRIMITIVE             (1 << G_MDSFT_PIPELINE)
-#define G_PM_NPRIMITIVE             (0 << G_MDSFT_PIPELINE)
+#define G_PM_1PRIMITIVE (1 << G_MDSFT_PIPELINE)
+#define G_PM_NPRIMITIVE (0 << G_MDSFT_PIPELINE)
 
 /* G_SETOTHERMODE_H gSetCycleType */
-#define G_CYC_1CYCLE                (0 << G_MDSFT_CYCLETYPE)
-#define G_CYC_2CYCLE                (1 << G_MDSFT_CYCLETYPE)
-#define G_CYC_COPY                  (2 << G_MDSFT_CYCLETYPE)
-#define G_CYC_FILL                  (3 << G_MDSFT_CYCLETYPE)
+#define G_CYC_1CYCLE (0 << G_MDSFT_CYCLETYPE)
+#define G_CYC_2CYCLE (1 << G_MDSFT_CYCLETYPE)
+#define G_CYC_COPY   (2 << G_MDSFT_CYCLETYPE)
+#define G_CYC_FILL   (3 << G_MDSFT_CYCLETYPE)
 
 /* G_SETOTHERMODE_H gSetTexturePersp */
-#define G_TP_NONE                   (0 << G_MDSFT_TEXTPERSP)
-#define G_TP_PERSP                  (1 << G_MDSFT_TEXTPERSP)
+#define G_TP_NONE  (0 << G_MDSFT_TEXTPERSP)
+#define G_TP_PERSP (1 << G_MDSFT_TEXTPERSP)
 
 /* G_SETOTHERMODE_H gSetTextureDetail */
-#define G_TD_CLAMP                  (0 << G_MDSFT_TEXTDETAIL)
-#define G_TD_SHARPEN                (1 << G_MDSFT_TEXTDETAIL)
-#define G_TD_DETAIL                 (2 << G_MDSFT_TEXTDETAIL)
+#define G_TD_CLAMP   (0 << G_MDSFT_TEXTDETAIL)
+#define G_TD_SHARPEN (1 << G_MDSFT_TEXTDETAIL)
+#define G_TD_DETAIL  (2 << G_MDSFT_TEXTDETAIL)
 
 /* G_SETOTHERMODE_H gSetTextureLOD */
-#define G_TL_TILE                   (0 << G_MDSFT_TEXTLOD)
-#define G_TL_LOD                    (1 << G_MDSFT_TEXTLOD)
+#define G_TL_TILE (0 << G_MDSFT_TEXTLOD)
+#define G_TL_LOD  (1 << G_MDSFT_TEXTLOD)
 
 /* G_SETOTHERMODE_H gSetTextureLUT */
-#define G_TT_NONE                   (0 << G_MDSFT_TEXTLUT)
-#define G_TT_RGBA16                 (2 << G_MDSFT_TEXTLUT)
-#define G_TT_IA16                   (3 << G_MDSFT_TEXTLUT)
+#define G_TT_NONE   (0 << G_MDSFT_TEXTLUT)
+#define G_TT_RGBA16 (2 << G_MDSFT_TEXTLUT)
+#define G_TT_IA16   (3 << G_MDSFT_TEXTLUT)
 
 /* G_SETOTHERMODE_H gSetTextureFilter */
-#define G_TF_POINT                  (0 << G_MDSFT_TEXTFILT)
-#define G_TF_AVERAGE                (3 << G_MDSFT_TEXTFILT)
-#define G_TF_BILERP                 (2 << G_MDSFT_TEXTFILT)
+#define G_TF_POINT   (0 << G_MDSFT_TEXTFILT)
+#define G_TF_AVERAGE (3 << G_MDSFT_TEXTFILT)
+#define G_TF_BILERP  (2 << G_MDSFT_TEXTFILT)
 
 /* G_SETOTHERMODE_H gSetTextureConvert */
-#define G_TC_CONV                   (0 << G_MDSFT_TEXTCONV)
-#define G_TC_FILTCONV               (5 << G_MDSFT_TEXTCONV)
-#define G_TC_FILT                   (6 << G_MDSFT_TEXTCONV)
+#define G_TC_CONV     (0 << G_MDSFT_TEXTCONV)
+#define G_TC_FILTCONV (5 << G_MDSFT_TEXTCONV)
+#define G_TC_FILT     (6 << G_MDSFT_TEXTCONV)
 
 /* G_SETOTHERMODE_H gSetCombineKey */
-#define G_CK_NONE                   (0 << G_MDSFT_COMBKEY)
-#define G_CK_KEY                    (1 << G_MDSFT_COMBKEY)
+#define G_CK_NONE (0 << G_MDSFT_COMBKEY)
+#define G_CK_KEY  (1 << G_MDSFT_COMBKEY)
 
 /* G_SETOTHERMODE_H gSetColorDither */
-#define G_CD_MAGICSQ                (0 << G_MDSFT_RGBDITHER)
-#define G_CD_BAYER                  (1 << G_MDSFT_RGBDITHER)
-#define G_CD_NOISE                  (2 << G_MDSFT_RGBDITHER)
+#define G_CD_MAGICSQ (0 << G_MDSFT_RGBDITHER)
+#define G_CD_BAYER   (1 << G_MDSFT_RGBDITHER)
+#define G_CD_NOISE   (2 << G_MDSFT_RGBDITHER)
 
 #ifndef _HW_VERSION_1
 #define G_CD_DISABLE (3 << G_MDSFT_RGBDITHER)
@@ -632,50 +632,50 @@
 #endif
 
 /* G_SETOTHERMODE_H gSetAlphaDither */
-#define G_AD_PATTERN               (0 << G_MDSFT_ALPHADITHER)
-#define G_AD_NOTPATTERN            (1 << G_MDSFT_ALPHADITHER)
-#define G_AD_NOISE                 (2 << G_MDSFT_ALPHADITHER)
-#define G_AD_DISABLE               (3 << G_MDSFT_ALPHADITHER)
+#define G_AD_PATTERN    (0 << G_MDSFT_ALPHADITHER)
+#define G_AD_NOTPATTERN (1 << G_MDSFT_ALPHADITHER)
+#define G_AD_NOISE      (2 << G_MDSFT_ALPHADITHER)
+#define G_AD_DISABLE    (3 << G_MDSFT_ALPHADITHER)
 
 /* G_SETOTHERMODE_L gSetAlphaCompare */
-#define G_AC_NONE                  (0 << G_MDSFT_ALPHACOMPARE)
-#define G_AC_THRESHOLD             (1 << G_MDSFT_ALPHACOMPARE)
-#define G_AC_DITHER                (3 << G_MDSFT_ALPHACOMPARE)
+#define G_AC_NONE      (0 << G_MDSFT_ALPHACOMPARE)
+#define G_AC_THRESHOLD (1 << G_MDSFT_ALPHACOMPARE)
+#define G_AC_DITHER    (3 << G_MDSFT_ALPHACOMPARE)
 
 /* G_SETOTHERMODE_L gSetDepthSource */
-#define G_ZS_PIXEL                 (0 << G_MDSFT_ZSRCSEL)
-#define G_ZS_PRIM                  (1 << G_MDSFT_ZSRCSEL)
+#define G_ZS_PIXEL (0 << G_MDSFT_ZSRCSEL)
+#define G_ZS_PRIM  (1 << G_MDSFT_ZSRCSEL)
 
 /* G_SETOTHERMODE_L gSetRenderMode */
-#define AA_EN                      0x8
-#define Z_CMP                      0x10
-#define Z_UPD                      0x20
-#define IM_RD                      0x40
-#define CLR_ON_CVG                 0x80
-#define CVG_DST_CLAMP              0
-#define CVG_DST_WRAP               0x100
-#define CVG_DST_FULL               0x200
-#define CVG_DST_SAVE               0x300
-#define ZMODE_OPA                  0
-#define ZMODE_INTER                0x400
-#define ZMODE_XLU                  0x800
-#define ZMODE_DEC                  0xc00
-#define CVG_X_ALPHA                0x1000
-#define ALPHA_CVG_SEL              0x2000
-#define FORCE_BL                   0x4000
-#define TEX_EDGE                   0x0000 /* used to be 0x8000 */
+#define AA_EN         0x8
+#define Z_CMP         0x10
+#define Z_UPD         0x20
+#define IM_RD         0x40
+#define CLR_ON_CVG    0x80
+#define CVG_DST_CLAMP 0
+#define CVG_DST_WRAP  0x100
+#define CVG_DST_FULL  0x200
+#define CVG_DST_SAVE  0x300
+#define ZMODE_OPA     0
+#define ZMODE_INTER   0x400
+#define ZMODE_XLU     0x800
+#define ZMODE_DEC     0xc00
+#define CVG_X_ALPHA   0x1000
+#define ALPHA_CVG_SEL 0x2000
+#define FORCE_BL      0x4000
+#define TEX_EDGE      0x0000 /* used to be 0x8000 */
 
-#define G_BL_CLR_IN                0
-#define G_BL_CLR_MEM               1
-#define G_BL_CLR_BL                2
-#define G_BL_CLR_FOG               3
-#define G_BL_1MA                   0
-#define G_BL_A_MEM                 1
-#define G_BL_A_IN                  0
-#define G_BL_A_FOG                 1
-#define G_BL_A_SHADE               2
-#define G_BL_1                     2
-#define G_BL_0                     3
+#define G_BL_CLR_IN  0
+#define G_BL_CLR_MEM 1
+#define G_BL_CLR_BL  2
+#define G_BL_CLR_FOG 3
+#define G_BL_1MA     0
+#define G_BL_A_MEM   1
+#define G_BL_A_IN    0
+#define G_BL_A_FOG   1
+#define G_BL_A_SHADE 2
+#define G_BL_1       2
+#define G_BL_0       3
 
 #define GBL_c1(m1a, m1b, m2a, m2b) (m1a) << 30 | (m1b) << 26 | (m2a) << 22 | (m2b) << 18
 #define GBL_c2(m1a, m1b, m2a, m2b) (m1a) << 28 | (m1b) << 24 | (m2a) << 20 | (m2b) << 16
@@ -834,12 +834,12 @@
 #define RM_ADD(clk)                                                                                                    \
     IM_RD | CVG_DST_SAVE | FORCE_BL | ZMODE_OPA | GBL_c##clk(G_BL_CLR_IN, G_BL_A_FOG, G_BL_CLR_MEM, G_BL_1)
 
-#define RM_NOOP(clk)          GBL_c##clk(0, 0, 0, 0)
+#define RM_NOOP(clk) GBL_c##clk(0, 0, 0, 0)
 
-#define RM_VISCVG(clk)        IM_RD | FORCE_BL | GBL_c##clk(G_BL_CLR_IN, G_BL_0, G_BL_CLR_BL, G_BL_A_MEM)
+#define RM_VISCVG(clk) IM_RD | FORCE_BL | GBL_c##clk(G_BL_CLR_IN, G_BL_0, G_BL_CLR_BL, G_BL_A_MEM)
 
 /* for rendering to an 8-bit framebuffer */
-#define RM_OPA_CI(clk)        CVG_DST_CLAMP | ZMODE_OPA | GBL_c##clk(G_BL_CLR_IN, G_BL_0, G_BL_CLR_IN, G_BL_1)
+#define RM_OPA_CI(clk) CVG_DST_CLAMP | ZMODE_OPA | GBL_c##clk(G_BL_CLR_IN, G_BL_0, G_BL_CLR_IN, G_BL_1)
 
 #define G_RM_AA_ZB_OPA_SURF   RM_AA_ZB_OPA_SURF(1)
 #define G_RM_AA_ZB_OPA_SURF2  RM_AA_ZB_OPA_SURF(2)
@@ -879,88 +879,88 @@
 #define G_RM_RA_ZB_OPA_INTER  RM_RA_ZB_OPA_INTER(1)
 #define G_RM_RA_ZB_OPA_INTER2 RM_RA_ZB_OPA_INTER(2)
 
-#define G_RM_AA_OPA_SURF      RM_AA_OPA_SURF(1)
-#define G_RM_AA_OPA_SURF2     RM_AA_OPA_SURF(2)
-#define G_RM_AA_XLU_SURF      RM_AA_XLU_SURF(1)
-#define G_RM_AA_XLU_SURF2     RM_AA_XLU_SURF(2)
-#define G_RM_AA_XLU_LINE      RM_AA_XLU_LINE(1)
-#define G_RM_AA_XLU_LINE2     RM_AA_XLU_LINE(2)
-#define G_RM_AA_DEC_LINE      RM_AA_DEC_LINE(1)
-#define G_RM_AA_DEC_LINE2     RM_AA_DEC_LINE(2)
-#define G_RM_AA_TEX_EDGE      RM_AA_TEX_EDGE(1)
-#define G_RM_AA_TEX_EDGE2     RM_AA_TEX_EDGE(2)
-#define G_RM_AA_SUB_SURF      RM_AA_SUB_SURF(1)
-#define G_RM_AA_SUB_SURF2     RM_AA_SUB_SURF(2)
-#define G_RM_AA_PCL_SURF      RM_AA_PCL_SURF(1)
-#define G_RM_AA_PCL_SURF2     RM_AA_PCL_SURF(2)
-#define G_RM_AA_OPA_TERR      RM_AA_OPA_TERR(1)
-#define G_RM_AA_OPA_TERR2     RM_AA_OPA_TERR(2)
-#define G_RM_AA_TEX_TERR      RM_AA_TEX_TERR(1)
-#define G_RM_AA_TEX_TERR2     RM_AA_TEX_TERR(2)
-#define G_RM_AA_SUB_TERR      RM_AA_SUB_TERR(1)
-#define G_RM_AA_SUB_TERR2     RM_AA_SUB_TERR(2)
+#define G_RM_AA_OPA_SURF  RM_AA_OPA_SURF(1)
+#define G_RM_AA_OPA_SURF2 RM_AA_OPA_SURF(2)
+#define G_RM_AA_XLU_SURF  RM_AA_XLU_SURF(1)
+#define G_RM_AA_XLU_SURF2 RM_AA_XLU_SURF(2)
+#define G_RM_AA_XLU_LINE  RM_AA_XLU_LINE(1)
+#define G_RM_AA_XLU_LINE2 RM_AA_XLU_LINE(2)
+#define G_RM_AA_DEC_LINE  RM_AA_DEC_LINE(1)
+#define G_RM_AA_DEC_LINE2 RM_AA_DEC_LINE(2)
+#define G_RM_AA_TEX_EDGE  RM_AA_TEX_EDGE(1)
+#define G_RM_AA_TEX_EDGE2 RM_AA_TEX_EDGE(2)
+#define G_RM_AA_SUB_SURF  RM_AA_SUB_SURF(1)
+#define G_RM_AA_SUB_SURF2 RM_AA_SUB_SURF(2)
+#define G_RM_AA_PCL_SURF  RM_AA_PCL_SURF(1)
+#define G_RM_AA_PCL_SURF2 RM_AA_PCL_SURF(2)
+#define G_RM_AA_OPA_TERR  RM_AA_OPA_TERR(1)
+#define G_RM_AA_OPA_TERR2 RM_AA_OPA_TERR(2)
+#define G_RM_AA_TEX_TERR  RM_AA_TEX_TERR(1)
+#define G_RM_AA_TEX_TERR2 RM_AA_TEX_TERR(2)
+#define G_RM_AA_SUB_TERR  RM_AA_SUB_TERR(1)
+#define G_RM_AA_SUB_TERR2 RM_AA_SUB_TERR(2)
 
-#define G_RM_RA_OPA_SURF      RM_RA_OPA_SURF(1)
-#define G_RM_RA_OPA_SURF2     RM_RA_OPA_SURF(2)
+#define G_RM_RA_OPA_SURF  RM_RA_OPA_SURF(1)
+#define G_RM_RA_OPA_SURF2 RM_RA_OPA_SURF(2)
 
-#define G_RM_ZB_OPA_SURF      RM_ZB_OPA_SURF(1)
-#define G_RM_ZB_OPA_SURF2     RM_ZB_OPA_SURF(2)
-#define G_RM_ZB_XLU_SURF      RM_ZB_XLU_SURF(1)
-#define G_RM_ZB_XLU_SURF2     RM_ZB_XLU_SURF(2)
-#define G_RM_ZB_OPA_DECAL     RM_ZB_OPA_DECAL(1)
-#define G_RM_ZB_OPA_DECAL2    RM_ZB_OPA_DECAL(2)
-#define G_RM_ZB_XLU_DECAL     RM_ZB_XLU_DECAL(1)
-#define G_RM_ZB_XLU_DECAL2    RM_ZB_XLU_DECAL(2)
-#define G_RM_ZB_CLD_SURF      RM_ZB_CLD_SURF(1)
-#define G_RM_ZB_CLD_SURF2     RM_ZB_CLD_SURF(2)
-#define G_RM_ZB_OVL_SURF      RM_ZB_OVL_SURF(1)
-#define G_RM_ZB_OVL_SURF2     RM_ZB_OVL_SURF(2)
-#define G_RM_ZB_PCL_SURF      RM_ZB_PCL_SURF(1)
-#define G_RM_ZB_PCL_SURF2     RM_ZB_PCL_SURF(2)
+#define G_RM_ZB_OPA_SURF   RM_ZB_OPA_SURF(1)
+#define G_RM_ZB_OPA_SURF2  RM_ZB_OPA_SURF(2)
+#define G_RM_ZB_XLU_SURF   RM_ZB_XLU_SURF(1)
+#define G_RM_ZB_XLU_SURF2  RM_ZB_XLU_SURF(2)
+#define G_RM_ZB_OPA_DECAL  RM_ZB_OPA_DECAL(1)
+#define G_RM_ZB_OPA_DECAL2 RM_ZB_OPA_DECAL(2)
+#define G_RM_ZB_XLU_DECAL  RM_ZB_XLU_DECAL(1)
+#define G_RM_ZB_XLU_DECAL2 RM_ZB_XLU_DECAL(2)
+#define G_RM_ZB_CLD_SURF   RM_ZB_CLD_SURF(1)
+#define G_RM_ZB_CLD_SURF2  RM_ZB_CLD_SURF(2)
+#define G_RM_ZB_OVL_SURF   RM_ZB_OVL_SURF(1)
+#define G_RM_ZB_OVL_SURF2  RM_ZB_OVL_SURF(2)
+#define G_RM_ZB_PCL_SURF   RM_ZB_PCL_SURF(1)
+#define G_RM_ZB_PCL_SURF2  RM_ZB_PCL_SURF(2)
 
-#define G_RM_OPA_SURF         RM_OPA_SURF(1)
-#define G_RM_OPA_SURF2        RM_OPA_SURF(2)
-#define G_RM_XLU_SURF         RM_XLU_SURF(1)
-#define G_RM_XLU_SURF2        RM_XLU_SURF(2)
-#define G_RM_CLD_SURF         RM_CLD_SURF(1)
-#define G_RM_CLD_SURF2        RM_CLD_SURF(2)
-#define G_RM_TEX_EDGE         RM_TEX_EDGE(1)
-#define G_RM_TEX_EDGE2        RM_TEX_EDGE(2)
-#define G_RM_PCL_SURF         RM_PCL_SURF(1)
-#define G_RM_PCL_SURF2        RM_PCL_SURF(2)
-#define G_RM_ADD              RM_ADD(1)
-#define G_RM_ADD2             RM_ADD(2)
-#define G_RM_NOOP             RM_NOOP(1)
-#define G_RM_NOOP2            RM_NOOP(2)
-#define G_RM_VISCVG           RM_VISCVG(1)
-#define G_RM_VISCVG2          RM_VISCVG(2)
-#define G_RM_OPA_CI           RM_OPA_CI(1)
-#define G_RM_OPA_CI2          RM_OPA_CI(2)
+#define G_RM_OPA_SURF  RM_OPA_SURF(1)
+#define G_RM_OPA_SURF2 RM_OPA_SURF(2)
+#define G_RM_XLU_SURF  RM_XLU_SURF(1)
+#define G_RM_XLU_SURF2 RM_XLU_SURF(2)
+#define G_RM_CLD_SURF  RM_CLD_SURF(1)
+#define G_RM_CLD_SURF2 RM_CLD_SURF(2)
+#define G_RM_TEX_EDGE  RM_TEX_EDGE(1)
+#define G_RM_TEX_EDGE2 RM_TEX_EDGE(2)
+#define G_RM_PCL_SURF  RM_PCL_SURF(1)
+#define G_RM_PCL_SURF2 RM_PCL_SURF(2)
+#define G_RM_ADD       RM_ADD(1)
+#define G_RM_ADD2      RM_ADD(2)
+#define G_RM_NOOP      RM_NOOP(1)
+#define G_RM_NOOP2     RM_NOOP(2)
+#define G_RM_VISCVG    RM_VISCVG(1)
+#define G_RM_VISCVG2   RM_VISCVG(2)
+#define G_RM_OPA_CI    RM_OPA_CI(1)
+#define G_RM_OPA_CI2   RM_OPA_CI(2)
 
-#define G_RM_FOG_SHADE_A      GBL_c1(G_BL_CLR_FOG, G_BL_A_SHADE, G_BL_CLR_IN, G_BL_1MA)
-#define G_RM_FOG_PRIM_A       GBL_c1(G_BL_CLR_FOG, G_BL_A_FOG, G_BL_CLR_IN, G_BL_1MA)
-#define G_RM_PASS             GBL_c1(G_BL_CLR_IN, G_BL_0, G_BL_CLR_IN, G_BL_1)
+#define G_RM_FOG_SHADE_A GBL_c1(G_BL_CLR_FOG, G_BL_A_SHADE, G_BL_CLR_IN, G_BL_1MA)
+#define G_RM_FOG_PRIM_A  GBL_c1(G_BL_CLR_FOG, G_BL_A_FOG, G_BL_CLR_IN, G_BL_1MA)
+#define G_RM_PASS        GBL_c1(G_BL_CLR_IN, G_BL_0, G_BL_CLR_IN, G_BL_1)
 
 /*
  * G_SETCONVERT: K0-5
  */
-#define G_CV_K0               175
-#define G_CV_K1               -43
-#define G_CV_K2               -89
-#define G_CV_K3               222
-#define G_CV_K4               114
-#define G_CV_K5               42
+#define G_CV_K0 175
+#define G_CV_K1 -43
+#define G_CV_K2 -89
+#define G_CV_K3 222
+#define G_CV_K4 114
+#define G_CV_K5 42
 
 /*
  * G_SETSCISSOR: interlace mode
  */
-#define G_SC_NON_INTERLACE    0
-#define G_SC_ODD_INTERLACE    3
-#define G_SC_EVEN_INTERLACE   2
+#define G_SC_NON_INTERLACE  0
+#define G_SC_ODD_INTERLACE  3
+#define G_SC_EVEN_INTERLACE 2
 
 /* flags to inhibit pushing of the display list (on branch) */
-#define G_DL_PUSH             0x00
-#define G_DL_NOPUSH           0x01
+#define G_DL_PUSH   0x00
+#define G_DL_NOPUSH 0x01
 
 /*
  * BEGIN C-specific section: (typedef's)
@@ -1004,26 +1004,26 @@
  * Vertex (set up for use with colors)
  */
 typedef struct {
-    short          ob[3]; /* x, y, z */
+    short ob[3]; /* x, y, z */
     unsigned short flag;
-    short          tc[2]; /* texture coord */
-    unsigned char  cn[4]; /* color & alpha */
+    short tc[2];         /* texture coord */
+    unsigned char cn[4]; /* color & alpha */
 } Vtx_t;
 
 /*
  * Vertex (set up for use with normals)
  */
 typedef struct {
-    short          ob[3]; /* x, y, z */
+    short ob[3]; /* x, y, z */
     unsigned short flag;
-    short          tc[2]; /* texture coord */
-    signed char    n[3];  /* normal */
-    unsigned char  a;     /* alpha  */
+    short tc[2];      /* texture coord */
+    signed char n[3]; /* normal */
+    unsigned char a;  /* alpha  */
 } Vtx_tn;
 
 typedef union {
-    Vtx_t         v; /* Use this one for colors  */
-    Vtx_tn        n; /* Use this one for normals */
+    Vtx_t v;  /* Use this one for colors  */
+    Vtx_tn n; /* Use this one for normals */
     long long int force_structure_alignment;
 } Vtx;
 
@@ -1037,8 +1037,8 @@ typedef struct {
     short Stride;
     short SubImageWidth;
     short SubImageHeight;
-    char  SourceImageType;
-    char  SourceImageBitSize;
+    char SourceImageType;
+    char SourceImageBitSize;
     short SourceImageOffsetS;
     short SourceImageOffsetT;
     /* 20 bytes for above */
@@ -1071,7 +1071,7 @@ typedef struct {
 typedef long Mtx_t[4][4];
 
 typedef union {
-    Mtx_t         m;
+    Mtx_t m;
     long long int force_structure_alignment;
 } Mtx;
 
@@ -1116,7 +1116,7 @@ typedef struct {
 } Vp_t;
 
 typedef union {
-    Vp_t          vp;
+    Vp_t vp;
     long long int force_structure_alignment;
 } Vp;
 
@@ -1184,7 +1184,7 @@ typedef union {
 #else /* F3DEX_GBI_2 */
 #define G_MW_POINTS 0x0c
 #endif /* F3DEX_GBI_2 */
-#define G_MW_PERSPNORM  0x0e
+#define G_MW_PERSPNORM 0x0e
 
 /*
  * These are offsets from the address in the dmem table
@@ -1277,18 +1277,18 @@ typedef union {
 
 typedef struct {
     unsigned char col[3]; /* diffuse light value (rgba) */
-    char          pad1;
+    char pad1;
     unsigned char colc[3]; /* copy of diffuse light value (rgba) */
-    char          pad2;
-    signed char   dir[3]; /* direction of light (normalized) */
-    char          pad3;
+    char pad2;
+    signed char dir[3]; /* direction of light (normalized) */
+    char pad3;
 } Light_t;
 
 typedef struct {
     unsigned char col[3]; /* ambient light value (rgba) */
-    char          pad1;
+    char pad1;
     unsigned char colc[3]; /* copy of ambient light value (rgba) */
-    char          pad2;
+    char pad2;
 } Ambient_t;
 
 typedef struct {
@@ -1296,58 +1296,58 @@ typedef struct {
 } Hilite_t;
 
 typedef union {
-    Light_t       l;
+    Light_t l;
     long long int force_structure_alignment[2];
 } Light;
 
 typedef union {
-    Ambient_t     l;
+    Ambient_t l;
     long long int force_structure_alignment[1];
 } Ambient;
 
 typedef struct {
     Ambient a;
-    Light   l[7];
+    Light l[7];
 } Lightsn;
 
 typedef struct {
     Ambient a;
-    Light   l[1];
+    Light l[1];
 } Lights0;
 
 typedef struct {
     Ambient a;
-    Light   l[1];
+    Light l[1];
 } Lights1;
 
 typedef struct {
     Ambient a;
-    Light   l[2];
+    Light l[2];
 } Lights2;
 
 typedef struct {
     Ambient a;
-    Light   l[3];
+    Light l[3];
 } Lights3;
 
 typedef struct {
     Ambient a;
-    Light   l[4];
+    Light l[4];
 } Lights4;
 
 typedef struct {
     Ambient a;
-    Light   l[5];
+    Light l[5];
 } Lights5;
 
 typedef struct {
     Ambient a;
-    Light   l[6];
+    Light l[6];
 } Lights6;
 
 typedef struct {
     Ambient a;
-    Light   l[7];
+    Light l[7];
 } Lights7;
 
 typedef struct {
@@ -1440,7 +1440,7 @@ typedef union {
  *  Graphics DMA Packet
  */
 typedef struct {
-    int          cmd : 8;
+    int cmd : 8;
     unsigned int par : 8;
     unsigned int len : 16;
     unsigned int addr;
@@ -1456,9 +1456,9 @@ typedef struct {
 } Gtri;
 
 typedef struct {
-    int           cmd : 8;
-    int           pad1 : 24;
-    int           pad2 : 24;
+    int cmd : 8;
+    int pad1 : 24;
+    int pad2 : 24;
     unsigned char param : 8;
 } Gpopmtx;
 
@@ -1481,26 +1481,26 @@ typedef struct {
 } Gsegment;
 
 typedef struct {
-    int          cmd : 8;
-    int          pad0 : 8;
-    int          sft : 8;
-    int          len : 8;
+    int cmd : 8;
+    int pad0 : 8;
+    int sft : 8;
+    int len : 8;
     unsigned int data : 32;
 } GsetothermodeL;
 
 typedef struct {
-    int          cmd : 8;
-    int          pad0 : 8;
-    int          sft : 8;
-    int          len : 8;
+    int cmd : 8;
+    int pad0 : 8;
+    int sft : 8;
+    int len : 8;
     unsigned int data : 32;
 } GsetothermodeH;
 
 typedef struct {
-    unsigned char  cmd;
-    unsigned char  lodscale;
-    unsigned char  tile;
-    unsigned char  on;
+    unsigned char cmd;
+    unsigned char lodscale;
+    unsigned char tile;
+    unsigned char on;
     unsigned short s;
     unsigned short t;
 } Gtexture;
@@ -1512,8 +1512,8 @@ typedef struct {
 } Gline3D;
 
 typedef struct {
-    int       cmd : 8;
-    int       pad1 : 24;
+    int cmd : 8;
+    int pad1 : 24;
     short int pad2;
     short int scale;
 } Gperspnorm;
@@ -1522,7 +1522,7 @@ typedef struct {
  * RDP Packet types
  */
 typedef struct {
-    int          cmd : 8;
+    int cmd : 8;
     unsigned int fmt : 3;
     unsigned int siz : 2;
     unsigned int pad : 7;
@@ -1531,13 +1531,13 @@ typedef struct {
 } Gsetimg;
 
 typedef struct {
-    int          cmd : 8;
+    int cmd : 8;
     unsigned int muxs0 : 24;
     unsigned int muxs1 : 32;
 } Gsetcombine;
 
 typedef struct {
-    int           cmd : 8;
+    int cmd : 8;
     unsigned char pad;
     unsigned char prim_min_level;
     unsigned char prim_level;
@@ -1545,20 +1545,20 @@ typedef struct {
 } Gsetcolor;
 
 typedef struct {
-    int          cmd : 8;
-    int          x0 : 10;
-    int          x0frac : 2;
-    int          y0 : 10;
-    int          y0frac : 2;
+    int cmd : 8;
+    int x0 : 10;
+    int x0frac : 2;
+    int y0 : 10;
+    int y0frac : 2;
     unsigned int pad : 8;
-    int          x1 : 10;
-    int          x1frac : 2;
-    int          y1 : 10;
-    int          y1frac : 2;
+    int x1 : 10;
+    int x1frac : 2;
+    int y1 : 10;
+    int y1frac : 2;
 } Gfillrect;
 
 typedef struct {
-    int          cmd : 8;
+    int cmd : 8;
     unsigned int fmt : 3;
     unsigned int siz : 2;
     unsigned int pad0 : 1;
@@ -1578,10 +1578,10 @@ typedef struct {
 } Gsettile;
 
 typedef struct {
-    int          cmd : 8;
+    int cmd : 8;
     unsigned int sl : 12;
     unsigned int tl : 12;
-    int          pad : 5;
+    int pad : 5;
     unsigned int tile : 3;
     unsigned int sh : 12;
     unsigned int th : 12;
@@ -1633,25 +1633,25 @@ typedef struct {
  * It is, by law, exactly 64 bits in size.
  */
 typedef union {
-    Gwords         words;
-    Gdma           dma;
-    Gtri           tri;
-    Gline3D        line;
-    Gpopmtx        popmtx;
-    Gsegment       segment;
+    Gwords words;
+    Gdma dma;
+    Gtri tri;
+    Gline3D line;
+    Gpopmtx popmtx;
+    Gsegment segment;
     GsetothermodeH setothermodeH;
     GsetothermodeL setothermodeL;
-    Gtexture       texture;
-    Gperspnorm     perspnorm;
-    Gsetimg        setimg;
-    Gsetcombine    setcombine;
-    Gsetcolor      setcolor;
-    Gfillrect      fillrect; /* use for setscissor also */
-    Gsettile       settile;
-    Gloadtile      loadtile; /* use for loadblock also, th is dxt */
-    Gsettilesize   settilesize;
-    Gloadtlut      loadtlut;
-    long long int  force_structure_alignment;
+    Gtexture texture;
+    Gperspnorm perspnorm;
+    Gsetimg setimg;
+    Gsetcombine setcombine;
+    Gsetcolor setcolor;
+    Gfillrect fillrect; /* use for setscissor also */
+    Gsettile settile;
+    Gloadtile loadtile; /* use for loadblock also, th is dxt */
+    Gsettilesize settilesize;
+    Gloadtlut loadtlut;
+    long long int force_structure_alignment;
 } Gfx;
 
 /*
@@ -1767,8 +1767,8 @@ typedef union {
 #define gSPDisplayList(pkt, dl) gDma1p(pkt, G_DL, dl, 0, G_DL_PUSH)
 #define gsSPDisplayList(dl)     gsDma1p(G_DL, dl, 0, G_DL_PUSH)
 
-#define gSPBranchList(pkt, dl)  gDma1p(pkt, G_DL, dl, 0, G_DL_NOPUSH)
-#define gsSPBranchList(dl)      gsDma1p(G_DL, dl, 0, G_DL_NOPUSH)
+#define gSPBranchList(pkt, dl) gDma1p(pkt, G_DL, dl, 0, G_DL_NOPUSH)
+#define gsSPBranchList(dl)     gsDma1p(G_DL, dl, 0, G_DL_NOPUSH)
 
 #define gSPSprite2DBase(pkt, s) gDma1p(pkt, G_SPRITE2D_BASE, s, sizeof(uSprite), 0)
 #define gsSPSprite2DBase(s)     gsDma1p(G_SPRITE2D_BASE, s, sizeof(uSprite), 0)
@@ -2121,18 +2121,18 @@ typedef union {
 /*
  * Clipping Macros
  */
-#define FR_NEG_FRUSTRATIO_1            0x00000001
-#define FR_POS_FRUSTRATIO_1            0x0000ffff
-#define FR_NEG_FRUSTRATIO_2            0x00000002
-#define FR_POS_FRUSTRATIO_2            0x0000fffe
-#define FR_NEG_FRUSTRATIO_3            0x00000003
-#define FR_POS_FRUSTRATIO_3            0x0000fffd
-#define FR_NEG_FRUSTRATIO_4            0x00000004
-#define FR_POS_FRUSTRATIO_4            0x0000fffc
-#define FR_NEG_FRUSTRATIO_5            0x00000005
-#define FR_POS_FRUSTRATIO_5            0x0000fffb
-#define FR_NEG_FRUSTRATIO_6            0x00000006
-#define FR_POS_FRUSTRATIO_6            0x0000fffa
+#define FR_NEG_FRUSTRATIO_1 0x00000001
+#define FR_POS_FRUSTRATIO_1 0x0000ffff
+#define FR_NEG_FRUSTRATIO_2 0x00000002
+#define FR_POS_FRUSTRATIO_2 0x0000fffe
+#define FR_NEG_FRUSTRATIO_3 0x00000003
+#define FR_POS_FRUSTRATIO_3 0x0000fffd
+#define FR_NEG_FRUSTRATIO_4 0x00000004
+#define FR_POS_FRUSTRATIO_4 0x0000fffc
+#define FR_NEG_FRUSTRATIO_5 0x00000005
+#define FR_POS_FRUSTRATIO_5 0x0000fffb
+#define FR_NEG_FRUSTRATIO_6 0x00000006
+#define FR_POS_FRUSTRATIO_6 0x0000fffa
 /*
  * r should be one of: FRUSTRATIO_1, FRUSTRATIO_2, FRUSTRATIO_3, ... FRUSTRATIO_6
  */
@@ -2366,14 +2366,14 @@ typedef union {
 #else
 #define NUML(n) (((n) + 1) * 32 + 0x80000000)
 #endif
-#define NUMLIGHTS_0          1
-#define NUMLIGHTS_1          1
-#define NUMLIGHTS_2          2
-#define NUMLIGHTS_3          3
-#define NUMLIGHTS_4          4
-#define NUMLIGHTS_5          5
-#define NUMLIGHTS_6          6
-#define NUMLIGHTS_7          7
+#define NUMLIGHTS_0 1
+#define NUMLIGHTS_1 1
+#define NUMLIGHTS_2 2
+#define NUMLIGHTS_3 3
+#define NUMLIGHTS_4 4
+#define NUMLIGHTS_5 5
+#define NUMLIGHTS_6 6
+#define NUMLIGHTS_7 7
 /*
  * n should be one of: NUMLIGHTS_0, NUMLIGHTS_1, ..., NUMLIGHTS_7
  * NOTE: in addition to the number of directional lights specified,
@@ -2382,14 +2382,14 @@ typedef union {
 #define gSPNumLights(pkt, n) gMoveWd(pkt, G_MW_NUMLIGHT, G_MWO_NUMLIGHT, NUML(n))
 #define gsSPNumLights(n)     gsMoveWd(G_MW_NUMLIGHT, G_MWO_NUMLIGHT, NUML(n))
 
-#define LIGHT_1              1
-#define LIGHT_2              2
-#define LIGHT_3              3
-#define LIGHT_4              4
-#define LIGHT_5              5
-#define LIGHT_6              6
-#define LIGHT_7              7
-#define LIGHT_8              8
+#define LIGHT_1 1
+#define LIGHT_2 2
+#define LIGHT_3 3
+#define LIGHT_4 4
+#define LIGHT_5 5
+#define LIGHT_6 6
+#define LIGHT_7 7
+#define LIGHT_8 8
 /*
  * l should point to a Light struct
  * n should be one of: LIGHT_1, LIGHT_2, ..., LIGHT_8
@@ -2561,7 +2561,7 @@ typedef union {
  */
 #define gSPFogFactor(pkt, fm, fo) gMoveWd(pkt, G_MW_FOG, G_MWO_FOG, (_SHIFTL(fm, 16, 16) | _SHIFTL(fo, 0, 16)))
 
-#define gsSPFogFactor(fm, fo)     gsMoveWd(G_MW_FOG, G_MWO_FOG, (_SHIFTL(fm, 16, 16) | _SHIFTL(fo, 0, 16)))
+#define gsSPFogFactor(fm, fo) gsMoveWd(G_MW_FOG, G_MWO_FOG, (_SHIFTL(fm, 16, 16) | _SHIFTL(fo, 0, 16)))
 
 #define gSPFogPosition(pkt, min, max)                                                                                  \
     gMoveWd(pkt, G_MW_FOG, G_MWO_FOG,                                                                                  \
@@ -2771,32 +2771,32 @@ typedef union {
 /*
  * RDP setothermode register commands - register shadowed in RSP
  */
-#define gDPPipelineMode(pkt, mode)      gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_PIPELINE, 1, mode)
-#define gsDPPipelineMode(mode)          gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_PIPELINE, 1, mode)
+#define gDPPipelineMode(pkt, mode) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_PIPELINE, 1, mode)
+#define gsDPPipelineMode(mode)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_PIPELINE, 1, mode)
 
-#define gDPSetCycleType(pkt, type)      gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_CYCLETYPE, 2, type)
-#define gsDPSetCycleType(type)          gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_CYCLETYPE, 2, type)
+#define gDPSetCycleType(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_CYCLETYPE, 2, type)
+#define gsDPSetCycleType(type)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_CYCLETYPE, 2, type)
 
-#define gDPSetTexturePersp(pkt, type)   gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTPERSP, 1, type)
-#define gsDPSetTexturePersp(type)       gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTPERSP, 1, type)
+#define gDPSetTexturePersp(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTPERSP, 1, type)
+#define gsDPSetTexturePersp(type)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTPERSP, 1, type)
 
-#define gDPSetTextureDetail(pkt, type)  gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTDETAIL, 2, type)
-#define gsDPSetTextureDetail(type)      gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTDETAIL, 2, type)
+#define gDPSetTextureDetail(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTDETAIL, 2, type)
+#define gsDPSetTextureDetail(type)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTDETAIL, 2, type)
 
-#define gDPSetTextureLOD(pkt, type)     gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTLOD, 1, type)
-#define gsDPSetTextureLOD(type)         gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTLOD, 1, type)
+#define gDPSetTextureLOD(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTLOD, 1, type)
+#define gsDPSetTextureLOD(type)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTLOD, 1, type)
 
-#define gDPSetTextureLUT(pkt, type)     gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTLUT, 2, type)
-#define gsDPSetTextureLUT(type)         gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTLUT, 2, type)
+#define gDPSetTextureLUT(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTLUT, 2, type)
+#define gsDPSetTextureLUT(type)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTLUT, 2, type)
 
-#define gDPSetTextureFilter(pkt, type)  gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTFILT, 2, type)
-#define gsDPSetTextureFilter(type)      gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTFILT, 2, type)
+#define gDPSetTextureFilter(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTFILT, 2, type)
+#define gsDPSetTextureFilter(type)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTFILT, 2, type)
 
 #define gDPSetTextureConvert(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_TEXTCONV, 3, type)
 #define gsDPSetTextureConvert(type)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_TEXTCONV, 3, type)
 
-#define gDPSetCombineKey(pkt, type)     gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_COMBKEY, 1, type)
-#define gsDPSetCombineKey(type)         gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_COMBKEY, 1, type)
+#define gDPSetCombineKey(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_COMBKEY, 1, type)
+#define gsDPSetCombineKey(type)     gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_COMBKEY, 1, type)
 
 #ifndef _HW_VERSION_1
 #define gDPSetColorDither(pkt, mode) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_RGBDITHER, 2, mode)
@@ -2815,14 +2815,14 @@ typedef union {
  * The bits are reserved for future use.
  * Fri May 26 13:45:55 PDT 1995
  */
-#define gDPSetBlendMask(pkt, mask)    gDPNoOp(pkt)
-#define gsDPSetBlendMask(mask)        gsDPNoOp()
+#define gDPSetBlendMask(pkt, mask) gDPNoOp(pkt)
+#define gsDPSetBlendMask(mask)     gsDPNoOp()
 
 #define gDPSetAlphaCompare(pkt, type) gSPSetOtherMode(pkt, G_SETOTHERMODE_L, G_MDSFT_ALPHACOMPARE, 2, type)
 #define gsDPSetAlphaCompare(type)     gsSPSetOtherMode(G_SETOTHERMODE_L, G_MDSFT_ALPHACOMPARE, 2, type)
 
-#define gDPSetDepthSource(pkt, src)   gSPSetOtherMode(pkt, G_SETOTHERMODE_L, G_MDSFT_ZSRCSEL, 1, src)
-#define gsDPSetDepthSource(src)       gsSPSetOtherMode(G_SETOTHERMODE_L, G_MDSFT_ZSRCSEL, 1, src)
+#define gDPSetDepthSource(pkt, src) gSPSetOtherMode(pkt, G_SETOTHERMODE_L, G_MDSFT_ZSRCSEL, 1, src)
+#define gsDPSetDepthSource(src)     gsSPSetOtherMode(G_SETOTHERMODE_L, G_MDSFT_ZSRCSEL, 1, src)
 
 #define gDPSetRenderMode(pkt, c0, c1) gSPSetOtherMode(pkt, G_SETOTHERMODE_L, G_MDSFT_RENDERMODE, 29, (c0) | (c1))
 #define gsDPSetRenderMode(c0, c1)     gsSPSetOtherMode(G_SETOTHERMODE_L, G_MDSFT_RENDERMODE, 29, (c0) | (c1))
@@ -2843,15 +2843,15 @@ typedef union {
         }                                                                                                              \
     }
 
-#define gDPSetColorImage(pkt, f, s, w, i)   gSetImage(pkt, G_SETCIMG, f, s, w, i)
-#define gsDPSetColorImage(f, s, w, i)       gsSetImage(G_SETCIMG, f, s, w, i)
+#define gDPSetColorImage(pkt, f, s, w, i) gSetImage(pkt, G_SETCIMG, f, s, w, i)
+#define gsDPSetColorImage(f, s, w, i)     gsSetImage(G_SETCIMG, f, s, w, i)
 
 /* use these for new code */
-#define gDPSetDepthImage(pkt, i)            gSetImage(pkt, G_SETZIMG, 0, 0, 1, i)
-#define gsDPSetDepthImage(i)                gsSetImage(G_SETZIMG, 0, 0, 1, i)
+#define gDPSetDepthImage(pkt, i) gSetImage(pkt, G_SETZIMG, 0, 0, 1, i)
+#define gsDPSetDepthImage(i)     gsSetImage(G_SETZIMG, 0, 0, 1, i)
 /* kept for compatibility */
-#define gDPSetMaskImage(pkt, i)             gDPSetDepthImage(pkt, i)
-#define gsDPSetMaskImage(i)                 gsDPSetDepthImage(i)
+#define gDPSetMaskImage(pkt, i) gDPSetDepthImage(pkt, i)
+#define gsDPSetMaskImage(i)     gsDPSetDepthImage(i)
 
 #define gDPSetTextureImage(pkt, f, s, w, i) gSetImage(pkt, G_SETTIMG, f, s, w, i)
 #define gsDPSetTextureImage(f, s, w, i)     gsSetImage(G_SETTIMG, f, s, w, i)
@@ -2955,8 +2955,8 @@ typedef union {
 #define gDPSetFillColor(pkt, d)           gDPSetColor(pkt, G_SETFILLCOLOR, (d))
 #define gsDPSetFillColor(d)               gsDPSetColor(G_SETFILLCOLOR, (d))
 
-#define gDPSetPrimDepth(pkt, z, dz)       gDPSetColor(pkt, G_SETPRIMDEPTH, _SHIFTL(z, 16, 16) | _SHIFTL(dz, 0, 16))
-#define gsDPSetPrimDepth(z, dz)           gsDPSetColor(G_SETPRIMDEPTH, _SHIFTL(z, 16, 16) | _SHIFTL(dz, 0, 16))
+#define gDPSetPrimDepth(pkt, z, dz) gDPSetColor(pkt, G_SETPRIMDEPTH, _SHIFTL(z, 16, 16) | _SHIFTL(dz, 0, 16))
+#define gsDPSetPrimDepth(z, dz)     gsDPSetColor(G_SETPRIMDEPTH, _SHIFTL(z, 16, 16) | _SHIFTL(dz, 0, 16))
 
 #define gDPSetPrimColor(pkt, m, l, r, g, b, a)                                                                         \
     {                                                                                                                  \
@@ -3026,12 +3026,12 @@ typedef union {
 #define G_TX_LOADTILE   7
 #define G_TX_RENDERTILE 0
 
-#define G_TX_NOMIRROR   0
-#define G_TX_WRAP       0
-#define G_TX_MIRROR     0x1
-#define G_TX_CLAMP      0x2
-#define G_TX_NOMASK     0
-#define G_TX_NOLOD      0
+#define G_TX_NOMIRROR 0
+#define G_TX_WRAP     0
+#define G_TX_MIRROR   0x1
+#define G_TX_CLAMP    0x2
+#define G_TX_NOMASK   0
+#define G_TX_NOLOD    0
 
 #ifndef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -3069,8 +3069,8 @@ typedef union {
 #define TXL2WORDS(txls, b_txl) MAX(1, ((txls) * (b_txl) / 8))
 #define CALC_DXT(width, b_txl) (((1 << G_TX_DXT_FRAC) + TXL2WORDS(width, b_txl) - 1) / TXL2WORDS(width, b_txl))
 
-#define TXL2WORDS_4b(txls)     MAX(1, ((txls) / 16))
-#define CALC_DXT_4b(width)     (((1 << G_TX_DXT_FRAC) + TXL2WORDS_4b(width) - 1) / TXL2WORDS_4b(width))
+#define TXL2WORDS_4b(txls) MAX(1, ((txls) / 16))
+#define CALC_DXT_4b(width) (((1 << G_TX_DXT_FRAC) + TXL2WORDS_4b(width) - 1) / TXL2WORDS_4b(width))
 
 #define gDPLoadTileGeneric(pkt, c, tile, uls, ult, lrs, lrt)                                                           \
     {                                                                                                                  \
@@ -3538,7 +3538,7 @@ typedef union {
                            shifts, shiftt)                                                                             \
                                                                                                                        \
     {                                                                                                                  \
-        int  _loadtile_i, _loadtile_nw;                                                                                \
+        int _loadtile_i, _loadtile_nw;                                                                                 \
         Gfx *_loadtile_temp = pkt;                                                                                     \
         guDPLoadTextureTile(_loadtile_temp, timg, fmt, siz, width, height, uls, ult, lrs, lrt, pal, cms, cmt, masks,   \
                             maskt, shifts, shiftt);                                                                    \

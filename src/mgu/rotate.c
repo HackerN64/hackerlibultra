@@ -16,9 +16,9 @@
 
 void guRotateF(float mf[4][4], float a, float x, float y, float z) {
     static float dtor = 3.1415926 / 180.0;
-    float        sine;
-    float        cosine;
-    float        ab, bc, ca, t;
+    float sine;
+    float cosine;
+    float ab, bc, ca, t;
 #if BUILD_VERSION >= VERSION_K
     float xxsine;
     float yxsine;

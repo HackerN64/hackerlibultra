@@ -177,8 +177,8 @@ u8 __osContDataCrc(u8 *data) {
 #else
 
 u8 __osContAddressCrc(u16 addr) {
-    u8  temp = 0;
-    u8  temp2;
+    u8 temp = 0;
+    u8 temp2;
     int i;
 
     for (i = 0; i < 16; i++) {
@@ -194,8 +194,8 @@ u8 __osContAddressCrc(u16 addr) {
 }
 
 u8 __osContDataCrc(u8 *data) {
-    u8  temp = 0;
-    u8  temp2;
+    u8 temp = 0;
+    u8 temp2;
     int i;
     int j;
 

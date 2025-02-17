@@ -14,8 +14,8 @@ s32 osVoiceMaskDictionary(OSVoiceHandle *hd, u8 *pattern, int size) {
     s32 ret = 0;
     s32 i;
     s32 j;
-    u8  stat;
-    u8  buf[20];
+    u8 stat;
+    u8 buf[20];
 
     ret = __osVoiceGetStatus(hd->__mq, hd->__channel, &stat);
     if (ret != 0) {

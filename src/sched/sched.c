@@ -24,10 +24,10 @@
 /*
  * private typedefs and defines
  */
-#define VIDEO_MSG     666
-#define RSP_DONE_MSG  667
-#define RDP_DONE_MSG  668
-#define PRE_NMI_MSG   669
+#define VIDEO_MSG    666
+#define RSP_DONE_MSG 667
+#define RDP_DONE_MSG 668
+#define PRE_NMI_MSG  669
 
 /*
  * OSScTask state
@@ -56,11 +56,11 @@ static void __scHandleRSP(OSSched *s);
 static void __scHandleRDP(OSSched *s);
 
 static void __scAppendList(OSSched *s, OSScTask *t);
-OSScTask   *__scTaskReady(OSScTask *t);
-static s32  __scTaskComplete(OSSched *s, OSScTask *t);
+OSScTask *__scTaskReady(OSScTask *t);
+static s32 __scTaskComplete(OSSched *s, OSScTask *t);
 static void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 static void __scYield(OSSched *s);
-static s32  __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
+static s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
 
 /*
 #define SC_LOGGING 1
@@ -68,9 +68,9 @@ static s32  __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP
 
 #ifdef SC_LOGGING
 #define SC_LOG_LEN 32 * 1024
-static OSLog  scLog;
+static OSLog scLog;
 static OSLog *l = &scLog;
-static u32    logArray[SC_LOG_LEN / sizeof(u32)];
+static u32 logArray[SC_LOG_LEN / sizeof(u32)];
 #endif
 
 /***********************************************************************
@@ -129,7 +129,7 @@ void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ) {
 void osScRemoveClient(OSSched *sc, OSScClient *c) {
     OSScClient *client = sc->clientList;
     OSScClient *prev = 0;
-    OSIntMask   mask;
+    OSIntMask mask;
 
     mask = osSetIntMask(OS_IM_NONE);
 
@@ -156,10 +156,10 @@ OSMesgQueue *osScGetCmdQ(OSSched *sc) {
  * Scheduler implementation
  **********************************************************************/
 static void __scMain(void *arg) {
-    OSMesg      msg;
-    OSSched    *sc = (OSSched *) arg;
+    OSMesg msg;
+    OSSched *sc = (OSSched *) arg;
     OSScClient *client;
-    static int  count = 0;
+    static int count = 0;
 
     while (1) {
 
@@ -201,13 +201,13 @@ static void __scMain(void *arg) {
 static int dp_busy = 0;
 static int dpCount = 0;
 
-void       __scHandleRetrace(OSSched *sc) {
-    OSScTask   *rspTask;
+void __scHandleRetrace(OSSched *sc) {
+    OSScTask *rspTask;
     OSScClient *client;
-    s32         i;
-    s32         state;
-    OSScTask   *sp = 0;
-    OSScTask   *dp = 0;
+    s32 i;
+    s32 state;
+    OSScTask *sp = 0;
+    OSScTask *dp = 0;
 
     sc->frameCount++;
 
@@ -253,7 +253,7 @@ void       __scHandleRetrace(OSSched *sc) {
  */
 void __scHandleRSP(OSSched *sc) {
     OSScTask *t, *sp = 0, *dp = 0;
-    s32       state;
+    s32 state;
 
     assert(sc->curRSPTask);
 
@@ -297,7 +297,7 @@ void __scHandleRSP(OSSched *sc) {
  */
 void __scHandleRDP(OSSched *sc) {
     OSScTask *t, *sp = 0, *dp = 0;
-    s32       state;
+    s32 state;
 
     assert(sc->curRDPTask);
     assert(sc->curRDPTask->list.t.type == M_GFXTASK);
@@ -323,7 +323,7 @@ void __scHandleRDP(OSSched *sc) {
  * based on the current state of the RCP.
  */
 OSScTask *__scTaskReady(OSScTask *t) {
-    int   rv = 0;
+    int rv = 0;
     void *a;
     void *b;
 
@@ -351,7 +351,7 @@ OSScTask *__scTaskReady(OSScTask *t) {
  * client if it is.
  */
 s32 __scTaskComplete(OSSched *sc, OSScTask *t) {
-    int        rv;
+    int rv;
     static int firsttime = 1;
 
     if ((t->state & OS_SC_RCP_MASK) == 0) { /* none of the needs bits set */
@@ -489,7 +489,7 @@ static void __scYield(OSSched *sc) {
  * Schedules the tasks to be run on the RCP
  */
 s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP) {
-    s32       avail = availRCP;
+    s32 avail = availRCP;
     OSScTask *gfx = sc->gfxListHead;
     OSScTask *audio = sc->audioListHead;
 

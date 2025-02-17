@@ -25,7 +25,7 @@
 #include <os.h>
 
 void alSynFreeVoice(ALSynth *drvr, ALVoice *voice) {
-    ALFilter    *f;
+    ALFilter *f;
     ALFreeParam *update;
 
     if (voice->pvoice) {

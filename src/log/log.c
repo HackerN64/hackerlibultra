@@ -8,15 +8,15 @@
 
 #ifndef _FINALROM
 
-static u32                         __osLogOKtoWrite = TRUE;
-static u32                         __osLogInitialized = FALSE;
+static u32 __osLogOKtoWrite = TRUE;
+static u32 __osLogInitialized = FALSE;
 
 static OSMesgQueue __osLogDoneMsgQ ALIGNED(0x8);
-static OSMesg                      __osLogMsgBuf;
+static OSMesg __osLogMsgBuf;
 
-void                               __osLogWrite(OSLog *log, s16 code, s16 numArgs, va_list argPtr);
+void __osLogWrite(OSLog *log, s16 code, s16 numArgs, va_list argPtr);
 
-void                               osCreateLog(OSLog *log, u32 *base, s32 byteLen) {
+void osCreateLog(OSLog *log, u32 *base, s32 byteLen) {
     log->magic = OS_LOG_MAGIC;
     log->base = base;
     log->len = byteLen;
@@ -42,7 +42,7 @@ void osFlushLog(OSLog *log) {
     u32 count;
     u32 subcount;
     u8 *base;
-    u8  dCount[3];
+    u8 dCount[3];
 
     if (!__osLogInitialized) {
         osCreateMesgQueue(&__osLogDoneMsgQ, &__osLogMsgBuf, 1);
@@ -83,14 +83,14 @@ void osFlushLog(OSLog *log) {
 }
 
 void __osLogWrite(OSLog *log, s16 code, s16 numArgs, va_list argPtr) {
-    int        i;
-    u32        saveEnable;
-    u32        buf[19];
-    u32       *bufp;
+    int i;
+    u32 saveEnable;
+    u32 buf[19];
+    u32 *bufp;
     OSLogItem *hdr;
-    s32       *args;
-    s32       *dest;
-    int        numLongs;
+    s32 *args;
+    s32 *dest;
+    int numLongs;
 
     bufp = buf;
     hdr = buf;

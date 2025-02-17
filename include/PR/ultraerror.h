@@ -35,8 +35,8 @@ extern "C" {
 
 #include "ultratypes.h"
 
-#define OS_ERROR_FMT                  "/usr/lib/PR/error.fmt"
-#define OS_ERROR_MAGIC                0x6b617479
+#define OS_ERROR_FMT   "/usr/lib/PR/error.fmt"
+#define OS_ERROR_MAGIC 0x6b617479
 
 /* OS error codes */
 

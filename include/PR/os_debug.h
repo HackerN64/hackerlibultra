@@ -49,7 +49,7 @@ extern "C" {
  */
 typedef struct {
     u16 *histo_base; /* histogram base */
-    u32  histo_size; /* histogram size */
+    u32 histo_size;  /* histogram size */
     u32 *text_start; /* start of text segment */
     u32 *text_end;   /* end of text segment */
 } OSProf;
@@ -95,12 +95,12 @@ extern void osProfileFlush(void);
 extern void osProfileStop(void);
 
 /* Thread Profiler Interface */
-extern void   osThreadProfileClear(OSId);
-extern void   osThreadProfileInit(void);
-extern void   osThreadProfileStart(void);
-extern void   osThreadProfileStop(void);
-extern u32    osThreadProfileReadCount(OSId);
-extern u32    osThreadProfileReadCountTh(OSThread *);
+extern void osThreadProfileClear(OSId);
+extern void osThreadProfileInit(void);
+extern void osThreadProfileStart(void);
+extern void osThreadProfileStop(void);
+extern u32 osThreadProfileReadCount(OSId);
+extern u32 osThreadProfileReadCountTh(OSThread *);
 extern OSTime osThreadProfileReadTime(OSId);
 extern OSTime osThreadProfileReadTimeTh(OSThread *);
 

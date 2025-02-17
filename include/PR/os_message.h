@@ -56,12 +56,12 @@ typedef void *OSMesg;
  * Structure for message queue
  */
 typedef struct OSMesgQueue_s {
-    OSThread *mtqueue;    /* Queue to store threads blocked on empty mailboxes (receive) */
-    OSThread *fullqueue;  /* Queue to store threads blocked on full mailboxes (send) */
-    s32       validCount; /* Contains number of valid message */
-    s32       first;      /* Points to first valid message */
-    s32       msgCount;   /* Contains total # of messages */
-    OSMesg   *msg;        /* Points to message buffer array */
+    OSThread *mtqueue;   /* Queue to store threads blocked on empty mailboxes (receive) */
+    OSThread *fullqueue; /* Queue to store threads blocked on full mailboxes (send) */
+    s32 validCount;      /* Contains number of valid message */
+    s32 first;           /* Points to first valid message */
+    s32 msgCount;        /* Contains total # of messages */
+    OSMesg *msg;         /* Points to message buffer array */
 } OSMesgQueue;
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
@@ -122,8 +122,8 @@ typedef struct OSMesgQueue_s {
 #define MQ_GET_COUNT(mq) ((mq)->validCount)
 
 /* Figure out if message queue is empty or full */
-#define MQ_IS_EMPTY(mq)  (MQ_GET_COUNT(mq) == 0)
-#define MQ_IS_FULL(mq)   (MQ_GET_COUNT(mq) >= (mq)->msgCount)
+#define MQ_IS_EMPTY(mq) (MQ_GET_COUNT(mq) == 0)
+#define MQ_IS_FULL(mq)  (MQ_GET_COUNT(mq) >= (mq)->msgCount)
 
 /**************************************************************************
  *
@@ -140,9 +140,9 @@ typedef struct OSMesgQueue_s {
 /* Message operations */
 
 extern void osCreateMesgQueue(OSMesgQueue *, OSMesg *, s32);
-extern s32  osSendMesg(OSMesgQueue *, OSMesg, s32);
-extern s32  osJamMesg(OSMesgQueue *, OSMesg, s32);
-extern s32  osRecvMesg(OSMesgQueue *, OSMesg *, s32);
+extern s32 osSendMesg(OSMesgQueue *, OSMesg, s32);
+extern s32 osJamMesg(OSMesgQueue *, OSMesg, s32);
+extern s32 osRecvMesg(OSMesgQueue *, OSMesg *, s32);
 
 /* Event operations */
 

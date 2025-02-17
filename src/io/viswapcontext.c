@@ -6,10 +6,10 @@
 #ident "$Revision: 1.17 $"
 
 void __osViSwapContext(void) {
-    register OSViMode      *vm;
+    register OSViMode *vm;
     register __OSViContext *vc;
-    u32                     origin;
-    u32                     hStart;
+    u32 origin;
+    u32 hStart;
 #if BUILD_VERSION >= VERSION_J
     u32 vStart;
 #endif

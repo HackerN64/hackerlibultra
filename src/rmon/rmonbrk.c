@@ -25,13 +25,13 @@
 typedef struct {
     TVushort type;
     TVushort response;
-    TVid     threadID;
-    void    *pc;
+    TVid threadID;
+    void *pc;
 } TVExceptionReplyMsg;
 
 typedef struct {
     u32 *breakAddress;
-    u32  oldInstruction;
+    u32 oldInstruction;
 } BREAKINFO;
 
 /* first breakpoint is reserved for implementing single-stepping */
@@ -41,11 +41,11 @@ static BREAKINFO altBreak;
 
 static BREAKINFO RCPbreakpoints[NUM_BREAKPOINTS] ALIGNED(0x8);
 
-u8               __rmonRcpAtBreak;
+u8 __rmonRcpAtBreak;
 
-static void      rmonFindFaultedThreads(void);
+static void rmonFindFaultedThreads(void);
 
-static void      SetTempBreakpoint(u32 *addr1, u32 *addr2) {
+static void SetTempBreakpoint(u32 *addr1, u32 *addr2) {
     STUBBED_PRINTF(("Set temp BP at %08x", addr1));
     if (addr2 != NULL) {
         STUBBED_PRINTF((" and %08x", addr2));
@@ -105,10 +105,10 @@ static void ClearTempBreakpoint(void) {
 
 int __rmonSetBreak(KKHeader *req) {
     register KKSetBkptRequest *request = (KKSetBkptRequest *) req;
-    register BREAKINFO        *breakBase;
-    register BREAKINFO        *whichBreak;
-    register BREAKINFO        *lastBreak;
-    KKBkptEvent                reply;
+    register BREAKINFO *breakBase;
+    register BREAKINFO *whichBreak;
+    register BREAKINFO *lastBreak;
+    KKBkptEvent reply;
 
     STUBBED_PRINTF(("SetBreak at %08x, method %d\n", request->addr, req->method));
 
@@ -176,9 +176,9 @@ int __rmonListBreak(KKHeader *request UNUSED) {
 
 int __rmonClearBreak(KKHeader *req) {
     register KKClrBkptRequest *request = (KKClrBkptRequest *) req;
-    register BREAKINFO        *whichBreak;
-    KKBkptEvent                reply;
-    u32                        inst;
+    register BREAKINFO *whichBreak;
+    KKBkptEvent reply;
+    u32 inst;
 
     STUBBED_PRINTF(("ClearBreak\n"));
 

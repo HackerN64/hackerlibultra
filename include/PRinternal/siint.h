@@ -5,11 +5,11 @@
 #include "PR/rcp.h"
 
 extern s32 __osEepromRead16K;
-extern u8  __osPfsInodeCacheBank;
+extern u8 __osPfsInodeCacheBank;
 
-void       __osSiGetAccess(void);
-void       __osSiRelAccess(void);
-int        __osSiDeviceBusy(void);
-void       __osSiCreateAccessQueue(void);
+void __osSiGetAccess(void);
+void __osSiRelAccess(void);
+int __osSiDeviceBusy(void);
+void __osSiCreateAccessQueue(void);
 
 #endif

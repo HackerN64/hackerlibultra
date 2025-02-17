@@ -45,11 +45,11 @@ extern u32 load_num, load_cnt, load_max, load_min, save_num, save_cnt, save_max,
         in = t;                                                                                                        \
     }
 
-Acmd      *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p);
-Acmd      *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
-Acmd      *_saveBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
-Acmd      *_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
-f32        _doModFunc(ALDelay *d, s32 count);
+Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p);
+Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
+Acmd *_saveBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
+Acmd *_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
+f32 _doModFunc(ALDelay *d, s32 count);
 
 static s32 L_INC[] = { L0_INC, L1_INC, L2_INC };
 
@@ -57,12 +57,12 @@ static s32 L_INC[] = { L0_INC, L1_INC, L2_INC };
  * Reverb filter public interfaces
  ***********************************************************************/
 Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd     *ptr = p;
-    ALFx     *r = (ALFx *) filter;
+    Acmd *ptr = p;
+    ALFx *r = (ALFx *) filter;
     ALFilter *source = r->filter.source;
-    s16       i, buff1, buff2, input, output;
-    s16      *in_ptr, *out_ptr, gain, *prev_out_ptr = 0;
-    ALDelay  *d, *pd;
+    s16 i, buff1, buff2, input, output;
+    s16 *in_ptr, *out_ptr, gain, *prev_out_ptr = 0;
+    ALDelay *d, *pd;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -161,9 +161,9 @@ s32 alFxParam(void *filter, s32 paramID, void *param) {
  */
 s32 alFxParamHdl(void *filter, s32 paramID, void *param) {
     ALFx *f = (ALFx *) filter;
-    s32   p = (paramID - 2) % 8;
-    s32   s = (paramID - 2) / 8;
-    s32   val = *(s32 *) param;
+    s32 p = (paramID - 2) % 8;
+    s32 s = (paramID - 2) / 8;
+    s32 val = *(s32 *) param;
 
 #define INPUT_PARAM       0
 #define OUTPUT_PARAM      1
@@ -225,11 +225,11 @@ s32 alFxParamHdl(void *filter, s32 paramID, void *param) {
 }
 
 Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p) {
-    Acmd      *ptr = p;
-    s32        ratio, count, rbuff = AL_TEMP_2;
-    s16       *out_ptr;
-    f32        fincount, fratio, delta;
-    s32        ramalign = 0, length;
+    Acmd *ptr = p;
+    s32 ratio, count, rbuff = AL_TEMP_2;
+    s16 *out_ptr;
+    f32 fincount, fratio, delta;
+    s32 ramalign = 0, length;
     static f32 val = 0.0, lastval = -10.0;
     static f32 blob = 0;
     /*
@@ -307,8 +307,8 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p) {
  */
 Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p) {
     Acmd *ptr = p;
-    s32   after_end, before_end;
-    s16  *updated_ptr, *delay_end;
+    s32 after_end, before_end;
+    s16 *updated_ptr, *delay_end;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -354,8 +354,8 @@ Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p) {
  */
 Acmd *_saveBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p) {
     Acmd *ptr = p;
-    s32   after_end, before_end;
-    s16  *updated_ptr, *delay_end;
+    s32 after_end, before_end;
+    s16 *updated_ptr, *delay_end;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();

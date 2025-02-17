@@ -27,11 +27,11 @@
 #define IFF_TRACK_HDR 0x4d54726b /* 'MTrk' */
 
 static s32 readVarLen(ALSeq *s);
-static u8  read8(ALSeq *s);
+static u8 read8(ALSeq *s);
 static s16 read16(ALSeq *s);
 static s32 read32(ALSeq *s);
 
-void       alSeqNew(ALSeq *seq, u8 *ptr, s32 len) {
+void alSeqNew(ALSeq *seq, u8 *ptr, s32 len) {
     /*
      * load the seqence pointed to by ptr
      */
@@ -87,7 +87,7 @@ void       alSeqNew(ALSeq *seq, u8 *ptr, s32 len) {
 }
 
 void alSeqNextEvent(ALSeq *seq, ALEvent *event) {
-    u8  status;
+    u8 status;
     s16 delta;
     s32 len;
     s32 deltaTicks;
@@ -206,9 +206,9 @@ u32 alSeqSecToTicks(ALSeq *seq, f32 sec, u32 tempo) {
 
 void alSeqNewMarker(ALSeq *seq, ALSeqMarker *m, u32 ticks) {
     ALEvent evt;
-    u8     *savePtr, *lastPtr;
-    s32     saveTicks, lastTicks;
-    s16     saveStatus, lastStatus;
+    u8 *savePtr, *lastPtr;
+    s32 saveTicks, lastTicks;
+    s16 saveStatus, lastStatus;
 
     /* does not check that ticks is within bounds */
 

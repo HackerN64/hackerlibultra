@@ -2,10 +2,10 @@
 #include "PR/os_internal_flash.h"
 
 s32 osFlashAllErase(void) {
-    u32         status;
-    OSTimer     mytimer;
+    u32 status;
+    OSTimer mytimer;
     OSMesgQueue timerMesgQueue;
-    OSMesg      dummy;
+    OSMesg dummy;
 
     // start chip erase operation
     osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_CHIP_ERASE);

@@ -13,8 +13,8 @@
 #include "guint.h"
 
 void guMtxF2L(float mf[4][4], Mtx *m) {
-    int  i, j;
-    int  e1, e2;
+    int i, j;
+    int e1, e2;
     int *ai, *af;
 
     ai = (int *) &m->m[0][0];
@@ -30,10 +30,10 @@ void guMtxF2L(float mf[4][4], Mtx *m) {
 }
 
 void guMtxL2F(float mf[4][4], Mtx *m) {
-    int           i, j;
-    unsigned int  e1, e2;
+    int i, j;
+    unsigned int e1, e2;
     unsigned int *ai, *af;
-    int           q1, q2;
+    int q1, q2;
 
     ai = (unsigned int *) &m->m[0][0];
     af = (unsigned int *) &m->m[2][0];

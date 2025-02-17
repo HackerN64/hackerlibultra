@@ -5,7 +5,7 @@
 
 static void __osPackReadData(void);
 
-s32         osContStartReadData(OSMesgQueue *mq) {
+s32 osContStartReadData(OSMesgQueue *mq) {
     s32 ret = 0;
 
     __osSiGetAccess();
@@ -24,9 +24,9 @@ s32         osContStartReadData(OSMesgQueue *mq) {
 }
 
 void osContGetReadData(OSContPad *data) {
-    u8                *ptr = (u8 *) __osContPifRam.ramarray;
+    u8 *ptr = (u8 *) __osContPifRam.ramarray;
     __OSContReadFormat readformat;
-    int                i;
+    int i;
 
     for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContReadFormat), data++) {
         readformat = *(__OSContReadFormat *) ptr;
@@ -43,9 +43,9 @@ void osContGetReadData(OSContPad *data) {
 }
 
 static void __osPackReadData(void) {
-    u8                *ptr = (u8 *) __osContPifRam.ramarray;
+    u8 *ptr = (u8 *) __osContPifRam.ramarray;
     __OSContReadFormat readformat;
-    int                i;
+    int i;
 
     for (i = 0; i < ARRLEN(__osContPifRam.ramarray); i++) {
         __osContPifRam.ramarray[i] = 0;

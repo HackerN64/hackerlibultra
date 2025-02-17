@@ -24,7 +24,7 @@
 
 void alSynStartVoice(ALSynth *synth, ALVoice *v, ALWaveTable *table) {
     ALStartParam *update;
-    ALFilter     *f;
+    ALFilter *f;
 
     if (v->pvoice) {
 

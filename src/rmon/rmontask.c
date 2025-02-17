@@ -50,7 +50,7 @@ OSThread *__rmonGetTCB(int threadNumber) {
 }
 
 int __rmonStopUserThreads(int whichThread) {
-    register int       whichOne = 0;
+    register int whichOne = 0;
     register OSThread *tptr = __osGetActiveQueue();
 
     STUBBED_PRINTF(("StopThreads %d\n", whichThread));
@@ -95,7 +95,7 @@ int __rmonStopUserThreads(int whichThread) {
 
 int __rmonListThreads(KKHeader *req) {
     register KKObjectRequest *request = (KKObjectRequest *) req;
-    KKObjsEvent              *reply = (KKObjsEvent *) __rmonUtilityBuffer;
+    KKObjsEvent *reply = (KKObjsEvent *) __rmonUtilityBuffer;
 
     STUBBED_PRINTF(("ListThreads\n"));
 
@@ -204,7 +204,7 @@ int __rmonGetThreadStatus(int method, int id, KKStatusEvent *reply) {
 
 int __rmonThreadStatus(KKHeader *req) {
     KKObjectRequest *request = (KKObjectRequest *) req;
-    KKStatusEvent    reply;
+    KKStatusEvent reply;
 
     if (__rmonGetThreadStatus(req->method, request->object, &reply) != TV_ERROR_NO_ERROR) {
         return TV_ERROR_INVALID_ID;
@@ -218,8 +218,8 @@ int __rmonThreadStatus(KKHeader *req) {
 
 int __rmonStopThread(KKHeader *req) {
     KKObjectRequest *request = (KKObjectRequest *) req;
-    KKStatusEvent    reply;
-    u32             *pc;
+    KKStatusEvent reply;
+    u32 *pc;
 
     STUBBED_PRINTF(("StopThread %d\n", request->object));
 
@@ -263,10 +263,10 @@ int __rmonStopThread(KKHeader *req) {
 
 int __rmonRunThread(KKHeader *req) {
     KKRunThreadRequest *request = (KKRunThreadRequest *) req;
-    KKObjectEvent       reply;
-    KKStatusEvent       exceptionReply;
-    register OSThread  *tptr;
-    register int        runNeeded = FALSE;
+    KKObjectEvent reply;
+    KKStatusEvent exceptionReply;
+    register OSThread *tptr;
+    register int runNeeded = FALSE;
 
     STUBBED_PRINTF(("RunThread %d\n", request->tid));
 

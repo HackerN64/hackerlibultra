@@ -7,9 +7,9 @@ int osSetTimer(OSTimer *t, OSTime countdown, OSTime interval, OSMesgQueue *mq, O
     OSTime time;
 #if BUILD_VERSION >= VERSION_K
     OSTimer *next;
-    u32      count;
-    u32      value;
-    u32      saveMask;
+    u32 count;
+    u32 value;
+    u32 saveMask;
 #endif
 
 #ifdef _DEBUG

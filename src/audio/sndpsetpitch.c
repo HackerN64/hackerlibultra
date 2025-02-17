@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSndpSetPitch(ALSndPlayer *sndp, f32 pitch) {
-    ALSndpEvent   evt;
+    ALSndpEvent evt;
     ALSoundState *sState = sndp->sndState;
 
     /*

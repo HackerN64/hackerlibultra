@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSynSetFXMix(ALSynth *synth, ALVoice *v, u8 fxmix) {
-    ALParam  *update;
+    ALParam *update;
     ALFilter *f;
 
     if (v->pvoice) {

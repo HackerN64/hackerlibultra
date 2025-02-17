@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSndpPlay(ALSndPlayer *sndp) {
-    ALSndpEvent   evt;
+    ALSndpEvent evt;
     ALSoundState *sState = sndp->sndState;
 
     ALFailIf((sState + sndp->target)->state != AL_STOPPED, ERR_ALSNDPPLAY);

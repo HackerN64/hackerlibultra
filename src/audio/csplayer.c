@@ -46,22 +46,22 @@
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 static ALMicroTime __CSPVoiceHandler(void *node);
-static void        __CSPHandleNextSeqEvent(ALCSPlayer *seqp);
-static void        __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event);
-static void        __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event);
-static void        __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
-static void        __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo); /* sct 1/8/96 */
+static void __CSPHandleNextSeqEvent(ALCSPlayer *seqp);
+static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event);
+static void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event);
+static void __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
+static void __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo); /* sct 1/8/96 */
 
 /*
  * Sequence Player public functions
  */
 void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c) {
-    s32              i;
+    s32 i;
     ALEventListItem *items;
-    ALVoiceState    *vs;
-    ALVoiceState    *voices;
+    ALVoiceState *vs;
+    ALVoiceState *voices;
 
-    ALHeap          *hp = c->heap;
+    ALHeap *hp = c->heap;
 
     /*
      * initialize member variables
@@ -122,14 +122,14 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c) {
  * private routines or driver callback routines
  *************************************************************/
 static ALMicroTime __CSPVoiceHandler(void *node) {
-    ALCSPlayer   *seqp = (ALCSPlayer *) node;
-    ALEvent       evt;
-    ALVoice      *voice;
-    ALMicroTime   delta;
+    ALCSPlayer *seqp = (ALCSPlayer *) node;
+    ALEvent evt;
+    ALVoice *voice;
+    ALMicroTime delta;
     ALVoiceState *vs;
-    void         *oscState;
-    f32           oscValue;
-    u8            chan;
+    void *oscState;
+    f32 oscValue;
+    u8 chan;
 
     do {
         switch (seqp->nextEvent.type) {
@@ -334,7 +334,7 @@ static ALMicroTime __CSPVoiceHandler(void *node) {
 */
 void __CSPPostNextSeqEvent(ALCSPlayer *seqp) {
     ALEvent evt;
-    s32     deltaTicks;
+    s32 deltaTicks;
 
     if (seqp->state != AL_PLAYING || seqp->target == NULL)
         return;
@@ -399,21 +399,21 @@ static void __CSPHandleNextSeqEvent(ALCSPlayer *seqp) {
 }
 
 static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event) {
-    ALVoice      *voice;
+    ALVoice *voice;
     ALVoiceState *vs;
-    s32           status;
-    u8            chan;
-    u8            key;
-    u8            vel;
-    u8            byte1;
-    u8            byte2;
-    ALMIDIEvent  *midi = &event->msg.midi;
-    s16           vol;
-    ALEvent       evt;
-    ALMicroTime   deltaTime;
+    s32 status;
+    u8 chan;
+    u8 key;
+    u8 vel;
+    u8 byte1;
+    u8 byte2;
+    ALMIDIEvent *midi = &event->msg.midi;
+    s16 vol;
+    ALEvent evt;
+    ALMicroTime deltaTime;
     ALVoiceState *vstate;
-    ALPan         pan;
-    ALFxRef       fxref;
+    ALPan pan;
+    ALFxRef fxref;
 
     status = midi->status & AL_MIDI_StatusMask;
     chan = midi->status & AL_MIDI_ChannelMask;
@@ -426,11 +426,11 @@ static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event) {
             if (vel != 0) /* a real note on */
             {
                 ALVoiceConfig config;
-                ALSound      *sound;
-                s16           cents;
-                f32           pitch, oscValue;
-                u8            fxmix;
-                void         *oscState;
+                ALSound *sound;
+                s16 cents;
+                f32 pitch, oscValue;
+                u8 fxmix;
+                void *oscState;
                 ALInstrument *inst;
 
                 /* If we're not playing, don't process note ons. */
@@ -714,12 +714,12 @@ static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event) {
 }
 
 static void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event) {
-    ALTempoEvent    *tevt = &event->msg.tempo;
-    ALEvent          evt;
-    s32              tempo;
-    s32              oldUspt;
-    u32              ticks;
-    ALMicroTime      tempDelta, curDelta = 0;
+    ALTempoEvent *tevt = &event->msg.tempo;
+    ALEvent evt;
+    s32 tempo;
+    s32 oldUspt;
+    u32 ticks;
+    ALMicroTime tempDelta, curDelta = 0;
     ALEventListItem *thisNode, *nextNode, *firstTemp = 0;
 
     if (event->msg.tempo.status == AL_MIDI_Meta) {
@@ -766,8 +766,8 @@ static void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event) {
 }
 
 static void __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item) {
-    OSIntMask        mask;
-    ALLink          *node;
+    OSIntMask mask;
+    ALLink *node;
     ALEventListItem *nextItem;
 
     mask = osSetIntMask(OS_IM_NONE);

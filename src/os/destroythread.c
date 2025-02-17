@@ -2,7 +2,7 @@
 #include "PRinternal/osint.h"
 
 void osDestroyThread(OSThread *t) {
-    register u32       saveMask;
+    register u32 saveMask;
     register OSThread *pred;
     register OSThread *succ;
 

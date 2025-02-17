@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSynStopVoice(ALSynth *synth, ALVoice *v) {
-    ALParam  *update;
+    ALParam *update;
     ALFilter *f;
 
     if (v->pvoice) {

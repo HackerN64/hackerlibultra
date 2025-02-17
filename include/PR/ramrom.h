@@ -33,13 +33,13 @@
  * The last 8 bytes of the buffer are used in the emulator environment
  */
 
-#define RAMROM_SIZE            (0x1000000)
+#define RAMROM_SIZE (0x1000000)
 
-#define RAMROM_BUF_SIZE        (4096)
-#define RAMROM_MSG_SIZE        (RAMROM_BUF_SIZE * 6)
-#define RAMROM_MSG_ADDR        (RAMROM_SIZE - RAMROM_MSG_SIZE)
-#define RAMROM_MSG_HDR_SIZE    (3 * sizeof(long))
-#define RAMROM_USER_DATA_SIZE  (RAMROM_MSG_SIZE - RAMROM_MSG_HDR_SIZE)
+#define RAMROM_BUF_SIZE       (4096)
+#define RAMROM_MSG_SIZE       (RAMROM_BUF_SIZE * 6)
+#define RAMROM_MSG_ADDR       (RAMROM_SIZE - RAMROM_MSG_SIZE)
+#define RAMROM_MSG_HDR_SIZE   (3 * sizeof(long))
+#define RAMROM_USER_DATA_SIZE (RAMROM_MSG_SIZE - RAMROM_MSG_HDR_SIZE)
 
 #define RAMROM_APP_READ_ADDR   (RAMROM_MSG_ADDR + (0 * RAMROM_BUF_SIZE))
 #define RAMROM_APP_WRITE_ADDR  (RAMROM_MSG_ADDR + (1 * RAMROM_BUF_SIZE))
@@ -63,10 +63,10 @@
 #define RAMROM_BOOTSTRAP_OFFSET 0x400
 #define RAMROM_GAME_OFFSET      0x2000
 #endif
-#define RAMROM_CLOCKRATE_OFFSET     0x4
-#define RAMROM_CLOCKRATE_MASK       0xfffffff0
-#define RAMROM_BOOTADDR_OFFSET      0x8
-#define RAMROM_RELEASE_OFFSET       0xc
+#define RAMROM_CLOCKRATE_OFFSET 0x4
+#define RAMROM_CLOCKRATE_MASK   0xfffffff0
+#define RAMROM_BOOTADDR_OFFSET  0x8
+#define RAMROM_RELEASE_OFFSET   0xc
 /*
  * Second version of the PIF jumps to location 0x1000, and we'll put a jump to
  * location 0x400 into the ramrom (for backwards compatibility).

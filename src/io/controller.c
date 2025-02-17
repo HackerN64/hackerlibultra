@@ -3,21 +3,21 @@
 #include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
-OSPifRam                     __osContPifRam;
-u8                           __osContLastCmd;
-u8                           __osMaxControllers;
+OSPifRam __osContPifRam;
+u8 __osContLastCmd;
+u8 __osMaxControllers;
 
-OSTimer                      __osEepromTimer;
+OSTimer __osEepromTimer;
 OSMesgQueue __osEepromTimerQ ALIGNED(0x8);
-OSMesg                       __osEepromTimerMsg;
+OSMesg __osEepromTimerMsg;
 
-s32                          __osContinitialized = FALSE;
+s32 __osContinitialized = FALSE;
 
-s32                          osContInit(OSMesgQueue *mq, u8 *bitpattern, OSContStatus *data) {
-    OSMesg      dummy;
-    s32         ret = 0;
-    OSTime      t;
-    OSTimer     mytimer;
+s32 osContInit(OSMesgQueue *mq, u8 *bitpattern, OSContStatus *data) {
+    OSMesg dummy;
+    s32 ret = 0;
+    OSTime t;
+    OSTimer mytimer;
     OSMesgQueue timerMesgQueue;
 
     if (__osContinitialized) {
@@ -52,10 +52,10 @@ s32                          osContInit(OSMesgQueue *mq, u8 *bitpattern, OSContS
 }
 
 void __osContGetInitData(u8 *pattern, OSContStatus *data) {
-    u8                  *ptr;
+    u8 *ptr;
     __OSContRequesFormat requestHeader;
-    int                  i;
-    u8                   bits = 0;
+    int i;
+    u8 bits = 0;
 
     ptr = (u8 *) __osContPifRam.ramarray;
     for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(requestHeader), data++) {
@@ -74,9 +74,9 @@ void __osContGetInitData(u8 *pattern, OSContStatus *data) {
 }
 
 void __osPackRequestData(u8 cmd) {
-    u8                  *ptr;
+    u8 *ptr;
     __OSContRequesFormat requestHeader;
-    s32                  i;
+    s32 i;
 
     for (i = 0; i < ARRLEN(__osContPifRam.ramarray); i++) {
         __osContPifRam.ramarray[i] = 0;

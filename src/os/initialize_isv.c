@@ -15,7 +15,7 @@ typedef struct {
 
 extern __osExceptionVector __isExpJP;
 
-void                       MonitorInitBreak(void);
+void MonitorInitBreak(void);
 
 #define ISV_BASE       gISVDbgPrnAdrs
 #define ISV_MAGIC_ADDR (ISV_BASE + 0x00)
@@ -25,17 +25,17 @@ void                       MonitorInitBreak(void);
 
 #define ISV_BUFFER_LEN (0x10000 - 0x20)
 
-#define IS64_MAGIC     'IS64'
+#define IS64_MAGIC 'IS64'
 
 __osExceptionVector ramOldVector ALIGNED(0x8);
-u32                              gISVFlag;
-u16                              gISVChk;
-u32                              gISVDbgPrnAdrs;
-u32                              leoComuBuffAdd;
+u32 gISVFlag;
+u16 gISVChk;
+u32 gISVDbgPrnAdrs;
+u32 leoComuBuffAdd;
 
-static OSPiHandle               *is_Handle;
+static OSPiHandle *is_Handle;
 
-void                             isPrintfInit(void) {
+void isPrintfInit(void) {
     is_Handle = osCartRomInit();
 
     osEPiWriteIo(is_Handle, ISV_PUT_ADDR, 0);
@@ -98,9 +98,9 @@ static void *is_proutSyncPrintf(void *arg, const u8 *str, u32 count) {
 }
 
 int __checkHardware_isv(void) {
-    u32         i = 0;
-    u32         data;
-    u32         save[4];
+    u32 i = 0;
+    u32 data;
+    u32 save[4];
     OSPiHandle *hnd = osCartRomInit();
 
     gISVDbgPrnAdrs = 0;
@@ -145,8 +145,8 @@ int __checkHardware_isv(void) {
 void __osInitialize_isv(void) {
     void (*fn)(void);
     OSPiHandle *hnd;
-    s32         pad;
-    s32         pad2;
+    s32 pad;
+    s32 pad2;
 
     if (gISVFlag == IS64_MAGIC || __checkHardware_isv()) {
         if (gISVDbgPrnAdrs != 0) {

@@ -83,13 +83,13 @@ static int *prev_bmbuf = NULL;
  */
 
 static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s32 yy, s32 fs, s32 ft, s32 sx, s32 sy) {
-    s32      rs, rt;
-    s32      rxh, ryh;
-    s32      rxl, ryl;
-    Gfx     *gl;
-    s32      tex_width, tex_height;
+    s32 rs, rt;
+    s32 rxh, ryh;
+    s32 rxl, ryl;
+    Gfx *gl;
+    s32 tex_width, tex_height;
     Gtexrect gt, *g;
-    s32      s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod;
+    s32 s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod;
 
     g = &gt;
 
@@ -203,8 +203,8 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
                     } else {
                         if (b->LUToffset != 0) { /* Split Y and UV areas */
                             unsigned char *uv, *addr;
-                            int            j;
-                            s32            tmem, siz;
+                            int j;
+                            s32 tmem, siz;
 
                             gDPSetTextureImage(gl++, G_IM_FMT_I, G_IM_SIZ_8b, 1, b->buf);
                             gDPSetTile(gl++, G_IM_FMT_I, G_IM_SIZ_8b, 0, 256, G_TX_LOADTILE, 0, t_clamp, t_mask, t_lod,
@@ -301,7 +301,7 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
 
 static u16 sp_attr = 0;
 
-void       spInit(Gfx **glistp) {
+void spInit(Gfx **glistp) {
     Gfx *gl;
 
     gl = *glistp;
@@ -346,22 +346,22 @@ void       spInit(Gfx **glistp) {
  *
  */
 Gfx *spDraw(Sprite *s) {
-    int     i;
-    s32     x, y;
-    float   sx, sy;
+    int i;
+    s32 x, y;
+    float sx, sy;
     Bitmap *b;
-    Gfx    *gl;
+    Gfx *gl;
 #ifndef NDEBUG
     Gfx *ogl;
 #endif
-    Gfx  *dl_start;
-    s32   isx, isy;
-    s32   tx, ty;
-    s32   tx2, ty2;
-    s32   x2, y2;
+    Gfx *dl_start;
+    s32 isx, isy;
+    s32 tx, ty;
+    s32 tx2, ty2;
+    s32 x2, y2;
     float ftx, fty;
-    s32   fs, ft;
-    s32   ex, ey;
+    s32 fs, ft;
+    s32 ex, ey;
 
 #ifdef rmDEBUG
     rmonPrintf("spDraw (Sprite 0x%08x )\n", s);

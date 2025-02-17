@@ -48,23 +48,23 @@
 #define A_POLEF      14
 #define A_SETLOOP    15
 
-#define ACMD_SIZE    32
+#define ACMD_SIZE 32
 /*
  * Audio flags
  */
 
-#define A_INIT       0x01
-#define A_CONTINUE   0x00
-#define A_LOOP       0x02
-#define A_OUT        0x02
-#define A_LEFT       0x02
-#define A_RIGHT      0x00
-#define A_VOL        0x04
-#define A_RATE       0x00
-#define A_AUX        0x08
-#define A_NOAUX      0x00
-#define A_MAIN       0x00
-#define A_MIX        0x10
+#define A_INIT     0x01
+#define A_CONTINUE 0x00
+#define A_LOOP     0x02
+#define A_OUT      0x02
+#define A_LEFT     0x02
+#define A_RIGHT    0x00
+#define A_VOL      0x04
+#define A_RATE     0x00
+#define A_AUX      0x08
+#define A_NOAUX    0x00
+#define A_MAIN     0x00
+#define A_MIX      0x10
 
 /*
  * BEGIN C-specific section: (typedef's)
@@ -216,24 +216,24 @@ typedef struct {
 } Awords;
 
 typedef union {
-    Awords        words;
-    Aadpcm        adpcm;
-    Apolef        polef;
-    Aclearbuff    clearbuff;
-    Aenvelope     envelope;
-    Ainterleave   interleave;
-    Aloadbuff     loadbuff;
-    Aenvmixer     envmixer;
-    Aresample     resample;
-    Areverb       reverb;
-    Asavebuff     savebuff;
-    Asegment      segment;
-    Asetbuff      setbuff;
-    Asetvol       setvol;
-    Admemmove     dmemmove;
-    Aloadadpcm    loadadpcm;
-    Amixer        mixer;
-    Asetloop      setloop;
+    Awords words;
+    Aadpcm adpcm;
+    Apolef polef;
+    Aclearbuff clearbuff;
+    Aenvelope envelope;
+    Ainterleave interleave;
+    Aloadbuff loadbuff;
+    Aenvmixer envmixer;
+    Aresample resample;
+    Areverb reverb;
+    Asavebuff savebuff;
+    Asegment segment;
+    Asetbuff setbuff;
+    Asetvol setvol;
+    Admemmove dmemmove;
+    Aloadadpcm loadadpcm;
+    Amixer mixer;
+    Asetloop setloop;
     long long int force_union_align; /* dummy, force alignment */
 } Acmd;
 

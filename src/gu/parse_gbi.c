@@ -32,15 +32,15 @@
  */
 void guParseGbiDL(u64 *gbi_dl, u32 nbytes, u8 flags) {
     guDLPrintCB cntlBlk;
-    Gfx        *dlStk[11];
-    s32         dlcount = 0;
-    Gfx        *curGfx, *dlPtr, *vaddr;
-    s8          op;
-    u32        *word0;
-    u32        *word1;
-    u32         segments[16];
-    u32         param, seg;
-    u32         paddr, len;
+    Gfx *dlStk[11];
+    s32 dlcount = 0;
+    Gfx *curGfx, *dlPtr, *vaddr;
+    s8 op;
+    u32 *word0;
+    u32 *word1;
+    u32 segments[16];
+    u32 param, seg;
+    u32 paddr, len;
 
     cntlBlk.dataSize = nbytes;
     cntlBlk.flags = flags;

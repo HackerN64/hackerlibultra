@@ -40,7 +40,7 @@ struct bitmap {
     s16 s; /* Horizontal offset into bitmap */
            /* if (s > width), then load only! */
 
-    s16   t; /* Vertical offset into base	*/
+    s16 t; /* Vertical offset into base	*/
 
     void *buf; /* Pointer to bitmap data	*/
                /* Don't re-load if new buf	*/
@@ -55,47 +55,47 @@ struct bitmap {
 typedef struct bitmap Bitmap;
 
 struct sprite {
-    s16  x, y; /* Target position		*/
+    s16 x, y; /* Target position		*/
 
-    s16  width, height; /* Target size			*/
+    s16 width, height; /* Target size			*/
 
-    f32  scalex, scaley; /* Texel to Pixel scale factor	*/
+    f32 scalex, scaley; /* Texel to Pixel scale factor	*/
 
-    s16  expx, expy; /* Explosion spacing		*/
+    s16 expx, expy; /* Explosion spacing		*/
 
-    u16  attr;   /* Attribute Flags		*/
-    s16  zdepth; /* Z Depth 			*/
+    u16 attr;   /* Attribute Flags		*/
+    s16 zdepth; /* Z Depth 			*/
 
-    u8   red;   /* Red component		*/
-    u8   green; /* Green component		*/
-    u8   blue;  /* Blue component		*/
-    u8   alpha; /* Alpha component		*/
+    u8 red;   /* Red component		*/
+    u8 green; /* Green component		*/
+    u8 blue;  /* Blue component		*/
+    u8 alpha; /* Alpha component		*/
 
-    s16  startTLUT; /* Lookup Table Entry Starting index */
-    s16  nTLUT;     /* Total number of Lookup Table Entries */
+    s16 startTLUT; /* Lookup Table Entry Starting index */
+    s16 nTLUT;     /* Total number of Lookup Table Entries */
 
     int *LUT; /* Pointer to Lookup Table	*/
 
-    s16  istart; /* Starting bitmap index	*/
-    s16  istep;  /* Bitmaps index step (see SP_INCY) */
-                 /* if 0, then variable width bitmaps */
+    s16 istart; /* Starting bitmap index	*/
+    s16 istep;  /* Bitmaps index step (see SP_INCY) */
+                /* if 0, then variable width bitmaps */
 
-    s16     nbitmaps;  /* Total number of bitmaps	*/
-    s16     ndisplist; /* Total number of display-list words */
+    s16 nbitmaps;  /* Total number of bitmaps	*/
+    s16 ndisplist; /* Total number of display-list words */
 
-    s16     bmheight; /* Bitmap Texel height (Used)	*/
-    s16     bmHreal;  /* Bitmap Texel height (Real)	*/
-    u8      bmfmt;    /* Bitmap Format	 	*/
-    u8      bmsiz;    /* Bitmap Texel Size		*/
+    s16 bmheight; /* Bitmap Texel height (Used)	*/
+    s16 bmHreal;  /* Bitmap Texel height (Real)	*/
+    u8 bmfmt;     /* Bitmap Format	 	*/
+    u8 bmsiz;     /* Bitmap Texel Size		*/
 
     Bitmap *bitmap; /* Pointer to first bitmap	*/
 
-    Gfx    *rsp_dl; /* Pointer to RSP display list	*/
+    Gfx *rsp_dl; /* Pointer to RSP display list	*/
 
-    Gfx    *rsp_dl_next; /* Pointer to next RSP display entry	*/
+    Gfx *rsp_dl_next; /* Pointer to next RSP display entry	*/
 
-    s16     frac_s, /* Fractional Texture offsets */
-        frac_t;     /* These have 5 fraction bits */
+    s16 frac_s, /* Fractional Texture offsets */
+        frac_t; /* These have 5 fraction bits */
 };
 
 typedef struct sprite Sprite;
@@ -121,7 +121,7 @@ typedef struct sprite Sprite;
 #define DL_BM_OVERHEAD     (12)
 #define DL_SPRITE_OVERHEAD (24)
 
-#define NUM_DL(nb)         ((nb) * DL_BM_OVERHEAD + DL_SPRITE_OVERHEAD)
+#define NUM_DL(nb) ((nb) * DL_BM_OVERHEAD + DL_SPRITE_OVERHEAD)
 
 /*
  * Misc constants

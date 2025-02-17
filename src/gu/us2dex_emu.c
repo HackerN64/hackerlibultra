@@ -16,7 +16,7 @@ static u16 scissorX0 = 0;        /* (s13.2) */
 static u16 scissorY0 = 0;        /* (s13.2) */
 static u16 scissorX1 = 320 << 2; /* (s13.2) */
 static u16 scissorY1 = 240 << 2; /* (s13.2) */
-static u8  flagBilerp = 0;
+static u8 flagBilerp = 0;
 
 static u32 rdpSetTimg_w0, rdpSetTile_w0;
 static u16 tmemSliceWmax;
@@ -314,12 +314,12 @@ void guS2DEmuBgRect1Cyc(Gfx **pkt, uObjBg *bg) {
         //  does not occur.
         //
         */
-        s16        tmemSize, tmemMask, tmemShift;
-        s32        imageNumSlice;
-        s32        imageSliceWmax;
-        s32        imageLYoffset, frameLYoffset;
-        s32        imageLHidden, frameLHidden;
-        s32        frameLYslice;
+        s16 tmemSize, tmemMask, tmemShift;
+        s32 imageNumSlice;
+        s32 imageSliceWmax;
+        s32 imageLYoffset, frameLYoffset;
+        s32 imageLHidden, frameLHidden;
+        s32 frameLYslice;
 
         static s16 TMEMSIZE[] = { 512, 512, 256, 512, 512 };
         static s16 TMEMMASK[] = { 0x1ff, 0xff, 0x7f, 0x3f };

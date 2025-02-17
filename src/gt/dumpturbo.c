@@ -42,11 +42,11 @@ static u32 numtextures;
 
 #define UCODE_SIZE_MAX (4096 * 1)
 void gtDumpTurbo(OSTask *tp, u8 flags) {
-    int          i;
-    gtGfx       *gtlistp;
+    int i;
+    gtGfx *gtlistp;
     gtGlobState *globp = 0;
-    gtState     *statep;
-    u32          dat, *datp, *addr;
+    gtState *statep;
+    u32 dat, *datp, *addr;
 
     PRINTF("\nGBI_DUMP_START:\n");
     PRINTF("$ %08x\n", PHYS(tp));

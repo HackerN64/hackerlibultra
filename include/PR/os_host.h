@@ -143,7 +143,7 @@ extern void __osInitialize_emu(void);
 
 /* Game <> Host data transfer functions */
 
-extern s32  osTestHost(void);
+extern s32 osTestHost(void);
 extern void osReadHost(void *, u32);
 extern void osWriteHost(void *, u32);
 extern void osAckRamromRead(void);

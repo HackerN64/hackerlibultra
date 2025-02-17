@@ -10,10 +10,10 @@
 #include "voiceinternal.h"
 
 s32 osVoiceGetReadData(OSVoiceHandle *hd, OSVoiceData *micdata) {
-    s32       ret = 0;
-    s32       i;
-    u8        stat;
-    u8        temp[36];
+    s32 ret = 0;
+    s32 i;
+    u8 stat;
+    u8 temp[36];
     static u8 c;
 
     switch (hd->__mode) {

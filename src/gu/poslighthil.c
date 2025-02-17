@@ -34,7 +34,7 @@ void guPosLightHilite(PositionalLight *pl1, PositionalLight *pl2, Light *l1, Lig
                       float zUp, int twidth, int theight) /* hilite txtr size*/
 {
     float x, y, z, d, a;
-    Mtx   m;
+    Mtx m;
 
     /*
      * light 1, diffuse

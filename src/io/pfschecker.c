@@ -10,16 +10,16 @@ s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache);
      && ((p).inode_t.page < 0x80))
 
 s32 osPfsChecker(OSPfs *pfs) {
-    int            j;
-    s32            ret;
-    __OSInodeUnit  next_page;
-    __OSInode      checked_inode;
-    __OSInode      tmp_inode;
-    __OSDir        tmp_dir;
-    __OSInodeUnit  file_next_node[16];
+    int j;
+    s32 ret;
+    __OSInodeUnit next_page;
+    __OSInode checked_inode;
+    __OSInode tmp_inode;
+    __OSDir tmp_dir;
+    __OSInodeUnit file_next_node[16];
     __OSInodeCache cache;
-    int            fixed = 0;
-    u8             bank;
+    int fixed = 0;
+    u8 bank;
 #if BUILD_VERSION >= VERSION_J
     u8 oldbank = 254;
 #endif
@@ -178,13 +178,13 @@ s32 osPfsChecker(OSPfs *pfs) {
 }
 
 s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache) {
-    int           i;
-    int           n;
-    int           offset;
-    u8            bank;
+    int i;
+    int n;
+    int offset;
+    u8 bank;
     __OSInodeUnit tpage;
-    __OSInode     tmp_inode;
-    s32           ret;
+    __OSInode tmp_inode;
+    s32 ret;
 
     for (i = 0; i < PFS_INODE_DIST_MAP; i++) {
         cache->map[i] = 0;
@@ -221,7 +221,7 @@ s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache) {
     int j;
     int n;
     int hit;
-    u8  bank;
+    u8 bank;
     int offset;
     s32 ret;
 

@@ -33,26 +33,26 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #endif
 
-#define M_PI         3.14159265358979323846
-#define M_DTOR       (3.14159265358979323846 / 180.0)
+#define M_PI   3.14159265358979323846
+#define M_DTOR (3.14159265358979323846 / 180.0)
 
-#define FTOFIX32(x)  (long) ((x) * (float) 0x00010000)
-#define FIX32TOF(x)  ((float) (x) * (1.0f / (float) 0x00010000))
-#define FTOFRAC8(x)  ((int) MIN(((x) * (128.0f)), 127.0f) & 0xff)
+#define FTOFIX32(x) (long) ((x) * (float) 0x00010000)
+#define FIX32TOF(x) ((float) (x) * (1.0f / (float) 0x00010000))
+#define FTOFRAC8(x) ((int) MIN(((x) * (128.0f)), 127.0f) & 0xff)
 
 #define FILTER_WRAP  0
 #define FILTER_CLAMP 1
 
-#define RAND(x)      (guRandom() % x) /* random number between 0 to x */
+#define RAND(x) (guRandom() % x) /* random number between 0 to x */
 
 /*
  * Data Structures
  */
 typedef struct {
     unsigned char *base;
-    int            fmt, siz;
-    int            xsize, ysize;
-    int            lsize;
+    int fmt, siz;
+    int xsize, ysize;
+    int lsize;
     /* current tile info */
     int addr;
     int w, h;
@@ -69,12 +69,12 @@ typedef struct {
  * Function Prototypes
  */
 
-extern int  guLoadTextureBlockMipMap(Gfx **glist, unsigned char *tbuf, Image *im, unsigned char startTile,
-                                     unsigned char pal, unsigned char cms, unsigned char cmt, unsigned char masks,
-                                     unsigned char maskt, unsigned char shifts, unsigned char shiftt, unsigned char cfs,
-                                     unsigned char cft);
+extern int guLoadTextureBlockMipMap(Gfx **glist, unsigned char *tbuf, Image *im, unsigned char startTile,
+                                    unsigned char pal, unsigned char cms, unsigned char cmt, unsigned char masks,
+                                    unsigned char maskt, unsigned char shifts, unsigned char shiftt, unsigned char cfs,
+                                    unsigned char cft);
 
-extern int  guGetDPLoadTextureTileSz(int ult, int lrt);
+extern int guGetDPLoadTextureTileSz(int ult, int lrt);
 extern void guDPLoadTextureTile(Gfx *glistp, void *timg, int texl_fmt, int texl_size, int img_width, int img_height,
                                 int uls, int ult, int lrs, int lrt, int palette, int cms, int cmt, int masks, int maskt,
                                 int shifts, int shiftt);
@@ -136,20 +136,20 @@ extern void guMtxXFML(Mtx *m, float x, float y, float z, float *ox, float *oy, f
 extern void guNormalize(float *x, float *y, float *z);
 
 /* light utilities: */
-void       guPosLight(PositionalLight *pl, Light *l, float xOb, float yOb, float zOb);
-void       guPosLightHilite(PositionalLight *pl1, PositionalLight *pl2, Light *l1, Light *l2, LookAt *l, Hilite *h,
-                            float xEye, float yEye, float zEye, float xOb, float yOb, float zOb, float xUp, float yUp,
-                            float zUp, int twidth, int theight);
+void guPosLight(PositionalLight *pl, Light *l, float xOb, float yOb, float zOb);
+void guPosLightHilite(PositionalLight *pl1, PositionalLight *pl2, Light *l1, Light *l2, LookAt *l, Hilite *h,
+                      float xEye, float yEye, float zEye, float xOb, float yOb, float zOb, float xUp, float yUp,
+                      float zUp, int twidth, int theight);
 extern int guRandom(void);
 
 /*
  *  Math functions
  */
-extern float        sinf(float angle);
-extern float        cosf(float angle);
+extern float sinf(float angle);
+extern float cosf(float angle);
 extern signed short sins(unsigned short angle);
 extern signed short coss(unsigned short angle);
-extern float        sqrtf(float value);
+extern float sqrtf(float value);
 #if defined(__sgi) && BUILD_VERSION >= VERSION_K
 #pragma intrinsic(sqrtf);
 #endif

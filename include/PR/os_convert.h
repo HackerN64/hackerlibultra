@@ -94,7 +94,7 @@ extern "C" {
 
 /* Address translation routines and macros */
 
-extern u32   osVirtualToPhysical(void *);
+extern u32 osVirtualToPhysical(void *);
 extern void *osPhysicalToVirtual(u32);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */

@@ -79,12 +79,12 @@ s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) {
 
 static void __osPackRamReadData(int channel, u16 address);
 
-s32         __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) {
-    s32                   ret = 0;
-    int                   i;
-    u8                   *ptr = (u8 *) &__osPfsPifRam;
+s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) {
+    s32 ret = 0;
+    int i;
+    u8 *ptr = (u8 *) &__osPfsPifRam;
     __OSContRamReadFormat ramreadformat;
-    int                   retry = 2;
+    int retry = 2;
 
     __osSiGetAccess();
     __osContLastCmd = CONT_CMD_READ_PAK;
@@ -133,9 +133,9 @@ s32         __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffe
 }
 
 static void __osPackRamReadData(int channel, u16 address) {
-    u8                   *ptr;
+    u8 *ptr;
     __OSContRamReadFormat ramreadformat;
-    int                   i;
+    int i;
 
     ptr = (u8 *) __osPfsPifRam.ramarray;
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;

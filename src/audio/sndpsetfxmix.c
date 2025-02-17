@@ -23,7 +23,7 @@
 #include <ultraerror.h>
 
 void alSndpSetFXMix(ALSndPlayer *sndp, u8 mix) {
-    ALSndpEvent   evt;
+    ALSndpEvent evt;
     ALSoundState *sState = sndp->sndState;
 
 #ifdef _DEBUG

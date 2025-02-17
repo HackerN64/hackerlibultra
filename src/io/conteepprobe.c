@@ -2,8 +2,8 @@
 #include "PRinternal/siint.h"
 
 s32 osEepromProbe(OSMesgQueue *mq) {
-    s32          ret = 0;
-    u16          type;
+    s32 ret = 0;
+    u16 type;
     OSContStatus sdata;
 
     __osSiGetAccess();

@@ -5,14 +5,14 @@
 
 OSPifRam __osPfsPifRam;
 
-s32      osPfsIsPlug(OSMesgQueue *mq, u8 *pattern) {
-    s32          ret = 0;
-    OSMesg       msg;
-    u8           bitpattern;
+s32 osPfsIsPlug(OSMesgQueue *mq, u8 *pattern) {
+    s32 ret = 0;
+    OSMesg msg;
+    u8 bitpattern;
     OSContStatus contData[MAXCONTROLLERS];
-    s32          channel;
-    u8           bits = 0;
-    s32          crcErrorCount = 3;
+    s32 channel;
+    u8 bits = 0;
+    s32 crcErrorCount = 3;
 
     __osSiGetAccess();
 
@@ -50,9 +50,9 @@ s32      osPfsIsPlug(OSMesgQueue *mq, u8 *pattern) {
 }
 
 void __osPfsRequestData(u8 cmd) {
-    u8                  *ptr = (u8 *) &__osPfsPifRam;
+    u8 *ptr = (u8 *) &__osPfsPifRam;
     __OSContRequesFormat requestformat;
-    int                  i;
+    int i;
 
     __osContLastCmd = cmd;
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;
@@ -74,10 +74,10 @@ void __osPfsRequestData(u8 cmd) {
 }
 
 void __osPfsGetInitData(u8 *pattern, OSContStatus *data) {
-    u8                  *ptr;
+    u8 *ptr;
     __OSContRequesFormat requestformat;
-    int                  i;
-    u8                   bits = 0;
+    int i;
+    u8 bits = 0;
 
     ptr = (u8 *) &__osPfsPifRam;
 

@@ -28,15 +28,15 @@
 #endif
 
 static OSMesgQueue IOmq ALIGNED(0x8);
-static OSMesg           IOmsgs;
+static OSMesg IOmsgs;
 
-void                   *__osRdb_DbgRead_Buf;
-u8                      rmonRdbReadBuf[RMON_DBG_BUF_SIZE] ALIGNED(0x10);
+void *__osRdb_DbgRead_Buf;
+u8 rmonRdbReadBuf[RMON_DBG_BUF_SIZE] ALIGNED(0x10);
 
-void                    __rmonSendFault(OSThread *thread) {
+void __rmonSendFault(OSThread *thread) {
     volatile float f UNUSED;
-    u8              *tPtr;
-    u32              sent = 0;
+    u8 *tPtr;
+    u32 sent = 0;
 
     /* touch fpu to ensure registers are saved to the context structure */
     f = 0.0f;
@@ -48,7 +48,7 @@ void                    __rmonSendFault(OSThread *thread) {
 }
 
 void __rmonIOflush(void) {
-    int  sent = 0;
+    int sent = 0;
     char tstr[4];
 
     while (sent <= 0) {
@@ -57,7 +57,7 @@ void __rmonIOflush(void) {
 }
 
 void __rmonIOputw(u32 word) {
-    int   sent = 0;
+    int sent = 0;
     char *cPtr = (char *) &word;
 
     while (sent < 4) {
@@ -66,7 +66,7 @@ void __rmonIOputw(u32 word) {
 }
 
 void __rmonIOhandler(void) {
-    int  sent;
+    int sent;
     char tstr[4];
 
     osCreateMesgQueue(&IOmq, &IOmsgs, 1);

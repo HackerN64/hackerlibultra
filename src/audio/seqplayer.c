@@ -44,20 +44,20 @@
 #ident "$Revision: 1.17 $"
 
 static ALMicroTime __seqpVoiceHandler(void *node);
-static void        __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event);
-static void        __handleMetaMsg(ALSeqPlayer *seqp, ALEvent *event);
-static void        __handleNextSeqEvent(ALSeqPlayer *seqp);
-static void        __setUsptFromTempo(ALSeqPlayer *seqp, f32 tempo); /* sct 1/8/96 */
+static void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event);
+static void __handleMetaMsg(ALSeqPlayer *seqp, ALEvent *event);
+static void __handleNextSeqEvent(ALSeqPlayer *seqp);
+static void __setUsptFromTempo(ALSeqPlayer *seqp, f32 tempo); /* sct 1/8/96 */
 
 /*
  * Sequence Player public functions
  */
 void alSeqpNew(ALSeqPlayer *seqp, ALSeqpConfig *c) {
-    s32              i;
+    s32 i;
     ALEventListItem *items;
-    ALVoiceState    *vs;
-    ALVoiceState    *voices;
-    ALHeap          *hp = c->heap;
+    ALVoiceState *vs;
+    ALVoiceState *voices;
+    ALHeap *hp = c->heap;
 
     /*
      * initialize member variables
@@ -122,14 +122,14 @@ void alSeqpNew(ALSeqPlayer *seqp, ALSeqpConfig *c) {
  * private routines or driver callback routines
  *************************************************************/
 ALMicroTime __seqpVoiceHandler(void *node) {
-    ALSeqPlayer  *seqp = (ALSeqPlayer *) node;
-    ALEvent       evt;
-    ALVoice      *voice;
-    ALMicroTime   delta;
+    ALSeqPlayer *seqp = (ALSeqPlayer *) node;
+    ALEvent evt;
+    ALVoice *voice;
+    ALMicroTime delta;
     ALVoiceState *vs;
-    void         *oscState;
-    f32           oscValue;
-    u8            chan;
+    void *oscState;
+    f32 oscValue;
+    u8 chan;
 
     do {
 
@@ -336,8 +336,8 @@ ALMicroTime __seqpVoiceHandler(void *node) {
 */
 void __postNextSeqEvent(ALSeqPlayer *seqp) {
     ALEvent evt;
-    s32     deltaTicks;
-    ALSeq  *seq = seqp->target;
+    s32 deltaTicks;
+    ALSeq *seq = seqp->target;
 
     /* sct 1/5/96 - Do nothing if we're not playing or don't have a target sequence. */
     if ((seqp->state != AL_PLAYING) || (seq == NULL))
@@ -409,21 +409,21 @@ static void __handleNextSeqEvent(ALSeqPlayer *seqp) {
 }
 
 void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
-    ALVoice      *voice;
+    ALVoice *voice;
     ALVoiceState *vs;
-    s32           status;
-    u8            chan;
-    u8            key;
-    u8            vel;
-    u8            byte1;
-    u8            byte2;
-    ALMIDIEvent  *midi = &event->msg.midi;
-    s16           vol;
-    ALEvent       evt;
-    ALMicroTime   deltaTime;
+    s32 status;
+    u8 chan;
+    u8 key;
+    u8 vel;
+    u8 byte1;
+    u8 byte2;
+    ALMIDIEvent *midi = &event->msg.midi;
+    s16 vol;
+    ALEvent evt;
+    ALMicroTime deltaTime;
     ALVoiceState *vstate;
-    ALPan         pan;
-    ALFxRef       fxref;
+    ALPan pan;
+    ALFxRef fxref;
 #if BUILD_VERSION < VERSION_J
 #line 434
 #endif
@@ -441,11 +441,11 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
 
             if (vel != 0) { /* a real note on */
                 ALVoiceConfig config;
-                ALSound      *sound;
-                s16           cents;
-                f32           pitch, oscValue;
-                u8            fxmix;
-                void         *oscState;
+                ALSound *sound;
+                s16 cents;
+                f32 pitch, oscValue;
+                u8 fxmix;
+                void *oscState;
                 ALInstrument *inst;
 
                 /* If we're not playing, don't process note ons. */
@@ -733,8 +733,8 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
 
 void __handleMetaMsg(ALSeqPlayer *seqp, ALEvent *event) {
     ALTempoEvent *tevt = &event->msg.tempo;
-    ALEvent       evt;
-    s32           tempo;
+    ALEvent evt;
+    s32 tempo;
 
     if (event->msg.tempo.status == AL_MIDI_Meta) {
         if (event->msg.tempo.type == AL_MIDI_META_TEMPO) {
@@ -835,10 +835,10 @@ ALSound *__lookupSound(ALSeqPlayer *seqp, u8 key, u8 vel, u8 chan)
 
 ALSound *__lookupSoundQuick(ALSeqPlayer *seqp, u8 key, u8 vel, u8 chan) {
     ALInstrument *inst = seqp->chanState[chan].instrument;
-    s32           l = 1;
-    s32           r = inst->soundCount;
-    s32           i;
-    ALKeyMap     *keymap;
+    s32 l = 1;
+    s32 r = inst->soundCount;
+    s32 i;
+    ALKeyMap *keymap;
 #if BUILD_VERSION < VERSION_J
 #line 885
 #endif
@@ -917,7 +917,7 @@ s32 seqpSetChannelMask(SEQP *seqp, u16 bitmask);
 #endif
 
 void __seqpReleaseVoice(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime deltaTime) {
-    ALEvent       evt;
+    ALEvent evt;
     ALVoiceState *vs = (ALVoiceState *) voice->clientPrivate;
 
     /*
@@ -926,8 +926,8 @@ void __seqpReleaseVoice(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime deltaTime
      */
 
     if (vs->envPhase == AL_PHASE_ATTACK) {
-        ALLink          *thisNode;
-        ALLink          *nextNode;
+        ALLink *thisNode;
+        ALLink *nextNode;
         ALEventListItem *thisItem, *nextItem;
 
         thisNode = seqp->evtq.allocList.next;
@@ -977,11 +977,11 @@ void __seqpReleaseVoice(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime deltaTime
 #define VOICENEEDSNOTEKILL_DEBUG _DEBUG_INTERNAL && 0 /* For debugging voiceNeedsNoteKill routine. */
 
 char __voiceNeedsNoteKill(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime killTime) {
-    ALLink          *thisNode;
-    ALLink          *nextNode;
+    ALLink *thisNode;
+    ALLink *nextNode;
     ALEventListItem *thisItem;
-    ALMicroTime      itemTime = 0;
-    char             needsNoteKill = TRUE;
+    ALMicroTime itemTime = 0;
+    char needsNoteKill = TRUE;
 
 #if VOICENEEDSNOTEKILL_DEBUG
     alEvtqPrintAllocEvts(&seqp->evtq);
@@ -1024,7 +1024,7 @@ void __initFromBank(ALSeqPlayer *seqp, ALBank *b) {
     /*
      * init the chanState with the default instrument
      */
-    s32           i;
+    s32 i;
     ALInstrument *inst = 0;
 
     /* set to the first available instrument. */
@@ -1087,7 +1087,7 @@ void __initChanState(ALSeqPlayer *seqp) {
 
 void __seqpStopOsc(ALSeqPlayer *seqp, ALVoiceState *vs) {
     ALEventListItem *thisNode, *nextNode;
-    s16              evtType;
+    s16 evtType;
 
     thisNode = (ALEventListItem *) seqp->evtq.allocList.next;
     while (thisNode) {

@@ -6,16 +6,16 @@
 
 #include "PRinternal/macros.h"
 
-static int                            writeHostInitialized = FALSE;
+static int writeHostInitialized = FALSE;
 static OSMesgQueue writeHostMesgQueue ALIGNED(0x8);
-static OSMesg                         writeHostMesgBuf[1];
+static OSMesg writeHostMesgBuf[1];
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 void osWriteHost(void *dramAddr, u32 nbytes) {
     u8 *tPtr = dramAddr;
     u32 sent;
-    u8  dCount[3];
+    u8 dCount[3];
     u32 count;
 
 #ifndef NDEBUG

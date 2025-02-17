@@ -9,47 +9,47 @@
 
 #define BUFF_LEN 0x20
 
-static short         _Ldunscale(short *pex, ldouble *px);
-static void          _Genld(_Pft *px, char code, unsigned char *p, short nsig, short xexp);
+static short _Ldunscale(short *pex, ldouble *px);
+static void _Genld(_Pft *px, char code, unsigned char *p, short nsig, short xexp);
 
 static const ldouble pows[] = { 10e0L, 10e1L, 10e3L, 10e7L, 10e15L, 10e31L, 10e63L, 10e127L, 10e255L };
 
 // float properties
-#define _D0             0
-#define _DBIAS          0x3ff
-#define _DLONG          1
-#define _DOFF           4
-#define _FBIAS          0x7e
-#define _FOFF           7
-#define _FRND           1
-#define _LBIAS          0x3ffe
-#define _LOFF           15
+#define _D0    0
+#define _DBIAS 0x3ff
+#define _DLONG 1
+#define _DOFF  4
+#define _FBIAS 0x7e
+#define _FOFF  7
+#define _FRND  1
+#define _LBIAS 0x3ffe
+#define _LOFF  15
 // integer properties
-#define _C2             1
-#define _CSIGN          1
-#define _ILONG          0
-#define _MBMAX          8
-#define NAN             2
-#define INF             1
-#define FINITE          -1
-#define _DFRAC          ((1 << _DOFF) - 1)
-#define _DMASK          (0x7fff & ~_DFRAC)
-#define _DMAX           ((1 << (15 - _DOFF)) - 1)
-#define _DNAN           (0x8000 | _DMAX << _DOFF | 1 << (_DOFF - 1))
-#define _DSIGN          0x8000
-#define _D1             1 // big-endian order
-#define _D2             2
-#define _D3             3
+#define _C2    1
+#define _CSIGN 1
+#define _ILONG 0
+#define _MBMAX 8
+#define NAN    2
+#define INF    1
+#define FINITE -1
+#define _DFRAC ((1 << _DOFF) - 1)
+#define _DMASK (0x7fff & ~_DFRAC)
+#define _DMAX  ((1 << (15 - _DOFF)) - 1)
+#define _DNAN  (0x8000 | _DMAX << _DOFF | 1 << (_DOFF - 1))
+#define _DSIGN 0x8000
+#define _D1    1 // big-endian order
+#define _D2    2
+#define _D3    3
 
 #define ALIGN(s, align) (((unsigned int) (s) + ((align) - 1)) & ~((align) - 1))
 
 void _Ldtob(_Pft *px, char code) {
-    char    buff[BUFF_LEN];
-    char   *p;
+    char buff[BUFF_LEN];
+    char *p;
     ldouble ldval;
-    short   err;
-    short   nsig;
-    short   xexp;
+    short err;
+    short nsig;
+    short xexp;
 
     p = buff;
     ldval = px->v.ld;
@@ -107,7 +107,7 @@ void _Ldtob(_Pft *px, char code) {
             }
 
             for (*p++ = '0'; gen > 0 && 0 < ldval; p += 8) {
-                int  j;
+                int j;
                 long lo = ldval;
 
                 if ((gen -= 8) > 0) {
@@ -139,7 +139,7 @@ void _Ldtob(_Pft *px, char code) {
 
             if (nsig > 0) {
                 const char drop = nsig < gen && '5' <= p[nsig] ? '9' : '0';
-                int        n;
+                int n;
 
                 for (n = nsig; p[--n] == drop;) {
                     --nsig;
@@ -161,7 +161,7 @@ void _Ldtob(_Pft *px, char code) {
 
 short _Ldunscale(short *pex, ldouble *px) {
     unsigned short *ps = (unsigned short *) px;
-    short           xchar = (ps[_D0] & _DMASK) >> _DOFF;
+    short xchar = (ps[_D0] & _DMASK) >> _DOFF;
 
     if (xchar == _DMAX) {
         *pex = 0;

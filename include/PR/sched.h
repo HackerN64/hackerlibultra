@@ -33,7 +33,7 @@
 
 #include <ultra64.h>
 
-#define OS_SC_STACKSIZE    0x2000
+#define OS_SC_STACKSIZE 0x2000
 
 #define OS_SC_RETRACE_MSG  1
 #define OS_SC_DONE_MSG     2
@@ -44,18 +44,18 @@
 
 typedef struct {
     short type;
-    char  misc[30];
+    char misc[30];
 } OSScMsg;
 
 typedef struct OSScTask_s {
     struct OSScTask_s *next; /* note: this must be first */
-    u32                state;
-    u32                flags;
-    void              *framebuffer; /* used by graphics tasks */
+    u32 state;
+    u32 flags;
+    void *framebuffer; /* used by graphics tasks */
 
-    OSTask             list;
-    OSMesgQueue       *msgQ;
-    OSMesg             msg;
+    OSTask list;
+    OSMesgQueue *msgQ;
+    OSMesg msg;
 #ifndef _FINALROM     /* all #ifdef items should    */
     OSTime startTime; /* remain at the end!!, or    */
     OSTime totalTime; /* possible conflict if       */
@@ -72,8 +72,8 @@ typedef struct OSScTask_s {
 #define OS_SC_LAST_TASK     0x0020 /* last task in queue for frame */
 #define OS_SC_SWAPBUFFER    0x0040 /* swapbuffers when gfx task done */
 
-#define OS_SC_RCP_MASK      0x0003 /* mask for needs bits */
-#define OS_SC_TYPE_MASK     0x0007 /* complete type mask */
+#define OS_SC_RCP_MASK  0x0003 /* mask for needs bits */
+#define OS_SC_TYPE_MASK 0x0007 /* complete type mask */
 /*
  * OSScClient:
  *
@@ -83,31 +83,31 @@ typedef struct OSScTask_s {
  */
 typedef struct SCClient_s {
     struct SCClient_s *next; /* next client in the list      */
-    OSMesgQueue       *msgQ; /* where to send the frame msg  */
+    OSMesgQueue *msgQ;       /* where to send the frame msg  */
 } OSScClient;
 
 typedef struct {
-    OSScMsg     retraceMsg;
-    OSScMsg     prenmiMsg;
+    OSScMsg retraceMsg;
+    OSScMsg prenmiMsg;
     OSMesgQueue interruptQ;
-    OSMesg      intBuf[OS_SC_MAX_MESGS];
+    OSMesg intBuf[OS_SC_MAX_MESGS];
     OSMesgQueue cmdQ;
-    OSMesg      cmdMsgBuf[OS_SC_MAX_MESGS];
-    OSThread    thread;
+    OSMesg cmdMsgBuf[OS_SC_MAX_MESGS];
+    OSThread thread;
     OSScClient *clientList;
-    OSScTask   *audioListHead;
-    OSScTask   *gfxListHead;
-    OSScTask   *audioListTail;
-    OSScTask   *gfxListTail;
-    OSScTask   *curRSPTask;
-    OSScTask   *curRDPTask;
-    u32         frameCount;
-    s32         doAudio;
+    OSScTask *audioListHead;
+    OSScTask *gfxListHead;
+    OSScTask *audioListTail;
+    OSScTask *gfxListTail;
+    OSScTask *curRSPTask;
+    OSScTask *curRDPTask;
+    u32 frameCount;
+    s32 doAudio;
 } OSSched;
 
-void         osCreateScheduler(OSSched *s, void *stack, OSPri priority, u8 mode, u8 numFields);
-void         osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ);
-void         osScRemoveClient(OSSched *s, OSScClient *c);
+void osCreateScheduler(OSSched *s, void *stack, OSPri priority, u8 mode, u8 numFields);
+void osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ);
+void osScRemoveClient(OSSched *s, OSScClient *c);
 OSMesgQueue *osScGetCmdQ(OSSched *s);
 
 #endif

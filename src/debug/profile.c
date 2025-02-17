@@ -10,33 +10,33 @@
 
 #ifndef _FINALROM
 
-OSTimer                     __osProfTimer;
-OSMesg                      __osProfTimerMsg;
+OSTimer __osProfTimer;
+OSMesg __osProfTimerMsg;
 
 OSMesgQueue __osProfFlushMQ ALIGNED(0x8);
-OSMesg                      __osProfFlushMesg;
+OSMesg __osProfFlushMesg;
 
-OSMesgQueue __osProfAckMQ   ALIGNED(0x8);
-OSMesg                      __osProfAckMesg;
+OSMesgQueue __osProfAckMQ ALIGNED(0x8);
+OSMesg __osProfAckMesg;
 
-u32                         __osProfTimerPeriod;
+u32 __osProfTimerPeriod;
 
-u32                         __osProfNumSections;
+u32 __osProfNumSections;
 
-static u32                  __osProfileActive = FALSE;
-static u32                  __osProfileIOActive = FALSE;
+static u32 __osProfileActive = FALSE;
+static u32 __osProfileIOActive = FALSE;
 
 STACK(__osProfileIOStack, 0x960) ALIGNED(0x10);
 
 static OSThread __osProfileIOThread;
 
-void            osProfSendWord(u32 word);
+void osProfSendWord(u32 word);
 
-void            __osProfileIO(void *arg) {
-    s32     totalBytes;
-    u32     bytesThisBlock;
-    u32     ct;
-    u8     *sendPtr;
+void __osProfileIO(void *arg) {
+    s32 totalBytes;
+    u32 bytesThisBlock;
+    u32 ct;
+    u8 *sendPtr;
     OSProf *t;
 
     while (TRUE) {
@@ -82,7 +82,7 @@ void osProfileFlush(void) {
 }
 
 void osProfileInit(OSProf *profp, u32 profcnt) {
-    u32     i;
+    u32 i;
     OSProf *t;
 
 #if !defined(NDEBUG) && BUILD_VERSION >= VERSION_K

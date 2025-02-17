@@ -24,10 +24,10 @@
 #include "cseq.h"
 
 static u32 __readVarLen(ALCSeq *s, u32 track);
-static u8  __getTrackByte(ALCSeq *s, u32 track);
+static u8 __getTrackByte(ALCSeq *s, u32 track);
 static u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event);
 
-void       alCSeqNew(ALCSeq *seq, u8 *ptr) {
+void alCSeqNew(ALCSeq *seq, u8 *ptr) {
     u32 i, tmpOff, flagTmp;
 
     /* load the seqence pointed to by ptr   */
@@ -121,7 +121,7 @@ char __alCSeqNextDelta(ALCSeq *seq, s32 *pDeltaTicks) {
 /* only call alCSeqGetTrackEvent with a valid track !! */
 static u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event) {
     u32 offset;
-    u8  status, loopCt, curLpCt, *tmpPtr;
+    u8 status, loopCt, curLpCt, *tmpPtr;
 
     status = __getTrackByte(seq, track); /* read the status byte */
 
@@ -226,8 +226,8 @@ s32 alCSeqGetTicks(ALCSeq *seq) {
 
 void alCSeqNewMarker(ALCSeq *seq, ALCSeqMarker *m, u32 ticks) {
     ALEvent evt;
-    ALCSeq  tempSeq;
-    s32     i;
+    ALCSeq tempSeq;
+    s32 i;
 
     alCSeqNew(&tempSeq, (u8 *) seq->base);
 
@@ -297,7 +297,7 @@ static u8 __getTrackByte(ALCSeq *seq, u32 track) {
         theByte = *seq->curLoc[track];
         seq->curLoc[track]++;
         if (theByte == AL_CMIDI_BLOCK_CODE) {
-            u8  loBackUp, hiBackUp, theLen, nextByte;
+            u8 loBackUp, hiBackUp, theLen, nextByte;
             u32 backup;
 
             nextByte = *seq->curLoc[track];

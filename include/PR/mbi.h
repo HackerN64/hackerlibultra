@@ -46,10 +46,10 @@
 #define _SHIFTL(v, s, w) ((unsigned int) (((unsigned int) (v) & ((0x01 << (w)) - 1)) << (s)))
 #define _SHIFTR(v, s, w) ((unsigned int) (((unsigned int) (v) >> (s)) & ((0x01 << (w)) - 1)))
 
-#define _SHIFT           _SHIFTL /* old, for compatibility only */
+#define _SHIFT _SHIFTL /* old, for compatibility only */
 
-#define G_ON             (1)
-#define G_OFF            (0)
+#define G_ON  (1)
+#define G_OFF (0)
 
 /**************************************************************************
  *
@@ -73,11 +73,11 @@
  *
  **************************************************************************/
 
-#define M_GFXTASK              1
-#define M_AUDTASK              2
-#define M_VIDTASK              3
-#define M_HVQTASK              6
-#define M_HVQMTASK             7
+#define M_GFXTASK  1
+#define M_AUDTASK  2
+#define M_VIDTASK  3
+#define M_HVQTASK  6
+#define M_HVQMTASK 7
 
 /**************************************************************************
  *

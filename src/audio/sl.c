@@ -25,7 +25,7 @@
 
 ALGlobals *alGlobals = 0;
 
-void       alInit(ALGlobals *g, ALSynConfig *c) {
+void alInit(ALGlobals *g, ALSynConfig *c) {
     if (!alGlobals) { /* already initialized? */
         alGlobals = g;
         alSynNew(&alGlobals->drvr, c);

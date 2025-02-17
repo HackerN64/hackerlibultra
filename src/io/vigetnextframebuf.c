@@ -4,7 +4,7 @@
 
 void *osViGetNextFramebuffer(void) {
     register u32 saveMask;
-    void        *framep;
+    void *framep;
 
 #ifdef _DEBUG
     if (!__osViDevMgr.active) {

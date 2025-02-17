@@ -11,13 +11,13 @@ typedef struct {
 } __osExceptionVector;
 extern __osExceptionVector __osExceptionPreamble[];
 
-extern OSPiHandle          __Dom1SpeedParam;
-extern OSPiHandle          __Dom2SpeedParam;
+extern OSPiHandle __Dom1SpeedParam;
+extern OSPiHandle __Dom2SpeedParam;
 
-OSTime                     osClockRate = OS_CLOCK_RATE;
-s32                        osViClock = VI_NTSC_CLOCK;
-u32                        __osShutdown = 0;
-u32                        __OSGlobalIntMask = OS_IM_ALL;
+OSTime osClockRate = OS_CLOCK_RATE;
+s32 osViClock = VI_NTSC_CLOCK;
+u32 __osShutdown = 0;
+u32 __OSGlobalIntMask = OS_IM_ALL;
 #ifdef _FINALROM
 u32 __osFinalrom;
 #else
@@ -133,9 +133,9 @@ void INITIALIZE_FUNC() {
         unsigned int c;
         unsigned int c1;
 #endif
-        unsigned int          *src;
-        unsigned int          *dst;
-        unsigned int           monadr;
+        unsigned int *src;
+        unsigned int *dst;
+        unsigned int monadr;
         volatile unsigned int *mon;
         volatile unsigned int *stat;
 
@@ -166,7 +166,7 @@ void INITIALIZE_FUNC() {
             if (monadr != 0xBFF00000) {
                 unsigned int *src;
                 unsigned int *dst = monadr | 0x20000000;
-                unsigned int  ct = 0x2000 / 4;
+                unsigned int ct = 0x2000 / 4;
 
                 src = 0xBFF00000;
 

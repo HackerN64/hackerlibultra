@@ -35,7 +35,7 @@ static FUNPTR dispatchTable[] = {
 };
 
 int __rmonExecute(KKHeader *request) {
-    int      retval;
+    int retval;
     KKHeader reply;
 
     if (request->code >= ARRLEN(dispatchTable) - 1) {
