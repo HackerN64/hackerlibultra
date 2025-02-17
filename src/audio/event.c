@@ -32,7 +32,7 @@ void alEvtqNew(ALEventQueue *evtq, ALEventListItem *items, s32 itemCount) {
     evtq->freeList.prev = 0;
 
     for (i = 0; i < itemCount; i++) {
-        alLink((ALLink *) &items[i], &evtq->freeList);
+        alLink((ALLink *)&items[i], &evtq->freeList);
     }
 }
 
@@ -43,12 +43,12 @@ ALMicroTime alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt) {
 
     mask = osSetIntMask(OS_IM_NONE);
 
-    item = (ALEventListItem *) evtq->allocList.next;
+    item = (ALEventListItem *)evtq->allocList.next;
 
     if (item) {
-        alUnlink((ALLink *) item);
+        alUnlink((ALLink *)item);
         alCopy(&item->evt, evt, sizeof(*evt));
-        alLink((ALLink *) item, &evtq->freeList);
+        alLink((ALLink *)item, &evtq->freeList);
         delta = item->delta;
     } else {
         /* sct 11/28/95 - If we get here, most like we overflowed the event queue */
@@ -74,7 +74,7 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, ALMicroTime delta) {
 
     mask = osSetIntMask(OS_IM_NONE);
 
-    item = (ALEventListItem *) evtq->freeList.next;
+    item = (ALEventListItem *)evtq->freeList.next;
     if (!item) {
         osSetIntMask(mask);
 #ifdef _DEBUG
@@ -83,7 +83,7 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, ALMicroTime delta) {
         return;
     }
 
-    alUnlink((ALLink *) item);
+    alUnlink((ALLink *)item);
     alCopy(evt, &item->evt, sizeof(*evt));
 
     if (delta == AL_EVTQ_END)
@@ -95,16 +95,16 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, ALMicroTime delta) {
                 item->delta = 0;
             else
                 item->delta = delta;
-            alLink((ALLink *) item, node);
+            alLink((ALLink *)item, node);
             break;
         } else {
-            nextItem = (ALEventListItem *) node->next;
+            nextItem = (ALEventListItem *)node->next;
 
             if (delta < nextItem->delta) {
                 item->delta = delta;
                 nextItem->delta -= delta;
 
-                alLink((ALLink *) item, node);
+                alLink((ALLink *)item, node);
                 break;
             }
 
@@ -147,8 +147,8 @@ void alEvtqFlushType(ALEventQueue *evtq, s16 type) {
     thisNode = evtq->allocList.next;
     while (thisNode != 0) {
         nextNode = thisNode->next;
-        thisItem = (ALEventListItem *) thisNode;
-        nextItem = (ALEventListItem *) nextNode;
+        thisItem = (ALEventListItem *)thisNode;
+        nextItem = (ALEventListItem *)nextNode;
         if (thisItem->evt.type == type) {
             if (nextItem)
                 nextItem->delta += thisItem->delta;
@@ -175,7 +175,7 @@ void alEvtqPrintEvtQueue(ALEventQueue *evtq) {
 
     PRINTF("----- Allocated Events -----\n");
     for (node = evtq->allocList.next; node != 0; node = node->next) {
-        item = (ALEventListItem *) node;
+        item = (ALEventListItem *)node;
 
         PRINTF("\tdelta: %d\ttype %d\n", item->delta, item->evt.type);
         count2++;
@@ -197,7 +197,7 @@ void alEvtqPrintAllocEvts(ALEventQueue *evtq) {
 
     PRINTF("----- Allocated Events -----\n");
     for (node = evtq->allocList.next; node != 0; node = node->next) {
-        item = (ALEventListItem *) node;
+        item = (ALEventListItem *)node;
         itemTime += item->delta;
 
         PRINTF("\tdelta: %d\tabs: %d\t", item->delta, itemTime);

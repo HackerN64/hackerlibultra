@@ -7,7 +7,7 @@ s32 osGbpakPower(OSPfs *pfs, s32 flag) {
     s32 ret;
     u8 temp[BLOCKSIZE];
 
-    for (i = 0; i < BLOCKSIZE; temp[i++] = (u8) flag) {
+    for (i = 0; i < BLOCKSIZE; temp[i++] = (u8)flag) {
         ;
     }
 

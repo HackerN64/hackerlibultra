@@ -58,7 +58,7 @@ static s32 L_INC[] = { L0_INC, L1_INC, L2_INC };
  ***********************************************************************/
 Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
     Acmd *ptr = p;
-    ALFx *r = (ALFx *) filter;
+    ALFx *r = (ALFx *)filter;
     ALFilter *source = r->filter.source;
     s16 i, buff1, buff2, input, output;
     s16 *in_ptr, *out_ptr, gain, *prev_out_ptr = 0;
@@ -103,14 +103,14 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
         ptr = _loadOutputBuffer(r, d, buff2, outCount, ptr);
 
         if (d->ffcoef) {
-            aMix(ptr++, 0, (u16) d->ffcoef, buff1, buff2);
+            aMix(ptr++, 0, (u16)d->ffcoef, buff1, buff2);
             if (!d->rs && !d->lp) {
                 ptr = _saveBuffer(r, out_ptr, buff2, outCount, ptr);
             }
         }
 
         if (d->fbcoef) {
-            aMix(ptr++, 0, (u16) d->fbcoef, buff2, buff1);
+            aMix(ptr++, 0, (u16)d->fbcoef, buff2, buff1);
             ptr = _saveBuffer(r, in_ptr, buff1, outCount, ptr);
         }
 
@@ -121,7 +121,7 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
             ptr = _saveBuffer(r, out_ptr, buff2, outCount, ptr);
 
         if (d->gain)
-            aMix(ptr++, 0, (u16) d->gain, buff2, output);
+            aMix(ptr++, 0, (u16)d->gain, buff2, output);
 
         prev_out_ptr = &r->input[d->output];
     }
@@ -148,8 +148,8 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
 
 s32 alFxParam(void *filter, s32 paramID, void *param) {
     if (paramID == AL_FILTER_SET_SOURCE) {
-        ALFilter *f = (ALFilter *) filter;
-        f->source = (ALFilter *) param;
+        ALFilter *f = (ALFilter *)filter;
+        f->source = (ALFilter *)param;
     }
     return 0;
 }
@@ -160,10 +160,10 @@ s32 alFxParam(void *filter, s32 paramID, void *param) {
  * values must be 8 byte aligned, so round down any param passed.
  */
 s32 alFxParamHdl(void *filter, s32 paramID, void *param) {
-    ALFx *f = (ALFx *) filter;
+    ALFx *f = (ALFx *)filter;
     s32 p = (paramID - 2) % 8;
     s32 s = (paramID - 2) / 8;
-    s32 val = *(s32 *) param;
+    s32 val = *(s32 *)param;
 
 #define INPUT_PARAM       0
 #define OUTPUT_PARAM      1
@@ -176,23 +176,23 @@ s32 alFxParamHdl(void *filter, s32 paramID, void *param) {
 
     switch (p) {
         case INPUT_PARAM:
-            f->delay[s].input = (u32) val & 0xFFFFFFF8;
+            f->delay[s].input = (u32)val & 0xFFFFFFF8;
             break;
         case OUTPUT_PARAM:
-            f->delay[s].output = (u32) val & 0xFFFFFFF8;
+            f->delay[s].output = (u32)val & 0xFFFFFFF8;
             break;
         case FFCOEF_PARAM:
-            f->delay[s].ffcoef = (s16) val;
+            f->delay[s].ffcoef = (s16)val;
             break;
         case FBCOEF_PARAM:
-            f->delay[s].fbcoef = (s16) val;
+            f->delay[s].fbcoef = (s16)val;
             break;
         case GAIN_PARAM:
-            f->delay[s].gain = (s16) val;
+            f->delay[s].gain = (s16)val;
             break;
         case CHORUSRATE_PARAM:
             /* f->delay[s].rsinc = ((f32)val)/0xffffff; */
-            f->delay[s].rsinc = ((((f32) val) / 1000) * RANGE) / alGlobals->drvr.outputRate;
+            f->delay[s].rsinc = ((((f32)val) / 1000) * RANGE) / alGlobals->drvr.outputRate;
             break;
 
 /*
@@ -212,11 +212,11 @@ s32 alFxParamHdl(void *filter, s32 paramID, void *param) {
 
         case CHORUSDEPTH_PARAM:
             /*f->delay[s].rsgain = (((f32)val) / CONVERT) * LENGTH; */
-            f->delay[s].rsgain = (((f32) val) / CONVERT) * LENGTH;
+            f->delay[s].rsgain = (((f32)val) / CONVERT) * LENGTH;
             break;
         case LPFILT_PARAM:
             if (f->delay[s].lp) {
-                f->delay[s].lp->fc = (s16) val;
+                f->delay[s].lp->fc = (s16)val;
                 _init_lpfilter(f->delay[s].lp);
             }
             break;
@@ -243,8 +243,8 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p) {
          * find ratio of delta to delay length and quantize
          *  to same resolution as resampler
          */
-        delta /= length;                     /* convert delta from number of samples to a pitch ratio */
-        delta = (s32) (delta * UNITY_PITCH); /* quantize to value microcode will use */
+        delta /= length;                    /* convert delta from number of samples to a pitch ratio */
+        delta = (s32)(delta * UNITY_PITCH); /* quantize to value microcode will use */
         delta = delta / UNITY_PITCH;
         fratio = 1.0 - delta; /* pitch ratio needs to be centered around 1, not zero */
 
@@ -252,9 +252,9 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p) {
          * of the samples needed. fratio * incount + rs->delta gives the number of samples
          * needed for this frame.
          */
-        fincount = d->rs->delta + (fratio * (f32) incount);
-        count = (s32) fincount;                /* quantize to s32 */
-        d->rs->delta = fincount - (f32) count; /* calculate the round off and store */
+        fincount = d->rs->delta + (fratio * (f32)incount);
+        count = (s32)fincount;                /* quantize to s32 */
+        d->rs->delta = fincount - (f32)count; /* calculate the round off and store */
 
         /*
          * d->rsdelta is amount the out_ptr has deviated from its starting position.
@@ -263,8 +263,8 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p) {
          * value then bumps it up if it is below the  delay buffer.
          */
         out_ptr = &r->input[-(d->output - d->rsdelta)];
-        ramalign = ((s32) out_ptr & 0x7) >> 1; /* calculate the number of samples needed
-                                                to align the buffer*/
+        ramalign = ((s32)out_ptr & 0x7) >> 1; /* calculate the number of samples needed
+                                               to align the buffer*/
 #ifdef _DEBUG
 #if 0
         if(length > 0) {
@@ -284,7 +284,7 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p) {
         ptr = _loadBuffer(r, out_ptr - ramalign, rbuff, count + ramalign, ptr);
 
         /* convert fratio to 16 bit fraction for microcode use */
-        ratio = (s32) (fratio * UNITY_PITCH);
+        ratio = (s32)(fratio * UNITY_PITCH);
         /* set the buffers, and do the resample */
         aSetBuffer(ptr++, 0, rbuff + (ramalign << 1), buff, incount << 1);
         aResample(ptr++, d->rs->first, ratio, osVirtualToPhysical(d->rs->state));

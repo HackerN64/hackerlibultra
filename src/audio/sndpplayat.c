@@ -26,5 +26,5 @@ void alSndpPlayAt(ALSndPlayer *sndp, ALMicroTime delta) {
 
     evt.common.type = AL_SNDP_PLAY_EVT;
     evt.common.state = &sState[sndp->target];
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, delta);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, delta);
 }

@@ -63,14 +63,14 @@ s32 __osLeoInterrupt(void) {
             __osLeoResume();
             return 1;
         } else {
-            blockInfo->dramAddr = (void *) ((u32) blockInfo->dramAddr + blockInfo->sectorSize);
+            blockInfo->dramAddr = (void *)((u32)blockInfo->dramAddr + blockInfo->sectorSize);
             info->sectorNum++;
             __osEPiRawStartDma(__osDiskHandle, OS_WRITE, LEO_SECTOR_BUFF, blockInfo->dramAddr, blockInfo->sectorSize);
             return 1;
         }
     } else if (info->cmdType == LEO_CMD_TYPE_0) {
         if (info->transferMode == LEO_SECTOR_MODE) {
-            if (info->sectorNum > (s32) blockInfo->C1ErrNum + 17) {
+            if (info->sectorNum > (s32)blockInfo->C1ErrNum + 17) {
                 blockInfo->errStatus = LEO_ERROR_GOOD;
                 __osLeoAbnormalResume();
                 return 1;
@@ -82,7 +82,7 @@ s32 __osLeoInterrupt(void) {
                 return 1;
             }
         } else {
-            blockInfo->dramAddr = (void *) ((u32) blockInfo->dramAddr + blockInfo->sectorSize);
+            blockInfo->dramAddr = (void *)((u32)blockInfo->dramAddr + blockInfo->sectorSize);
         }
 
         bm_stat = IO_READ(LEO_BM_STATUS);
@@ -110,7 +110,7 @@ s32 __osLeoInterrupt(void) {
             if (info->transferMode == LEO_TRACK_MODE && info->blockNum == 0) {
                 info->blockNum = 1;
                 info->sectorNum = -1;
-                info->block[1].dramAddr = (void *) ((u32) info->block[1].dramAddr - info->block[1].sectorSize);
+                info->block[1].dramAddr = (void *)((u32)info->block[1].dramAddr - info->block[1].sectorSize);
 
                 blockInfo->errStatus = LEO_ERROR_22;
             } else {
@@ -127,8 +127,8 @@ s32 __osLeoInterrupt(void) {
         if (info->sectorNum == -1 && info->transferMode == LEO_TRACK_MODE && info->blockNum == 1) {
             __OSBlockInfo *bptr = &info->block[0];
             if (bptr->C1ErrNum == 0) {
-                if (((u32 *) bptr->C2Addr)[0] | ((u32 *) bptr->C2Addr)[1] | ((u32 *) bptr->C2Addr)[2]
-                    | ((u32 *) bptr->C2Addr)[3]) {
+                if (((u32 *)bptr->C2Addr)[0] | ((u32 *)bptr->C2Addr)[1] | ((u32 *)bptr->C2Addr)[2]
+                    | ((u32 *)bptr->C2Addr)[3]) {
                     bptr->errStatus = LEO_ERROR_24;
                     __osLeoAbnormalResume();
                     return 1;

@@ -36,5 +36,5 @@ void alSndpSetPan(ALSndPlayer *sndp, ALPan pan) {
     evt.pan.type = AL_SNDP_PAN_EVT;
     evt.pan.pan = pan;
     evt.pan.state = &sState[sndp->target];
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, 0);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, 0);
 }

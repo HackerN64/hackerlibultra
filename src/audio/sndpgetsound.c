@@ -21,5 +21,5 @@
 #include "sndp.h"
 
 ALSndId alSndpGetSound(ALSndPlayer *sndp) {
-    return (ALSndId) sndp->target;
+    return (ALSndId)sndp->target;
 }

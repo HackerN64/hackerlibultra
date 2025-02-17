@@ -21,11 +21,11 @@
 #include "synthInternals.h"
 
 ALFxRef alSynGetFXRef(ALSynth *s, s16 bus, s16 index) {
-    ALMainBus *m = (ALMainBus *) s->mainBus;
+    ALMainBus *m = (ALMainBus *)s->mainBus;
     ALFilter **sources = m->sources;
 
     if (sources[0]->type == AL_FX)
-        return (ALFxRef) (&s->auxBus[bus].fx[index]);
+        return (ALFxRef)(&s->auxBus[bus].fx[index]);
     else
         return 0;
 }

@@ -104,7 +104,7 @@ u8 __osContAddressCrc(u16 addr) {
         // temp is used as a shift register for the CRC
         temp <<= 1;
 
-        if ((u32) addr & i) {
+        if ((u32)addr & i) {
             if (temp & (1 << ADDRESS_CRC_LENGTH)) {
                 // Same as temp++; temp ^= 0x15 since last bit always 0 after the shift
                 temp ^= ADDRESS_CRC_GENERATOR - 1;
@@ -185,7 +185,7 @@ u8 __osContAddressCrc(u16 addr) {
         temp2 = (temp & 0x10) ? 0x15 : 0;
 
         temp <<= 1;
-        temp |= (u8) ((addr & 0x400) ? 1 : 0);
+        temp |= (u8)((addr & 0x400) ? 1 : 0);
         addr <<= 1;
         temp ^= temp2;
     }

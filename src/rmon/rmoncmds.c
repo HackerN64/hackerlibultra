@@ -42,7 +42,7 @@ int __rmonExecute(KKHeader *request) {
         return TV_ERROR_ILLEGAL_CALL;
     }
 
-    retval = dispatchTable[(int) request->code](request);
+    retval = dispatchTable[(int)request->code](request);
     if (retval < TV_ERROR_NO_ERROR) {
         reply.code = request->code;
         reply.error = retval;

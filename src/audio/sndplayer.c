@@ -36,7 +36,7 @@ void alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c) {
     sndp->maxSounds = c->maxSounds;
     sndp->target = -1;
     sndp->frameTime = AL_USEC_PER_FRAME; /* time between API events */
-    sState = (ALSoundState *) alHeapAlloc(c->heap, 1, c->maxSounds * sizeof(ALSoundState));
+    sState = (ALSoundState *)alHeapAlloc(c->heap, 1, c->maxSounds * sizeof(ALSoundState));
     sndp->sndState = sState;
 
     for (i = 0; i < c->maxSounds; i++)
@@ -46,7 +46,7 @@ void alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c) {
      * init the event queue
      */
     ptr = alHeapAlloc(c->heap, 1, c->maxEvents * sizeof(ALEventListItem));
-    alEvtqNew(&sndp->evtq, (ALEventListItem *) ptr, c->maxEvents);
+    alEvtqNew(&sndp->evtq, (ALEventListItem *)ptr, c->maxEvents);
 
     /*
      * add ourselves to the driver
@@ -61,7 +61,7 @@ void alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c) {
      * Start responding to API events
      */
     evt.type = AL_SNDP_API_EVT;
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, sndp->frameTime);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, sndp->frameTime);
     sndp->nextDelta = alEvtqNextEvent(&sndp->evtq, &sndp->nextEvent);
 }
 
@@ -69,7 +69,7 @@ void alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c) {
  * Sound Player private routines
  *************************************************************/
 ALMicroTime _sndpVoiceHandler(void *node) {
-    ALSndPlayer *sndp = (ALSndPlayer *) node;
+    ALSndPlayer *sndp = (ALSndPlayer *)node;
     ALSndpEvent evt;
 
     do {
@@ -77,13 +77,13 @@ ALMicroTime _sndpVoiceHandler(void *node) {
             case (AL_SNDP_API_EVT):
                 evt.common.type = AL_SNDP_API_EVT;
 #if BUILD_VERSION >= VERSION_K
-                evt.common.state = (ALSoundState *) -1;
+                evt.common.state = (ALSoundState *)-1;
 #endif
-                alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, sndp->frameTime);
+                alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, sndp->frameTime);
                 break;
 
             default:
-                _handleEvent(sndp, (ALSndpEvent *) &sndp->nextEvent);
+                _handleEvent(sndp, (ALSndpEvent *)&sndp->nextEvent);
                 break;
         }
         sndp->nextDelta = alEvtqNextEvent(&sndp->evtq, &sndp->nextEvent);
@@ -122,10 +122,10 @@ void _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event) {
             voice = &state->voice;
             alSynAllocVoice(sndp->drvr, voice, &vc);
 
-            vol = (s16) ((s32) snd->envelope->attackVolume * state->vol / AL_VOL_FULL);
+            vol = (s16)((s32)snd->envelope->attackVolume * state->vol / AL_VOL_FULL);
             tmp = state->pan - AL_PAN_CENTER + snd->samplePan;
             tmp = MAX(tmp, AL_PAN_LEFT);
-            pan = (ALPan) MIN(tmp, AL_PAN_RIGHT);
+            pan = (ALPan)MIN(tmp, AL_PAN_RIGHT);
             pitch = state->pitch;
             delta = snd->envelope->attackTime;
 
@@ -139,21 +139,21 @@ void _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event) {
 
             evt.common.type = AL_SNDP_DECAY_EVT;
             evt.common.state = state;
-            delta = (ALMicroTime) _DivS32ByF32(snd->envelope->attackTime, state->pitch);
-            alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, delta);
+            delta = (ALMicroTime)_DivS32ByF32(snd->envelope->attackTime, state->pitch);
+            alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, delta);
             break;
 
         case (AL_SNDP_STOP_EVT):
             if (state->state != AL_PLAYING || !snd)
                 return;
 
-            delta = (ALMicroTime) _DivS32ByF32(snd->envelope->releaseTime, state->pitch);
+            delta = (ALMicroTime)_DivS32ByF32(snd->envelope->releaseTime, state->pitch);
             alSynSetVol(sndp->drvr, &state->voice, 0, delta);
 
             if (delta) {
                 evt.common.type = AL_SNDP_END_EVT;
                 evt.common.state = state;
-                alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, delta);
+                alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, delta);
                 state->state = AL_STOPPING;
             } else {
                 /* note: this code is repeated in AL_SNDP_END_EVT */
@@ -169,7 +169,7 @@ void _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event) {
             if (state->state == AL_PLAYING && snd) {
                 tmp = state->pan - AL_PAN_CENTER + snd->samplePan;
                 tmp = MAX(tmp, AL_PAN_LEFT);
-                pan = (ALPan) MIN(tmp, AL_PAN_RIGHT);
+                pan = (ALPan)MIN(tmp, AL_PAN_RIGHT);
                 alSynSetPan(sndp->drvr, &state->voice, pan);
             }
             break;
@@ -195,7 +195,7 @@ void _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event) {
             state->vol = event->vol.vol;
             if (state->state == AL_PLAYING && snd) {
                 vtmp = snd->envelope->decayVolume * state->vol / AL_VOL_FULL;
-                alSynSetVol(sndp->drvr, &state->voice, (s16) vtmp, 1000);
+                alSynSetVol(sndp->drvr, &state->voice, (s16)vtmp, 1000);
             }
             break;
 
@@ -206,11 +206,11 @@ void _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event) {
              */
             if (snd->envelope->decayTime != -1) {
                 vtmp = snd->envelope->decayVolume * state->vol / AL_VOL_FULL;
-                delta = (ALMicroTime) _DivS32ByF32(snd->envelope->decayTime, state->pitch);
-                alSynSetVol(sndp->drvr, &state->voice, (s16) vtmp, delta);
+                delta = (ALMicroTime)_DivS32ByF32(snd->envelope->decayTime, state->pitch);
+                alSynSetVol(sndp->drvr, &state->voice, (s16)vtmp, delta);
                 evt.common.type = AL_SNDP_STOP_EVT;
                 evt.common.state = state;
-                alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, delta);
+                alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, delta);
             }
             break;
 
@@ -239,9 +239,9 @@ static void _removeEvents(ALEventQueue *evtq, ALSoundState *state) {
     thisNode = evtq->allocList.next;
     while (thisNode != 0) {
         nextNode = thisNode->next;
-        thisItem = (ALEventListItem *) thisNode;
-        nextItem = (ALEventListItem *) nextNode;
-        thisEvent = (ALSndpEvent *) &thisItem->evt;
+        thisItem = (ALEventListItem *)thisNode;
+        nextItem = (ALEventListItem *)nextNode;
+        thisEvent = (ALSndpEvent *)&thisItem->evt;
         if (thisEvent->common.state == state) {
             if (nextItem)
                 nextItem->delta += thisItem->delta;

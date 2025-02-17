@@ -21,7 +21,7 @@
 #include "synthInternals.h"
 
 void alSynSetFXParam(ALSynth *synth, ALFxRef fx, s16 paramID, void *param) {
-    ALFx *f = (ALFx *) fx;
+    ALFx *f = (ALFx *)fx;
 
-    (*f->paramHdl)(f, (s32) paramID, param);
+    (*f->paramHdl)(f, (s32)paramID, param);
 }

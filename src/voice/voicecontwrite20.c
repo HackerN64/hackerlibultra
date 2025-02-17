@@ -10,7 +10,7 @@
 #include "PRinternal/controller_voice.h"
 #include "PRinternal/siint.h"
 
-#define WRITE20FORMAT(ptr) ((__OSVoiceWrite20Format *) (ptr))
+#define WRITE20FORMAT(ptr) ((__OSVoiceWrite20Format *)(ptr))
 
 s32 __osVoiceContWrite20(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) {
     s32 ret = 0;
@@ -24,9 +24,9 @@ s32 __osVoiceContWrite20(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) 
 
     do {
 
-        ptr = (u8 *) &__osPfsPifRam;
+        ptr = (u8 *)&__osPfsPifRam;
 
-        if ((__osContLastCmd != CONT_CMD_WRITE20_VOICE) || ((u32) __osPfsLastChannel != channel)) {
+        if ((__osContLastCmd != CONT_CMD_WRITE20_VOICE) || ((u32)__osPfsLastChannel != channel)) {
             __osContLastCmd = CONT_CMD_WRITE20_VOICE;
             __osPfsLastChannel = channel;
 

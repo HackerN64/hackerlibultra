@@ -42,5 +42,5 @@ void alSndpSetPitch(ALSndPlayer *sndp, f32 pitch) {
     evt.pitch.type = AL_SNDP_PITCH_EVT;
     evt.pitch.state = &sState[sndp->target];
     evt.pitch.pitch = pitch;
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, 0);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, 0);
 }

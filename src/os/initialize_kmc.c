@@ -13,9 +13,9 @@ typedef struct {
 
 extern __osExceptionVector __ptExceptionPreamble[];
 
-static volatile unsigned int *stat = (unsigned *) 0xbff08004;
-static volatile unsigned int *wport = (unsigned *) 0xbff08000;
-static volatile unsigned int *piok = (unsigned *) PHYS_TO_K1(PI_STATUS_REG);
+static volatile unsigned int *stat = (unsigned *)0xbff08004;
+static volatile unsigned int *wport = (unsigned *)0xbff08000;
+static volatile unsigned int *piok = (unsigned *)PHYS_TO_K1(PI_STATUS_REG);
 
 static void rmonPutchar(char c) {
     u32 data;
@@ -76,7 +76,7 @@ static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
             rmonPutchar(*q++);
         }
     }
-    return (void *) 1;
+    return (void *)1;
 }
 
 extern u32 __kmc_pt_mode;
@@ -90,14 +90,14 @@ void __osInitialize_kmc(void) {
         volatile unsigned int *mon;
         volatile unsigned int *stat;
 
-        stat = (unsigned *) 0xbff08004;
-        mon = (unsigned *) 0xBFF00000;
+        stat = (unsigned *)0xbff08004;
+        mon = (unsigned *)0xBFF00000;
         if (*mon != 0x4B4D4300) {
             return;
         }
 
-        src = (unsigned *) __ptExceptionPreamble;
-        dst = (unsigned *) E_VEC;
+        src = (unsigned *)__ptExceptionPreamble;
+        dst = (unsigned *)E_VEC;
         *dst++ = *src++;
         *dst++ = *src++;
         *dst++ = *src++;
@@ -134,10 +134,10 @@ void __osInitialize_kmc(void) {
 }
 
 int __checkHardware_kmc(void) {
-    volatile unsigned int *mon = (unsigned *) 0xBFF00000;
+    volatile unsigned int *mon = (unsigned *)0xBFF00000;
 
     if (*mon == 0x4B4D4300) {
-        mon = (unsigned *) 0xBFF00010;
+        mon = (unsigned *)0xBFF00010;
 
         if (*mon == 0xB0FFB000) {
             return TRUE;

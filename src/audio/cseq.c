@@ -31,7 +31,7 @@ void alCSeqNew(ALCSeq *seq, u8 *ptr) {
     u32 i, tmpOff, flagTmp;
 
     /* load the seqence pointed to by ptr   */
-    seq->base = (ALCMidiHdr *) ptr;
+    seq->base = (ALCMidiHdr *)ptr;
     seq->validTracks = 0;
     seq->lastDeltaTicks = 0;
     seq->lastTicks = 0;
@@ -46,14 +46,14 @@ void alCSeqNew(ALCSeq *seq, u8 *ptr) {
         {
             flagTmp = 1 << i;
             seq->validTracks |= flagTmp;
-            seq->curLoc[i] = (u8 *) ((u32) ptr + tmpOff);
+            seq->curLoc[i] = (u8 *)((u32)ptr + tmpOff);
             seq->evtDeltaTicks[i] = __readVarLen(seq, i);
             /*__alCSeqGetTrackEvent(seq,i); prime the event buffers  */
         } else
             seq->curLoc[i] = 0;
     }
 
-    seq->qnpt = 1.0 / (f32) seq->base->division;
+    seq->qnpt = 1.0 / (f32)seq->base->division;
 }
 
 void alCSeqNextEvent(ALCSeq *seq, ALEvent *evt) {
@@ -213,11 +213,11 @@ static u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event) {
 }
 
 f32 alCSeqTicksToSec(ALCSeq *seq, s32 ticks, u32 tempo) {
-    return ((f32) (((f32) (ticks) * (f32) (tempo)) / ((f32) (seq->base->division) * 1000000.0)));
+    return ((f32)(((f32)(ticks) * (f32)(tempo)) / ((f32)(seq->base->division) * 1000000.0)));
 }
 
 u32 alCSeqSecToTicks(ALCSeq *seq, f32 sec, u32 tempo) {
-    return (u32) (((sec * 1000000.0) * seq->base->division) / tempo);
+    return (u32)(((sec * 1000000.0) * seq->base->division) / tempo);
 }
 
 s32 alCSeqGetTicks(ALCSeq *seq) {
@@ -229,7 +229,7 @@ void alCSeqNewMarker(ALCSeq *seq, ALCSeqMarker *m, u32 ticks) {
     ALCSeq tempSeq;
     s32 i;
 
-    alCSeqNew(&tempSeq, (u8 *) seq->base);
+    alCSeqNew(&tempSeq, (u8 *)seq->base);
 
     do {
         m->validTracks = tempSeq.validTracks;
@@ -312,11 +312,11 @@ static u8 __getTrackByte(ALCSeq *seq, u32 track) {
                 seq->curLoc[track]++;
                 theLen = *seq->curLoc[track];
                 seq->curLoc[track]++;
-                backup = (u32) hiBackUp;
+                backup = (u32)hiBackUp;
                 backup = backup << 8;
                 backup += loBackUp;
                 seq->curBUPtr[track] = seq->curLoc[track] - (backup + 4);
-                seq->curBULen[track] = (u32) theLen;
+                seq->curBULen[track] = (u32)theLen;
 
                 /* now get the byte */
                 theByte = *seq->curBUPtr[track];
@@ -333,11 +333,11 @@ static u32 __readVarLen(ALCSeq *seq, u32 track) {
     u32 value;
     u32 c;
 
-    value = (u32) __getTrackByte(seq, track);
+    value = (u32)__getTrackByte(seq, track);
     if (value & 0x00000080) {
         value &= 0x7f;
         do {
-            c = (u32) __getTrackByte(seq, track);
+            c = (u32)__getTrackByte(seq, track);
             value = (value << 7) + (c & 0x7f);
         } while (c & 0x80);
     }

@@ -41,7 +41,7 @@ s32 osVoiceGetReadData(OSVoiceHandle *hd, OSVoiceData *micdata) {
                 return CONT_ERR_VOICE_NO_RESPONSE;
             }
 
-            *(u32 *) temp = 0x600;
+            *(u32 *)temp = 0x600;
             ERRCK(__osVoiceContWrite4(hd->__mq, hd->__channel, 0, temp));
 
         case 3:

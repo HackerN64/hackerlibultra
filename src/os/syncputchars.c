@@ -23,13 +23,13 @@ void __osSyncPutChars(int type, int length, const char *buf) {
     }
 
     mask = __osDisableInt();
-    *(vu32 *) RDB_BASE_REG = *(vu32 *) &packet;
+    *(vu32 *)RDB_BASE_REG = *(vu32 *)&packet;
 
     while (!(__osGetCause() & CAUSE_IP6)) {
         ;
     }
 
-    *(vu32 *) RDB_READ_INTR_REG = 0;
+    *(vu32 *)RDB_READ_INTR_REG = 0;
     __osRdbWriteOK++;
     __osRestoreInt(mask);
 }

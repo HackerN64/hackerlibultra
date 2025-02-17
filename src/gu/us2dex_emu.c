@@ -35,10 +35,10 @@ static s8 bgflg;
  * Set scissoring parameters
  * *---------------------------------------------------------------------------*/
 void guS2DEmuSetScissor(u32 ulx, u32 uly, u32 lrx, u32 lry, u8 flag) {
-    scissorX0 = (u16) ulx << 2;
-    scissorY0 = (u16) uly << 2;
-    scissorX1 = (u16) lrx << 2;
-    scissorY1 = (u16) lry << 2;
+    scissorX0 = (u16)ulx << 2;
+    scissorY0 = (u16)uly << 2;
+    scissorX1 = (u16)lrx << 2;
+    scissorY1 = (u16)lry << 2;
     flagBilerp = (flag) ? 1 : 0;
 }
 
@@ -207,8 +207,8 @@ void guS2DEmuBgRect1Cyc(Gfx **pkt, uObjBg *bg) {
         s32 frameWmax, frameHmax;
 
         /* Determine maximum frame size from image and  enlargement ratio */
-        frameWmax = ((((s32) bg->s.imageW << 10) / scaleW) - 1) & ~3;
-        frameHmax = ((((s32) bg->s.imageH << 10) / scaleH) - 1) & ~3;
+        frameWmax = ((((s32)bg->s.imageW << 10) / scaleW) - 1) & ~3;
+        frameHmax = ((((s32)bg->s.imageH << 10) / scaleH) - 1) & ~3;
 
         /* Clamp the frame size */
         frameW = bg->s.frameW;
@@ -339,12 +339,12 @@ void guS2DEmuBgRect1Cyc(Gfx **pkt, uObjBg *bg) {
             tmemSize = 480;
             imageSliceWmax = 0x2800;
         } else {
-            imageSliceWmax = (((s32) bg->s.frameW * (s32) scaleW) >> 7) + (flagBilerp << 5);
+            imageSliceWmax = (((s32)bg->s.frameW * (s32)scaleW) >> 7) + (flagBilerp << 5);
             if (imageSliceWmax > imageSrcW)
                 imageSliceWmax = imageSrcW;
         }
 #else
-        imageSliceWmax = (((s32) bg->s.frameW * (s32) scaleW) >> 7) + (flagBilerp << 5);
+        imageSliceWmax = (((s32)bg->s.frameW * (s32)scaleW) >> 7) + (flagBilerp << 5);
         if (imageSliceWmax > imageSrcW)
             imageSliceWmax = imageSrcW;
 #endif
@@ -357,7 +357,7 @@ void guS2DEmuBgRect1Cyc(Gfx **pkt, uObjBg *bg) {
         frameSliceLines = (imageSliceLines << 20) / scaleH; /* (s21.10) */
 
         /* Line up image Y coordinate offset value with frame image */
-        imageLYoffset = ((s32) imageY0 - imageYorig) << 5;
+        imageLYoffset = ((s32)imageY0 - imageYorig) << 5;
         if (imageLYoffset < 0)
             imageLYoffset -= (scaleH - 1);
         frameLYoffset = imageLYoffset / scaleH;
@@ -387,7 +387,7 @@ void guS2DEmuBgRect1Cyc(Gfx **pkt, uObjBg *bg) {
             imageIY0 += (bg->s.imageH >> 2);
         if (imageIY0 >= (bg->s.imageH >> 2))
             imageIY0 -= (bg->s.imageH >> 2);
-        imageTop = (u32) bg->s.imagePtr;              /* (u32.0) */
+        imageTop = (u32)bg->s.imagePtr;               /* (u32.0) */
         imageSrcWsize = (imageSrcW / tmemShift) << 3; /* (u16.0) */
         imagePtrX0 = (imageX0 / tmemShift) << 3;      /* (u16.0) */
         imagePtr = imageTop + imageSrcWsize * imageIY0 + imagePtrX0;
@@ -424,7 +424,7 @@ void guS2DEmuBgRect1Cyc(Gfx **pkt, uObjBg *bg) {
         (*pkt)++;
         /* [SetTile:0] */
         (*pkt)->words.w0 = rdpSetTile_w0;
-        ((u8 *) &((*pkt)->words.w0))[1] = (bg->s.imageFmt << 5) | (bg->s.imageSiz << 3);
+        ((u8 *)&((*pkt)->words.w0))[1] = (bg->s.imageFmt << 5) | (bg->s.imageSiz << 3);
         (*pkt)->words.w1 = 0x0007c1f0 | (bg->s.imagePal << 20);
         (*pkt)++;
         /* [SetTileSize:7] */

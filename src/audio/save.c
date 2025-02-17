@@ -25,7 +25,7 @@
 
 Acmd *alSavePull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
     Acmd *ptr = p;
-    ALSave *f = (ALSave *) filter;
+    ALSave *f = (ALSave *)filter;
     ALFilter *source = f->filter.source;
 #if BUILD_VERSION < VERSION_J
 #line 33
@@ -42,13 +42,13 @@ Acmd *alSavePull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *
 }
 
 s32 alSaveParam(void *filter, s32 paramID, void *param) {
-    ALSave *a = (ALSave *) filter;
-    ALFilter *f = (ALFilter *) filter;
-    s32 pp = (s32) param;
+    ALSave *a = (ALSave *)filter;
+    ALFilter *f = (ALFilter *)filter;
+    s32 pp = (s32)param;
 
     switch (paramID) {
         case (AL_FILTER_SET_SOURCE):
-            f->source = (ALFilter *) param;
+            f->source = (ALFilter *)param;
             break;
 
         case (AL_FILTER_SET_DRAM):

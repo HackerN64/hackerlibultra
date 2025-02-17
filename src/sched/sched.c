@@ -97,17 +97,17 @@ void osCreateScheduler(OSSched *sc, void *stack, OSPri priority, u8 mode, u8 num
     osCreateViManager(OS_PRIORITY_VIMGR);
     osViSetMode(&osViModeTable[mode]);
     osViBlack(TRUE);
-    osSetEventMesg(OS_EVENT_SP, &sc->interruptQ, (OSMesg) RSP_DONE_MSG);
-    osSetEventMesg(OS_EVENT_DP, &sc->interruptQ, (OSMesg) RDP_DONE_MSG);
-    osSetEventMesg(OS_EVENT_PRENMI, &sc->interruptQ, (OSMesg) PRE_NMI_MSG);
+    osSetEventMesg(OS_EVENT_SP, &sc->interruptQ, (OSMesg)RSP_DONE_MSG);
+    osSetEventMesg(OS_EVENT_DP, &sc->interruptQ, (OSMesg)RDP_DONE_MSG);
+    osSetEventMesg(OS_EVENT_PRENMI, &sc->interruptQ, (OSMesg)PRE_NMI_MSG);
 
-    osViSetEvent(&sc->interruptQ, (OSMesg) VIDEO_MSG, numFields);
+    osViSetEvent(&sc->interruptQ, (OSMesg)VIDEO_MSG, numFields);
 
 #ifdef SC_LOGGING
     osCreateLog(l, logArray, sizeof(logArray));
 #endif
 
-    osCreateThread(&sc->thread, 4, __scMain, (void *) sc, stack, priority);
+    osCreateThread(&sc->thread, 4, __scMain, (void *)sc, stack, priority);
     osStartThread(&sc->thread);
 }
 
@@ -157,20 +157,20 @@ OSMesgQueue *osScGetCmdQ(OSSched *sc) {
  **********************************************************************/
 static void __scMain(void *arg) {
     OSMesg msg;
-    OSSched *sc = (OSSched *) arg;
+    OSSched *sc = (OSSched *)arg;
     OSScClient *client;
     static int count = 0;
 
     while (1) {
 
-        osRecvMesg(&sc->interruptQ, (OSMesg *) &msg, OS_MESG_BLOCK);
+        osRecvMesg(&sc->interruptQ, (OSMesg *)&msg, OS_MESG_BLOCK);
 
 #ifdef SC_LOGGING
         if (++count % 1024 == 0)
             osFlushLog(l);
 #endif
 
-        switch ((int) msg) {
+        switch ((int)msg) {
             case (VIDEO_MSG):
                 __scHandleRetrace(sc);
                 break;
@@ -188,7 +188,7 @@ static void __scMain(void *arg) {
                  * notify audio and graphics threads to fade out
                  */
                 for (client = sc->clientList; client != 0; client = client->next) {
-                    osSendMesg(client->msgQ, (OSMesg) &sc->prenmiMsg, OS_MESG_NOBLOCK);
+                    osSendMesg(client->msgQ, (OSMesg)&sc->prenmiMsg, OS_MESG_NOBLOCK);
                 }
                 break;
         }
@@ -218,7 +218,7 @@ void __scHandleRetrace(OSSched *sc) {
     /*
      * Read the task command queue and schedule tasks
      */
-    while (osRecvMesg(&sc->cmdQ, (OSMesg *) &rspTask, OS_MESG_NOBLOCK) != -1) {
+    while (osRecvMesg(&sc->cmdQ, (OSMesg *)&rspTask, OS_MESG_NOBLOCK) != -1) {
         __scAppendList(sc, rspTask);
     }
 
@@ -243,7 +243,7 @@ void __scHandleRetrace(OSSched *sc) {
      * build the list in overrun case)
      */
     for (client = sc->clientList; client != 0; client = client->next) {
-        osSendMesg(client->msgQ, (OSMesg) &sc->retraceMsg, OS_MESG_NOBLOCK);
+        osSendMesg(client->msgQ, (OSMesg)&sc->retraceMsg, OS_MESG_NOBLOCK);
     }
 }
 
@@ -452,7 +452,7 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp) {
         assert(dp->list.t.output_buff);
 
 #ifdef SC_LOGGING
-        osLogEvent(l, 523, 3, dp, dp->list.t.output_buff, (u32) *dp->list.t.output_buff_size);
+        osLogEvent(l, 523, 3, dp, dp->list.t.output_buff, (u32)*dp->list.t.output_buff_size);
 #endif
         rv = osDpSetNextBuffer(dp->list.t.output_buff, *dp->list.t.output_buff_size);
 

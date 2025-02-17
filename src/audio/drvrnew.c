@@ -34,7 +34,7 @@
  * the following arrays contain default parameters for
  * a few hopefully useful effects.
  */
-#define ms *(((s32) ((f32) 44.1)) & ~0x7)
+#define ms *(((s32)((f32)44.1)) & ~0x7)
 
 static s32 SMALLROOM_PARAMS[26] = {
     /* sections	   length */
@@ -93,23 +93,23 @@ void _init_lpfilter(ALLowPass *lp) {
         lp->fcvec.fccoef[i] = 0;
 
     lp->fcvec.fccoef[i++] = fc;
-    fcoef = ffc = (f64) fc / SCALE;
+    fcoef = ffc = (f64)fc / SCALE;
 
     for (; i < 16; i++) {
         fcoef *= ffc;
-        lp->fcvec.fccoef[i] = (s16) (fcoef * SCALE);
+        lp->fcvec.fccoef[i] = (s16)(fcoef * SCALE);
     }
 }
 
 void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp) {
     u16 i, j, k;
     s32 *param = 0;
-    ALFilter *f = (ALFilter *) r;
+    ALFilter *f = (ALFilter *)r;
     ALDelay *d;
 
     alFilterNew(f, 0, alFxParam, AL_FX);
     f->handler = alFxPull;
-    r->paramHdl = (ALSetFXParam) alFxParamHdl;
+    r->paramHdl = (ALSetFXParam)alFxParamHdl;
 
     switch (c->fxType) {
         case AL_FX_SMALLROOM:
@@ -158,7 +158,7 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp) {
         if (param[j]) {
 #define RANGE 2.0
             /*	    d->rsinc     = ((f32) param[j++])/0xffffff; */
-            d->rsinc = ((((f32) param[j++]) / 1000) * RANGE) / c->outputRate;
+            d->rsinc = ((((f32)param[j++]) / 1000) * RANGE) / c->outputRate;
 
             /*
              * the following constant is derived from:
@@ -174,7 +174,7 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp) {
              */
 #define CONVERT 173123.404906676
 #define LENGTH  (d->output - d->input)
-            d->rsgain = (((f32) param[j++]) / CONVERT) * LENGTH;
+            d->rsgain = (((f32)param[j++]) / CONVERT) * LENGTH;
             d->rsval = 1.0;
             d->rsdelta = 0.0;
             d->rs = alHeapAlloc(hp, 1, sizeof(ALResampler));
@@ -200,7 +200,7 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp) {
 }
 
 void alEnvmixerNew(ALEnvMixer *e, ALHeap *hp) {
-    alFilterNew((ALFilter *) e, alEnvmixerPull, alEnvmixerParam, AL_ENVMIX);
+    alFilterNew((ALFilter *)e, alEnvmixerPull, alEnvmixerParam, AL_ENVMIX);
 
     e->state = alHeapAlloc(hp, 1, sizeof(ENVMIX_STATE));
 
@@ -232,7 +232,7 @@ void alLoadNew(ALLoadFilter *f, ALDMANew dmaNew, ALHeap *hp) {
      * init filter superclass
      */
 
-    alFilterNew((ALFilter *) f, alAdpcmPull, alLoadParam, AL_ADPCM);
+    alFilterNew((ALFilter *)f, alAdpcmPull, alLoadParam, AL_ADPCM);
 
     f->state = alHeapAlloc(hp, 1, sizeof(ADPCM_STATE));
     f->lstate = alHeapAlloc(hp, 1, sizeof(ADPCM_STATE));
@@ -248,7 +248,7 @@ void alLoadNew(ALLoadFilter *f, ALDMANew dmaNew, ALHeap *hp) {
 }
 
 void alResampleNew(ALResampler *r, ALHeap *hp) {
-    alFilterNew((ALFilter *) r, alResamplePull, alResampleParam, AL_RESAMPLE);
+    alFilterNew((ALFilter *)r, alResamplePull, alResampleParam, AL_RESAMPLE);
 
     /*
      * Init resampler state
@@ -266,17 +266,17 @@ void alResampleNew(ALResampler *r, ALHeap *hp) {
 }
 
 void alAuxBusNew(ALAuxBus *m, void *sources, s32 maxSources) {
-    alFilterNew((ALFilter *) m, alAuxBusPull, alAuxBusParam, AL_AUXBUS);
+    alFilterNew((ALFilter *)m, alAuxBusPull, alAuxBusParam, AL_AUXBUS);
     m->sourceCount = 0;
     m->maxSources = maxSources;
-    m->sources = (ALFilter **) sources;
+    m->sources = (ALFilter **)sources;
 }
 
 void alMainBusNew(ALMainBus *m, void *sources, s32 maxSources) {
-    alFilterNew((ALFilter *) m, alMainBusPull, alMainBusParam, AL_MAINBUS);
+    alFilterNew((ALFilter *)m, alMainBusPull, alMainBusParam, AL_MAINBUS);
     m->sourceCount = 0;
     m->maxSources = maxSources;
-    m->sources = (ALFilter **) sources;
+    m->sources = (ALFilter **)sources;
 }
 
 void alSaveNew(ALSave *f) {
@@ -284,7 +284,7 @@ void alSaveNew(ALSave *f) {
      * init filter superclass
      */
 
-    alFilterNew((ALFilter *) f, alSavePull, alSaveParam, AL_SAVE);
+    alFilterNew((ALFilter *)f, alSavePull, alSaveParam, AL_SAVE);
 
     /*
      * init the save state, which is a virtual dram address

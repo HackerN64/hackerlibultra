@@ -27,7 +27,7 @@
 u8 __rmonUtilityBuffer[256] ALIGNED(0x8);
 
 void __rmonWriteWordTo(u32 *addr, u32 val) {
-    while (__osSpRawWriteIo((u32) addr, val) != 0) {
+    while (__osSpRawWriteIo((u32)addr, val) != 0) {
         ;
     }
 }
@@ -35,8 +35,8 @@ void __rmonWriteWordTo(u32 *addr, u32 val) {
 u32 __rmonReadWordAt(u32 *addr) {
     u32 data;
 
-    if ((u32) addr >= SP_DMEM_START && (u32) addr < 0x05000000) {
-        __osSpRawReadIo((u32) addr, &data);
+    if ((u32)addr >= SP_DMEM_START && (u32)addr < 0x05000000) {
+        __osSpRawReadIo((u32)addr, &data);
         return data;
     }
     return 0;
@@ -64,8 +64,8 @@ int __rmonReadMem(KKHeader *req) {
     char *cPtr;
     int sent;
     int dataSize;
-    KKReadRequest *request = (KKReadRequest *) req;
-    KKBufferEvent *reply = (KKBufferEvent *) __rmonUtilityBuffer;
+    KKReadRequest *request = (KKReadRequest *)req;
+    KKBufferEvent *reply = (KKBufferEvent *)__rmonUtilityBuffer;
     u8 *blockStart;
 
     STUBBED_PRINTF(("ReadMem @ %08x for %d\n", request->addr, request->nbytes));
@@ -74,7 +74,7 @@ int __rmonReadMem(KKHeader *req) {
     reply->object = request->object;
     reply->header.error = TV_ERROR_NO_ERROR;
 
-    if (request->addr == (u32) -1) {
+    if (request->addr == (u32)-1) {
         return TV_ERROR_INVALID_ADDRESS;
     }
     if (request->nbytes > RMON_MAX_XFER_SIZE) {
@@ -86,17 +86,17 @@ int __rmonReadMem(KKHeader *req) {
             && !((request->addr < SP_DMEM_START || (request->addr + request->nbytes) > SP_DMEM_END) ? FALSE : TRUE)) {
             return TV_ERROR_INVALID_ADDRESS;
         }
-    } else if (osVirtualToPhysical((void *) request->addr) == (u32) -1) {
+    } else if (osVirtualToPhysical((void *)request->addr) == (u32)-1) {
         return TV_ERROR_INVALID_ADDRESS;
     }
 
-    blockStart = (u8 *) request->addr;
+    blockStart = (u8 *)request->addr;
     reply->header.length = request->nbytes + sizeof(reply->header) + sizeof(reply->object);
     dataSize = request->nbytes + sizeof(reply->header) + sizeof(reply->object);
 
-    cPtr = (char *) &dataSize;
+    cPtr = (char *)&dataSize;
     sent = 0;
-    while (sent < (signed) sizeof(dataSize)) {
+    while (sent < (signed)sizeof(dataSize)) {
         sent += __osRdbSend(cPtr + sent, sizeof(dataSize) - sent, RDB_TYPE_GtoH_DEBUG);
     }
 
@@ -106,13 +106,13 @@ int __rmonReadMem(KKHeader *req) {
 }
 
 int __rmonWriteMem(KKHeader *req) {
-    register KKWriteRequest *request = (KKWriteRequest *) req;
+    register KKWriteRequest *request = (KKWriteRequest *)req;
     KKObjectEvent reply;
 
     STUBBED_PRINTF(("WriteMem\n"));
 
     /* Bad virtual address, abort */
-    if (req->method == RMON_CPU && osVirtualToPhysical((u32 *) request->writeHeader.addr) == (u32) -1) {
+    if (req->method == RMON_CPU && osVirtualToPhysical((u32 *)request->writeHeader.addr) == (u32)-1) {
         return TV_ERROR_INVALID_ADDRESS;
     }
 
@@ -136,7 +136,7 @@ int __rmonWriteMem(KKHeader *req) {
             }
 
             /* Unaligned write; read the word, substitute in the written byte, write it back */
-            word = __rmonReadWordAt((u32 *) (request->writeHeader.addr & ~3));
+            word = __rmonReadWordAt((u32 *)(request->writeHeader.addr & ~3));
             if (align == 1) {
                 word = (word & ~0xFF0000) | (request->buffer[0] << 0x10);
             } else if (align == 2) {
@@ -144,10 +144,10 @@ int __rmonWriteMem(KKHeader *req) {
             } else {
                 word = (word & ~0xFF) | (request->buffer[0] << 0);
             }
-            __rmonWriteWordTo((u32 *) (request->writeHeader.addr & ~3), word);
+            __rmonWriteWordTo((u32 *)(request->writeHeader.addr & ~3), word);
         } else {
             int wordCount = request->writeHeader.nbytes / sizeof(u32);
-            u32 *wordPointer = (u32 *) request->buffer;
+            u32 *wordPointer = (u32 *)request->buffer;
 
             if (request->writeHeader.nbytes % sizeof(u32) != 0) {
                 STUBBED_PRINTF(("RCP write not an integral number of words\n"));
@@ -155,12 +155,12 @@ int __rmonWriteMem(KKHeader *req) {
             }
 
             while (wordCount--) {
-                __rmonWriteWordTo((u32 *) request->writeHeader.addr, *(wordPointer++));
+                __rmonWriteWordTo((u32 *)request->writeHeader.addr, *(wordPointer++));
                 request->writeHeader.addr += sizeof(*wordPointer);
             }
         }
     } else {
-        __rmonMemcpy((u8 *) request->writeHeader.addr, (u8 *) request->buffer, request->writeHeader.nbytes);
+        __rmonMemcpy((u8 *)request->writeHeader.addr, (u8 *)request->buffer, request->writeHeader.nbytes);
     }
 
     reply.header.code = request->writeHeader.header.code;
@@ -172,7 +172,7 @@ int __rmonWriteMem(KKHeader *req) {
 }
 
 int __rmonListProcesses(KKHeader *req) {
-    KKObjectRequest *request = (KKObjectRequest *) req;
+    KKObjectRequest *request = (KKObjectRequest *)req;
     KKObjsEvent reply;
 
     STUBBED_PRINTF(("ListProcesses\n"));
@@ -194,8 +194,8 @@ int __rmonLoadProgram(KKHeader *request UNUSED) {
 }
 
 int __rmonGetExeName(KKHeader *req) {
-    KKObjectRequest *request = (KKObjectRequest *) req;
-    KKBufferEvent *reply = (KKBufferEvent *) __rmonUtilityBuffer;
+    KKObjectRequest *request = (KKObjectRequest *)req;
+    KKBufferEvent *reply = (KKBufferEvent *)__rmonUtilityBuffer;
 
     STUBBED_PRINTF(("GetExeName\n"));
 
@@ -214,7 +214,7 @@ int __rmonGetExeName(KKHeader *req) {
 }
 
 int __rmonGetRegionCount(KKHeader *req) {
-    KKObjectRequest *request = (KKObjectRequest *) req;
+    KKObjectRequest *request = (KKObjectRequest *)req;
     KKNumberEvent reply;
 
     STUBBED_PRINTF(("GetRegionCount\n"));
@@ -231,8 +231,8 @@ int __rmonGetRegionCount(KKHeader *req) {
 }
 
 int __rmonGetRegions(KKHeader *req) {
-    KKObjectRequest *request = (KKObjectRequest *) req;
-    KKRegionEvent *reply = (KKRegionEvent *) __rmonUtilityBuffer;
+    KKObjectRequest *request = (KKObjectRequest *)req;
+    KKRegionEvent *reply = (KKRegionEvent *)__rmonUtilityBuffer;
     int numRegions;
 
     STUBBED_PRINTF(("GetRegions\n"));

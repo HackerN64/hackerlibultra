@@ -6,7 +6,7 @@
 
 extern s32 __osPfsLastChannel;
 
-#define READFORMAT(ptr) ((__OSContRamReadFormat *) (ptr))
+#define READFORMAT(ptr) ((__OSContRamReadFormat *)(ptr))
 
 #if BUILD_VERSION >= VERSION_J
 s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int force) {
@@ -23,9 +23,9 @@ s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int 
     __osSiGetAccess();
 
     do {
-        ptr = (u8 *) __osPfsPifRam.ramarray;
+        ptr = (u8 *)__osPfsPifRam.ramarray;
 
-        if (__osContLastCmd != CONT_CMD_WRITE_PAK || (u32) __osPfsLastChannel != channel) {
+        if (__osContLastCmd != CONT_CMD_WRITE_PAK || (u32)__osPfsLastChannel != channel) {
             __osContLastCmd = CONT_CMD_WRITE_PAK;
             __osPfsLastChannel = channel;
 
@@ -88,7 +88,7 @@ static void __osPackRamWriteData(int channel, u16 address, u8 *buffer);
 s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int force) {
     s32 ret = 0;
     s32 i;
-    u8 *ptr = (u8 *) &__osPfsPifRam;
+    u8 *ptr = (u8 *)&__osPfsPifRam;
     __OSContRamReadFormat ramreadformat;
     s32 retry = 2;
     u8 crc;
@@ -106,7 +106,7 @@ s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int 
     do {
         ret = __osSiRawStartDma(OS_READ, &__osPfsPifRam);
         osRecvMesg(mq, NULL, OS_MESG_BLOCK);
-        ptr = (u8 *) &__osPfsPifRam;
+        ptr = (u8 *)&__osPfsPifRam;
 
         if (channel != 0) {
             for (i = 0; i < channel; i++) {
@@ -143,7 +143,7 @@ static void __osPackRamWriteData(int channel, u16 address, u8 *buffer) {
     __OSContRamReadFormat ramreadformat;
     int i;
 
-    ptr = (u8 *) __osPfsPifRam.ramarray;
+    ptr = (u8 *)__osPfsPifRam.ramarray;
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;
     ramreadformat.dummy = CONT_CMD_NOP;
     ramreadformat.txsize = CONT_CMD_WRITE_PAK_TX;
@@ -162,7 +162,7 @@ static void __osPackRamWriteData(int channel, u16 address, u8 *buffer) {
         }
     }
 
-    *(__OSContRamReadFormat *) ptr = ramreadformat;
+    *(__OSContRamReadFormat *)ptr = ramreadformat;
     ptr += sizeof(__OSContRamReadFormat);
     ptr[0] = CONT_CMD_END;
 }

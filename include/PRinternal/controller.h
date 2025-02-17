@@ -244,7 +244,7 @@ extern u8 __osMaxControllers;
     if (pfs->activebank != 0) {                                                                                        \
         ERRCK(__osPfsSelectBank(pfs, 0));                                                                              \
     }                                                                                                                  \
-    (void) 0
+    (void)0
 
 #else
 
@@ -255,7 +255,7 @@ extern u8 __osMaxControllers;
         pfs->activebank = 0;                                                                                           \
         ERRCK(__osPfsSelectBank(pfs));                                                                                 \
     }                                                                                                                  \
-    (void) 0
+    (void)0
 
 #endif
 

@@ -32,9 +32,9 @@ s32 osPfsRepairId(OSPfs *pfs) {
     __OSPackId *id;
 
     SET_ACTIVEBANK_TO_ZERO();
-    ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8 *) &temp));
-    __osIdCheckSum((u16 *) &temp, &sum, &isum);
-    id = (__OSPackId *) &temp;
+    ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8 *)&temp));
+    __osIdCheckSum((u16 *)&temp, &sum, &isum);
+    id = (__OSPackId *)&temp;
 
     if (id->checksum != sum || id->inverted_checksum != isum) {
         ret = __osCheckPackId(pfs, id);
@@ -57,7 +57,7 @@ s32 osPfsRepairId(OSPfs *pfs) {
     }
 
     for (k = 0; k < ARRLEN(pfs->id); k++) {
-        pfs->id[k] = ((u8 *) id)[k];
+        pfs->id[k] = ((u8 *)id)[k];
     }
 
     pfs->version = id->version;

@@ -34,7 +34,7 @@ void spSetZ(Sprite *sp, s32 z) {
     emPrintf("spSetZ (Sprite 0x%08x, (%d))\n", sp, z);
 #endif
 
-    sp->zdepth = (s16) z;
+    sp->zdepth = (s16)z;
 }
 
 /*
@@ -48,8 +48,8 @@ void spMove(Sprite *sp, s32 x, s32 y) {
     emPrintf("spMove (Sprite 0x%08x, (%d,%d))\n", sp, x, y);
 #endif
 
-    sp->x = (s16) x;
-    sp->y = (s16) y;
+    sp->x = (s16)x;
+    sp->y = (s16)y;
 }
 
 static s32 scissor_xmax;
@@ -213,7 +213,7 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
                             gDPLoadBlock(gl++, G_TX_LOADTILE, 0, 0, tex_width * tex_height - 1, CALC_DXT(tex_width, 1));
                             gDPLoadSync(gl++);
 
-                            uv = ((unsigned char *) b->buf) + ((tex_width * tex_height) / 2) * b->LUToffset;
+                            uv = ((unsigned char *)b->buf) + ((tex_width * tex_height) / 2) * b->LUToffset;
 
                             for (j = 0; j <= (tex_height / 2); j++) {
                                 addr = uv + ((tex_height / 2) - 2 - j) * tex_width;
@@ -237,8 +237,8 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
 
                             gDPSetTile(gl++, s->bmfmt, G_IM_SIZ_16b, (((tex_width) * 1) + 7) >> 3, 0, G_TX_RENDERTILE,
                                        0, t_clamp, t_mask, t_lod, s_clamp, s_mask, s_lod);
-                            gDPSetTileSize(gl++, G_TX_RENDERTILE, 0, 0, ((tex_width) -1) << G_TEXTURE_IMAGE_FRAC,
-                                           ((tex_height) -1) << G_TEXTURE_IMAGE_FRAC);
+                            gDPSetTileSize(gl++, G_TX_RENDERTILE, 0, 0, ((tex_width)-1) << G_TEXTURE_IMAGE_FRAC,
+                                           ((tex_height)-1) << G_TEXTURE_IMAGE_FRAC);
 
                         } else {
                             gDPLoadTextureBlockYuv(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width, tex_height, 0,
@@ -469,8 +469,8 @@ Gfx *spDraw(Sprite *s) {
         sy = 1.0F;
     }
 
-    isx = (int) ((1 << 10) / sx + 0.5F);
-    isy = (int) ((1 << 10) / sy + 0.5F);
+    isx = (int)((1 << 10) / sx + 0.5F);
+    isy = (int)((1 << 10) / sy + 0.5F);
 
     if (b) {
 
@@ -481,8 +481,8 @@ Gfx *spDraw(Sprite *s) {
         y = 0.0F;
 
         fty = s->y + y * sy;
-        ty = (int) (fty + 0.99999F);
-        ft = (int) (isy * (ty - fty));
+        ty = (int)(fty + 0.99999F);
+        ft = (int)(isy * (ty - fty));
         ft = (ft + 16) >> 5;
         if (s->attr & SP_TEXSHIFT)
             ft += 16; /* 1/2 Texel for AntiAliasing */
@@ -491,7 +491,7 @@ Gfx *spDraw(Sprite *s) {
             ft += s->frac_t; /* Micro-positioning */
 
         y2 = y + s->bmheight;
-        ty2 = (int) (s->y + y2 * sy + 0.99999F);
+        ty2 = (int)(s->y + y2 * sy + 0.99999F);
 
         if ((s->attr & SP_FASTCOPY) && (s->bmfmt != G_IM_FMT_YUV))
             ty2--;
@@ -513,8 +513,8 @@ Gfx *spDraw(Sprite *s) {
                 y2 = y + s->bmheight; /* Wrap to next line */
 
                 fty = s->y + y * sy;
-                ty = (int) (fty + 0.9999F);
-                ft = (int) (isy * (ty - fty));
+                ty = (int)(fty + 0.9999F);
+                ft = (int)(isy * (ty - fty));
                 ft = (ft + 16) >> 5;
                 if (s->attr & SP_TEXSHIFT)
                     ft += 16; /* 1/2 Texel for AntiAliasing */
@@ -522,7 +522,7 @@ Gfx *spDraw(Sprite *s) {
                 if (s->attr & SP_FRACPOS)
                     ft += s->frac_t; /* Micro-positioning */
 
-                ty2 = (int) (s->y + y2 * sy + 0.9999F);
+                ty2 = (int)(s->y + y2 * sy + 0.9999F);
 
                 ty += ey;
                 ty2 += ey;
@@ -546,8 +546,8 @@ Gfx *spDraw(Sprite *s) {
 #endif
 
             ftx = s->x + x * sx;
-            tx = (s32) (ftx + 0.9999F);
-            fs = (s32) (isx * (tx - ftx));
+            tx = (s32)(ftx + 0.9999F);
+            fs = (s32)(isx * (tx - ftx));
             fs = (fs + 16) >> 5;
             if (s->attr & SP_TEXSHIFT)
                 fs += 16; /* 1/2 Texel for AntiAliasing */
@@ -556,11 +556,11 @@ Gfx *spDraw(Sprite *s) {
                 fs += s->frac_s; /* Micro-positioning */
 
             x2 = x + b->width;
-            tx2 = (int) (s->x + x2 * sx + 0.9999F);
+            tx2 = (int)(s->x + x2 * sx + 0.9999F);
 
             if ((b->actualHeight != 0)) {
                 y2 = y + b->actualHeight;
-                ty2 = (s32) (s->y + y2 * sy + 0.9999F);
+                ty2 = (s32)(s->y + y2 * sy + 0.9999F);
                 ty2 += ey;
 
                 if ((s->attr & SP_FASTCOPY) && (s->bmfmt != G_IM_FMT_YUV))
@@ -596,8 +596,8 @@ Gfx *spDraw(Sprite *s) {
     } else {
         int rgba;
 
-        x = (s32) s->x;
-        y = (s32) s->y;
+        x = (s32)s->x;
+        y = (s32)s->y;
         x2 = s->x + (s->width * sx) - 1;
         y2 = s->y + (s->height * sy) - 1;
 

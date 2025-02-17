@@ -129,7 +129,7 @@ OSMesgQueue *osPiGetCmdQueue(void);
         while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY))                                                        \
             stat = IO_READ(PI_STATUS_REG);                                                                             \
     }                                                                                                                  \
-    (void) 0
+    (void)0
 
 #define UPDATE_REG(pihandle, reg, var)                                                                                 \
     if (cHandle->var != pihandle->var)                                                                                 \
@@ -161,7 +161,7 @@ OSMesgQueue *osPiGetCmdQueue(void);
         cHandle->relDuration = pihandle->relDuration;                                                                  \
         cHandle->pulse = pihandle->pulse;                                                                              \
     }                                                                                                                  \
-    (void) 0
+    (void)0
 
 #else
 
@@ -185,7 +185,7 @@ OSMesgQueue *osPiGetCmdQueue(void);
         }                                                                                                              \
         __osCurrentHandle[domain] = pihandle;                                                                          \
     }                                                                                                                  \
-    (void) 0
+    (void)0
 
 #endif
 

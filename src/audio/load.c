@@ -52,7 +52,7 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
     s32 decoded = 0;
     s32 looped = 0;
 
-    ALLoadFilter *f = (ALLoadFilter *) filter;
+    ALLoadFilter *f = (ALLoadFilter *)filter;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -98,7 +98,7 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
          * Now fix up state info to reflect the loop start point
          */
         f->lastsam = f->loop.start & 0xf;
-        f->memin = (s32) f->table->base + ADPCMFBYTES * ((s32) (f->loop.start >> LFSAMPLES) + 1);
+        f->memin = (s32)f->table->base + ADPCMFBYTES * ((s32)(f->loop.start >> LFSAMPLES) + 1);
         f->sample = f->loop.start;
 
         bEnd = *outp;
@@ -159,7 +159,7 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
      * overFlow is the number of bytes past the end
      * of the bitstream I try to generate
      */
-    overFlow = f->memin + nbytes - ((s32) f->table->base + f->table->len);
+    overFlow = f->memin + nbytes - ((s32)f->table->base + f->table->len);
     if (overFlow < 0)
         overFlow = 0;
     nOver = (overFlow / ADPCMFBYTES) << LFSAMPLES;
@@ -214,8 +214,8 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
     s32 nSam;
     s32 op;
 
-    ALLoadFilter *f = (ALLoadFilter *) filter;
-    ALFilter *a = (ALFilter *) filter;
+    ALLoadFilter *f = (ALLoadFilter *)filter;
+    ALFilter *a = (ALFilter *)filter;
 
     if (outCount == 0)
         return ptr;
@@ -243,7 +243,7 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
          */
         *outp += dramAlign;
 
-        f->memin = (s32) f->table->base + (f->loop.start << 1);
+        f->memin = (s32)f->table->base + (f->loop.start << 1);
         f->sample = f->loop.start;
         op = *outp;
 
@@ -303,7 +303,7 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
      */
 
     nbytes = outCount << 1;
-    overFlow = f->memin + nbytes - ((s32) f->table->base + f->table->len);
+    overFlow = f->memin + nbytes - ((s32)f->table->base + f->table->len);
     if (overFlow < 0)
         overFlow = 0;
     if (overFlow > nbytes)
@@ -345,13 +345,13 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
 }
 
 s32 alLoadParam(void *filter, s32 paramID, void *param) {
-    ALLoadFilter *a = (ALLoadFilter *) filter;
-    ALFilter *f = (ALFilter *) filter;
+    ALLoadFilter *a = (ALLoadFilter *)filter;
+    ALFilter *f = (ALFilter *)filter;
 
     switch (paramID) {
         case (AL_FILTER_SET_WAVETABLE):
-            a->table = (ALWaveTable *) param;
-            a->memin = (s32) a->table->base;
+            a->table = (ALWaveTable *)param;
+            a->memin = (s32)a->table->base;
             a->sample = 0;
             switch (a->table->type) {
                 case (AL_ADPCM_WAVE):
@@ -365,7 +365,7 @@ s32 alLoadParam(void *filter, s32 paramID, void *param) {
                      * Make sure the table length is an integer number of
                      * frames
                      */
-                    a->table->len = ADPCMFBYTES * ((s32) (a->table->len / ADPCMFBYTES));
+                    a->table->len = ADPCMFBYTES * ((s32)(a->table->len / ADPCMFBYTES));
 
                     a->bookSize = 2 * a->table->waveInfo.adpcmWave.book->order
                                   * a->table->waveInfo.adpcmWave.book->npredictors * ADPCMVSIZE;
@@ -403,7 +403,7 @@ s32 alLoadParam(void *filter, s32 paramID, void *param) {
             /* sct 2/14/96 - Check table since it is initialized to null and */
             /* Get loop info according to table type. */
             if (a->table) {
-                a->memin = (s32) a->table->base;
+                a->memin = (s32)a->table->base;
                 if (a->table->type == AL_ADPCM_WAVE) {
                     if (a->table->waveInfo.adpcmWave.loop)
                         a->loop.count = a->table->waveInfo.adpcmWave.loop->count;

@@ -9,7 +9,7 @@ AllowShortIfStatementsOnASingleLine: false
 AlignConsecutiveMacros: true
 BinPackArguments: true
 BinPackParameters: true
-SpaceAfterCStyleCast: true
+SpaceAfterCStyleCast: false
 BreakBeforeBraces: Attach
 BreakBeforeTernaryOperators: true
 BreakBeforeBinaryOperators: NonAssignment

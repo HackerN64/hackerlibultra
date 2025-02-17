@@ -99,7 +99,7 @@ void osProfileInit(OSProf *profp, u32 profcnt) {
 
     for (t = profp; t < profp + profcnt; t++) {
 #ifndef NDEBUG
-        if ((u32) t->histo_base & 1) {
+        if ((u32)t->histo_base & 1) {
             __osError(ERR_OSPROFILEINIT_ALN, 1, t->histo_base);
             return;
         }
@@ -109,7 +109,7 @@ void osProfileInit(OSProf *profp, u32 profcnt) {
             return;
         }
 
-        if (((u32) (t->text_end - t->text_start) / 4) > t->histo_size) {
+        if (((u32)(t->text_end - t->text_start) / 4) > t->histo_size) {
             __osError(ERR_OSPROFILEINIT_SIZ, 1, t->histo_size);
             return;
         }

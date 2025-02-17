@@ -17,7 +17,7 @@ s32 osEepromRead(OSMesgQueue *mq, u8 address, u8 *buffer) {
     OSContStatus sdata;
     __OSContEepromFormat eepromformat;
 
-    ptr = (u8 *) &__osEepPifRam.ramarray;
+    ptr = (u8 *)&__osEepPifRam.ramarray;
     __osSiGetAccess();
     ret = __osEepStatus(mq, &sdata);
     type = sdata.type & (CONT_EEPROM | CONT_EEP16K);
@@ -92,7 +92,7 @@ s32 osEepromRead(OSMesgQueue *mq, u8 address, u8 *buffer) {
         ptr++;
     }
 
-    eepromformat = *(__OSContEepromFormat *) ptr;
+    eepromformat = *(__OSContEepromFormat *)ptr;
     ret = CHNL_ERR(eepromformat);
 
     if (ret == 0) {
@@ -105,7 +105,7 @@ s32 osEepromRead(OSMesgQueue *mq, u8 address, u8 *buffer) {
 }
 
 static void __osPackEepReadData(u8 address) {
-    u8 *ptr = (u8 *) &__osEepPifRam.ramarray;
+    u8 *ptr = (u8 *)&__osEepPifRam.ramarray;
     __OSContEepromFormat eepromformat;
     int i;
 
@@ -132,7 +132,7 @@ static void __osPackEepReadData(u8 address) {
         *ptr++ = 0;
     }
 
-    *(__OSContEepromFormat *) (ptr) = eepromformat;
+    *(__OSContEepromFormat *)(ptr) = eepromformat;
     ptr += sizeof(__OSContEepromFormat);
     ptr[0] = CONT_CMD_END;
 }

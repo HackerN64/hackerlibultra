@@ -29,7 +29,7 @@ s32 osVoiceStopReadData(OSVoiceHandle *hd) {
         return CONT_ERR_INVALID;
     }
 
-    *(u32 *) temp = 0x700;
+    *(u32 *)temp = 0x700;
     ret = __osVoiceContWrite4(hd->__mq, hd->__channel, 0, temp);
 
     if (ret == 0) {

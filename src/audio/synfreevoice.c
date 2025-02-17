@@ -31,7 +31,7 @@ void alSynFreeVoice(ALSynth *drvr, ALVoice *voice) {
     if (voice->pvoice) {
 
         if (voice->pvoice->offset) { /* if voice was stolen */
-            update = (ALFreeParam *) __allocParam();
+            update = (ALFreeParam *)__allocParam();
             ALFailIf(update == 0, ERR_ALSYN_NO_UPDATE);
 
             /*

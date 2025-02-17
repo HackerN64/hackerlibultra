@@ -104,7 +104,7 @@ static void ClearTempBreakpoint(void) {
 }
 
 int __rmonSetBreak(KKHeader *req) {
-    register KKSetBkptRequest *request = (KKSetBkptRequest *) req;
+    register KKSetBkptRequest *request = (KKSetBkptRequest *)req;
     register BREAKINFO *breakBase;
     register BREAKINFO *whichBreak;
     register BREAKINFO *lastBreak;
@@ -126,7 +126,7 @@ int __rmonSetBreak(KKHeader *req) {
     /* Find breakpoint slot */
     for (; whichBreak < lastBreak; whichBreak++) {
         if (whichBreak->breakAddress != NULL) {
-            if (whichBreak->breakAddress == (u32 *) request->addr) {
+            if (whichBreak->breakAddress == (u32 *)request->addr) {
                 /* Breakpoint already set here */
                 break;
             }
@@ -145,15 +145,15 @@ int __rmonSetBreak(KKHeader *req) {
     /* Set breakpoint if not already set */
     if (whichBreak->breakAddress == NULL) {
         if (req->method == RMON_RSP) {
-            whichBreak->oldInstruction = __rmonReadWordAt((u32 *) request->addr);
-            __rmonWriteWordTo((u32 *) request->addr, MIPS_BREAK((whichBreak - breakBase) + NUM_BREAKPOINTS));
+            whichBreak->oldInstruction = __rmonReadWordAt((u32 *)request->addr);
+            __rmonWriteWordTo((u32 *)request->addr, MIPS_BREAK((whichBreak - breakBase) + NUM_BREAKPOINTS));
         } else {
-            whichBreak->oldInstruction = *(u32 *) request->addr;
-            *(u32 *) request->addr = MIPS_BREAK((whichBreak - breakBase) + NUM_BREAKPOINTS);
-            osWritebackDCache((void *) request->addr, sizeof(whichBreak->oldInstruction));
-            osInvalICache((void *) request->addr, sizeof(whichBreak->oldInstruction));
+            whichBreak->oldInstruction = *(u32 *)request->addr;
+            *(u32 *)request->addr = MIPS_BREAK((whichBreak - breakBase) + NUM_BREAKPOINTS);
+            osWritebackDCache((void *)request->addr, sizeof(whichBreak->oldInstruction));
+            osInvalICache((void *)request->addr, sizeof(whichBreak->oldInstruction));
         }
-        whichBreak->breakAddress = (u32 *) request->addr;
+        whichBreak->breakAddress = (u32 *)request->addr;
         STUBBED_PRINTF(("* (%08x) = %08x (was %08x)\n", whichBreak->breakAddress, *whichBreak->breakAddress,
                         whichBreak->oldInstruction));
     }
@@ -175,7 +175,7 @@ int __rmonListBreak(KKHeader *request UNUSED) {
 }
 
 int __rmonClearBreak(KKHeader *req) {
-    register KKClrBkptRequest *request = (KKClrBkptRequest *) req;
+    register KKClrBkptRequest *request = (KKClrBkptRequest *)req;
     register BREAKINFO *whichBreak;
     KKBkptEvent reply;
     u32 inst;
@@ -228,9 +228,9 @@ u32 __rmonGetBranchTarget(int method, int thread, char *addr) {
     int inst;
 
     if (method == RMON_RSP) {
-        inst = __rmonReadWordAt((u32 *) addr);
+        inst = __rmonReadWordAt((u32 *)addr);
     } else {
-        inst = *(u32 *) addr;
+        inst = *(u32 *)addr;
     }
 
     switch ((inst >> 26) & 0x3F) {
@@ -259,7 +259,7 @@ u32 __rmonGetBranchTarget(int method, int thread, char *addr) {
             break;
         case 2: /* J */
         case 3: /* JAL */
-            return (((u32) inst << 6) >> 4) + (((s32) ((u32) addr + 4) >> 0x1C) << 0x1C);
+            return (((u32)inst << 6) >> 4) + (((s32)((u32)addr + 4) >> 0x1C) << 0x1C);
         case 4:  /* BEQ */
         case 5:  /* BNE */
         case 20: /* BEQL */
@@ -311,22 +311,22 @@ static int IsJump(u32 inst) {
 }
 
 int __rmonSetSingleStep(int thread, u32 *instptr) {
-    u32 branchTarget = __rmonGetBranchTarget(RMON_CPU, thread, (void *) instptr);
+    u32 branchTarget = __rmonGetBranchTarget(RMON_CPU, thread, (void *)instptr);
 
     STUBBED_PRINTF(("SingleStep\n"));
 
     if ((branchTarget & 3) != 0) {
         /* no branch target, set breakpoint at next pc */
         SetTempBreakpoint(instptr + 1, NULL);
-    } else if (branchTarget == (u32) instptr) {
+    } else if (branchTarget == (u32)instptr) {
         /* branch target is this instruction, can't single step here */
         return FALSE;
-    } else if (IsJump(*instptr) || branchTarget == (u32) (instptr + 2)) {
+    } else if (IsJump(*instptr) || branchTarget == (u32)(instptr + 2)) {
         /* unconditional branch, set at branch target */
-        SetTempBreakpoint((u32 *) branchTarget, NULL);
+        SetTempBreakpoint((u32 *)branchTarget, NULL);
     } else {
         /* set two breakpoints for handling conditional branches */
-        SetTempBreakpoint((u32 *) branchTarget, instptr + 2);
+        SetTempBreakpoint((u32 *)branchTarget, instptr + 2);
     }
     return TRUE;
 }
@@ -386,7 +386,7 @@ void __rmonHitSpBreak(void) {
     STUBBED_PRINTF(("Hit SP Break\n"));
 
     /* Rewind RSP PC by one instruction to return to the location of the break instruction */
-    __rmonWriteWordTo((u32 *) SP_PC_REG, __rmonReadWordAt((u32 *) SP_PC_REG) - 4);
+    __rmonWriteWordTo((u32 *)SP_PC_REG, __rmonReadWordAt((u32 *)SP_PC_REG) - 4);
 
     /* Report RSP break event */
     __rmonGetThreadStatus(RMON_RSP, RMON_TID_RSP, &exceptionReply);
@@ -410,7 +410,7 @@ static void rmonFindFaultedThreads(void) {
     while (tptr->priority != -1) {
         if (tptr->priority > OS_PRIORITY_IDLE && tptr->priority <= OS_PRIORITY_APPMAX) {
             if (tptr->flags & OS_FLAG_CPU_BREAK) {
-                int inst = *(u32 *) tptr->context.pc;
+                int inst = *(u32 *)tptr->context.pc;
 
                 STUBBED_PRINTF(("Brk in thread %d @ %08x, inst %08x\r\n", tptr->id, tptr->context.pc, inst));
 

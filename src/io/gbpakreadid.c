@@ -87,10 +87,10 @@ s32 osGbpakReadId(OSPfs *pfs, OSGbpakId *id, u8 *status) {
         bcopy(buf, id, 0x50);
 
         if (id->cart_type < 0x14) {
-            pfs->version = (int) mmc_type[id->cart_type];
+            pfs->version = (int)mmc_type[id->cart_type];
         }
 
-        pfs->dir_size = (int) id->ram_size;
+        pfs->dir_size = (int)id->ram_size;
     }
 
     return ret;

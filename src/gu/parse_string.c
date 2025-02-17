@@ -24,10 +24,10 @@ void guParseString(char *StringPointer, u64 nbytes) {
 
     cntlBlk.dataSize = nbytes /* /8 + ((nbytes%8) != 0) */;
     cntlBlk.dlType = GU_PARSE_STRING_TYPE;
-    cntlBlk.paddr = osVirtualToPhysical((u64 *) StringPointer);
+    cntlBlk.paddr = osVirtualToPhysical((u64 *)StringPointer);
 
     osWriteHost(&cntlBlk, sizeof(cntlBlk));
-    osWriteHost((u64 *) StringPointer, nbytes);
+    osWriteHost((u64 *)StringPointer, nbytes);
 }
 
 #endif

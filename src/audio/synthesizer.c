@@ -55,11 +55,11 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
     drvr->paramSamples = 0;
     drvr->outputRate = c->outputRate;
     drvr->maxOutSamples = AL_MAX_RSP_SAMPLES;
-    drvr->dma = (ALDMANew) c->dmaproc;
+    drvr->dma = (ALDMANew)c->dmaproc;
 
     save = alHeapAlloc(hp, 1, sizeof(ALSave));
     alSaveNew(save);
-    drvr->outputFilter = (ALFilter *) save;
+    drvr->outputFilter = (ALFilter *)save;
 
     /*
      * allocate and initialize the auxilliary effects bus. at present
@@ -101,7 +101,7 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
     pvoices = alHeapAlloc(hp, c->maxPVoices, sizeof(PVoice));
     for (i = 0; i < c->maxPVoices; i++) {
         pv = &pvoices[i];
-        alLink((ALLink *) pv, &drvr->pFreeList);
+        alLink((ALLink *)pv, &drvr->pFreeList);
         pv->vvoice = 0;
 
         alLoadNew(&pv->decoder, drvr->dma, hp);
@@ -115,7 +115,7 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
 
         alAuxBusParam(drvr->auxBus, AL_FILTER_ADD_SOURCE, &pv->envmixer);
 
-        pv->channelKnob = (ALFilter *) &pv->envmixer;
+        pv->channelKnob = (ALFilter *)&pv->envmixer;
     }
 
     alSaveParam(save, AL_FILTER_SET_SOURCE, drvr->mainBus);
@@ -216,7 +216,7 @@ Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen) {
         lOutBuf += nOut << 1; /* For Stereo */
         drvr->curSamples += nOut;
     }
-    *cmdLen = (s32) (cmdlEnd - cmdList);
+    *cmdLen = (s32)(cmdlEnd - cmdList);
 
     _collectPVoices(drvr); /* collect free physical voices */
 
@@ -253,7 +253,7 @@ void _collectPVoices(ALSynth *drvr) {
     PVoice *pv;
 
     while ((dl = drvr->pLameList.next) != 0) {
-        pv = (PVoice *) dl;
+        pv = (PVoice *)dl;
 
         /* ### remove from mixer */
 
@@ -266,8 +266,8 @@ void _freePVoice(ALSynth *drvr, PVoice *pvoice) {
     /*
      * move the voice from the allocated list to the lame list
      */
-    alUnlink((ALLink *) pvoice);
-    alLink((ALLink *) pvoice, &drvr->pLameList);
+    alUnlink((ALLink *)pvoice);
+    alLink((ALLink *)pvoice, &drvr->pLameList);
 }
 
 /*
@@ -276,9 +276,9 @@ void _freePVoice(ALSynth *drvr, PVoice *pvoice) {
   a float to an int.
 */
 s32 _timeToSamplesNoRound(ALSynth *synth, s32 micros) {
-    f32 tmp = ((f32) micros) * synth->outputRate / 1000000.0 + 0.5;
+    f32 tmp = ((f32)micros) * synth->outputRate / 1000000.0 + 0.5;
 
-    return (s32) tmp;
+    return (s32)tmp;
 }
 
 s32 _timeToSamples(ALSynth *synth, s32 micros) {

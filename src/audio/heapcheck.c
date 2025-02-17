@@ -41,7 +41,7 @@ s32 alHeapCheck(ALHeap *hp) {
 #ifdef _DEBUG
     for (ptr = hp->base; ptr < hp->cur; ptr += hi->size) {
 
-        hi = (HeapInfo *) ptr;
+        hi = (HeapInfo *)ptr;
 
         if (hi->magic != AL_HEAP_MAGIC) {
             if (last) {

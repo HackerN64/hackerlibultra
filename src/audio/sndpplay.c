@@ -30,5 +30,5 @@ void alSndpPlay(ALSndPlayer *sndp) {
 
     evt.common.type = AL_SNDP_PLAY_EVT;
     evt.common.state = &sState[sndp->target];
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, 0);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, 0);
 }

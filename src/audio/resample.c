@@ -34,7 +34,7 @@ extern u32 cnt_index, resampler_num, resampler_cnt, resampler_max, resampler_min
  * Resampler filter public interfaces
  ***********************************************************************/
 Acmd *alResamplePull(void *filter, s16 *outp, s32 outCnt, s32 sampleOffset, Acmd *p) {
-    ALResampler *f = (ALResampler *) filter;
+    ALResampler *f = (ALResampler *)filter;
     Acmd *ptr = p;
     s16 inp;
     s32 inCount;
@@ -71,15 +71,15 @@ Acmd *alResamplePull(void *filter, s16 *outp, s32 outCnt, s32 sampleOffset, Acmd
         /*
          * quantize the pitch
          */
-        f->ratio = (s32) (f->ratio * UNITY_PITCH);
+        f->ratio = (s32)(f->ratio * UNITY_PITCH);
         f->ratio = f->ratio / UNITY_PITCH;
 
         /*
          * determine how many samples to generate
          */
-        finCount = f->delta + (f->ratio * (f32) outCnt);
-        inCount = (s32) finCount;
-        f->delta = finCount - (f32) inCount;
+        finCount = f->delta + (f->ratio * (f32)outCnt);
+        inCount = (s32)finCount;
+        f->delta = finCount - (f32)inCount;
 
         /*
          * ask all filters upstream from us to build their command
@@ -90,7 +90,7 @@ Acmd *alResamplePull(void *filter, s16 *outp, s32 outCnt, s32 sampleOffset, Acmd
         /*
          * construct our portion of the command list
          */
-        incr = (s32) (f->ratio * UNITY_PITCH);
+        incr = (s32)(f->ratio * UNITY_PITCH);
         aSetBuffer(ptr++, 0, inp, *outp, outCnt << 1);
         aResample(ptr++, f->first, incr, osVirtualToPhysical(f->state));
         f->first = 0;
@@ -103,8 +103,8 @@ Acmd *alResamplePull(void *filter, s16 *outp, s32 outCnt, s32 sampleOffset, Acmd
 }
 
 s32 alResampleParam(void *filter, s32 paramID, void *param) {
-    ALFilter *f = (ALFilter *) filter;
-    ALResampler *r = (ALResampler *) filter;
+    ALFilter *f = (ALFilter *)filter;
+    ALResampler *r = (ALResampler *)filter;
     union {
         f32 f;
         s32 i;
@@ -113,7 +113,7 @@ s32 alResampleParam(void *filter, s32 paramID, void *param) {
     switch (paramID) {
 
         case (AL_FILTER_SET_SOURCE):
-            f->source = (ALFilter *) param;
+            f->source = (ALFilter *)param;
             break;
 
         case (AL_FILTER_RESET):
@@ -132,7 +132,7 @@ s32 alResampleParam(void *filter, s32 paramID, void *param) {
             break;
 
         case (AL_FILTER_SET_PITCH):
-            data.i = (s32) param;
+            data.i = (s32)param;
             r->ratio = data.f;
             break;
 

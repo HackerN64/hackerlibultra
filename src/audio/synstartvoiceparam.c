@@ -36,7 +36,7 @@ void alSynStartVoiceParams(ALSynth *s, ALVoice *v, ALWaveTable *w, f32 pitch, s1
         /*
          * get new update struct from the free list
          */
-        update = (ALStartParamAlt *) __allocParam();
+        update = (ALStartParamAlt *)__allocParam();
         ALFailIf(update == 0, ERR_ALSYN_NO_UPDATE);
 
 #if BUILD_VERSION >= VERSION_J

@@ -29,5 +29,5 @@ void alSndpStop(ALSndPlayer *sndp) {
      */
     evt.common.type = AL_SNDP_STOP_EVT;
     evt.common.state = &sState[sndp->target];
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, 0);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, 0);
 }

@@ -28,7 +28,7 @@ void alSynStartVoice(ALSynth *synth, ALVoice *v, ALWaveTable *table) {
 
     if (v->pvoice) {
 
-        update = (ALStartParam *) __allocParam();
+        update = (ALStartParam *)__allocParam();
         ALFailIf(update == 0, ERR_ALSYN_NO_UPDATE);
 
         /*

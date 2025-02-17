@@ -65,7 +65,7 @@ float fsin(float x) {
     double result;
     int ix, xpt;
 
-    ix = *(int *) &x;
+    ix = *(int *)&x;
     xpt = (ix >> 22);
     xpt &= 0x1ff;
 
@@ -87,7 +87,7 @@ float fsin(float x) {
 
             result = dx + (dx * xsq) * poly;
 
-            return ((float) result);
+            return ((float)result);
         }
 
         return (x);
@@ -118,9 +118,9 @@ float fsin(float x) {
         result = dx + (dx * xsq) * poly;
 
         if ((n & 1) == 0)
-            return ((float) result);
+            return ((float)result);
 
-        return (-(float) result);
+        return (-(float)result);
     }
 
     if (x != x) {

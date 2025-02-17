@@ -187,7 +187,7 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
 
     { /* generate mip map for this tile */
         unsigned char *taddr, *saddr;
-        int shift = (int) sizeParams[im->siz].shift;
+        int shift = (int)sizeParams[im->siz].shift;
         int s, t, si, ti, sii, tii;
         int s4[9];
         int t4[9];
@@ -340,10 +340,10 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
                                     %d %d %d %d\n", r0, g0, b0, a0);
                                     **/
                                 }
-                                r1 = (int) (r2 / 16.0 + 0.5);
-                                g1 = (int) (g2 / 16.0 + 0.5);
-                                b1 = (int) (b2 / 16.0 + 0.5);
-                                a1 = (int) (a2 / 16.0 + 0.5);
+                                r1 = (int)(r2 / 16.0 + 0.5);
+                                g1 = (int)(g2 / 16.0 + 0.5);
+                                b1 = (int)(b2 / 16.0 + 0.5);
+                                a1 = (int)(a2 / 16.0 + 0.5);
                             } else {
                                 /*
                                  * RGBA32 is not supported
@@ -364,13 +364,13 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
                                     unpack_ci4(tex4[i], ci0);
                                     kernel(i, ci0, 0, 0, 0, &ci2, &dummy, &dummy, &dummy);
                                 }
-                                ci1 = (int) (ci2 / 16.0 + 0.5);
+                                ci1 = (int)(ci2 / 16.0 + 0.5);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 for (i = 0; i < 9; i++) {
                                     unpack_ci8(tex4[i], ci0);
                                     kernel(i, ci0, 0, 0, 0, &ci2, &dummy, &dummy, &dummy);
                                 }
-                                ci1 = (int) (ci2 / 16.0 + 0.5);
+                                ci1 = (int)(ci2 / 16.0 + 0.5);
                             } else {
                                 errNo = 2;
                                 return errNo;
@@ -383,22 +383,22 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
                                     unpack_ia4(tex4[i], i0, a0);
                                     kernel(i, i0, a0, 0, 0, &i2, &a2, &dummy, &dummy);
                                 }
-                                i1 = (int) (i2 / 16.0 + 0.5);
-                                a1 = (int) (a2 / 16.0 + 0.5);
+                                i1 = (int)(i2 / 16.0 + 0.5);
+                                a1 = (int)(a2 / 16.0 + 0.5);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 for (i = 0; i < 9; i++) {
                                     unpack_ia8(tex4[i], i0, a0);
                                     kernel(i, i0, a0, 0, 0, &i2, &a2, &dummy, &dummy);
                                 }
-                                i1 = (int) (i2 / 16.0 + 0.5);
-                                a1 = (int) (a2 / 16.0 + 0.5);
+                                i1 = (int)(i2 / 16.0 + 0.5);
+                                a1 = (int)(a2 / 16.0 + 0.5);
                             } else if (im->siz == G_IM_SIZ_16b) {
                                 for (i = 0; i < 9; i++) {
                                     unpack_ia16(tex4[i], i0, a0);
                                     kernel(i, i0, a0, 0, 0, &i2, &a2, &dummy, &dummy);
                                 }
-                                i1 = (int) (i2 / 16.0 + 0.5);
-                                a1 = (int) (a2 / 16.0 + 0.5);
+                                i1 = (int)(i2 / 16.0 + 0.5);
+                                a1 = (int)(a2 / 16.0 + 0.5);
                             } else {
                                 errNo = 2;
                                 return errNo;
@@ -411,13 +411,13 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
                                     unpack_i4(tex4[i], i0);
                                     kernel(i, i0, 0, 0, 0, &i2, &dummy, &dummy, &dummy);
                                 }
-                                i1 = (int) (i2 / 16.0 + 0.5);
+                                i1 = (int)(i2 / 16.0 + 0.5);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 for (i = 0; i < 9; i++) {
                                     unpack_i8(tex4[i], i0);
                                     kernel(i, i0, 0, 0, 0, &i2, &dummy, &dummy, &dummy);
                                 }
-                                i1 = (int) (i2 / 16.0 + 0.5);
+                                i1 = (int)(i2 / 16.0 + 0.5);
                             } else {
                                 errNo = 2;
                                 return errNo;
@@ -434,7 +434,7 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
 
                         case (G_IM_FMT_RGBA):
                             texel = pack_rgba(r1, g1, b1, a1);
-                            *(short *) ((int) saddr ^ flip) = texel;
+                            *(short *)((int)saddr ^ flip) = texel;
                             break;
 
                         case (G_IM_FMT_YUV):
@@ -444,33 +444,33 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
 
                             if (im->siz == G_IM_SIZ_4b) {
                                 texel = pack_ci4(ci1);
-                                *(char *) ((int) saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
+                                *(char *)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 texel = pack_ci8(ci1);
-                                *(char *) ((int) saddr ^ flip) = texel;
+                                *(char *)((int)saddr ^ flip) = texel;
                             }
                             break;
 
                         case (G_IM_FMT_IA):
                             if (im->siz == G_IM_SIZ_4b) {
                                 texel = pack_ia4(i1, a1);
-                                *(char *) ((int) saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
+                                *(char *)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 texel = pack_ia8(i1, a1);
-                                *(char *) ((int) saddr ^ flip) = texel;
+                                *(char *)((int)saddr ^ flip) = texel;
                             } else if (im->siz == G_IM_SIZ_16b) {
                                 texel = pack_ia16(i1, a1);
-                                *(short *) ((int) saddr ^ flip) = texel;
+                                *(short *)((int)saddr ^ flip) = texel;
                             }
                             break;
 
                         case (G_IM_FMT_I):
                             if (im->siz == G_IM_SIZ_4b) {
                                 texel = pack_i4(i1);
-                                *(char *) ((int) saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
+                                *(char *)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 texel = pack_i8(i1);
-                                *(char *) ((int) saddr ^ flip) = texel;
+                                *(char *)((int)saddr ^ flip) = texel;
                             }
                             break;
                     }
@@ -539,13 +539,13 @@ static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char 
      * 4-bit textures are loaded in 8-bit chunks
      */
     if (im->siz == G_IM_SIZ_4b) {
-        gDPSetTextureImage((*glistp)++, im->fmt, G_IM_SIZ_8b, 1, osVirtualToPhysical((unsigned short *) tbuf));
+        gDPSetTextureImage((*glistp)++, im->fmt, G_IM_SIZ_8b, 1, osVirtualToPhysical((unsigned short *)tbuf));
         gDPSetTile((*glistp)++, im->fmt, G_IM_SIZ_8b, NA, 0, G_TX_LOADTILE, NA, NA, NA, NA, NA, NA, NA);
         /* Wait until all primitives are done */
         gDPLoadSync((*glistp)++);
         gDPLoadBlock((*glistp)++, G_TX_LOADTILE, 0, 0, length / 2, 0x0);
     } else {
-        gDPSetTextureImage((*glistp)++, im->fmt, im->siz, 1, osVirtualToPhysical((unsigned short *) tbuf));
+        gDPSetTextureImage((*glistp)++, im->fmt, im->siz, 1, osVirtualToPhysical((unsigned short *)tbuf));
         gDPSetTile((*glistp)++, im->fmt, im->siz, NA, 0, G_TX_LOADTILE, NA, NA, NA, NA, NA, NA, NA);
         /* Wait until all primitives are done */
         gDPLoadSync((*glistp)++);

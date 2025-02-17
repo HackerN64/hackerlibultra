@@ -12,7 +12,7 @@ s32 __osVoiceGetStatus(OSMesgQueue *mq, s32 port, u8 *status) {
     __OSContRequesFormatShort header;
     s32 ret = 0;
     s32 i;
-    u8 *ptr = (u8 *) &__osContPifRam.ramarray;
+    u8 *ptr = (u8 *)&__osContPifRam.ramarray;
     s32 retry = 2;
 
     __osSiGetAccess();
@@ -38,11 +38,11 @@ s32 __osVoiceGetStatus(OSMesgQueue *mq, s32 port, u8 *status) {
         ret = __osSiRawStartDma(OS_READ, &__osContPifRam);
         osRecvMesg(mq, NULL, OS_MESG_BLOCK);
 
-        ptr = (u8 *) &__osContPifRam.ramarray + port;
+        ptr = (u8 *)&__osContPifRam.ramarray + port;
 
-        header = *((__OSContRequesFormatShort *) ptr);
+        header = *((__OSContRequesFormatShort *)ptr);
 
-        ret = (u8) CHNL_ERR(header);
+        ret = (u8)CHNL_ERR(header);
         *status = header.status;
 
         if (ret == 0) {

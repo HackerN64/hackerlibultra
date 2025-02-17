@@ -36,5 +36,5 @@ void alSndpSetFXMix(ALSndPlayer *sndp, u8 mix) {
     evt.fx.type = AL_SNDP_FX_EVT;
     evt.fx.state = &sState[sndp->target];
     evt.fx.mix = mix;
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, 0);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, 0);
 }

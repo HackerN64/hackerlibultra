@@ -41,7 +41,7 @@ static const ldouble pows[] = { 10e0L, 10e1L, 10e3L, 10e7L, 10e15L, 10e31L, 10e6
 #define _D2    2
 #define _D3    3
 
-#define ALIGN(s, align) (((unsigned int) (s) + ((align) - 1)) & ~((align) - 1))
+#define ALIGN(s, align) (((unsigned int)(s) + ((align) - 1)) & ~((align) - 1))
 
 void _Ldtob(_Pft *px, char code) {
     char buff[BUFF_LEN];
@@ -160,7 +160,7 @@ void _Ldtob(_Pft *px, char code) {
 }
 
 short _Ldunscale(short *pex, ldouble *px) {
-    unsigned short *ps = (unsigned short *) px;
+    unsigned short *ps = (unsigned short *)px;
     short xchar = (ps[_D0] & _DMASK) >> _DOFF;
 
     if (xchar == _DMAX) {
@@ -293,7 +293,7 @@ void _Genld(_Pft *px, char code, unsigned char *p, short nsig, short xexp) {
         *p++ = (xexp / 10) + '0', xexp %= 10;
 
         *p++ = xexp + '0';
-        px->n2 = (size_t) p - ((size_t) px->s + px->n1);
+        px->n2 = (size_t)p - ((size_t)px->s + px->n1);
     }
 
     if ((px->flags & 0x14) == 0x10) {

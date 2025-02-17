@@ -101,16 +101,16 @@ s32 _allocatePVoice(ALSynth *drvr, PVoice **pvoice, s16 priority) {
     s32 stolen = 0;
 
     if ((dl = drvr->pLameList.next) != 0) { /* check the lame list first */
-        *pvoice = (PVoice *) dl;
+        *pvoice = (PVoice *)dl;
         alUnlink(dl);
         alLink(dl, &drvr->pAllocList);
     } else if ((dl = drvr->pFreeList.next) != 0) { /* from the free list */
-        *pvoice = (PVoice *) dl;
+        *pvoice = (PVoice *)dl;
         alUnlink(dl);
         alLink(dl, &drvr->pAllocList);
     } else { /* steal one */
         for (dl = drvr->pAllocList.next; dl != 0; dl = dl->next) {
-            pv = (PVoice *) dl;
+            pv = (PVoice *)dl;
 
             /*
              * if it is lower priority and not already stolen, keep it

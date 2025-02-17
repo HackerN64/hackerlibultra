@@ -72,7 +72,7 @@ void alSeqNew(ALSeq *seq, u8 *ptr, s32 len) {
         return;
     }
 
-    seq->qnpt = 1.0 / (f32) seq->division;
+    seq->qnpt = 1.0 / (f32)seq->division;
 
     if (read32(seq) != IFF_TRACK_HDR) {
 #ifdef _DEBUG
@@ -197,11 +197,11 @@ char __alSeqNextDelta(ALSeq *seq, s32 *pDeltaTicks) {
 }
 
 f32 alSeqTicksToSec(ALSeq *seq, s32 ticks, u32 tempo) {
-    return ((f32) (((f32) (ticks) * (f32) (tempo)) / ((f32) (seq->division) * 1000000.0)));
+    return ((f32)(((f32)(ticks) * (f32)(tempo)) / ((f32)(seq->division) * 1000000.0)));
 }
 
 u32 alSeqSecToTicks(ALSeq *seq, f32 sec, u32 tempo) {
-    return (u32) (((sec * 1000000.0) * seq->division) / tempo);
+    return (u32)(((sec * 1000000.0) * seq->division) / tempo);
 }
 
 void alSeqNewMarker(ALSeq *seq, ALSeqMarker *m, u32 ticks) {

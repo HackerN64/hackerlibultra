@@ -156,14 +156,14 @@ void __osInitialize_isv(void) {
         if (gISVChk & 2) {
             hnd = osCartRomInit();
 
-            ramOldVector = *(__osExceptionVector *) E_VEC;
-            *(__osExceptionVector *) E_VEC = __isExpJP;
+            ramOldVector = *(__osExceptionVector *)E_VEC;
+            *(__osExceptionVector *)E_VEC = __isExpJP;
 
             osWritebackDCache(&ramOldVector, 0x10);
             osInvalICache(&ramOldVector, 0x10);
             osWritebackDCache(0x80000000, 0x190);
             osInvalICache(0x80000000, 0x190);
-            osEPiReadIo(hnd, 0xBFF00010, (u32 *) &fn);
+            osEPiReadIo(hnd, 0xBFF00010, (u32 *)&fn);
             fn();
         }
         if (gISVChk & 2) {

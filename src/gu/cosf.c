@@ -66,7 +66,7 @@ float fcos(float x) {
     double result;
     int ix, xpt;
 
-    ix = *(int *) &x;
+    ix = *(int *)&x;
     xpt = (ix >> 22);
     xpt &= 0x1ff;
 
@@ -101,9 +101,9 @@ float fcos(float x) {
         /* negate result if n is odd */
 
         if ((n & 1) == 0)
-            return ((float) result);
+            return ((float)result);
 
-        return (-(float) result);
+        return (-(float)result);
     }
 
     if (x != x) {

@@ -36,5 +36,5 @@ void alSndpSetVol(ALSndPlayer *sndp, s16 vol) {
     evt.vol.type = AL_SNDP_VOL_EVT;
     evt.vol.state = &sState[sndp->target];
     evt.vol.vol = vol;
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *) &evt, 0);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, 0);
 }

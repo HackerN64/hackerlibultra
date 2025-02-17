@@ -13,13 +13,13 @@ void osFree(void *region, void *addr) {
 
 #ifdef _DEBUG
     assert((region != NULL) && (addr != NULL));
-    if (((char *) rp + ALIGN(sizeof(OSRegion), rp->r_alignSize)) != rp->r_startBufferAddress) {
+    if (((char *)rp + ALIGN(sizeof(OSRegion), rp->r_alignSize)) != rp->r_startBufferAddress) {
         __osError(ERR_OSFREE_REGION, 1, region);
         return;
     }
 #endif
 
-    i = ((u8 *) addr - rp->r_startBufferAddress) / rp->r_bufferSize;
+    i = ((u8 *)addr - rp->r_startBufferAddress) / rp->r_bufferSize;
 
 #ifdef _DEBUG
     if ((i < 0) || (i >= rp->r_bufferCount)) {
@@ -27,11 +27,11 @@ void osFree(void *region, void *addr) {
         return;
     }
 
-    if (((unsigned char *) addr - rp->r_startBufferAddress) % (rp->r_bufferSize) != 0) {
+    if (((unsigned char *)addr - rp->r_startBufferAddress) % (rp->r_bufferSize) != 0) {
         __osError(ERR_OSFREE_ADDR, 2, addr, region);
         return;
     }
 #endif
-    *(u16 *) (&rp->r_startBufferAddress[i * rp->r_bufferSize]) = rp->r_freeList;
+    *(u16 *)(&rp->r_startBufferAddress[i * rp->r_bufferSize]) = rp->r_freeList;
     rp->r_freeList = i;
 }
