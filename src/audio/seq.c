@@ -254,7 +254,7 @@ void alSeqNewMarker(ALSeq *seq, ALSeqMarker *m, u32 ticks)
                 break;
 	    }
             
-        } while (seq->lastTicks < ticks);
+        } while ((u32)seq->lastTicks < ticks);
 
         m->curPtr     = lastPtr;
         m->lastStatus = lastStatus;
