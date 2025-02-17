@@ -13,7 +13,7 @@
 s32 osVoiceStopReadData(OSVoiceHandle* hd) {
     s32 ret;
 #if BUILD_VERSION >= VERSION_K 
-    s32 i;
+    s32 i = 0;
 #endif
     u8 stat;
     u8 temp[4];
