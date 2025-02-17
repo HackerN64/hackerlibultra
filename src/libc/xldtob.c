@@ -10,7 +10,7 @@
 #define BUFF_LEN 0x20
 
 static short _Ldunscale(short* pex, ldouble* px);
-static void _Genld(_Pft* px, char code, unsigned char* p, short nsig, short xexp);
+static void _Genld(_Pft* px, char code, char* p, short nsig, short xexp);
 
 static const ldouble pows[] = {10e0L, 10e1L, 10e3L, 10e7L, 10e15L, 10e31L, 10e63L, 10e127L, 10e255L};
 
@@ -180,14 +180,14 @@ short _Ldunscale(short* pex, ldouble* px) {
     }
 }
 
-void _Genld(_Pft* px, char code, unsigned char* p, short nsig, short xexp) {
+void _Genld(_Pft* px, char code, char* p, short nsig, short xexp) {
     const unsigned char point = '.';
 
     if (nsig <= 0) {
         nsig = 1, p = "0";
     }
 
-    if (code == 'f' || (code == 'g' || code == 'G') && xexp >= -4 && xexp < px->prec) {
+    if (code == 'f' || ((code == 'g' || code == 'G') && xexp >= -4 && xexp < px->prec)) {
         xexp++;
         if (code != 'f') {
             if (((px->flags & 8) == 0) && nsig < px->prec) {
