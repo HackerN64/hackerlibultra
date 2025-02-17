@@ -63,7 +63,7 @@ $(shell mkdir -p src $(foreach dir,$(SRC_DIRS),$(BUILD_DIR)/$(dir)))
 all: $(BUILD_AR)
 
 $(BUILD_AR): $(O_FILES)
-	@printf "    [AR] Linking Final Archive...\n"
+	@printf "    [AR] $@\n"
 	$(V)$(AR) rcs $@ $(AR_ORDER)
 
 clean:
@@ -84,14 +84,16 @@ $(BUILD_DIR)/src/voice/%.o: OPTFLAGS += -DLANG_JAPANESE -I$(WORKING_DIR)/src -I$
 $(BUILD_DIR)/src/voice/%.o: CC := $(WORKING_DIR)/tools/compile_sjis.py -D__CC=$(CC) -D__BUILD_DIR=$(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: %.c
-	$(CC) $(CFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(OPTFLAGS) $< $(IINC) -o $@
-	tools/set_o32abi_bit.py $@
+	@printf "    [CC] $<\n"
+	$(V)$(CC) $(CFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(OPTFLAGS) $< $(IINC) -o $@
+	$(V)tools/set_o32abi_bit.py $@
 	$(V)$(CROSS)strip $@ -N asdasdasdasd
 	$(V)$(CROSS)objcopy --remove-section .mdebug $@
 
 $(BUILD_DIR)/%.o: %.s
-	$(AS) $(ASFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(ASOPTFLAGS) $< $(IINC) -o $@
-	tools/set_o32abi_bit.py $@
+	@printf "    [AS] $<\n"
+	$(V)$(AS) $(ASFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(ASOPTFLAGS) $< $(IINC) -o $@
+	$(V)tools/set_o32abi_bit.py $@
 	$(V)$(CROSS)strip $@ -N asdasdasdasd
 	$(V)$(CROSS)objcopy --remove-section .mdebug $@
 
