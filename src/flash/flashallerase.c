@@ -1,7 +1,6 @@
 #include "ultra64.h"
 #include "PR/os_internal_flash.h"
 
-
 s32 osFlashAllErase(void) {
     u32 status;
     OSTimer mytimer;

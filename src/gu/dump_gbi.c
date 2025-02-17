@@ -15,29 +15,26 @@
  * Interpret Task with GBI display list and dump it for debugging.
  */
 
-
 /**************************************************
  *
- *          guDumpGbiDL no longer supported        
- *   applications should use guParseGbiDL with the 
- *   GU_PARSEGBI_DUMPONLY  flag set.               
+ *          guDumpGbiDL no longer supported
+ *   applications should use guParseGbiDL with the
+ *   GU_PARSEGBI_DUMPONLY  flag set.
  *
  **************************************************/
 
-
 #if 0
-
 
 #include "ultra64.h"
 #include "bstring.h"
 
-#undef  PRINTF
-#define PRINTF      osSyncPrintf
+#undef PRINTF
+#define PRINTF osSyncPrintf
 
-#define DL_STACKSIZE	11
+#define DL_STACKSIZE 11
 static u32            *Gp[DL_STACKSIZE];
 
-#define TX_MAX		100
+#define TX_MAX 100
 static u32	textures[TX_MAX];
 static u32	numtextures;
 
@@ -62,7 +59,7 @@ dump_dma(u32 *bufp)
     op = ((*bufp & 0xff000000) >> 24);
 
     /*
-     * DMA op addressing is all the same: 
+     * DMA op addressing is all the same:
      */
     seg_id = (u8) ((bufp[1] & 0x0f000000) >> 24);
     addr = segment_base[seg_id] + (bufp[1] & 0x00ffffff);
@@ -205,7 +202,7 @@ guDumpGbi(u32 *gfxp)
         }
 }
 
-#define UCODE_SIZE_MAX (4096*3)
+#define UCODE_SIZE_MAX (4096 * 3)
 void
 guDumpGbiDL(OSTask *tp,u8 flags)
 {
@@ -224,17 +221,17 @@ guDumpGbiDL(OSTask *tp,u8 flags)
 	for (i=(int)tp->t.ucode_boot; i<(int)tp->t.ucode_boot+tp->t.ucode_boot_size; i+=4) {
 		PRINTF("|%08x\n",(int) *((u32 *) i));
 	}
-	
+
 	PRINTF("? %08x\n",(int) tp->t.ucode& 0x7fffffff);
 	for (i=(int)tp->t.ucode; i<(int)tp->t.ucode+UCODE_SIZE_MAX; i+=4) {
 		PRINTF("|%08x\n",(int) *((u32 *) i));
 	}
-	
+
 	PRINTF("? %08x\n",(int) tp->t.ucode_data & 0x7fffffff);
 	for (i=(int)tp->t.ucode_data; i<(int)tp->t.ucode_data+tp->t.ucode_data_size; i+=4) {
 		PRINTF("|%08x\n",(int) *((u32 *) i));
 	}
-	
+
 
 	guDumpGbi((u32 *) tp->t.data_ptr);
 
@@ -243,11 +240,11 @@ guDumpGbiDL(OSTask *tp,u8 flags)
 
 	if (flags & GU_PARSEGBI_HANGAFTER) {
 	    int i;
-	    for (i=0; i<1000;i++) 
+	    for (i=0; i<1000;i++)
 	    PRINTF("=============================================================\n");
 	    while(1);
 	}
-		
+
 
 /*
  *   Dumps stuff
@@ -268,7 +265,7 @@ guDumpGbiDL(OSTask *tp,u8 flags)
  *   |  code/code data
  *
  */
-	
+
 }
 
 #endif

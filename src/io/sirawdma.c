@@ -2,46 +2,6 @@
 #include "assert.h"
 #include "PRinternal/siint.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Adjust line numbers to match assert
 #if BUILD_VERSION < VERSION_J
 #line 47
@@ -52,8 +12,8 @@
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 
-s32 __osSiRawStartDma(s32 direction, void* dramAddr) {
-    assert(((u32)dramAddr & 0x3) == 0);
+s32 __osSiRawStartDma(s32 direction, void *dramAddr) {
+    assert(((u32) dramAddr & 0x3) == 0);
 
 #if BUILD_VERSION >= VERSION_J
     if (IO_READ(SI_STATUS_REG) & (SI_STATUS_DMA_BUSY | SI_STATUS_RD_BUSY)) {

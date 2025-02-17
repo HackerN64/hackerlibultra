@@ -1,7 +1,7 @@
 #include "ultra64.h"
 #include "PR/os_internal_flash.h"
 
-s32 osFlashWriteBuffer(OSIoMesg* mb, s32 priority, void* dramAddr, OSMesgQueue* mq) {
+s32 osFlashWriteBuffer(OSIoMesg *mb, s32 priority, void *dramAddr, OSMesgQueue *mq) {
     s32 ret;
 
     // select page program mode

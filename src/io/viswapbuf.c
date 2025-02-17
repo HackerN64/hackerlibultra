@@ -3,54 +3,10 @@
 #include "assert.h"
 #include "PRinternal/viint.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 
-void osViSwapBuffer(void* frameBufPtr) {
+void osViSwapBuffer(void *frameBufPtr) {
     u32 saveMask;
 
 #ifdef _DEBUG
@@ -61,7 +17,7 @@ void osViSwapBuffer(void* frameBufPtr) {
 
     assert(frameBufPtr != NULL);
 
-    if ((u32)frameBufPtr & 0x3f) {
+    if ((u32) frameBufPtr & 0x3f) {
         __osError(ERR_OSVISWAPBUFFER_ADDR, 1, frameBufPtr);
         return;
     }

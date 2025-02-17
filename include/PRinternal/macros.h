@@ -3,9 +3,9 @@
 
 #define ALIGNED(x) __attribute__((aligned(x)))
 
-#define ARRLEN(x) ((s32)(sizeof(x) / sizeof(x[0])))
+#define ARRLEN(x) ((s32) (sizeof(x) / sizeof(x[0])))
 
-#define STUBBED_PRINTF(x) ((void)(x))
+#define STUBBED_PRINTF(x) ((void) (x))
 
 #define UNUSED __attribute__((unused))
 
@@ -15,10 +15,8 @@
 
 #define ALIGN8(val) (((val) + 7) & ~7)
 
-#define STACK(stack, size) \
-    u64 stack[ALIGN8(size) / sizeof(u64)]
+#define STACK(stack, size) u64 stack[ALIGN8(size) / sizeof(u64)]
 
-#define STACK_START(stack) \
-    ((u8*)(stack) + sizeof(stack))
+#define STACK_START(stack) ((u8 *) (stack) + sizeof(stack))
 
 #endif

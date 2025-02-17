@@ -32,12 +32,12 @@ static OSThread __osProfileIOThread;
 
 void osProfSendWord(u32 word);
 
-void __osProfileIO(void* arg) {
+void __osProfileIO(void *arg) {
     s32 totalBytes;
     u32 bytesThisBlock;
     u32 ct;
-    u8* sendPtr;
-    OSProf* t;
+    u8 *sendPtr;
+    OSProf *t;
 
     while (TRUE) {
         osRecvMesg(&__osProfFlushMQ, NULL, OS_MESG_BLOCK);
@@ -70,7 +70,7 @@ void __osProfileIO(void* arg) {
 
 void osProfSendWord(u32 word) {
     u32 ct = 0;
-    u8* sendPtr = &word;
+    u8 *sendPtr = &word;
 
     while (ct < sizeof(word)) {
         ct += __osRdbSend(sendPtr + ct, sizeof(word) - ct, RDB_TYPE_GtoH_PROF_DATA);
@@ -81,9 +81,9 @@ void osProfileFlush(void) {
     osSendMesg(&__osProfFlushMQ, NULL, OS_MESG_BLOCK);
 }
 
-void osProfileInit(OSProf* profp, u32 profcnt) {
+void osProfileInit(OSProf *profp, u32 profcnt) {
     u32 i;
-    OSProf* t;
+    OSProf *t;
 
 #if !defined(NDEBUG) && BUILD_VERSION >= VERSION_K
     if (__osProfileActive) {
@@ -99,7 +99,7 @@ void osProfileInit(OSProf* profp, u32 profcnt) {
 
     for (t = profp; t < profp + profcnt; t++) {
 #ifndef NDEBUG
-        if ((u32)t->histo_base & 1) {
+        if ((u32) t->histo_base & 1) {
             __osError(ERR_OSPROFILEINIT_ALN, 1, t->histo_base);
             return;
         }
@@ -109,7 +109,7 @@ void osProfileInit(OSProf* profp, u32 profcnt) {
             return;
         }
 
-        if (((u32)(t->text_end - t->text_start) / 4) > t->histo_size) {
+        if (((u32) (t->text_end - t->text_start) / 4) > t->histo_size) {
             __osError(ERR_OSPROFILEINIT_SIZ, 1, t->histo_size);
             return;
         }

@@ -10,9 +10,9 @@
 #include "voiceinternal.h"
 #include "os_version.h"
 
-s32 osVoiceStopReadData(OSVoiceHandle* hd) {
+s32 osVoiceStopReadData(OSVoiceHandle *hd) {
     s32 ret;
-#if BUILD_VERSION >= VERSION_K 
+#if BUILD_VERSION >= VERSION_K
     s32 i;
 #endif
     u8 stat;
@@ -29,11 +29,11 @@ s32 osVoiceStopReadData(OSVoiceHandle* hd) {
         return CONT_ERR_INVALID;
     }
 
-    *(u32*)temp = 0x700;
+    *(u32 *) temp = 0x700;
     ret = __osVoiceContWrite4(hd->__mq, hd->__channel, 0, temp);
 
     if (ret == 0) {
-#if BUILD_VERSION >= VERSION_K 
+#if BUILD_VERSION >= VERSION_K
         i = 0;
 #endif
         do {
@@ -48,14 +48,14 @@ s32 osVoiceStopReadData(OSVoiceHandle* hd) {
             } else {
                 hd->__mode = 0;
             }
-#if BUILD_VERSION >= VERSION_K 
+#if BUILD_VERSION >= VERSION_K
             i++;
         } while ((ret == CONT_ERR_VOICE_NO_RESPONSE) && (i < 20));
 #else
         } while ((ret == CONT_ERR_VOICE_NO_RESPONSE));
 #endif
     }
-#if BUILD_VERSION >= VERSION_K 
+#if BUILD_VERSION >= VERSION_K
     if (i >= 20) {
         ret == CONT_ERR_VOICE_NO_RESPONSE;
     }

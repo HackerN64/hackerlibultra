@@ -4,7 +4,7 @@
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 
-s32 __osEPiRawStartDma(OSPiHandle* pihandle, s32 direction, u32 devAddr, void* dramAddr, u32 size) {
+s32 __osEPiRawStartDma(OSPiHandle *pihandle, s32 direction, u32 devAddr, void *dramAddr, u32 size) {
     u32 stat;
     u32 domain;
 
@@ -19,7 +19,7 @@ s32 __osEPiRawStartDma(OSPiHandle* pihandle, s32 direction, u32 devAddr, void* d
         return -1;
     }
 
-    if ((u32)dramAddr & 0x7) {
+    if ((u32) dramAddr & 0x7) {
         __osError(ERR_OSPIRAWSTARTDMA_ADDR, 1, dramAddr);
         return -1;
     }

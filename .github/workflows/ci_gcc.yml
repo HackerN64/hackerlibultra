@@ -25,5 +25,14 @@ jobs:
     - name: Install package requirements
       run: sudo apt-get install -y gcc-mips-linux-gnu binutils-mips-linux-gnu build-essential python3
 
+    - name: Verify formatting on all files
+      run: python3 tools/check_format.py
+
+    - name: Verify formatting on Modified files
+      run: python3 tools/check_format.py --verbose --compare-to origin/main
+
+    - name: Setup
+      run: make setup -j $(nproc) TARGET=libgultra${{ matrix.suffix }} VERSION=${{ matrix.version }}
+
     - name: Build libgultra${{ matrix.suffix }} ${{ matrix.version }}
       run: make -j $(nproc) TARGET=libgultra${{ matrix.suffix }} VERSION=${{ matrix.version }}

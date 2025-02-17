@@ -1,5 +1,6 @@
 #ifndef _FINALROM
 
+#include "stdlib.h"
 #include "PR/os_internal.h"
 #include "PR/rdb.h"
 #include "PRinternal/osint.h"
@@ -11,7 +12,7 @@ typedef struct {
     /* 0xC */ unsigned int inst4;
 } __osExceptionVector;
 
-static void* proutSyncPrintf(void* str, const char* buf, size_t n) {
+static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
     size_t sent = 0;
 
     while (sent < n) {

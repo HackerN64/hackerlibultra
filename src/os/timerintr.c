@@ -7,12 +7,12 @@ u32 __osBaseCounter;
 u32 __osViIntrCount;
 u32 __osTimerCounter;
 OSTimer __osBaseTimer;
-OSTimer* __osTimerList = &__osBaseTimer;
+OSTimer *__osTimerList = &__osBaseTimer;
 
 #ifndef _FINALROM
 OSMesgQueue __osProfTimerQ ALIGNED(0x8);
-OSProf* __osProfileList;
-OSProf* __osProfileListEnd;
+OSProf *__osProfileList;
+OSProf *__osProfileListEnd;
 u32 __osProfileOverflowBin;
 #endif
 
@@ -27,14 +27,14 @@ void __osTimerServicesInit(void) {
 }
 
 void __osTimerInterrupt(void) {
-    OSTimer* t;
+    OSTimer *t;
     u32 count;
     u32 elapsed_cycles;
 
 #ifndef _FINALROM
     u32 pc;
     s32 offset;
-    OSProf* prof = __osProfileList;
+    OSProf *prof = __osProfileList;
 #endif
 
     if (__osTimerList->next == __osTimerList) {
@@ -74,11 +74,11 @@ void __osTimerInterrupt(void) {
             } else {
                 pc = __osRunQueue->context.pc;
                 for (prof = __osProfileList; prof < __osProfileListEnd; prof++) {
-                    offset = pc - (u32)prof->text_start;
+                    offset = pc - (u32) prof->text_start;
 
                     if (offset >= 0) {
-                        if ((s32)prof->text_end - (s32)pc > 0) {
-                            (*(u16*)(u32)((offset >> 2) + prof->histo_base))++;
+                        if ((s32) prof->text_end - (s32) pc > 0) {
+                            (*(u16 *) (u32) ((offset >> 2) + prof->histo_base))++;
                             goto __ProfDone;
                         }
                     }
@@ -115,8 +115,8 @@ void __osSetTimerIntr(OSTime tim) {
     __osRestoreInt(savedMask);
 }
 
-OSTime __osInsertTimer(OSTimer* t) {
-    OSTimer* timep;
+OSTime __osInsertTimer(OSTimer *t) {
+    OSTimer *timep;
     OSTime tim;
     u32 savedMask = __osDisableInt();
 

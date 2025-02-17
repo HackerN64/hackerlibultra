@@ -14,7 +14,7 @@ u32 osViGetCurrentMode(void) {
 #endif
 
     saveMask = __osDisableInt();
-    modeType = (u32)__osViCurr->modep->type;
+    modeType = (u32) __osViCurr->modep->type;
 
     __osRestoreInt(saveMask);
     return modeType;

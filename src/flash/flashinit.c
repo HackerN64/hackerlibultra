@@ -9,7 +9,7 @@ OSPiHandle __osFlashHandler ALIGNED(0x8);
 OSMesg __osFlashMsgBuf[1];
 s32 __osFlashVersion;
 
-OSPiHandle* osFlashInit(void) {
+OSPiHandle *osFlashInit(void) {
     u32 flash_type;
     u32 flash_maker;
 
@@ -33,8 +33,8 @@ OSPiHandle* osFlashInit(void) {
     osEPiLinkHandle(&__osFlashHandler);
     osFlashReadId(&flash_type, &flash_maker);
 
-    if (flash_maker == FLASH_VERSION_MX_C || flash_maker == FLASH_VERSION_MX_A ||
-        flash_maker == FLASH_VERSION_MX_PROTO_A) {
+    if (flash_maker == FLASH_VERSION_MX_C || flash_maker == FLASH_VERSION_MX_A
+        || flash_maker == FLASH_VERSION_MX_PROTO_A) {
         __osFlashVersion = OLD_FLASH;
     } else {
         __osFlashVersion = NEW_FLASH;

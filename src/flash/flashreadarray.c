@@ -1,8 +1,7 @@
 #include "ultra64.h"
 #include "PR/os_internal_flash.h"
 
-
-s32 osFlashReadArray(OSIoMesg* mb, s32 priority, u32 page_num, void* dramAddr, u32 n_pages, OSMesgQueue* mq) {
+s32 osFlashReadArray(OSIoMesg *mb, s32 priority, u32 page_num, void *dramAddr, u32 n_pages, OSMesgQueue *mq) {
     u32 ret;
     u32 tmp;
     u32 end_page;
@@ -28,7 +27,7 @@ s32 osFlashReadArray(OSIoMesg* mb, s32 priority, u32 page_num, void* dramAddr, u
         osEPiStartDma(&__osFlashHandler, mb, OS_READ);
         osRecvMesg(mq, NULL, OS_MESG_BLOCK);
         page_num = (page_num + 256) & 0xF00;
-        mb->dramAddr = (u32)mb->dramAddr + mb->size;
+        mb->dramAddr = (u32) mb->dramAddr + mb->size;
     }
 
     while (n_pages > 256) {
@@ -39,7 +38,7 @@ s32 osFlashReadArray(OSIoMesg* mb, s32 priority, u32 page_num, void* dramAddr, u
         osEPiStartDma(&__osFlashHandler, mb, OS_READ);
         osRecvMesg(mq, NULL, OS_MESG_BLOCK);
         page_num += 256;
-        mb->dramAddr = (u32)mb->dramAddr + mb->size;
+        mb->dramAddr = (u32) mb->dramAddr + mb->size;
     }
 
     mb->size = n_pages * FLASH_BLOCK_SIZE;

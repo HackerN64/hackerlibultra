@@ -2,10 +2,10 @@
 #include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
-s32 __osContChannelReset(OSMesgQueue* mq, int channel) {
+s32 __osContChannelReset(OSMesgQueue *mq, int channel) {
     s32 i;
     s32 ret;
-    u8* ptr = (u8*)&__osPfsPifRam;
+    u8 *ptr = (u8 *) &__osPfsPifRam;
 
     __osSiGetAccess();
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;

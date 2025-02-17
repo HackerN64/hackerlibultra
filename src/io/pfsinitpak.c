@@ -4,10 +4,10 @@
 #include "PRinternal/siint.h"
 
 #if BUILD_VERSION >= VERSION_J
-static s32 __osPfsCheckRamArea(OSPfs* pfs);
+static s32 __osPfsCheckRamArea(OSPfs *pfs);
 #endif
 
-s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
+s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, int channel) {
 #if BUILD_VERSION < VERSION_J
     int k;
 #endif
@@ -15,7 +15,7 @@ s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
     u16 sum;
     u16 isum;
     u8 temp[BLOCKSIZE];
-    __OSPackId* id;
+    __OSPackId *id;
     __OSPackId newid;
 
     __osSiGetAccess();
@@ -38,8 +38,8 @@ s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
     ERRCK(SELECT_BANK(pfs, 0));
     ERRCK(__osContRamRead(pfs->queue, pfs->channel, PFS_ID_0AREA, temp));
 
-    __osIdCheckSum((u16*)temp, &sum, &isum);
-    id = (__OSPackId*)temp;
+    __osIdCheckSum((u16 *) temp, &sum, &isum);
+    id = (__OSPackId *) temp;
 
     if ((id->checksum != sum) || (id->inverted_checksum != isum)) {
         ret = __osCheckPackId(pfs, id);
@@ -50,7 +50,7 @@ s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
 #endif
             return ret;
         }
-        
+
 #if BUILD_VERSION < VERSION_J
         // Duplicated check
         else if (ret != 0) {
@@ -82,7 +82,7 @@ s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
     bcopy(id, pfs->id, BLOCKSIZE);
 #else
     for (k = 0; k < ARRLEN(pfs->id); k++) {
-        pfs->id[k] = ((u8 *)id)[k];
+        pfs->id[k] = ((u8 *) id)[k];
     }
 #endif
 
@@ -103,7 +103,7 @@ s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
 }
 
 #if BUILD_VERSION >= VERSION_J
-static s32 __osPfsCheckRamArea(OSPfs* pfs) {
+static s32 __osPfsCheckRamArea(OSPfs *pfs) {
     s32 i;
     s32 ret = 0;
     u8 temp1[BLOCKSIZE];
