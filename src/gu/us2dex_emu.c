@@ -67,7 +67,7 @@ static	void	tmemLoad_B(Gfx **pkt, u32 imagePtr, s16 loadLines, s16 tmemSH)
 /* addition 99/5/31(Y) */
 #if BUILD_VERSION >= VERSION_K
   if(bgflg==3) (*pkt)->words.w1 = 0x07000000 | (tmemSH-1)<<16;
-  else  (*pkt)->words.w1 = 0x07000000 | (tmemSH-1)<<16 | (loadLines<<2)-1;
+  else  (*pkt)->words.w1 = 0x07000000 | ((tmemSH-1)<<16) | ((loadLines<<2)-1);
 #else
   (*pkt)->words.w1 = 0x07000000 | (tmemSH-1)<<16 | (loadLines<<2)-1;
 #endif
@@ -134,7 +134,7 @@ static	void	tmemLoad(Gfx **pkt, u32 *imagePtr,
       imagePtr1A = (*imagePtr) + iLoadable * imageSrcWsize;
       imagePtr1B = imageTop;
       SubSliceY1 = iLoadable;
-      if (SubSliceL1 = iLoadable & 1){
+      if ((SubSliceL1 = iLoadable & 1)){
 	imagePtr1A -= imageSrcWsize;
 	imagePtr1B -= imageSrcWsize;
 	imagePtr1B  = imageTopSeg | (imagePtr1B & 0x00ffffff); /*Segment countermeasure */
@@ -494,10 +494,10 @@ end */
 	(*pkt)->words.w0 = (imageS<<16) | imageT;
 	(*pkt)->words.w1 = (scaleW<<16) | scaleH;
 #else	/* At RSP command creation time */
-	(*pkt)->words.w0 = (G_RDPHALF_1<<24);
+	(*pkt)->words.w0 = ((u8)G_RDPHALF_1<<24);
 	(*pkt)->words.w1 = (imageS<<16) | imageT;
 	(*pkt) ++;      
-	(*pkt)->words.w0 = (G_RDPHALF_2<<24);
+	(*pkt)->words.w0 = ((u8)G_RDPHALF_2<<24);
 	(*pkt)->words.w1 = (scaleW<<16) | scaleH;
 #endif
 	(*pkt) ++;
