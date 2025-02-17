@@ -87,9 +87,8 @@ void __osTimerInterrupt(void) {
                 __osProfileOverflowBin++;
             }
         }
-#endif
-
     __ProfDone:
+#endif
 
         if (t->interval != 0) {
             t->value = t->interval;
