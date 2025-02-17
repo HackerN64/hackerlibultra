@@ -1,11 +1,3 @@
-COMPARE ?= 0
-MODERN_LD ?= 1
-MODERN_GCC ?= 1
-
-ifneq ($(MODERN_LD),0)
-COMPARE := 0
-endif
-
 # One of:
 # libgultra_rom, libgultra_d, libgultra
 # libultra_rom, libultra_d, libultra
@@ -19,12 +11,6 @@ else ifeq ($(findstring libultra,$(TARGET)),libultra)
 COMPILER := ido
 else
 $(error Invalid Target)
-endif
-
-ifneq ($(MODERN_GCC),0)
-COMPILER := modern_gcc
-COMPARE := 0
-MODERN_LD := 0
 endif
 
 BASE_DIR := extracted/$(VERSION)/$(TARGET)
@@ -46,15 +32,7 @@ else
 DEBUGFLAG := -DNDEBUG
 endif
 
-ifeq ($(COMPILER),gcc)
--include makefiles/gcc.mk
-else ifeq ($(COMPILER),ido)
--include makefiles/ido.mk
-else ifeq ($(COMPILER),modern_gcc)
 -include makefiles/modern_gcc.mk
-else
-$(error Invalid Compiler)
-endif
 
 export COMPILER_PATH := $(COMPILER_DIR)
 
@@ -84,31 +62,7 @@ S_MARKER_FILES := $(S_O_FILES:.o=.marker)
 S_MARKER_FILES := $(filter-out $(MDEBUG_FILES),$(S_MARKER_FILES))
 MARKER_FILES   := $(C_MARKER_FILES) $(S_MARKER_FILES) $(MDEBUG_FILES)
 
-ifneq ($(COMPARE),0)
-COMPARE_OBJ = cmp $(BASE_DIR)/$(@F:.marker=.o) $(@:.marker=.o) && echo "$(@:.marker=.o): OK"
-COMPARE_AR = cmp $(BASE_AR) $@ && echo "$@: OK"
-ifeq ($(COMPILER),ido)
-COMPARE_OBJ = $(CROSS)objcopy -p --strip-debug $(WORKING_DIR)/$(@:.marker=.o) $(WORKING_DIR)/$(@:.marker=.cmp.o) && \
-              cmp $(BASE_DIR)/.cmp/$(@F:.marker=.cmp.o) $(WORKING_DIR)/$(@:.marker=.cmp.o) && echo "$(@:.marker=.o): OK"
-COMPARE_AR = echo "$@: Cannot compare archive currently"
-endif
-else
-COMPARE_OBJ :=
-COMPARE_AR :=
-AR_OLD := $(AR)
-endif
-
 BASE_OBJS := $(wildcard $(BASE_DIR)/*.o)
-
-# Check to make sure the current version has been set up
-ifneq ($(COMPARE),0)
-ifeq ($(BASE_OBJS),)
-# Ignore this check if the user is currently running setup, clean or distclean
-ifeq ($(filter $(MAKECMDGOALS),setup clean distclean),)
-$(error Current version ($(TARGET) 2.0$(VERSION)) has not been setup!)
-endif
-endif
-endif
 
 AR_OBJECTS := $(shell cat base/$(VERSION)/$(TARGET).txt)
 # If the version and target doesn't have a text file yet, resort back to using the base archive to get objects
@@ -132,13 +86,6 @@ all: $(BUILD_AR)
 
 $(BUILD_AR): $(MARKER_FILES)
 	$(AR_OLD) rcs $@ $(AR_ORDER)
-ifneq ($(COMPARE),0)
-# patch archive creation time and individual files' ownership & permissions
-	dd bs=1 skip=24 seek=24 count=12 conv=notrunc if=$(BASE_AR) of=$@ status=none
-	python3 tools/patch_ar_meta.py $@ $(BASE_AR) $(PATCH_AR_FLAGS)
-	@$(COMPARE_AR)
-	@echo "Matched: $(NUM_OBJS_MATCHED)/$(NUM_OBJS)"
-endif
 
 clean:
 	$(RM) -rf $(BUILD_DIR)
@@ -149,22 +96,9 @@ distclean:
 
 setup:
 	$(MAKE) -C tools
-ifneq ($(COMPARE),0)
-	cd $(BASE_DIR) && $(AR) xo $(WORKING_DIR)/$(BASE_AR)
-	chmod -R +rw $(BASE_DIR)
-ifeq ($(COMPILER),ido)
-	export CROSS=$(CROSS) && ./tools/strip_debug.sh $(BASE_DIR)
-endif
-endif
 
 $(BUILD_DIR)/$(BASE_DIR)/%.marker: $(BASE_DIR)/%.o
 	cp $< $(@:.marker=.o)
-ifneq ($(COMPARE),0)
-# change file timestamps to match original
-	@touch -r $(BASE_DIR)/$(@F:.marker=.o) $(@:.marker=.o)
-	@$(COMPARE_OBJ)
-	@touch $@
-endif
 
 GBIDEFINE := -DF3DEX_GBI
 
@@ -179,39 +113,17 @@ $(BUILD_DIR)/src/voice/%.marker: CC := $(WORKING_DIR)/tools/compile_sjis.py -D__
 
 $(C_MARKER_FILES): $(BUILD_DIR)/%.marker: %.c
 	cd $(<D) && $(CC) $(CFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(OPTFLAGS) $(<F) $(IINC) -o $(WORKING_DIR)/$(@:.marker=.o)
-ifneq ($(COMPARE),0)
-# check if this file is in the archive; patch corrupted bytes and change file timestamps to match original if so
-	@$(if $(findstring $(BASE_DIR)/$(@F:.marker=.o), $(BASE_OBJS)), \
-	 python3 tools/fix_objfile.py $(@:.marker=.o) $(BASE_DIR)/$(@F:.marker=.o) $(STRIP) && \
-	 $(COMPARE_OBJ) && \
-	 touch -r $(BASE_DIR)/$(@F:.marker=.o) $(@:.marker=.o), \
-	 echo "Object file $(@F:.marker=.o) is not in the current archive" \
-	)
-endif
-ifneq ($(MODERN_LD),0)
 	tools/set_o32abi_bit.py $(WORKING_DIR)/$(@:.marker=.o)
 	$(CROSS)strip $(WORKING_DIR)/$(@:.marker=.o) -N asdasdasdasd
 	$(CROSS)objcopy --remove-section .mdebug $(WORKING_DIR)/$(@:.marker=.o)
-endif
 # create or update the marker file
 	@touch $@
 
 $(S_MARKER_FILES): $(BUILD_DIR)/%.marker: %.s
 	cd $(<D) && $(AS) $(ASFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(ASOPTFLAGS) $(<F) $(IINC) -o $(WORKING_DIR)/$(@:.marker=.o)
-ifneq ($(COMPARE),0)
-# check if this file is in the archive; patch corrupted bytes and change file timestamps to match original if so
-	@$(if $(findstring $(BASE_DIR)/$(@F:.marker=.o), $(BASE_OBJS)), \
-	 python3 tools/fix_objfile.py $(@:.marker=.o) $(BASE_DIR)/$(@F:.marker=.o) $(STRIP) && \
-	 $(COMPARE_OBJ) && \
-	 touch -r $(BASE_DIR)/$(@F:.marker=.o) $(@:.marker=.o), \
-	 echo "Object file $(@F:.marker=.o) is not in the current archive" \
-	)
-endif
-ifneq ($(MODERN_LD),0)
 	tools/set_o32abi_bit.py $(WORKING_DIR)/$(@:.marker=.o)
 	$(CROSS)strip $(WORKING_DIR)/$(@:.marker=.o) -N asdasdasdasd
 	$(CROSS)objcopy --remove-section .mdebug $(WORKING_DIR)/$(@:.marker=.o)
-endif
 # create or update the marker file
 	@touch $@
 
@@ -221,20 +133,9 @@ $(MDEBUG_FILES): $(BUILD_DIR)/src/%.marker: src/%.s
 	mkdir -p $(@:.marker=)
 	export USR_INCLUDE=$(WORKING_DIR)/include && cd $(@:.marker=) && $(AS) $(ASFLAGS) $(CPPFLAGS) ../$(<F) -I/usr/include -o $(notdir $(<:.s=.o))
 	mv $(@:.marker=)/$(<F:.s=.o) $(@:.marker=)/..
-ifneq ($(COMPARE),0)
-# check if this file is in the archive; patch corrupted bytes and change file timestamps to match original if so
-	@$(if $(findstring $(BASE_DIR)/$(@F:.marker=.o), $(BASE_OBJS)), \
-	 python3 tools/fix_objfile.py $(@:.marker=.o) $(BASE_DIR)/$(@F:.marker=.o) && \
-	 $(COMPARE_OBJ) && \
-	 touch -r $(BASE_DIR)/$(@F:.marker=.o) $(@:.marker=.o), \
-	 echo "Object file $(@F:.marker=.o) is not in the current archive" \
-	)
-endif
-ifneq ($(MODERN_LD),0)
 	tools/set_o32abi_bit.py $(WORKING_DIR)/$(@:.marker=.o)
 	$(CROSS)strip $(WORKING_DIR)/$(@:.marker=.o) -N asdasdasdasd
 	$(CROSS)objcopy --remove-section .mdebug $(WORKING_DIR)/$(@:.marker=.o)
-endif
 # create or update the marker file
 	@touch $@
 
