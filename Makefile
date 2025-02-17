@@ -91,11 +91,7 @@ clean:
 	$(RM) -rf $(BUILD_DIR)
 
 distclean:
-	$(MAKE) -C tools distclean
 	$(RM) -rf extracted/ $(BUILD_ROOT)
-
-setup:
-	$(MAKE) -C tools
 
 $(BUILD_DIR)/$(BASE_DIR)/%.marker: $(BASE_DIR)/%.o
 	cp $< $(@:.marker=.o)
