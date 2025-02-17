@@ -50,7 +50,7 @@
 
 void* osMalloc(void* region) {
     register OSRegion* rp = region;
-    char* addr;
+    u8* addr;
 
 #ifdef _DEBUG
     assert(rp != NULL);
