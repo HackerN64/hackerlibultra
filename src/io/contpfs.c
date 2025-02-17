@@ -281,8 +281,7 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank) {
     u8 *addr;
 
 #if BUILD_VERSION >= VERSION_J
-    if (flag == PFS_READ && bank == __osPfsInodeCacheBank
-        && (pfs->channel == __osPfsInodeCacheChannel)) {
+    if (flag == PFS_READ && bank == __osPfsInodeCacheBank && (pfs->channel == __osPfsInodeCacheChannel)) {
         bcopy(&__osPfsInodeCache, inode, sizeof(__OSInode));
         return 0;
     }
@@ -301,13 +300,10 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank) {
         addr = ((u8 *) inode->inode_page + j * BLOCKSIZE);
 
         if (flag == PFS_WRITE) {
-            ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->inode_table + bank * PFS_ONE_PAGE + j,
-                                   addr, FALSE);
-            ret = __osContRamWrite(pfs->queue, pfs->channel,
-                                   pfs->minode_table + bank * PFS_ONE_PAGE + j, addr, FALSE);
+            ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->inode_table + bank * PFS_ONE_PAGE + j, addr, FALSE);
+            ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->minode_table + bank * PFS_ONE_PAGE + j, addr, FALSE);
         } else {
-            ret = __osContRamRead(pfs->queue, pfs->channel, pfs->inode_table + bank * PFS_ONE_PAGE + j,
-                                  addr);
+            ret = __osContRamRead(pfs->queue, pfs->channel, pfs->inode_table + bank * PFS_ONE_PAGE + j, addr);
         }
 
         if (ret != 0) {
@@ -320,13 +316,11 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank) {
         if (sum != inode->inode_page[0].inode_t.page) {
             for (j = 0; j < PFS_ONE_PAGE; j++) {
                 addr = ((u8 *) inode->inode_page + j * BLOCKSIZE);
-                ret = __osContRamRead(pfs->queue, pfs->channel,
-                                      pfs->minode_table + bank * PFS_ONE_PAGE + j, addr);
+                ret = __osContRamRead(pfs->queue, pfs->channel, pfs->minode_table + bank * PFS_ONE_PAGE + j, addr);
             }
 
 #if BUILD_VERSION >= VERSION_J
-            sum =
-                __osSumcalc((u8 *) &inode->inode_page[offset], (PFS_INODE_SIZE_PER_PAGE - offset) * 2);
+            sum = __osSumcalc((u8 *) &inode->inode_page[offset], (PFS_INODE_SIZE_PER_PAGE - offset) * 2);
 #endif
 
             if (sum != inode->inode_page[0].inode_t.page) {
@@ -335,16 +329,16 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank) {
 
             for (j = 0; j < PFS_ONE_PAGE; j++) {
                 addr = ((u8 *) inode->inode_page + j * BLOCKSIZE);
-                ret = __osContRamWrite(pfs->queue, pfs->channel,
-                                       pfs->inode_table + bank * PFS_ONE_PAGE + j, addr, FALSE);
+                ret =
+                    __osContRamWrite(pfs->queue, pfs->channel, pfs->inode_table + bank * PFS_ONE_PAGE + j, addr, FALSE);
             }
         }
 #if BUILD_VERSION < VERSION_J
         else {
             for (j = 0; j < PFS_ONE_PAGE; j++) {
                 addr = ((u8 *) inode->inode_page + j * 32);
-                ret = __osContRamWrite(pfs->queue, pfs->channel,
-                                       pfs->minode_table + bank * PFS_ONE_PAGE + j, addr, FALSE);
+                ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->minode_table + bank * PFS_ONE_PAGE + j, addr,
+                                       FALSE);
             }
         }
 #endif

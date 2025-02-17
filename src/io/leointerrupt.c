@@ -65,8 +65,7 @@ s32 __osLeoInterrupt(void) {
         } else {
             blockInfo->dramAddr = (void *) ((u32) blockInfo->dramAddr + blockInfo->sectorSize);
             info->sectorNum++;
-            __osEPiRawStartDma(__osDiskHandle, OS_WRITE, LEO_SECTOR_BUFF, blockInfo->dramAddr,
-                               blockInfo->sectorSize);
+            __osEPiRawStartDma(__osDiskHandle, OS_WRITE, LEO_SECTOR_BUFF, blockInfo->dramAddr, blockInfo->sectorSize);
             return 1;
         }
     } else if (info->cmdType == LEO_CMD_TYPE_0) {
@@ -87,8 +86,7 @@ s32 __osLeoInterrupt(void) {
         }
 
         bm_stat = IO_READ(LEO_BM_STATUS);
-        if ((bm_stat & LEO_BM_STATUS_C1SINGLE && bm_stat & LEO_BM_STATUS_C1DOUBLE)
-            || bm_stat & LEO_BM_STATUS_MICRO) {
+        if ((bm_stat & LEO_BM_STATUS_C1SINGLE && bm_stat & LEO_BM_STATUS_C1DOUBLE) || bm_stat & LEO_BM_STATUS_MICRO) {
             if (blockInfo->C1ErrNum > 3) {
                 if (info->transferMode != LEO_SECTOR_MODE || info->sectorNum > 0x52) {
                     blockInfo->errStatus = LEO_ERROR_23;
@@ -112,8 +110,7 @@ s32 __osLeoInterrupt(void) {
             if (info->transferMode == LEO_TRACK_MODE && info->blockNum == 0) {
                 info->blockNum = 1;
                 info->sectorNum = -1;
-                info->block[1].dramAddr =
-                    (void *) ((u32) info->block[1].dramAddr - info->block[1].sectorSize);
+                info->block[1].dramAddr = (void *) ((u32) info->block[1].dramAddr - info->block[1].sectorSize);
 
                 blockInfo->errStatus = LEO_ERROR_22;
             } else {
@@ -123,8 +120,7 @@ s32 __osLeoInterrupt(void) {
                 blockInfo->errStatus = LEO_ERROR_GOOD;
             }
 
-            __osEPiRawStartDma(__osDiskHandle, OS_READ, LEO_C2_BUFF, blockInfo->C2Addr,
-                               blockInfo->sectorSize * 4);
+            __osEPiRawStartDma(__osDiskHandle, OS_READ, LEO_C2_BUFF, blockInfo->C2Addr, blockInfo->sectorSize * 4);
             return 1;
         }
 
@@ -150,8 +146,7 @@ s32 __osLeoInterrupt(void) {
                 return 1;
             }
 
-            __osEPiRawStartDma(__osDiskHandle, 0, LEO_SECTOR_BUFF, blockInfo->dramAddr,
-                               blockInfo->sectorSize);
+            __osEPiRawStartDma(__osDiskHandle, 0, LEO_SECTOR_BUFF, blockInfo->dramAddr, blockInfo->sectorSize);
             blockInfo->errStatus = LEO_ERROR_GOOD;
             return 1;
         } else if (info->sectorNum <= 0x54) {

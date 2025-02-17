@@ -11,27 +11,27 @@
 #define isdigit(x) ((x >= '0' && x <= '9'))
 #define LDSIGN(x) (((unsigned short *) &(x))[0] & 0x8000)
 
-#define ATOI(dst, src)                                                                                 \
-    for (dst = 0; isdigit(*src); ++src) {                                                              \
-        if (dst < 999)                                                                                 \
-            dst = dst * 10 + *src - '0';                                                               \
+#define ATOI(dst, src)                                                                                                 \
+    for (dst = 0; isdigit(*src); ++src) {                                                                              \
+        if (dst < 999)                                                                                                 \
+            dst = dst * 10 + *src - '0';                                                                               \
     }
 
 #define MAX_PAD ((sizeof(spaces) - 1))
-#define PAD(s, n)                                                                                      \
-    if (0 < (n)) {                                                                                     \
-        int i, j = (n);                                                                                \
-        for (; 0 < j; j -= i) {                                                                        \
-            i = MAX_PAD < (unsigned int) j ? (int) MAX_PAD : j;                                        \
-            PUT(s, i);                                                                                 \
-        }                                                                                              \
+#define PAD(s, n)                                                                                                      \
+    if (0 < (n)) {                                                                                                     \
+        int i, j = (n);                                                                                                \
+        for (; 0 < j; j -= i) {                                                                                        \
+            i = MAX_PAD < (unsigned int) j ? (int) MAX_PAD : j;                                                        \
+            PUT(s, i);                                                                                                 \
+        }                                                                                                              \
     }
-#define PUT(s, n)                                                                                      \
-    if (0 < (n)) {                                                                                     \
-        if ((arg = (*pfn)(arg, s, n)) != NULL)                                                         \
-            x.nchar += (n);                                                                            \
-        else                                                                                           \
-            return x.nchar;                                                                            \
+#define PUT(s, n)                                                                                                      \
+    if (0 < (n)) {                                                                                                     \
+        if ((arg = (*pfn)(arg, s, n)) != NULL)                                                                         \
+            x.nchar += (n);                                                                                            \
+        else                                                                                                           \
+            return x.nchar;                                                                                            \
     }
 static char spaces[] = "                                ";
 static char zeroes[] = "00000000000000000000000000000000";
@@ -48,8 +48,7 @@ int _Printf(void *pfn(void *, const char *, size_t), void *arg, const char *fmt,
         char c;
         const char *t;
         static const char fchar[] = { ' ', '+', '-', '#', '0', '\0' };
-        static const unsigned int fbit[] = { FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS,
-                                             FLAGS_HASH,  FLAGS_ZERO, 0 };
+        static const unsigned int fbit[] = { FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS, FLAGS_HASH, FLAGS_ZERO, 0 };
         char ac[32];
         s = fmt;
 

@@ -54,10 +54,9 @@ static unsigned int length; /* total texels in mipmap */
 static int level;           /* total levels in mipmap */
 
 static void get3x3(struct Tile *tile, int *s, int *t, int *texel, int shift, int size);
-static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile,
-                             unsigned char pal, unsigned char cms, unsigned char cmt,
-                             unsigned char masks, unsigned char maskt, unsigned char shifts,
-                             unsigned char shiftt);
+static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile, unsigned char pal,
+                             unsigned char cms, unsigned char cmt, unsigned char masks, unsigned char maskt,
+                             unsigned char shifts, unsigned char shiftt);
 static void kernel(int i, int r1, int g1, int b1, int a1, float *r2, float *g2, float *b2, float *a2);
 
 #define unpack_ia16(c, i, a) i = (c & 0xff00) >> 8, a = (c & 0xff)
@@ -81,7 +80,7 @@ static void kernel(int i, int r1, int g1, int b1, int a1, float *r2, float *g2, 
 #define unpack_ci4(c, ci) unpack_i4(c, ci)
 #define pack_ci4(ci) pack_i4(ci)
 
-#define unpack_rgba(c, r, g, b, a)                                                                     \
+#define unpack_rgba(c, r, g, b, a)                                                                                     \
     (r = (c & 0xf800) >> 11), g = ((c & 0x07c0) >> 6), b = ((c & 0x003e) >> 1), a = (c & 0x1)
 
 #define pack_rgba(r, g, b, a) ((r & 0x1f) << 11) | (g & 0x1f) << 6 | ((b & 0x1f) << 1) | (a)
@@ -102,10 +101,9 @@ static void kernel(int i, int r1, int g1, int b1, int a1, float *r2, float *g2, 
  * 	2		Texel format not supported, Fatal error		 *
  ************************************************************************/
 
-int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsigned char startTile,
-                             unsigned char pal, unsigned char cms, unsigned char cmt,
-                             unsigned char masks, unsigned char maskt, unsigned char shifts,
-                             unsigned char shiftt, unsigned char cfs, unsigned char cft) {
+int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsigned char startTile, unsigned char pal,
+                             unsigned char cms, unsigned char cmt, unsigned char masks, unsigned char maskt,
+                             unsigned char shifts, unsigned char shiftt, unsigned char cfs, unsigned char cft) {
 
     unsigned char *iaddr, *taddr;
     int im_bytes, tr_bytes;
@@ -210,8 +208,7 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
             /*
              * set new mipmap level address in bytes
              */
-            mipmap[level].addr =
-                mipmap[level - 1].addr + (mipmap[level - 1].w * txlsize * mipmap[level - 1].t >> 1);
+            mipmap[level].addr = mipmap[level - 1].addr + (mipmap[level - 1].w * txlsize * mipmap[level - 1].t >> 1);
 
             /*
              * grab location in tram pointing to the current level address
@@ -530,10 +527,9 @@ static void kernel(int i, int r0, int g0, int b0, int a0, float *r2, float *g2, 
 /********************************************************************
  Add entries for loading and rendering textures into the display list
 *********************************************************************/
-static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile,
-                             unsigned char pal, unsigned char cms, unsigned char cmt,
-                             unsigned char masks, unsigned char maskt, unsigned char shifts,
-                             unsigned char shiftt) {
+static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile, unsigned char pal,
+                             unsigned char cms, unsigned char cmt, unsigned char masks, unsigned char maskt,
+                             unsigned char shifts, unsigned char shiftt) {
     int tile;
     int Smask, Tmask;
     int Sshift, Tshift;
@@ -543,15 +539,13 @@ static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char 
      * 4-bit textures are loaded in 8-bit chunks
      */
     if (im->siz == G_IM_SIZ_4b) {
-        gDPSetTextureImage((*glistp)++, im->fmt, G_IM_SIZ_8b, 1,
-                           osVirtualToPhysical((unsigned short *) tbuf));
+        gDPSetTextureImage((*glistp)++, im->fmt, G_IM_SIZ_8b, 1, osVirtualToPhysical((unsigned short *) tbuf));
         gDPSetTile((*glistp)++, im->fmt, G_IM_SIZ_8b, NA, 0, G_TX_LOADTILE, NA, NA, NA, NA, NA, NA, NA);
         /* Wait until all primitives are done */
         gDPLoadSync((*glistp)++);
         gDPLoadBlock((*glistp)++, G_TX_LOADTILE, 0, 0, length / 2, 0x0);
     } else {
-        gDPSetTextureImage((*glistp)++, im->fmt, im->siz, 1,
-                           osVirtualToPhysical((unsigned short *) tbuf));
+        gDPSetTextureImage((*glistp)++, im->fmt, im->siz, 1, osVirtualToPhysical((unsigned short *) tbuf));
         gDPSetTile((*glistp)++, im->fmt, im->siz, NA, 0, G_TX_LOADTILE, NA, NA, NA, NA, NA, NA, NA);
         /* Wait until all primitives are done */
         gDPLoadSync((*glistp)++);
@@ -579,13 +573,11 @@ static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char 
                     rmonPrintf("%d\n",startTile);
         ***/
 
-        gDPSetTile((*glistp)++, im->fmt, im->siz, (mipmap[tile].w * txlsize >> 4),
-                   (mipmap[tile].addr >> 3), tile + startTile, pal, cmt, Tmask, Tshift, cms, Smask,
-                   Sshift);
+        gDPSetTile((*glistp)++, im->fmt, im->siz, (mipmap[tile].w * txlsize >> 4), (mipmap[tile].addr >> 3),
+                   tile + startTile, pal, cmt, Tmask, Tshift, cms, Smask, Sshift);
 
-        gDPSetTileSize((*glistp)++, tile + startTile, (0 << G_TEXTURE_IMAGE_FRAC),
-                       (0 << G_TEXTURE_IMAGE_FRAC), (mipmap[tile].s - 1) << G_TEXTURE_IMAGE_FRAC,
-                       (mipmap[tile].t - 1) << G_TEXTURE_IMAGE_FRAC);
+        gDPSetTileSize((*glistp)++, tile + startTile, (0 << G_TEXTURE_IMAGE_FRAC), (0 << G_TEXTURE_IMAGE_FRAC),
+                       (mipmap[tile].s - 1) << G_TEXTURE_IMAGE_FRAC, (mipmap[tile].t - 1) << G_TEXTURE_IMAGE_FRAC);
     }
 }
 

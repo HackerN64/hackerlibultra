@@ -376,8 +376,7 @@ int __rmonSetVRegs(KKHeader *req) {
 
     SetUpForRCPop(TRUE);
     for (i = 0; i < VREG_NUM; i++) {
-        __rmonCopyWords((u32 *) SP_DMEM_START, (u32 *) &request->registers.vregs[i],
-                        VREG_SIZE / sizeof(u32));
+        __rmonCopyWords((u32 *) SP_DMEM_START, (u32 *) &request->registers.vregs[i], VREG_SIZE / sizeof(u32));
         LoadStoreVU(MIPS_LWC2_OPCODE, i);
         __rmonStepRCP();
     }

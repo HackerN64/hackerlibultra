@@ -64,8 +64,7 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status) {
 
                 do {
                     if (buf_status[bufn][num] == 0) {
-                        ERRCK(
-                            osGbpakReadWrite(pfs, OS_READ, address + daddr, buf[bufn][num], BLOCKSIZE));
+                        ERRCK(osGbpakReadWrite(pfs, OS_READ, address + daddr, buf[bufn][num], BLOCKSIZE));
                         buf_status[bufn][num] = 1;
                     }
 

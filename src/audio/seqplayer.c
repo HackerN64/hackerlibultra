@@ -185,8 +185,7 @@ ALMicroTime __seqpVoiceHandler(void *node) {
                 chan = seqp->nextEvent.msg.osc.chan;
                 delta = (*seqp->updateOsc)(oscState, &oscValue);
                 vs->vibrato = oscValue;
-                alSynSetPitch(seqp->drvr, &vs->voice,
-                              vs->pitch * vs->vibrato * seqp->chanState[chan].pitchBend);
+                alSynSetPitch(seqp->drvr, &vs->voice, vs->pitch * vs->vibrato * seqp->chanState[chan].pitchBend);
                 evt.type = AL_VIB_OSC_EVT;
                 evt.msg.osc.vs = vs;
                 evt.msg.osc.oscState = oscState;
@@ -267,8 +266,7 @@ ALMicroTime __seqpVoiceHandler(void *node) {
             case (AL_SEQP_VOL_EVT):
                 seqp->vol = seqp->nextEvent.msg.spvol.vol;
                 for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
-                    alSynSetVol(seqp->drvr, &vs->voice, __vsVol(vs, seqp),
-                                __vsDelta(vs, seqp->curTime));
+                    alSynSetVol(seqp->drvr, &vs->voice, __vsVol(vs, seqp), __vsDelta(vs, seqp->curTime));
                 }
                 break;
 
@@ -494,8 +492,8 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
 
                 if (inst->tremType) {
                     if (seqp->initOsc) {
-                        deltaTime = (*seqp->initOsc)(&oscState, &oscValue, inst->tremType,
-                                                     inst->tremRate, inst->tremDepth, inst->tremDelay);
+                        deltaTime = (*seqp->initOsc)(&oscState, &oscValue, inst->tremType, inst->tremRate,
+                                                     inst->tremDepth, inst->tremDelay);
 
                         if (deltaTime) /* if deltaTime = zero, don't run osc */
                         {
@@ -513,8 +511,8 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
                 oscValue = 1.0f; /* set this as a default */
                 if (inst->vibType) {
                     if (seqp->initOsc) {
-                        deltaTime = (*seqp->initOsc)(&oscState, &oscValue, inst->vibType, inst->vibRate,
-                                                     inst->vibDepth, inst->vibDelay);
+                        deltaTime = (*seqp->initOsc)(&oscState, &oscValue, inst->vibType, inst->vibRate, inst->vibDepth,
+                                                     inst->vibDelay);
 
                         if (deltaTime) /* if deltaTime = zero,don't run osc. */
                         {
@@ -539,8 +537,7 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
                 vol = __vsVol(vstate, seqp);
                 deltaTime = sound->envelope->attackTime;
 
-                alSynStartVoiceParams(seqp->drvr, voice, sound->wavetable, pitch, vol, pan, fxmix,
-                                      deltaTime);
+                alSynStartVoiceParams(seqp->drvr, voice, sound->wavetable, pitch, vol, pan, fxmix, deltaTime);
                 /*
                  * set up callbacks for envelope
                  */
@@ -583,8 +580,7 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
             ALFailIf(!vstate, ERR_ALSEQP_POLY_VOICE);
 
             vstate->velocity = byte2;
-            alSynSetVol(seqp->drvr, &vstate->voice, __vsVol(vstate, seqp),
-                        __vsDelta(vstate, seqp->curTime));
+            alSynSetVol(seqp->drvr, &vstate->voice, __vsVol(vstate, seqp), __vsDelta(vstate, seqp->curTime));
             break;
 
         case (AL_MIDI_ChannelPressure):
@@ -596,8 +592,7 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
             for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
                 if (vs->channel == chan) {
                     vs->velocity = byte1;
-                    alSynSetVol(seqp->drvr, &vs->voice, __vsVol(vs, seqp),
-                                __vsDelta(vs, seqp->curTime));
+                    alSynSetVol(seqp->drvr, &vs->voice, __vsVol(vs, seqp), __vsDelta(vs, seqp->curTime));
                 }
             }
             break;
@@ -647,8 +642,7 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
                                     vs->phase = AL_PHASE_NOTEON;
                                 else if (vs->phase == AL_PHASE_SUSTREL) {
                                     vs->phase = AL_PHASE_RELEASE;
-                                    __seqpReleaseVoice(seqp, &vs->voice,
-                                                       vs->sound->envelope->releaseTime);
+                                    __seqpReleaseVoice(seqp, &vs->voice, vs->sound->envelope->releaseTime);
                                 }
                             }
                         }
@@ -672,7 +666,7 @@ void __handleMIDIMsg(ALSeqPlayer *seqp, ALEvent *event) {
                 case (AL_MIDI_FX_CTRL_5):
                 case (AL_MIDI_FX_CTRL_6):
                 case (AL_MIDI_FX_CTRL_7):
-#if 0 /* fx control not implemented */      
+#if 0 /* fx control not implemented */
 		fxref = alSynGetFXRef(seqp->drvr, 0, 0);
 		if (fxref)
 		    alSynSetFXParam(seqp->drvr, fxref, (s16)byte1, (void *)byte2);
@@ -824,11 +818,11 @@ ALSound *__lookupSound(ALSeqPlayer *seqp, u8 key, u8 vel, u8 chan)
     s32         i;
     ALInstrument  *inst = seqp->chanState[chan].instrument;
     ALSound       *snd = 0;
-    
+
     for (i = 0; i < inst->soundCount; i++) {
         ALSound *sound = inst->soundArray[i];
         ALKeyMap *keymap = sound->keyMap;
-        
+
         if ((key >= keymap->keyMin) && (key <= keymap->keyMax) &&
             (vel >= keymap->velocityMin) && (vel <= keymap->velocityMax)) {
             snd = sound;
@@ -848,9 +842,7 @@ ALSound *__lookupSoundQuick(ALSeqPlayer *seqp, u8 key, u8 vel, u8 chan) {
 #if BUILD_VERSION < VERSION_J
 #line 885
 #endif
-    assert(
-        inst
-        != NULL); /* sct 10/31/95 - If inst is NULL, then the seqp probably wasn't setup correctly. */
+    assert(inst != NULL); /* sct 10/31/95 - If inst is NULL, then the seqp probably wasn't setup correctly. */
 
     while (r >= l) {
         i = (l + r) / 2;

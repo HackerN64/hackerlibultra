@@ -41,8 +41,7 @@ static s32 SMALLROOM_PARAMS[26] = {
     3, 100 ms,
     /*       chorus  chorus   filter
 input  output  fbcoef  ffcoef   gain     rate   depth     coef  */
-    0, 54 ms, 9830, -9830, 0, 0, 0, 0, 19 ms, 38 ms, 3276, -3276, 0x3fff, 0, 0, 0, 0, 60 ms, 5000, 0, 0,
-    0, 0, 0x5000
+    0, 54 ms, 9830, -9830, 0, 0, 0, 0, 19 ms, 38 ms, 3276, -3276, 0x3fff, 0, 0, 0, 0, 60 ms, 5000, 0, 0, 0, 0, 0x5000
 };
 
 static s32 BIGROOM_PARAMS[34] = {
@@ -50,8 +49,8 @@ static s32 BIGROOM_PARAMS[34] = {
     4, 100 ms,
     /*       chorus  chorus   filter
 input  output  fbcoef  ffcoef   gain     rate   depth     coef  */
-    0, 66 ms, 9830, -9830, 0, 0, 0, 0, 22 ms, 54 ms, 3276, -3276, 0x3fff, 0, 0, 0, 66 ms, 91 ms, 3276,
-    -3276, 0x3fff, 0, 0, 0, 0, 94 ms, 8000, 0, 0, 0, 0, 0x5000
+    0, 66 ms, 9830, -9830, 0, 0, 0, 0, 22 ms, 54 ms, 3276, -3276, 0x3fff, 0, 0, 0, 66 ms, 91 ms, 3276, -3276, 0x3fff, 0,
+    0, 0, 0, 94 ms, 8000, 0, 0, 0, 0, 0x5000
 };
 
 static s32 ECHO_PARAMS[10] = {

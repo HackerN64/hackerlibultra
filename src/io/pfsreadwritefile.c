@@ -2,9 +2,9 @@
 #include "PR/os_internal.h"
 #include "PRinternal/controller.h"
 
-#define CHECK_IPAGE(p)                                                                                 \
-    (((p).ipage >= pfs->inode_start_page) && ((p).inode_t.bank < pfs->banks)                           \
-     && ((p).inode_t.page >= 0x01) && ((p).inode_t.page < 0x80))
+#define CHECK_IPAGE(p)                                                                                                 \
+    (((p).ipage >= pfs->inode_start_page) && ((p).inode_t.bank < pfs->banks) && ((p).inode_t.page >= 0x01)             \
+     && ((p).inode_t.page < 0x80))
 
 static s32 __osPfsGetNextPage(OSPfs *pfs, u8 *bank, __OSInode *inode, __OSInodeUnit *page) {
     s32 ret;
@@ -25,8 +25,7 @@ static s32 __osPfsGetNextPage(OSPfs *pfs, u8 *bank, __OSInode *inode, __OSInodeU
     }
     return 0;
 }
-s32 osPfsReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, int offset, int size_in_bytes,
-                       u8 *data_buffer) {
+s32 osPfsReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, int offset, int size_in_bytes, u8 *data_buffer) {
     s32 ret;
     __OSDir dir;
     __OSInode inode;

@@ -12,8 +12,8 @@
 
 #include "guint.h"
 
-void guLookAtStereoF(float mf[4][4], float xEye, float yEye, float zEye, float xAt, float yAt,
-                     float zAt, float xUp, float yUp, float zUp, float eyedist) {
+void guLookAtStereoF(float mf[4][4], float xEye, float yEye, float zEye, float xAt, float yAt, float zAt, float xUp,
+                     float yUp, float zUp, float eyedist) {
     float len, xLook, yLook, zLook, xRight, yRight, zRight;
 
     guMtxIdentF(mf);
@@ -95,8 +95,8 @@ void guLookAtStereoF(float mf[4][4], float xEye, float yEye, float zEye, float x
     mf[3][3] = 1;
 }
 
-void guLookAtStereo(Mtx *m, float xEye, float yEye, float zEye, float xAt, float yAt, float zAt,
-                    float xUp, float yUp, float zUp, float eyedist) {
+void guLookAtStereo(Mtx *m, float xEye, float yEye, float zEye, float xAt, float yAt, float zAt, float xUp, float yUp,
+                    float zUp, float eyedist) {
     Matrix mf;
 
     guLookAtStereoF(mf, xEye, yEye, zEye, xAt, yAt, zAt, xUp, yUp, zUp, eyedist);

@@ -82,8 +82,7 @@ static int *prev_bmbuf = NULL;
  *   will be used.
  */
 
-static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s32 yy, s32 fs, s32 ft,
-                       s32 sx, s32 sy) {
+static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s32 yy, s32 fs, s32 ft, s32 sx, s32 sy) {
     s32 rs, rt;
     s32 rxh, ryh;
     s32 rxl, ryl;
@@ -98,24 +97,23 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
     tex_height = s->bmHreal;
 
 #ifdef rmDEBUG
-    rmonPrintf("\tdrawbitmap (buf= 0x%08x; x,y= %d,%d; w,h= %d,%d )\n", b->buf, x, y, b->width,
-               s->bmheight);
+    rmonPrintf("\tdrawbitmap (buf= 0x%08x; x,y= %d,%d; w,h= %d,%d )\n", b->buf, x, y, b->width, s->bmheight);
 #endif
     gl = *glp;
 
     /* Scissoring */
     if ((x >= scissor_xmax) || (y >= scissor_ymax)) {
 #ifdef DEBUG_SCISSOR
-        emPrintf("Sprite Scissoring: Upper Left corner (%d,%d) beyond range (%d,%d)\n", x, y,
-                 scissor_xmax, scissor_ymax);
+        emPrintf("Sprite Scissoring: Upper Left corner (%d,%d) beyond range (%d,%d)\n", x, y, scissor_xmax,
+                 scissor_ymax);
 #endif
         return;
     }
 
     if ((xx < scissor_xmin) || (yy < scissor_ymin)) {
 #ifdef DEBUG_SCISSOR
-        emPrintf("Sprite Scissoring: Lower Right corner (%d,%d) not in range (%d,%d)\n", xx, yy,
-                 scissor_xmin, scissor_ymin);
+        emPrintf("Sprite Scissoring: Lower Right corner (%d,%d) not in range (%d,%d)\n", xx, yy, scissor_xmin,
+                 scissor_ymin);
 #endif
         return;
     }
@@ -124,8 +122,7 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
         rxh = scissor_xmin * 4;
         rs = (b->s << 5) + fs + (((scissor_xmin - x) * sx) >> 5);
 #ifdef DEBUG_SCISSOR
-        emPrintf("Sprite Scissoring: Left Edge (%d) not in range (%d,%d)\n", x, scissor_xmin,
-                 scissor_xmax);
+        emPrintf("Sprite Scissoring: Left Edge (%d) not in range (%d,%d)\n", x, scissor_xmin, scissor_xmax);
 #endif
     } else {
         rxh = x * 4;
@@ -136,8 +133,7 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
         ryh = scissor_ymin * 4;
         rt = (b->t << 5) + ft + (((scissor_ymin - y) * sy) >> 5);
 #ifdef DEBUG_SCISSOR
-        emPrintf("Sprite Scissoring: Top Edge (%d) not in range (%d,%d)\n", y, scissor_ymin,
-                 scissor_ymax);
+        emPrintf("Sprite Scissoring: Top Edge (%d) not in range (%d,%d)\n", y, scissor_ymin, scissor_ymax);
 #endif
     } else {
         ryh = y * 4;
@@ -147,8 +143,7 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
     if (xx >= scissor_xmax) {
         rxl = scissor_xmax * 4;
 #ifdef DEBUG_SCISSOR
-        emPrintf("Sprite Scissoring: Right Edge (%d) not in range (%d,%d)\n", xx, scissor_xmin,
-                 scissor_xmax);
+        emPrintf("Sprite Scissoring: Right Edge (%d) not in range (%d,%d)\n", xx, scissor_xmin, scissor_xmax);
 #endif
     } else {
         rxl = xx * 4;
@@ -157,8 +152,7 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
     if (yy >= scissor_ymax) {
         ryl = scissor_ymax * 4;
 #ifdef DEBUG_SCISSOR
-        emPrintf("Sprite Scissoring: Bottom Edge (%d) not in range (%d,%d)\n", yy, scissor_ymin,
-                 scissor_ymax);
+        emPrintf("Sprite Scissoring: Bottom Edge (%d) not in range (%d,%d)\n", yy, scissor_ymin, scissor_ymax);
 #endif
     } else {
         ryl = yy * 4;
@@ -178,36 +172,34 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
         switch (s->bmsiz) {
 #if BUILD_VERSION >= VERSION_J
             case G_IM_SIZ_DD:
-                gDPLoadTextureTile_4b(gl++, b->buf, s->bmfmt, tex_width, tex_height, b->s, b->t,
-                                      b->s + b->width, b->t + b->actualHeight, 0, s_clamp, t_clamp,
-                                      s_mask, t_mask, s_lod, t_lod);
+                gDPLoadTextureTile_4b(gl++, b->buf, s->bmfmt, tex_width, tex_height, b->s, b->t, b->s + b->width,
+                                      b->t + b->actualHeight, 0, s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod);
                 break;
 #endif
             case G_IM_SIZ_4b:
                 if (s->attr & SP_TEXSHUF) {
-                    gDPLoadTextureBlock_4bS(gl++, b->buf, s->bmfmt, tex_width, tex_height, 0, s_clamp,
-                                            t_clamp, s_mask, t_mask, s_lod, t_lod);
+                    gDPLoadTextureBlock_4bS(gl++, b->buf, s->bmfmt, tex_width, tex_height, 0, s_clamp, t_clamp, s_mask,
+                                            t_mask, s_lod, t_lod);
                 } else {
-                    gDPLoadTextureBlock_4b(gl++, b->buf, s->bmfmt, tex_width, tex_height, 0, s_clamp,
-                                           t_clamp, s_mask, t_mask, s_lod, t_lod);
+                    gDPLoadTextureBlock_4b(gl++, b->buf, s->bmfmt, tex_width, tex_height, 0, s_clamp, t_clamp, s_mask,
+                                           t_mask, s_lod, t_lod);
                 };
                 break;
 
             case G_IM_SIZ_8b:
                 if (s->attr & SP_TEXSHUF) {
-                    gDPLoadTextureBlockS(gl++, b->buf, s->bmfmt, G_IM_SIZ_8b, tex_width, tex_height, 0,
-                                         s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod);
+                    gDPLoadTextureBlockS(gl++, b->buf, s->bmfmt, G_IM_SIZ_8b, tex_width, tex_height, 0, s_clamp,
+                                         t_clamp, s_mask, t_mask, s_lod, t_lod);
                 } else {
-                    gDPLoadTextureBlock(gl++, b->buf, s->bmfmt, G_IM_SIZ_8b, tex_width, tex_height, 0,
-                                        s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod);
+                    gDPLoadTextureBlock(gl++, b->buf, s->bmfmt, G_IM_SIZ_8b, tex_width, tex_height, 0, s_clamp, t_clamp,
+                                        s_mask, t_mask, s_lod, t_lod);
                 };
                 break;
             case G_IM_SIZ_16b:
                 if (s->bmfmt == G_IM_FMT_YUV) {
                     if (s->attr & SP_TEXSHUF) {
-                        gDPLoadTextureBlockYuvS(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width,
-                                                tex_height, 0, s_clamp, t_clamp, s_mask, t_mask, s_lod,
-                                                t_lod);
+                        gDPLoadTextureBlockYuvS(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width, tex_height, 0, s_clamp,
+                                                t_clamp, s_mask, t_mask, s_lod, t_lod);
                     } else {
                         if (b->LUToffset != 0) { /* Split Y and UV areas */
                             unsigned char *uv, *addr;
@@ -215,15 +207,13 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
                             s32 tmem, siz;
 
                             gDPSetTextureImage(gl++, G_IM_FMT_I, G_IM_SIZ_8b, 1, b->buf);
-                            gDPSetTile(gl++, G_IM_FMT_I, G_IM_SIZ_8b, 0, 256, G_TX_LOADTILE, 0, t_clamp,
-                                       t_mask, t_lod, s_clamp, s_mask, s_lod);
+                            gDPSetTile(gl++, G_IM_FMT_I, G_IM_SIZ_8b, 0, 256, G_TX_LOADTILE, 0, t_clamp, t_mask, t_lod,
+                                       s_clamp, s_mask, s_lod);
                             gDPLoadSync(gl++);
-                            gDPLoadBlock(gl++, G_TX_LOADTILE, 0, 0, tex_width * tex_height - 1,
-                                         CALC_DXT(tex_width, 1));
+                            gDPLoadBlock(gl++, G_TX_LOADTILE, 0, 0, tex_width * tex_height - 1, CALC_DXT(tex_width, 1));
                             gDPLoadSync(gl++);
 
-                            uv = ((unsigned char *) b->buf)
-                                 + ((tex_width * tex_height) / 2) * b->LUToffset;
+                            uv = ((unsigned char *) b->buf) + ((tex_width * tex_height) / 2) * b->LUToffset;
 
                             for (j = 0; j <= (tex_height / 2); j++) {
                                 addr = uv + ((tex_height / 2) - 2 - j) * tex_width;
@@ -238,45 +228,40 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
                                     siz = 2 * tex_width;
 
                                 gDPSetTextureImage(gl++, G_IM_FMT_I, G_IM_SIZ_8b, 1, addr);
-                                gDPSetTile(gl++, G_IM_FMT_I, G_IM_SIZ_8b, 0, tmem, G_TX_LOADTILE, 0,
-                                           t_clamp, t_mask, t_lod, s_clamp, s_mask, s_lod);
+                                gDPSetTile(gl++, G_IM_FMT_I, G_IM_SIZ_8b, 0, tmem, G_TX_LOADTILE, 0, t_clamp, t_mask,
+                                           t_lod, s_clamp, s_mask, s_lod);
                                 gDPLoadSync(gl++);
-                                gDPLoadBlock(gl++, G_TX_LOADTILE, 0, 0, siz - 1,
-                                             CALC_DXT(tex_width, 1));
+                                gDPLoadBlock(gl++, G_TX_LOADTILE, 0, 0, siz - 1, CALC_DXT(tex_width, 1));
                                 gDPLoadSync(gl++);
                             };
 
-                            gDPSetTile(gl++, s->bmfmt, G_IM_SIZ_16b, (((tex_width) * 1) + 7) >> 3, 0,
-                                       G_TX_RENDERTILE, 0, t_clamp, t_mask, t_lod, s_clamp, s_mask,
-                                       s_lod);
-                            gDPSetTileSize(gl++, G_TX_RENDERTILE, 0, 0,
-                                           ((tex_width) -1) << G_TEXTURE_IMAGE_FRAC,
+                            gDPSetTile(gl++, s->bmfmt, G_IM_SIZ_16b, (((tex_width) * 1) + 7) >> 3, 0, G_TX_RENDERTILE,
+                                       0, t_clamp, t_mask, t_lod, s_clamp, s_mask, s_lod);
+                            gDPSetTileSize(gl++, G_TX_RENDERTILE, 0, 0, ((tex_width) -1) << G_TEXTURE_IMAGE_FRAC,
                                            ((tex_height) -1) << G_TEXTURE_IMAGE_FRAC);
 
                         } else {
-                            gDPLoadTextureBlockYuv(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width,
-                                                   tex_height, 0, s_clamp, t_clamp, s_mask, t_mask,
-                                                   s_lod, t_lod);
+                            gDPLoadTextureBlockYuv(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width, tex_height, 0,
+                                                   s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod);
                         };
                     };
                 } else {
                     if (s->attr & SP_TEXSHUF) {
-                        gDPLoadTextureBlockS(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width,
-                                             tex_height, 0, s_clamp, t_clamp, s_mask, t_mask, s_lod,
-                                             t_lod);
+                        gDPLoadTextureBlockS(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width, tex_height, 0, s_clamp,
+                                             t_clamp, s_mask, t_mask, s_lod, t_lod);
                     } else {
-                        gDPLoadTextureBlock(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width, tex_height,
-                                            0, s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod);
+                        gDPLoadTextureBlock(gl++, b->buf, s->bmfmt, G_IM_SIZ_16b, tex_width, tex_height, 0, s_clamp,
+                                            t_clamp, s_mask, t_mask, s_lod, t_lod);
                     };
                 };
                 break;
             case G_IM_SIZ_32b:
                 if (s->attr & SP_TEXSHUF) {
-                    gDPLoadTextureBlockS(gl++, b->buf, s->bmfmt, G_IM_SIZ_32b, tex_width, tex_height, 0,
-                                         s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod);
+                    gDPLoadTextureBlockS(gl++, b->buf, s->bmfmt, G_IM_SIZ_32b, tex_width, tex_height, 0, s_clamp,
+                                         t_clamp, s_mask, t_mask, s_lod, t_lod);
                 } else {
-                    gDPLoadTextureBlock(gl++, b->buf, s->bmfmt, G_IM_SIZ_32b, tex_width, tex_height, 0,
-                                        s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod);
+                    gDPLoadTextureBlock(gl++, b->buf, s->bmfmt, G_IM_SIZ_32b, tex_width, tex_height, 0, s_clamp,
+                                        t_clamp, s_mask, t_mask, s_lod, t_lod);
                 };
                 break;
         }
@@ -303,8 +288,8 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
     g->dtdy = sy;
 
 #ifdef rmDEBUG
-    rmonPrintf("\trect (xh,l= %d,%d, yh,l= %d,%d, s,t= %d,%d, dsdx=%d, dtdy=%d )\n", rxh, rxl, ryh, ryl,
-               rs, rt, g->dsdx, sy);
+    rmonPrintf("\trect (xh,l= %d,%d, yh,l= %d,%d, s,t= %d,%d, dsdx=%d, dtdy=%d )\n", rxh, rxl, ryh, ryl, rs, rt,
+               g->dsdx, sy);
 #endif
 
     gSPTextureRectangle(gl++, g->xh, g->yh, g->xl, g->yl, g->tile, g->s, g->t, g->dsdx, g->dtdy);
@@ -512,8 +497,7 @@ Gfx *spDraw(Sprite *s) {
             ty2--;
 
 #ifdef rmDEBUG
-        rmonPrintf("\tiscale=(%d,%d), %d bitmaps, sprite_size=(%d,%d)\n", isx, isy, s->nbitmaps,
-                   s->width, s->height);
+        rmonPrintf("\tiscale=(%d,%d), %d bitmaps, sprite_size=(%d,%d)\n", isx, isy, s->nbitmaps, s->width, s->height);
 #endif
 
         for (i = 0; (i < s->nbitmaps) && (b->width > 0); i++, b++) {
@@ -619,13 +603,13 @@ Gfx *spDraw(Sprite *s) {
 
         if ((x >= scissor_xmax) || (y >= scissor_ymax)) {
 #ifdef DEBUG_SCISSOR
-            emPrintf("Sprite Scissoring: FILL Upper Left corner (%d,%d) beyond range (%d,%d)\n", x, y,
-                     scissor_xmax, scissor_ymax);
+            emPrintf("Sprite Scissoring: FILL Upper Left corner (%d,%d) beyond range (%d,%d)\n", x, y, scissor_xmax,
+                     scissor_ymax);
 #endif
         } else if ((x2 < scissor_xmin) || (y2 < scissor_ymin)) {
 #ifdef DEBUG_SCISSOR
-            emPrintf("Sprite Scissoring: FILL Lower Right corner (%d,%d) below range (%d,%d)\n", x2, y2,
-                     scissor_xmin, scissor_ymin);
+            emPrintf("Sprite Scissoring: FILL Lower Right corner (%d,%d) below range (%d,%d)\n", x2, y2, scissor_xmin,
+                     scissor_ymin);
 #endif
         } else {
 

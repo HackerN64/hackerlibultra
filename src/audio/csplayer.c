@@ -171,8 +171,7 @@ static ALMicroTime __CSPVoiceHandler(void *node) {
                 oscState = seqp->nextEvent.msg.osc.oscState;
                 delta = (*seqp->updateOsc)(oscState, &oscValue);
                 vs->tremelo = (u8) oscValue;
-                alSynSetVol(seqp->drvr, &vs->voice, __vsVol(vs, (ALSeqPlayer *) seqp),
-                            __vsDelta(vs, seqp->curTime));
+                alSynSetVol(seqp->drvr, &vs->voice, __vsVol(vs, (ALSeqPlayer *) seqp), __vsDelta(vs, seqp->curTime));
                 evt.type = AL_TREM_OSC_EVT;
                 evt.msg.osc.vs = vs;
                 evt.msg.osc.oscState = oscState;
@@ -185,8 +184,7 @@ static ALMicroTime __CSPVoiceHandler(void *node) {
                 chan = seqp->nextEvent.msg.osc.chan;
                 delta = (*seqp->updateOsc)(oscState, &oscValue);
                 vs->vibrato = oscValue;
-                alSynSetPitch(seqp->drvr, &vs->voice,
-                              vs->pitch * vs->vibrato * seqp->chanState[chan].pitchBend);
+                alSynSetPitch(seqp->drvr, &vs->voice, vs->pitch * vs->vibrato * seqp->chanState[chan].pitchBend);
                 evt.type = AL_VIB_OSC_EVT;
                 evt.msg.osc.vs = vs;
                 evt.msg.osc.oscState = oscState;
@@ -214,8 +212,7 @@ static ALMicroTime __CSPVoiceHandler(void *node) {
             case (AL_SEQP_PLAY_EVT):
                 if (seqp->state != AL_PLAYING) {
                     seqp->state = AL_PLAYING;
-                    __CSPPostNextSeqEvent(
-                        seqp); /* seqp must be AL_PLAYING before we call this routine. */
+                    __CSPPostNextSeqEvent(seqp); /* seqp must be AL_PLAYING before we call this routine. */
                 }
                 break;
 
@@ -479,8 +476,8 @@ static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event) {
                 oscValue = (f32) AL_VOL_FULL; /* set this as a default */
                 if (inst->tremType) {
                     if (seqp->initOsc) {
-                        deltaTime = (*seqp->initOsc)(&oscState, &oscValue, inst->tremType,
-                                                     inst->tremRate, inst->tremDepth, inst->tremDelay);
+                        deltaTime = (*seqp->initOsc)(&oscState, &oscValue, inst->tremType, inst->tremRate,
+                                                     inst->tremDepth, inst->tremDelay);
 
                         if (deltaTime) /* a deltaTime of zero means don't run osc */
                         {
@@ -497,8 +494,8 @@ static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event) {
                 oscValue = 1.0f; /* set this as a default */
                 if (inst->vibType) {
                     if (seqp->initOsc) {
-                        deltaTime = (*seqp->initOsc)(&oscState, &oscValue, inst->vibType, inst->vibRate,
-                                                     inst->vibDepth, inst->vibDelay);
+                        deltaTime = (*seqp->initOsc)(&oscState, &oscValue, inst->vibType, inst->vibRate, inst->vibDepth,
+                                                     inst->vibDelay);
 
                         if (deltaTime) /* a deltaTime of zero means don't run osc. */
                         {
@@ -522,8 +519,7 @@ static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event) {
                 vol = __vsVol(vstate, (ALSeqPlayer *) seqp);
                 deltaTime = sound->envelope->attackTime;
 
-                alSynStartVoiceParams(seqp->drvr, voice, sound->wavetable, pitch, vol, pan, fxmix,
-                                      deltaTime);
+                alSynStartVoiceParams(seqp->drvr, voice, sound->wavetable, pitch, vol, pan, fxmix, deltaTime);
                 /*
                  * set up callbacks for envelope
                  */
@@ -565,8 +561,7 @@ static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event) {
                 vstate->phase = AL_PHASE_SUSTREL;
             else {
                 vstate->phase = AL_PHASE_RELEASE;
-                __seqpReleaseVoice((ALSeqPlayer *) seqp, &vstate->voice,
-                                   vstate->sound->envelope->releaseTime);
+                __seqpReleaseVoice((ALSeqPlayer *) seqp, &vstate->voice, vstate->sound->envelope->releaseTime);
             }
 
             break;

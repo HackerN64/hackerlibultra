@@ -8,10 +8,10 @@
 #ident "$Revision: 1.4 $"
 #endif
 
-#define _osVirtualToPhysical(ptr)                                                                      \
-    if (ptr != NULL) {                                                                                 \
-        ptr = (void *) osVirtualToPhysical(ptr);                                                       \
-    }                                                                                                  \
+#define _osVirtualToPhysical(ptr)                                                                                      \
+    if (ptr != NULL) {                                                                                                 \
+        ptr = (void *) osVirtualToPhysical(ptr);                                                                       \
+    }                                                                                                                  \
     (void) 0
 
 static OSTask tmp_task;

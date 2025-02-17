@@ -179,8 +179,7 @@ Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen) {
      * during the client handler.
      */
 
-    for (drvr->paramSamples = __nextSampleTime(drvr, &client);
-         drvr->paramSamples - drvr->curSamples < outLen;
+    for (drvr->paramSamples = __nextSampleTime(drvr, &client); drvr->paramSamples - drvr->curSamples < outLen;
          drvr->paramSamples = __nextSampleTime(drvr, &client)) {
         drvr->paramSamples &= ~0xf;
         client->samplesLeft += _timeToSamplesNoRound(drvr, (*client->handler)(client));

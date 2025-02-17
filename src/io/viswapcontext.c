@@ -38,8 +38,7 @@ void __osViSwapContext(void) {
     }
 
 #if BUILD_VERSION >= VERSION_J
-    vStart =
-        (vm->fldRegs[field].vStart - (__additional_scanline << VI_SUBPIXEL_SH)) + __additional_scanline;
+    vStart = (vm->fldRegs[field].vStart - (__additional_scanline << VI_SUBPIXEL_SH)) + __additional_scanline;
 #endif
     hStart = vm->comRegs.hStart;
 

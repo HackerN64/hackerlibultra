@@ -82,8 +82,7 @@ static void ClearTempBreakpoint(void) {
             /* After confirming that there is a break instruction with code at the target
                 address, restore the original contents of the word at the target address  */
             *breakpoints[TMP_BP].breakAddress = breakpoints[TMP_BP].oldInstruction;
-            osWritebackDCache(breakpoints[TMP_BP].breakAddress,
-                              sizeof(*breakpoints[TMP_BP].breakAddress));
+            osWritebackDCache(breakpoints[TMP_BP].breakAddress, sizeof(*breakpoints[TMP_BP].breakAddress));
             osInvalICache(breakpoints[TMP_BP].breakAddress, sizeof(*breakpoints[TMP_BP].breakAddress));
         }
         breakpoints[TMP_BP].breakAddress = NULL;
@@ -147,8 +146,7 @@ int __rmonSetBreak(KKHeader *req) {
     if (whichBreak->breakAddress == NULL) {
         if (req->method == RMON_RSP) {
             whichBreak->oldInstruction = __rmonReadWordAt((u32 *) request->addr);
-            __rmonWriteWordTo((u32 *) request->addr,
-                              MIPS_BREAK((whichBreak - breakBase) + NUM_BREAKPOINTS));
+            __rmonWriteWordTo((u32 *) request->addr, MIPS_BREAK((whichBreak - breakBase) + NUM_BREAKPOINTS));
         } else {
             whichBreak->oldInstruction = *(u32 *) request->addr;
             *(u32 *) request->addr = MIPS_BREAK((whichBreak - breakBase) + NUM_BREAKPOINTS);
@@ -156,8 +154,8 @@ int __rmonSetBreak(KKHeader *req) {
             osInvalICache((void *) request->addr, sizeof(whichBreak->oldInstruction));
         }
         whichBreak->breakAddress = (u32 *) request->addr;
-        STUBBED_PRINTF(("* (%08x) = %08x (was %08x)\n", whichBreak->breakAddress,
-                        *whichBreak->breakAddress, whichBreak->oldInstruction));
+        STUBBED_PRINTF(("* (%08x) = %08x (was %08x)\n", whichBreak->breakAddress, *whichBreak->breakAddress,
+                        whichBreak->oldInstruction));
     }
 
     /* Send reply */
@@ -414,8 +412,7 @@ static void rmonFindFaultedThreads(void) {
             if (tptr->flags & OS_FLAG_CPU_BREAK) {
                 int inst = *(u32 *) tptr->context.pc;
 
-                STUBBED_PRINTF(
-                    ("Brk in thread %d @ %08x, inst %08x\r\n", tptr->id, tptr->context.pc, inst));
+                STUBBED_PRINTF(("Brk in thread %d @ %08x, inst %08x\r\n", tptr->id, tptr->context.pc, inst));
 
                 if ((inst & MIPS_BREAK_MASK) == MIPS_BREAK_OPCODE) {
                     rmonSendBreakMessage(tptr->id, inst >> 6);

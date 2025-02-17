@@ -25,9 +25,9 @@ int guGetDPLoadTextureTileSz(int ult, int lrt) {
  *  load blocks for each line.  ~25% more dma traffic + memory for
  *  extra commands.
  */
-void guDPLoadTextureTile(Gfx *temp, void *timg, int texl_fmt, int texl_size, int img_width,
-                         int img_height, int uls, int ult, int lrs, int lrt, int palette, int cms,
-                         int cmt, int masks, int maskt, int shifts, int shiftt) {
+void guDPLoadTextureTile(Gfx *temp, void *timg, int texl_fmt, int texl_size, int img_width, int img_height, int uls,
+                         int ult, int lrs, int lrt, int palette, int cms, int cmt, int masks, int maskt, int shifts,
+                         int shiftt) {
     int line;
     int tile_width, tile_height; /*
 
@@ -37,7 +37,7 @@ void guDPLoadTextureTile(Gfx *temp, void *timg, int texl_fmt, int texl_size, int
     int sizeb;
     int lineb;
     int line_size;     /*
-    
+
                                                 * in 64-bit words
                                                 */
     int texel_num_pad; /*
@@ -87,8 +87,8 @@ void guDPLoadTextureTile(Gfx *temp, void *timg, int texl_fmt, int texl_size, int
          */
         tile = (line % 4) ? 1 : 0;
 
-        gDPSetTile(temp++, texl_fmt, texl_size, 0, tmem, G_TX_LOADTILE - tile, 0, cmt, maskt, shiftt,
-                   cms, masks, shifts);
+        gDPSetTile(temp++, texl_fmt, texl_size, 0, tmem, G_TX_LOADTILE - tile, 0, cmt, maskt, shiftt, cms, masks,
+                   shifts);
 
         /*
          * do odd line first
@@ -111,12 +111,10 @@ void guDPLoadTextureTile(Gfx *temp, void *timg, int texl_fmt, int texl_size, int
     /*
      * set final tile
      */
-    gDPSetTile(temp++, texl_fmt, texl_size, line_size, 0, G_TX_RENDERTILE, 0, cmt, maskt, shiftt, cms,
-               masks, shifts);
+    gDPSetTile(temp++, texl_fmt, texl_size, line_size, 0, G_TX_RENDERTILE, 0, cmt, maskt, shiftt, cms, masks, shifts);
 
-    gDPSetTileSize(temp++, G_TX_RENDERTILE, (uls) << G_TEXTURE_IMAGE_FRAC,
-                   (ult) << G_TEXTURE_IMAGE_FRAC, (lrs) << G_TEXTURE_IMAGE_FRAC,
-                   (lrt) << G_TEXTURE_IMAGE_FRAC);
+    gDPSetTileSize(temp++, G_TX_RENDERTILE, (uls) << G_TEXTURE_IMAGE_FRAC, (ult) << G_TEXTURE_IMAGE_FRAC,
+                   (lrs) << G_TEXTURE_IMAGE_FRAC, (lrt) << G_TEXTURE_IMAGE_FRAC);
 }
 
 /*
@@ -136,9 +134,9 @@ int guGetDPLoadTextureTile_4bSz(int ult, int lrt) {
  *  load blocks for each line.  ~25% more dma traffic + memory for
  *  extra commands.
  */
-void guDPLoadTextureTile_4b(Gfx *temp, void *timg, int texl_fmt, int img_width, int img_height, int uls,
-                            int ult, int lrs, int lrt, int palette, int cms, int cmt, int masks,
-                            int maskt, int shifts, int shiftt) {
+void guDPLoadTextureTile_4b(Gfx *temp, void *timg, int texl_fmt, int img_width, int img_height, int uls, int ult,
+                            int lrs, int lrt, int palette, int cms, int cmt, int masks, int maskt, int shifts,
+                            int shiftt) {
     int line;
     int tile_width, tile_height;
     int dxt;
@@ -170,8 +168,8 @@ void guDPLoadTextureTile_4b(Gfx *temp, void *timg, int texl_fmt, int img_width, 
          */
         tile = (line % 4) ? 1 : 0;
 
-        gDPSetTile(temp++, texl_fmt, G_IM_SIZ_8b, 0, tmem, G_TX_LOADTILE - tile, 0, cmt, maskt, shiftt,
-                   cms, masks, shifts);
+        gDPSetTile(temp++, texl_fmt, G_IM_SIZ_8b, 0, tmem, G_TX_LOADTILE - tile, 0, cmt, maskt, shiftt, cms, masks,
+                   shifts);
 
         /*
          * do odd line first
@@ -194,10 +192,8 @@ void guDPLoadTextureTile_4b(Gfx *temp, void *timg, int texl_fmt, int img_width, 
     /*
      * set final tile
      */
-    gDPSetTile(temp++, texl_fmt, G_IM_SIZ_4b, line_size, 0, G_TX_RENDERTILE, 0, cmt, maskt, shiftt, cms,
-               masks, shifts);
+    gDPSetTile(temp++, texl_fmt, G_IM_SIZ_4b, line_size, 0, G_TX_RENDERTILE, 0, cmt, maskt, shiftt, cms, masks, shifts);
 
-    gDPSetTileSize(temp++, G_TX_RENDERTILE, (uls) << G_TEXTURE_IMAGE_FRAC,
-                   (ult) << G_TEXTURE_IMAGE_FRAC, (lrs) << G_TEXTURE_IMAGE_FRAC,
-                   (lrt) << G_TEXTURE_IMAGE_FRAC);
+    gDPSetTileSize(temp++, G_TX_RENDERTILE, (uls) << G_TEXTURE_IMAGE_FRAC, (ult) << G_TEXTURE_IMAGE_FRAC,
+                   (lrs) << G_TEXTURE_IMAGE_FRAC, (lrt) << G_TEXTURE_IMAGE_FRAC);
 }

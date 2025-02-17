@@ -29,9 +29,9 @@
  */
 #define THRESH2 0.01
 #define THRESH3 0.1
-void guPosLightHilite(PositionalLight *pl1, PositionalLight *pl2, Light *l1, Light *l2, LookAt *l,
-                      Hilite *h, float xEye, float yEye, float zEye, float xOb, float yOb, float zOb,
-                      float xUp, float yUp, float zUp, int twidth, int theight) /* hilite txtr size*/
+void guPosLightHilite(PositionalLight *pl1, PositionalLight *pl2, Light *l1, Light *l2, LookAt *l, Hilite *h,
+                      float xEye, float yEye, float zEye, float xOb, float yOb, float zOb, float xUp, float yUp,
+                      float zUp, int twidth, int theight) /* hilite txtr size*/
 {
     float x, y, z, d, a;
     Mtx m;
@@ -148,8 +148,7 @@ void guPosLightHilite(PositionalLight *pl1, PositionalLight *pl2, Light *l1, Lig
         l->l[1].l.colc[2] = 0x00;
         l->l[1].l.pad2 = 0x00;
     } else {
-        guLookAtHilite(&m, l, h, xEye, yEye, zEye, xOb, yOb, zOb, xUp, yUp, zUp, l1->l.dir[0],
-                       l1->l.dir[1], l1->l.dir[2], l2->l.dir[0], l2->l.dir[1], l2->l.dir[2], twidth,
-                       theight);
+        guLookAtHilite(&m, l, h, xEye, yEye, zEye, xOb, yOb, zOb, xUp, yUp, zUp, l1->l.dir[0], l1->l.dir[1],
+                       l1->l.dir[2], l2->l.dir[0], l2->l.dir[1], l2->l.dir[2], twidth, theight);
     }
 }

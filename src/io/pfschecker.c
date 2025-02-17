@@ -5,9 +5,9 @@
 s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache);
 s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache);
 
-#define CHECK_IPAGE(p)                                                                                 \
-    (((p).ipage >= pfs->inode_start_page) && ((p).inode_t.bank < pfs->banks)                           \
-     && ((p).inode_t.page >= 0x01) && ((p).inode_t.page < 0x80))
+#define CHECK_IPAGE(p)                                                                                                 \
+    (((p).ipage >= pfs->inode_start_page) && ((p).inode_t.bank < pfs->banks) && ((p).inode_t.page >= 0x01)             \
+     && ((p).inode_t.page < 0x80))
 
 s32 osPfsChecker(OSPfs *pfs) {
     int j;
@@ -78,8 +78,7 @@ s32 osPfsChecker(OSPfs *pfs) {
                 bzero(&tmp_dir, sizeof(__OSDir));
 
                 SET_ACTIVEBANK_TO_ZERO();
-                ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + j, (u8 *) &tmp_dir,
-                                       FALSE));
+                ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + j, (u8 *) &tmp_dir, FALSE));
                 fixed++;
             }
         }
@@ -114,8 +113,7 @@ s32 osPfsChecker(OSPfs *pfs) {
                 tmp_dir.data_sum = 0;
 
                 SET_ACTIVEBANK_TO_ZERO();
-                ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + j, (u8 *) &tmp_dir,
-                                       FALSE));
+                ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + j, (u8 *) &tmp_dir, FALSE));
                 fixed++;
             }
         } else {
@@ -127,8 +125,7 @@ s32 osPfsChecker(OSPfs *pfs) {
                 tmp_dir.data_sum = 0;
 
                 SET_ACTIVEBANK_TO_ZERO();
-                ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + j, (u8 *) &tmp_dir,
-                                       FALSE));
+                ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + j, (u8 *) &tmp_dir, FALSE));
                 fixed++;
             }
         }
@@ -163,8 +160,7 @@ s32 osPfsChecker(OSPfs *pfs) {
         }
 
         for (j = 0; j < pfs->dir_size; j++) {
-            while (file_next_node[j].inode_t.bank == bank
-                   && file_next_node[j].ipage >= (u16) pfs->inode_start_page) {
+            while (file_next_node[j].inode_t.bank == bank && file_next_node[j].ipage >= (u16) pfs->inode_start_page) {
                 u8 pp = file_next_node[j].inode_t.page;
                 file_next_node[j] = checked_inode.inode_page[pp] = tmp_inode.inode_page[pp];
             }
@@ -212,8 +208,7 @@ s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache) {
                 n = ((tpage.inode_t.page & 0x7F) / PFS_SECTOR_SIZE)
                     + ((tpage.inode_t.bank % PFS_BANK_LAPPED_BY) * BLOCKSIZE);
 #else
-                n = ((tpage.inode_t.page) / PFS_SECTOR_SIZE)
-                    + ((tpage.inode_t.bank % PFS_BANK_LAPPED_BY) * BLOCKSIZE);
+                n = ((tpage.inode_t.page) / PFS_SECTOR_SIZE) + ((tpage.inode_t.bank % PFS_BANK_LAPPED_BY) * BLOCKSIZE);
 #endif
                 cache->map[n] |= 1 << (bank % PFS_BANK_LAPPED_BY);
             }

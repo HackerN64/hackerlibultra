@@ -34,8 +34,7 @@ extern u32 cnt_index, adpcm_num, adpcm_cnt, adpcm_max, adpcm_min, lastCnt[];
 #define ADPCMFBYTES 9
 #define LFSAMPLES 4
 
-static Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp,
-                          u32 flags);
+static Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags);
 
 Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
     Acmd *ptr = p;
@@ -374,8 +373,7 @@ s32 alLoadParam(void *filter, s32 paramID, void *param) {
                         a->loop.start = a->table->waveInfo.adpcmWave.loop->start;
                         a->loop.end = a->table->waveInfo.adpcmWave.loop->end;
                         a->loop.count = a->table->waveInfo.adpcmWave.loop->count;
-                        alCopy(a->table->waveInfo.adpcmWave.loop->state, a->lstate,
-                               sizeof(ADPCM_STATE));
+                        alCopy(a->table->waveInfo.adpcmWave.loop->state, a->lstate, sizeof(ADPCM_STATE));
                     } else {
                         a->loop.start = a->loop.end = a->loop.count = 0;
                     }

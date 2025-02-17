@@ -12,7 +12,7 @@ typedef struct {
 } __osExceptionVector;
 
 static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
-    size_t sent = 0;
+    sizeof sent = 0;
 
     while (sent < n) {
         sent += __osRdbSend(buf + sent, n - sent, RDB_TYPE_GtoH_PRINT);

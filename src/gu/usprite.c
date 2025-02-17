@@ -14,8 +14,8 @@
 #include "gbi.h"
 
 void guSprite2DInit(uSprite *SpritePointer, void *SourceImagePointer, void *TlutPointer, short Stride,
-                    short SubImageWidth, short SubImageHeight, char SourceImageType,
-                    char SourceImageBitSize, short SourceImageOffsetS, short SourceImageOffsetT) {
+                    short SubImageWidth, short SubImageHeight, char SourceImageType, char SourceImageBitSize,
+                    short SourceImageOffsetS, short SourceImageOffsetT) {
     SpritePointer->s.SourceImagePointer = SourceImagePointer;
     SpritePointer->s.TlutPointer = TlutPointer;
     SpritePointer->s.Stride = Stride;

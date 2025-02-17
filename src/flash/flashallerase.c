@@ -9,8 +9,7 @@ s32 osFlashAllErase(void) {
 
     // start chip erase operation
     osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_CHIP_ERASE);
-    osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG,
-                 FLASH_CMD_EXECUTE_ERASE);
+    osEPiWriteIo(&__osFlashHandler, __osFlashHandler.baseAddress | FLASH_CMD_REG, FLASH_CMD_EXECUTE_ERASE);
 
     // wait for completion by polling erase-busy flag
     osCreateMesgQueue(&timerMesgQueue, &dummy, 1);

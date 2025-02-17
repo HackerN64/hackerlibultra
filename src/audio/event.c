@@ -208,8 +208,7 @@ void alEvtqPrintAllocEvts(ALEventQueue *evtq) {
                 break;
 
             case AL_SEQP_MIDI_EVT:
-                PRINTF("SEQP_MIDI\t%s\n",
-                       MidiStatus2Str(item->evt.msg.midi.status & AL_MIDI_StatusMask, str));
+                PRINTF("SEQP_MIDI\t%s\n", MidiStatus2Str(item->evt.msg.midi.status & AL_MIDI_StatusMask, str));
                 break;
 
             case AL_SEQP_PRIORITY_EVT:

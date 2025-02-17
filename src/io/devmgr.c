@@ -30,8 +30,7 @@ void __osDevMgrMain(void *args) {
                 blockInfo->dramAddr = (void *) ((u32) blockInfo->dramAddr - blockInfo->sectorSize);
             }
 
-            if (info->transferMode == LEO_TRACK_MODE
-                && mb->piHandle->transferInfo.cmdType == LEO_CMD_TYPE_0) {
+            if (info->transferMode == LEO_TRACK_MODE && mb->piHandle->transferInfo.cmdType == LEO_CMD_TYPE_0) {
                 messageSend = 1;
             } else {
                 messageSend = 0;
@@ -53,8 +52,7 @@ void __osDevMgrMain(void *args) {
                 __osEPiRawReadIo(mb->piHandle, LEO_STATUS, &stat);
 
                 if (stat & LEO_STATUS_MECHANIC_INTERRUPT) {
-                    __osEPiRawWriteIo(mb->piHandle, LEO_BM_CTL,
-                                      info->bmCtlShadow | LEO_BM_CTL_CLR_MECHANIC_INTR);
+                    __osEPiRawWriteIo(mb->piHandle, LEO_BM_CTL, info->bmCtlShadow | LEO_BM_CTL_CLR_MECHANIC_INTR);
                 }
 
                 blockInfo->errStatus = LEO_ERROR_4;

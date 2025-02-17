@@ -31,15 +31,13 @@
 static u32 textures[TX_MAX] ALIGNED(0x8);
 static u32 numtextures;
 
-#define UNSEG_ADDR(sa)                                                                                 \
-    ((u32 *) (((globp) ? (((int) (sa) & 0x00ffffff) + globp->sp.segBases[(int) (sa) >> 24])            \
-                       : (int) (sa))                                                                   \
-              | 0x80000000))
+#define UNSEG_ADDR(sa)                                                                                                 \
+    ((u32 *) (((globp) ? (((int) (sa) & 0x00ffffff) + globp->sp.segBases[(int) (sa) >> 24]) : (int) (sa)) | 0x80000000))
 #define PHYS(a) ((int) ((int) (a) & 0x7fffffff))
 #define UNPHYS(a) ((u32 *) ((int) (a) | 0x80000000))
 
-#define DOPRINT(a, r)                                                                                  \
-    rmonPrintf("UNSEG: %x ->(seg%x = %06x)-> %08x\n", (int) (a), (int) (a) >> 24,                      \
+#define DOPRINT(a, r)                                                                                                  \
+    rmonPrintf("UNSEG: %x ->(seg%x = %06x)-> %08x\n", (int) (a), (int) (a) >> 24,                                      \
                ((globp) ? (globp->sp.segBases[(int) (a) >> 24]) : 0), (int) (r))
 
 #define UCODE_SIZE_MAX (4096 * 1)
@@ -153,8 +151,7 @@ void gtDumpTurbo(OSTask *tp, u8 flags) {
             addr = UNSEG_ADDR(gtlistp->obj.vtxp);
             /*rmonPrintf("======= DUMP VTX (%x)\n",(int)addr);*/
             PRINTF("& %08x\n", PHYS(addr));
-            for (datp = (u32 *) addr; (u8 *) datp < (u8 *) addr + (statep->sp.vtxCount * sizeof(Vtx));
-                 datp++) {
+            for (datp = (u32 *) addr; (u8 *) datp < (u8 *) addr + (statep->sp.vtxCount * sizeof(Vtx)); datp++) {
                 PRINTF("+%08x\n", *datp);
             }
         }
@@ -166,8 +163,7 @@ void gtDumpTurbo(OSTask *tp, u8 flags) {
             addr = UNSEG_ADDR(gtlistp->obj.trip);
             /*rmonPrintf("======= DUMP TRI (%x)\n",(int)addr);*/
             PRINTF("& %08x\n", PHYS(addr));
-            for (datp = (u32 *) addr;
-                 (u8 *) datp < (u8 *) addr + (statep->sp.triCount * sizeof(gtTriN)); datp++) {
+            for (datp = (u32 *) addr; (u8 *) datp < (u8 *) addr + (statep->sp.triCount * sizeof(gtTriN)); datp++) {
                 PRINTF("+%08x\n", *datp);
             }
         }
