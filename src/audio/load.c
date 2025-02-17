@@ -350,7 +350,7 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
 }
 
 
-s32
+void
 alLoadParam(void *filter, s32 paramID, void *param)
 {
     ALLoadFilter *a = (ALLoadFilter *) filter;

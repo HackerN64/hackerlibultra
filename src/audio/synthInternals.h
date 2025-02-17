@@ -168,7 +168,7 @@ typedef struct {
 void    alLoadNew(ALLoadFilter *f, ALDMANew dma, ALHeap *hp);
 Acmd    *alAdpcmPull(void *f, s16 *outp, s32 byteCount, s32 sampleOffset, Acmd *p);
 Acmd    *alRaw16Pull(void *f, s16 *outp, s32 byteCount, s32 sampleOffset, Acmd *p);
-s32     alLoadParam(void *filter, s32 paramID, void *param);
+void    alLoadParam(void *filter, s32 paramID, void *param);
 
 typedef struct ALResampler_s {
     ALFilter            filter;
