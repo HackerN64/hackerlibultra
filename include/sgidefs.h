@@ -1,3 +1,3 @@
 #ifdef __GNUC__
-#include "gcc/sgidefs.h"
+#include "compiler/modern_gcc/sgidefs.h"
 #endif

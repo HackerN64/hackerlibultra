@@ -4,6 +4,13 @@
 TARGET ?= libgultra_rom
 VERSION ?= L
 CROSS ?= mips64-elf-
+VERBOSE ?= 0
+
+ifeq ($(VERBOSE), 0)
+V=@
+else
+V=
+endif
 
 BUILD_ROOT := build
 BUILD_DIR := $(BUILD_ROOT)/$(VERSION)/$(TARGET)
@@ -43,12 +50,6 @@ endif
 C_O_FILES := $(foreach f,$(C_FILES:.c=.o),$(BUILD_DIR)/$f)
 S_O_FILES := $(foreach f,$(S_FILES:.s=.o),$(BUILD_DIR)/$f)
 O_FILES   := $(S_O_FILES) $(C_O_FILES)
-# Because we patch the object file timestamps, we can't use them as the targets since they'll always be older than the C file
-# Therefore instead we use marker files that have actual timestamps as the dependencies for the archive
-C_MARKER_FILES := $(C_O_FILES:.o=.marker)
-S_MARKER_FILES := $(S_O_FILES:.o=.marker)
-S_MARKER_FILES := $(filter-out $(MDEBUG_FILES),$(S_MARKER_FILES))
-MARKER_FILES   := $(C_MARKER_FILES) $(S_MARKER_FILES) $(MDEBUG_FILES)
 
 AR_OBJECTS := $(shell cat base/$(VERSION)/$(TARGET).txt)
 # If the version and target doesn't have a text file yet, resort back to using the base archive to get objects
@@ -61,8 +62,9 @@ $(shell mkdir -p src $(foreach dir,$(SRC_DIRS),$(BUILD_DIR)/$(dir)))
 .PHONY: all clean distclean setup
 all: $(BUILD_AR)
 
-$(BUILD_AR): $(MARKER_FILES)
-	$(AR_OLD) rcs $@ $(AR_ORDER)
+$(BUILD_AR): $(O_FILES)
+	@printf "    [AR] Linking Final Archive...\n"
+	$(V)$(AR) rcs $@ $(AR_ORDER)
 
 clean:
 	$(RM) -rf $(BUILD_DIR)
@@ -72,42 +74,26 @@ distclean:
 
 GBIDEFINE := -DF3DEX_GBI
 
-$(BUILD_DIR)/src/gu/parse_gbi.marker: GBIDEFINE := -DF3D_GBI
-$(BUILD_DIR)/src/gu/us2dex_emu.marker: GBIDEFINE :=
-$(BUILD_DIR)/src/gu/us2dex2_emu.marker: GBIDEFINE :=
-$(BUILD_DIR)/src/sp/sprite.marker: GBIDEFINE := -DF3D_GBI
-$(BUILD_DIR)/src/sp/spriteex.marker: GBIDEFINE :=
-$(BUILD_DIR)/src/sp/spriteex2.marker: GBIDEFINE :=
-$(BUILD_DIR)/src/voice/%.marker: OPTFLAGS += -DLANG_JAPANESE -I$(WORKING_DIR)/src -I$(WORKING_DIR)/src/voice
-$(BUILD_DIR)/src/voice/%.marker: CC := $(WORKING_DIR)/tools/compile_sjis.py -D__CC=$(CC) -D__BUILD_DIR=$(BUILD_DIR)
+$(BUILD_DIR)/src/gu/parse_gbi.o: GBIDEFINE := -DF3D_GBI
+$(BUILD_DIR)/src/gu/us2dex_emu.o: GBIDEFINE :=
+$(BUILD_DIR)/src/gu/us2dex2_emu.o: GBIDEFINE :=
+$(BUILD_DIR)/src/sp/sprite.o: GBIDEFINE := -DF3D_GBI
+$(BUILD_DIR)/src/sp/spriteex.o: GBIDEFINE :=
+$(BUILD_DIR)/src/sp/spriteex2.o: GBIDEFINE :=
+$(BUILD_DIR)/src/voice/%.o: OPTFLAGS += -DLANG_JAPANESE -I$(WORKING_DIR)/src -I$(WORKING_DIR)/src/voice
+$(BUILD_DIR)/src/voice/%.o: CC := $(WORKING_DIR)/tools/compile_sjis.py -D__CC=$(CC) -D__BUILD_DIR=$(BUILD_DIR)
 
-$(C_MARKER_FILES): $(BUILD_DIR)/%.marker: %.c
-	cd $(<D) && $(CC) $(CFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(OPTFLAGS) $(<F) $(IINC) -o $(WORKING_DIR)/$(@:.marker=.o)
-	tools/set_o32abi_bit.py $(WORKING_DIR)/$(@:.marker=.o)
-	$(CROSS)strip $(WORKING_DIR)/$(@:.marker=.o) -N asdasdasdasd
-	$(CROSS)objcopy --remove-section .mdebug $(WORKING_DIR)/$(@:.marker=.o)
-# create or update the marker file
-	@touch $@
+$(BUILD_DIR)/%.o: %.c
+	$(CC) $(CFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(OPTFLAGS) $< $(IINC) -o $@
+	tools/set_o32abi_bit.py $@
+	$(V)$(CROSS)strip $@ -N asdasdasdasd
+	$(V)$(CROSS)objcopy --remove-section .mdebug $@
 
-$(S_MARKER_FILES): $(BUILD_DIR)/%.marker: %.s
-	cd $(<D) && $(AS) $(ASFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(ASOPTFLAGS) $(<F) $(IINC) -o $(WORKING_DIR)/$(@:.marker=.o)
-	tools/set_o32abi_bit.py $(WORKING_DIR)/$(@:.marker=.o)
-	$(CROSS)strip $(WORKING_DIR)/$(@:.marker=.o) -N asdasdasdasd
-	$(CROSS)objcopy --remove-section .mdebug $(WORKING_DIR)/$(@:.marker=.o)
-# create or update the marker file
-	@touch $@
-
-# Rule for building files that require specific file paths in the mdebug section
-$(MDEBUG_FILES): $(BUILD_DIR)/src/%.marker: src/%.s
-	cp $(<:.marker=.s) $(dir $@)
-	mkdir -p $(@:.marker=)
-	export USR_INCLUDE=$(WORKING_DIR)/include && cd $(@:.marker=) && $(AS) $(ASFLAGS) $(CPPFLAGS) ../$(<F) -I/usr/include -o $(notdir $(<:.s=.o))
-	mv $(@:.marker=)/$(<F:.s=.o) $(@:.marker=)/..
-	tools/set_o32abi_bit.py $(WORKING_DIR)/$(@:.marker=.o)
-	$(CROSS)strip $(WORKING_DIR)/$(@:.marker=.o) -N asdasdasdasd
-	$(CROSS)objcopy --remove-section .mdebug $(WORKING_DIR)/$(@:.marker=.o)
-# create or update the marker file
-	@touch $@
+$(BUILD_DIR)/%.o: %.s
+	$(AS) $(ASFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(ASOPTFLAGS) $< $(IINC) -o $@
+	tools/set_o32abi_bit.py $@
+	$(V)$(CROSS)strip $@ -N asdasdasdasd
+	$(V)$(CROSS)objcopy --remove-section .mdebug $@
 
 # Disable built-in rules
 .SUFFIXES:
