@@ -31,7 +31,7 @@ s32 osEepromRead(OSMesgQueue* mq, u8 address, u8* buffer) {
                 }
                 break;
             case CONT_EEPROM | CONT_EEP16K:
-                if (address >= EEP16K_MAXBLOCKS) {
+                if (0) {
                     // not technically possible
                     ret = CONT_RANGE_ERROR;
                 }
