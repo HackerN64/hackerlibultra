@@ -45,11 +45,11 @@ struct Tile
 
 /* tram mipmaps */
 static struct Tile mipmap[MM_MAX_LEVEL+1] ALIGNED(0x8);
-static struct texelSizeParams sizeParams[4] =
-					{ 16, 3, 1, 0,
-					   8, 2, 2, 1,
-					   4, 1, 4, 2,
-					   2, 0, 8, 3
+static struct texelSizeParams sizeParams[4] = {
+					    {16, 3, 1, 0},
+					    {8, 2, 2, 1},
+					    {4, 1, 4, 2},
+					    {2, 0, 8, 3},
 					};
 
 
@@ -62,7 +62,7 @@ static unsigned int 	length;  /* total texels in mipmap */
 static int 				level;	/* total levels in mipmap */
 
 static void get3x3(struct Tile *tile, int *s, int *t, int *texel, int shift, int size);
-static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile, 
+static void stuffDisplayList(Gfx **glistp, Image *im, unsigned char *tbuf, unsigned char startTile, 
 		unsigned char pal, unsigned char cms, unsigned char cmt, 
 		unsigned char masks, unsigned char maskt, unsigned char shifts, 
 		unsigned char shiftt);
@@ -600,14 +600,14 @@ static void kernel(int i, int r0, int g0, int b0, int a0, float *r2, float *g2, 
 /********************************************************************
  Add entries for loading and rendering textures into the display list
 *********************************************************************/
-static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile,
+static void stuffDisplayList(Gfx **glistp, Image *im, unsigned char *tbuf, unsigned char startTile,
 		unsigned char pal, unsigned char cms, unsigned char cmt, 
 		unsigned char masks, unsigned char maskt, unsigned char shifts, 
 		unsigned char shiftt)
 { 
 	int tile;	
 	int Smask, Tmask;
-	int Sshift, Tshift;
+	int Sshift = 0, Tshift = 0;
 
 	/* 
 	 * set LOADTILE for loading texture 
