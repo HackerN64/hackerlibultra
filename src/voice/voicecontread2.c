@@ -25,7 +25,7 @@ s32 __osVoiceContRead2(OSMesgQueue* mq, int channel, u16 address, u8* buffer) {
 
         ptr = (u8*)&__osPfsPifRam.ramarray;
 
-        if ((__osContLastCmd != CONT_CMD_READ2_VOICE) || ((u32)__osPfsLastChannel != channel)) {
+        if ((__osContLastCmd != CONT_CMD_READ2_VOICE) || (__osPfsLastChannel != channel)) {
             __osContLastCmd = CONT_CMD_READ2_VOICE;
             __osPfsLastChannel = channel;
 
