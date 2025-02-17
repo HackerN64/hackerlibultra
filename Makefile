@@ -91,10 +91,6 @@ S_O_FILES := $(foreach f,$(S_FILES:.s=.o),$(BUILD_DIR)/$f)
 O_FILES   := $(S_O_FILES) $(C_O_FILES)
 
 AR_OBJECTS := $(shell cat base/$(VERSION)/$(TARGET).txt)
-# If the version and target doesn't have a text file yet, resort back to using the base archive to get objects
-
-# Try to find a file corresponding to an archive file in src/ or the base directory, prioritizing src then the original file
-AR_ORDER = $(foreach f,$(AR_OBJECTS),$(shell find $(BUILD_DIR)/src -iname $f -type f -print -quit))
 
 $(shell mkdir -p src $(foreach dir,$(SRC_DIRS),$(BUILD_DIR)/$(dir)))
 
@@ -103,7 +99,7 @@ all: $(BUILD_AR)
 
 $(BUILD_AR): $(O_FILES)
 	@printf "    [AR] $@\n"
-	$(V)$(AR) rcs $@ $(AR_ORDER)
+	$(V)$(AR) rcs $@ $^
 
 clean:
 	$(RM) -rf $(BUILD_DIR)
@@ -126,15 +122,11 @@ $(BUILD_DIR)/%.o: %.c
 	@printf "    [CC] $<\n"
 	$(V)$(CC) $(CFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(OPTFLAGS) $< $(IINC) -o $@
 	$(V)tools/set_o32abi_bit.py $@
-	$(V)$(CROSS)strip $@ -N asdasdasdasd
-	$(V)$(CROSS)objcopy --remove-section .mdebug $@
 
 $(BUILD_DIR)/%.o: %.s
 	@printf "    [AS] $<\n"
 	$(V)$(AS) $(ASFLAGS) $(MIPS_VERSION) $(CPPFLAGS) $(ASOPTFLAGS) $< $(IINC) -o $@
 	$(V)tools/set_o32abi_bit.py $@
-	$(V)$(CROSS)strip $@ -N asdasdasdasd
-	$(V)$(CROSS)objcopy --remove-section .mdebug $@
 
 # Disable built-in rules
 .SUFFIXES:
