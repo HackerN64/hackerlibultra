@@ -5,6 +5,8 @@ TARGET ?= libgultra_rom
 VERSION ?= L
 VERBOSE ?= 0
 
+include util.mk
+
 ifeq ($(VERBOSE), 0)
 V=@
 else
