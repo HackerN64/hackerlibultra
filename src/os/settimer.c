@@ -42,7 +42,7 @@ int osSetTimer(OSTimer* t, OSTime countdown, OSTime interval, OSMesgQueue* mq, O
         }
     }
 
-    time = __osInsertTimer(t);
+    __osInsertTimer(t);
     __osSetTimerIntr(__osTimerList->next->value);
     __osRestoreInt(saveMask);
 #else
