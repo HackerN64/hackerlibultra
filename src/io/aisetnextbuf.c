@@ -17,7 +17,7 @@
  */
 s32 osAiSetNextBuffer(void* bufPtr, u32 size) {
     static u8 hdwrBugFlag = FALSE;
-    char* bptr;
+    u8* bptr;
 
 #if BUILD_VERSION >= VERSION_J
     if (__osAiDeviceBusy()) {
