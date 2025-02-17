@@ -13,8 +13,6 @@ else
 $(error Invalid Target)
 endif
 
-BASE_DIR := extracted/$(VERSION)/$(TARGET)
-BASE_AR := base/$(VERSION)/$(TARGET).a
 BUILD_ROOT := build
 BUILD_DIR := $(BUILD_ROOT)/$(VERSION)/$(TARGET)
 BUILD_AR := $(BUILD_DIR)/$(TARGET).a
@@ -62,24 +60,13 @@ S_MARKER_FILES := $(S_O_FILES:.o=.marker)
 S_MARKER_FILES := $(filter-out $(MDEBUG_FILES),$(S_MARKER_FILES))
 MARKER_FILES   := $(C_MARKER_FILES) $(S_MARKER_FILES) $(MDEBUG_FILES)
 
-BASE_OBJS := $(wildcard $(BASE_DIR)/*.o)
-
 AR_OBJECTS := $(shell cat base/$(VERSION)/$(TARGET).txt)
 # If the version and target doesn't have a text file yet, resort back to using the base archive to get objects
-ifeq ($(AR_OBJECTS),)
-AR_OBJECTS := $(shell ar t $(BASE_AR))
-endif
-
 
 # Try to find a file corresponding to an archive file in src/ or the base directory, prioritizing src then the original file
-AR_ORDER = $(foreach f,$(AR_OBJECTS),$(shell find $(BUILD_DIR)/src $(BASE_DIR) -iname $f -type f -print -quit))
-MATCHED_OBJS = $(filter-out $(BASE_DIR)/%,$(AR_ORDER))
-UNMATCHED_OBJS = $(filter-out $(MATCHED_OBJS),$(AR_ORDER))
-NUM_OBJS = $(words $(AR_ORDER))
-NUM_OBJS_MATCHED = $(words $(MATCHED_OBJS))
-NUM_OBJS_UNMATCHED = $(words $(UNMATCHED_OBJS))
+AR_ORDER = $(foreach f,$(AR_OBJECTS),$(shell find $(BUILD_DIR)/src -iname $f -type f -print -quit))
 
-$(shell mkdir -p $(BASE_DIR) src $(foreach dir,$(SRC_DIRS),$(BUILD_DIR)/$(dir)))
+$(shell mkdir -p src $(foreach dir,$(SRC_DIRS),$(BUILD_DIR)/$(dir)))
 
 .PHONY: all clean distclean setup
 all: $(BUILD_AR)
@@ -92,9 +79,6 @@ clean:
 
 distclean:
 	$(RM) -rf extracted/ $(BUILD_ROOT)
-
-$(BUILD_DIR)/$(BASE_DIR)/%.marker: $(BASE_DIR)/%.o
-	cp $< $(@:.marker=.o)
 
 GBIDEFINE := -DF3DEX_GBI
 
