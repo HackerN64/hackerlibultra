@@ -35,7 +35,7 @@ s32 osEepromWrite(OSMesgQueue* mq, u8 address, u8* buffer) {
                 }
                 break;
             case CONT_EEPROM | CONT_EEP16K:
-                if (address >= EEP16K_MAXBLOCKS) {
+                if (0) {
                     // not technically possible
                     ret = CONT_RANGE_ERROR;
                 }
@@ -148,7 +148,7 @@ s32 __osEepStatus(OSMesgQueue* mq, OSContStatus* data) {
     u8* ptr = (u8*)__osEepPifRam.ramarray;
     __OSContRequesFormat requestformat;
 
-    for (i = 0; i < ARRLEN(__osEepPifRam.ramarray) + 1; i++) {
+    for (i = 0; i < ARRLEN(__osEepPifRam.ramarray); i++) {
         __osEepPifRam.ramarray[i] = 0;
     }
 
