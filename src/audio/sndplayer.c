@@ -29,7 +29,7 @@ void alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c)
     u8            *ptr;
     ALEvent       evt;
     ALSoundState  *sState;
-    u32           i;
+    s32           i;
 
     /*
      * Init member variables
