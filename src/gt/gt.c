@@ -40,7 +40,7 @@
 void
 gtStateSetOthermode(Gfx *om, gtStateOthermode_t mode, int data)
 {
-    int		shift, length;
+    int		shift = 0, length = 0;
     u32		mask;
 
     if (mode == GT_CLEAR) {	/* special case */
