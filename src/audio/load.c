@@ -67,7 +67,7 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
     aLoadADPCM(ptr++, f->bookSize,
                K0_TO_PHYS(f->table->waveInfo.adpcmWave.book->book));
 
-    looped = (outCount + f->sample > f->loop.end) && (f->loop.count != 0);
+    looped = (outCount + f->sample > (int)(f->loop.end)) && (f->loop.count != 0);
     if (looped)
         nSam = f->loop.end - f->sample;
     else
@@ -124,13 +124,13 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
              * -1 is loop forever - the loop count is not exact now
              * for small loops!
              */
-            if ((f->loop.count != -1) && (f->loop.count != 0))
+            if ((f->loop.count != 0xFFFFFFFF) && (f->loop.count != 0))
                 f->loop.count--;
             
             /*
              * What's left to compute.
              */
-            nSam = MIN(outCount, f->loop.end - f->loop.start);
+            nSam = MIN(outCount, (int)(f->loop.end - f->loop.start));
             tsam = nSam - ADPCMFSIZE + f->lastsam;  
             if (tsam<0) tsam = 0;
             nframes = (tsam+ADPCMFSIZE-1)>>LFSAMPLES;
@@ -224,7 +224,7 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
     if (outCount == 0)
         return ptr;
     
-    if ((outCount + f->sample > f->loop.end) && (f->loop.count != 0)){
+    if ((outCount + f->sample > (int)(f->loop.end)) && (f->loop.count != 0)){
 
         nSam = f->loop.end - f->sample;
         nbytes = nSam<<1;
@@ -258,13 +258,13 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
             /*
              * -1 is loop forever
              */
-            if ((f->loop.count != -1) && (f->loop.count != 0))
+            if ((f->loop.count != 0xFFFFFFFF) && (f->loop.count != 0))
                 f->loop.count--;
             
             /*
              * What to compute.
              */
-            nSam = MIN(outCount, f->loop.end - f->loop.start);
+            nSam = MIN(outCount, (int)(f->loop.end - f->loop.start));
             nbytes = nSam<<1;
         
             /*
