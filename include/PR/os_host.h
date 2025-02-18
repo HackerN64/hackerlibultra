@@ -125,7 +125,6 @@ extern void __osInitialize_emu(void);
 
 #endif /* _FINAL_ROM */
 
-
 /**************************************************************************
  *
  * Extern variables

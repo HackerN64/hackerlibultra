@@ -127,7 +127,6 @@ OSMesgQueue* osPiGetCmdQueue(void);
     if (cHandle->var != pihandle->var)                                                                                 \
     IO_WRITE(reg, pihandle->var)
 
-
 #define EPI_SYNC(pihandle, stat, domain)                                                                               \
                                                                                                                        \
     WAIT_ON_IOBUSY(stat);                                                                                              \
@@ -153,6 +152,5 @@ OSMesgQueue* osPiGetCmdQueue(void);
         cHandle->pulse = pihandle->pulse;                                                                              \
     }                                                                                                                  \
     (void)0
-
 
 #endif
