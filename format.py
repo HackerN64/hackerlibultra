@@ -122,7 +122,7 @@ def format_files(src_files: List[str], extra_files: List[str], nb_jobs: int):
         print("Formatting files with a single job (consider using -j to make this faster)")
 
     # Format files in chunks to improve performance while still utilizing jobs
-    file_chunks = list(list_chunks(src_files, (len(src_files) // nb_jobs) + 1))
+    file_chunks = list(list_chunks(src_files + extra_files, (len(src_files + extra_files) // nb_jobs) + 1))
 
     print("Running clang-format...")
     # clang-format only applies changes in the given files, so it's safe to run in parallel
