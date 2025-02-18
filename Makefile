@@ -92,8 +92,6 @@ C_O_FILES := $(foreach f,$(C_FILES:.c=.o),$(BUILD_DIR)/$f)
 S_O_FILES := $(foreach f,$(S_FILES:.s=.o),$(BUILD_DIR)/$f)
 O_FILES   := $(S_O_FILES) $(C_O_FILES)
 
-AR_OBJECTS := $(shell cat base/$(TARGET).txt)
-
 $(shell mkdir -p src $(foreach dir,$(SRC_DIRS),$(BUILD_DIR)/$(dir)))
 
 .PHONY: all clean distclean setup

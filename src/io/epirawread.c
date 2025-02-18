@@ -2,7 +2,7 @@
 #include "PR/ultraerror.h"
 #include "assert.h"
 
-// Adjust line numbers to match assert
+
 
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"

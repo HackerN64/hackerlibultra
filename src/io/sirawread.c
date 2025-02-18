@@ -2,7 +2,7 @@
 #include "assert.h"
 #include "PRinternal/siint.h"
 
-// Adjust line numbers to match assert
+
 
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"

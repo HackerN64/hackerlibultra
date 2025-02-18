@@ -2,7 +2,7 @@
 #include "assert.h"
 #include "PRinternal/siint.h"
 
-// Adjust line numbers to match assert
+
 
 #define PIF_RAM_SIZE (PIF_RAM_END + 1 - PIF_RAM_START)
 
