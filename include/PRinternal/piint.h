@@ -94,7 +94,7 @@
 #define LEO_ERROR_29   29 //
 
 extern OSDevMgr __osPiDevMgr;
-extern OSPiHandle *__osCurrentHandle[];
+extern OSPiHandle* __osCurrentHandle[];
 extern OSPiHandle CartRomHandle;
 extern OSPiHandle LeoDiskHandle;
 extern OSMesgQueue __osPiAccessQueue;
@@ -111,17 +111,17 @@ extern u32 __osPiAccessQueueEnabled;
 #endif
 
 int __osPiDeviceBusy(void);
-void __osDevMgrMain(void *);
+void __osDevMgrMain(void*);
 void __osPiCreateAccessQueue(void);
 void __osPiRelAccess(void);
 void __osPiGetAccess(void);
-s32 __osPiRawStartDma(s32, u32, void *, u32);
+s32 __osPiRawStartDma(s32, u32, void*, u32);
 s32 __osPiRawWriteIo(u32, u32);
-s32 __osPiRawReadIo(u32, u32 *);
-s32 __osEPiRawWriteIo(OSPiHandle *, u32, u32);
-s32 __osEPiRawReadIo(OSPiHandle *, u32, u32 *);
-s32 __osEPiRawStartDma(OSPiHandle *, s32, u32, void *, u32);
-OSMesgQueue *osPiGetCmdQueue(void);
+s32 __osPiRawReadIo(u32, u32*);
+s32 __osEPiRawWriteIo(OSPiHandle*, u32, u32);
+s32 __osEPiRawReadIo(OSPiHandle*, u32, u32*);
+s32 __osEPiRawStartDma(OSPiHandle*, s32, u32, void*, u32);
+OSMesgQueue* osPiGetCmdQueue(void);
 
 #define WAIT_ON_IOBUSY(stat)                                                                                           \
     {                                                                                                                  \
@@ -143,7 +143,7 @@ OSMesgQueue *osPiGetCmdQueue(void);
                                                                                                                        \
     domain = pihandle->domain;                                                                                         \
     if (__osCurrentHandle[domain]->type != pihandle->type) {                                                           \
-        OSPiHandle *cHandle = __osCurrentHandle[domain];                                                               \
+        OSPiHandle* cHandle = __osCurrentHandle[domain];                                                               \
         if (domain == PI_DOMAIN1) {                                                                                    \
             UPDATE_REG(pihandle, PI_BSD_DOM1_LAT_REG, latency);                                                        \
             UPDATE_REG(pihandle, PI_BSD_DOM1_PGS_REG, pageSize);                                                       \
@@ -171,7 +171,7 @@ OSMesgQueue *osPiGetCmdQueue(void);
                                                                                                                        \
     domain = pihandle->domain;                                                                                         \
     if (__osCurrentHandle[domain] != pihandle) {                                                                       \
-        OSPiHandle *cHandle = __osCurrentHandle[domain];                                                               \
+        OSPiHandle* cHandle = __osCurrentHandle[domain];                                                               \
         if (domain == PI_DOMAIN1) {                                                                                    \
             UPDATE_REG(pihandle, PI_BSD_DOM1_LAT_REG, latency);                                                        \
             UPDATE_REG(pihandle, PI_BSD_DOM1_PGS_REG, pageSize);                                                       \

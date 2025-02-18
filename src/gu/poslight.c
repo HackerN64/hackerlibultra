@@ -23,7 +23,7 @@
  */
 #define THRESH1 0.01
 #define THRESH2 0.1
-void guPosLight(PositionalLight *pl, Light *l, float xOb, float yOb, float zOb) {
+void guPosLight(PositionalLight* pl, Light* l, float xOb, float yOb, float zOb) {
     float x, y, z, d, a;
 
     x = pl->pos[0] - xOb;

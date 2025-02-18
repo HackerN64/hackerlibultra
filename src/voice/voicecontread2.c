@@ -10,20 +10,20 @@
 #include "PRinternal/controller_voice.h"
 #include "PRinternal/siint.h"
 
-#define READ2FORMAT(ptr) ((__OSVoiceRead2Format *)(ptr))
+#define READ2FORMAT(ptr) ((__OSVoiceRead2Format*)(ptr))
 
-s32 __osVoiceContRead2(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) {
+s32 __osVoiceContRead2(OSMesgQueue* mq, int channel, u16 address, u8* buffer) {
     s32 ret = 0;
     u8 status;
     int i;
-    u8 *ptr;
+    u8* ptr;
     int retry = 2;
 
     __osSiGetAccess();
 
     do {
 
-        ptr = (u8 *)&__osPfsPifRam.ramarray;
+        ptr = (u8*)&__osPfsPifRam.ramarray;
 
         if ((__osContLastCmd != CONT_CMD_READ2_VOICE) || ((u32)__osPfsLastChannel != channel)) {
             __osContLastCmd = CONT_CMD_READ2_VOICE;

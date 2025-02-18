@@ -28,11 +28,11 @@
 extern u32 cnt_index, heap_num, heap_cnt, heap_max, heap_min, lastCnt[];
 #endif
 
-s32 alHeapCheck(ALHeap *hp) {
+s32 alHeapCheck(ALHeap* hp) {
     s32 rv = 0;
-    HeapInfo *hi;
-    HeapInfo *last = 0;
-    u8 *ptr;
+    HeapInfo* hi;
+    HeapInfo* last = 0;
+    u8* ptr;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -41,7 +41,7 @@ s32 alHeapCheck(ALHeap *hp) {
 #ifdef _DEBUG
     for (ptr = hp->base; ptr < hp->cur; ptr += hi->size) {
 
-        hi = (HeapInfo *)ptr;
+        hi = (HeapInfo*)ptr;
 
         if (hi->magic != AL_HEAP_MAGIC) {
             if (last) {

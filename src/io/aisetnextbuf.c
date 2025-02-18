@@ -17,9 +17,9 @@
  * multiple of 8.
  * @return 0 if the DMA was enqueued successfully, -1 if the DMA could not yet be queued.
  */
-s32 osAiSetNextBuffer(void *bufPtr, u32 size) {
+s32 osAiSetNextBuffer(void* bufPtr, u32 size) {
     static u8 hdwrBugFlag = FALSE;
-    char *bptr;
+    char* bptr;
 
 #if BUILD_VERSION >= VERSION_J
     if (__osAiDeviceBusy()) {
@@ -42,7 +42,7 @@ s32 osAiSetNextBuffer(void *bufPtr, u32 size) {
     bptr = bufPtr;
 
     if (hdwrBugFlag) {
-        bptr = (u8 *)bufPtr - 0x2000;
+        bptr = (u8*)bufPtr - 0x2000;
     }
 
     if ((((u32)bufPtr + size) & 0x1fff) == 0) {

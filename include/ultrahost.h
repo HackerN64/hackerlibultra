@@ -10,15 +10,15 @@
 
 #ifdef WIN32 /* { */
 
-int __stdcall uhOpenGame(char *);
+int __stdcall uhOpenGame(char*);
 int __stdcall uhCloseGame(int);
-int __stdcall uhReadGame(int hfd, void *buf, int count);
-int __stdcall uhWriteGame(int hfd, void *buf, int count);
-int __stdcall uhReadRamrom(int hfd, void *ramrom_adr, void *buf, int count);
-int __stdcall uhWriteRamrom(int hfd, void *ramrom_adr, void *buf, int count);
+int __stdcall uhReadGame(int hfd, void* buf, int count);
+int __stdcall uhWriteGame(int hfd, void* buf, int count);
+int __stdcall uhReadRamrom(int hfd, void* ramrom_adr, void* buf, int count);
+int __stdcall uhWriteRamrom(int hfd, void* ramrom_adr, void* buf, int count);
 int __stdcall uhPartnerInit(int hfd);
-int __stdcall uhPartnerCmd(int hfd, char *ptcmd);
-int __stdcall uhGload(int hfd, char *loadfile);
+int __stdcall uhPartnerCmd(int hfd, char* ptcmd);
+int __stdcall uhGload(int hfd, char* loadfile);
 
 #else        /* }{ */
 #ifdef PTN64 /* { */
@@ -35,21 +35,21 @@ int __stdcall uhGload(int hfd, char *loadfile);
 #define uhPartnerCmd  uhPartnerCmd_pt
 #define uhGload       uhGload_pt
 
-int uhPartnerCmd(int, char *);
-int uhGload(int, char *);
+int uhPartnerCmd(int, char*);
+int uhGload(int, char*);
 
 #endif /* } */
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-int uhOpenGame(const char *);
+int uhOpenGame(const char*);
 int uhCloseGame(int);
 
-int uhReadGame(int, void *, int);
-int uhWriteGame(int, void *, int);
-int uhWriteRamrom(int, void *, void *, int);
-int uhReadRamrom(int, void *, void *, int);
+int uhReadGame(int, void*, int);
+int uhWriteGame(int, void*, int);
+int uhWriteRamrom(int, void*, void*, int);
+int uhReadRamrom(int, void*, void*, int);
 
 #ifdef __cplusplus
 }

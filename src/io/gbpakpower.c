@@ -2,7 +2,7 @@
 #include "PRinternal/controller.h"
 #include "PRinternal/controller_gbpak.h"
 
-s32 osGbpakPower(OSPfs *pfs, s32 flag) {
+s32 osGbpakPower(OSPfs* pfs, s32 flag) {
     s32 i;
     s32 ret;
     u8 temp[BLOCKSIZE];

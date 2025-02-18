@@ -33,7 +33,7 @@ u16 gISVChk;
 u32 gISVDbgPrnAdrs;
 u32 leoComuBuffAdd;
 
-static OSPiHandle *is_Handle;
+static OSPiHandle* is_Handle;
 
 void isPrintfInit(void) {
     is_Handle = osCartRomInit();
@@ -43,7 +43,7 @@ void isPrintfInit(void) {
     osEPiWriteIo(is_Handle, ISV_MAGIC_ADDR, IS64_MAGIC);
 }
 
-static void *is_proutSyncPrintf(void *arg, const u8 *str, u32 count) {
+static void* is_proutSyncPrintf(void* arg, const u8* str, u32 count) {
     u32 data;
     s32 p;
     s32 start;
@@ -101,7 +101,7 @@ int __checkHardware_isv(void) {
     u32 i = 0;
     u32 data;
     u32 save[4];
-    OSPiHandle *hnd = osCartRomInit();
+    OSPiHandle* hnd = osCartRomInit();
 
     gISVDbgPrnAdrs = 0;
     leoComuBuffAdd = 0;
@@ -144,7 +144,7 @@ int __checkHardware_isv(void) {
 
 void __osInitialize_isv(void) {
     void (*fn)(void);
-    OSPiHandle *hnd;
+    OSPiHandle* hnd;
     s32 pad;
     s32 pad2;
 
@@ -156,14 +156,14 @@ void __osInitialize_isv(void) {
         if (gISVChk & 2) {
             hnd = osCartRomInit();
 
-            ramOldVector = *(__osExceptionVector *)E_VEC;
-            *(__osExceptionVector *)E_VEC = __isExpJP;
+            ramOldVector = *(__osExceptionVector*)E_VEC;
+            *(__osExceptionVector*)E_VEC = __isExpJP;
 
             osWritebackDCache(&ramOldVector, 0x10);
             osInvalICache(&ramOldVector, 0x10);
             osWritebackDCache(0x80000000, 0x190);
             osInvalICache(0x80000000, 0x190);
-            osEPiReadIo(hnd, 0xBFF00010, (u32 *)&fn);
+            osEPiReadIo(hnd, 0xBFF00010, (u32*)&fn);
             fn();
         }
         if (gISVChk & 2) {

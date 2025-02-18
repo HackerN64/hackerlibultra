@@ -48,10 +48,10 @@ extern "C" {
  * Structure for Profiler
  */
 typedef struct {
-    u16 *histo_base; /* histogram base */
+    u16* histo_base; /* histogram base */
     u32 histo_size;  /* histogram size */
-    u32 *text_start; /* start of text segment */
-    u32 *text_end;   /* end of text segment */
+    u32* text_start; /* start of text segment */
+    u32* text_end;   /* end of text segment */
 } OSProf;
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
@@ -89,7 +89,7 @@ typedef struct {
 
 /* Profiler Interface */
 
-extern void osProfileInit(OSProf *, u32 profcnt);
+extern void osProfileInit(OSProf*, u32 profcnt);
 extern void osProfileStart(u32);
 extern void osProfileFlush(void);
 extern void osProfileStop(void);
@@ -100,9 +100,9 @@ extern void osThreadProfileInit(void);
 extern void osThreadProfileStart(void);
 extern void osThreadProfileStop(void);
 extern u32 osThreadProfileReadCount(OSId);
-extern u32 osThreadProfileReadCountTh(OSThread *);
+extern u32 osThreadProfileReadCountTh(OSThread*);
 extern OSTime osThreadProfileReadTime(OSId);
-extern OSTime osThreadProfileReadTimeTh(OSThread *);
+extern OSTime osThreadProfileReadTimeTh(OSThread*);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

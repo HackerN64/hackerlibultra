@@ -2,9 +2,9 @@
 #include "PRinternal/controller.h"
 #include "os_version.h"
 
-s32 __osGbpakSetBank(OSPfs *pfs, u8 bank);
+s32 __osGbpakSetBank(OSPfs* pfs, u8 bank);
 
-s32 osGbpakReadWrite(OSPfs *pfs, u16 flag, u16 address, u8 *buffer, u16 size) {
+s32 osGbpakReadWrite(OSPfs* pfs, u16 flag, u16 address, u8* buffer, u16 size) {
     s32 i;
     s32 ret;
     u8 bank;

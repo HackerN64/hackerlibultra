@@ -33,12 +33,12 @@ extern u32 cnt_index, resampler_num, resampler_cnt, resampler_max, resampler_min
 /***********************************************************************
  * Resampler filter public interfaces
  ***********************************************************************/
-Acmd *alResamplePull(void *filter, s16 *outp, s32 outCnt, s32 sampleOffset, Acmd *p) {
-    ALResampler *f = (ALResampler *)filter;
-    Acmd *ptr = p;
+Acmd* alResamplePull(void* filter, s16* outp, s32 outCnt, s32 sampleOffset, Acmd* p) {
+    ALResampler* f = (ALResampler*)filter;
+    Acmd* ptr = p;
     s16 inp;
     s32 inCount;
-    ALFilter *source = f->filter.source;
+    ALFilter* source = f->filter.source;
     s32 incr;
     f32 finCount;
 
@@ -102,9 +102,9 @@ Acmd *alResamplePull(void *filter, s16 *outp, s32 outCnt, s32 sampleOffset, Acmd
     return ptr;
 }
 
-s32 alResampleParam(void *filter, s32 paramID, void *param) {
-    ALFilter *f = (ALFilter *)filter;
-    ALResampler *r = (ALResampler *)filter;
+s32 alResampleParam(void* filter, s32 paramID, void* param) {
+    ALFilter* f = (ALFilter*)filter;
+    ALResampler* r = (ALResampler*)filter;
     union {
         f32 f;
         s32 i;
@@ -113,7 +113,7 @@ s32 alResampleParam(void *filter, s32 paramID, void *param) {
     switch (paramID) {
 
         case (AL_FILTER_SET_SOURCE):
-            f->source = (ALFilter *)param;
+            f->source = (ALFilter*)param;
             break;
 
         case (AL_FILTER_RESET):

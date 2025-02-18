@@ -21,10 +21,10 @@
 #include <libaudio.h>
 #include "synthInternals.h"
 
-Acmd *alAuxBusPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
-    ALAuxBus *m = (ALAuxBus *)filter;
-    ALFilter **sources = m->sources;
+Acmd* alAuxBusPull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd* p) {
+    Acmd* ptr = p;
+    ALAuxBus* m = (ALAuxBus*)filter;
+    ALFilter** sources = m->sources;
     s32 i;
 
     /*
@@ -40,14 +40,14 @@ Acmd *alAuxBusPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd
     return ptr;
 }
 
-s32 alAuxBusParam(void *filter, s32 paramID, void *param) {
-    ALAuxBus *m = (ALAuxBus *)filter;
-    ALFilter **sources = m->sources;
+s32 alAuxBusParam(void* filter, s32 paramID, void* param) {
+    ALAuxBus* m = (ALAuxBus*)filter;
+    ALFilter** sources = m->sources;
 
     switch (paramID) {
 
         case (AL_FILTER_ADD_SOURCE):
-            sources[m->sourceCount++] = (ALFilter *)param;
+            sources[m->sourceCount++] = (ALFilter*)param;
             break;
 
         default:

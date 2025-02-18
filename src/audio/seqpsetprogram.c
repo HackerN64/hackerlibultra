@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alSeqpSetChlProgram(ALSeqPlayer *seqp, u8 chan, u8 prog)
+void alSeqpSetChlProgram(ALSeqPlayer* seqp, u8 chan, u8 prog)
 
 {
     ALEvent evt;

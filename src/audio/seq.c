@@ -26,12 +26,12 @@
 #define IFF_FILE_HDR  0x4d546864 /* 'MThd' */
 #define IFF_TRACK_HDR 0x4d54726b /* 'MTrk' */
 
-static s32 readVarLen(ALSeq *s);
-static u8 read8(ALSeq *s);
-static s16 read16(ALSeq *s);
-static s32 read32(ALSeq *s);
+static s32 readVarLen(ALSeq* s);
+static u8 read8(ALSeq* s);
+static s16 read16(ALSeq* s);
+static s32 read32(ALSeq* s);
 
-void alSeqNew(ALSeq *seq, u8 *ptr, s32 len) {
+void alSeqNew(ALSeq* seq, u8* ptr, s32 len) {
     /*
      * load the seqence pointed to by ptr
      */
@@ -86,7 +86,7 @@ void alSeqNew(ALSeq *seq, u8 *ptr, s32 len) {
     seq->trackStart = seq->curPtr;
 }
 
-void alSeqNextEvent(ALSeq *seq, ALEvent *event) {
+void alSeqNextEvent(ALSeq* seq, ALEvent* event) {
     u8 status;
     s16 delta;
     s32 len;
@@ -182,8 +182,8 @@ void alSeqNextEvent(ALSeq *seq, ALEvent *event) {
 
   sct 11/6/95
 */
-char __alSeqNextDelta(ALSeq *seq, s32 *pDeltaTicks) {
-    u8 *savedPtr;
+char __alSeqNextDelta(ALSeq* seq, s32* pDeltaTicks) {
+    u8* savedPtr;
 
     /* sct 1/16/96 - Put in safety check here to make sure we don't read past sequence data. */
     if (seq->curPtr >= seq->base + seq->len)
@@ -196,15 +196,15 @@ char __alSeqNextDelta(ALSeq *seq, s32 *pDeltaTicks) {
     return TRUE;
 }
 
-f32 alSeqTicksToSec(ALSeq *seq, s32 ticks, u32 tempo) {
+f32 alSeqTicksToSec(ALSeq* seq, s32 ticks, u32 tempo) {
     return ((f32)(((f32)(ticks) * (f32)(tempo)) / ((f32)(seq->division) * 1000000.0)));
 }
 
-u32 alSeqSecToTicks(ALSeq *seq, f32 sec, u32 tempo) {
+u32 alSeqSecToTicks(ALSeq* seq, f32 sec, u32 tempo) {
     return (u32)(((sec * 1000000.0) * seq->division) / tempo);
 }
 
-void alSeqNewMarker(ALSeq *seq, ALSeqMarker *m, u32 ticks) {
+void alSeqNewMarker(ALSeq* seq, ALSeqMarker* m, u32 ticks) {
     ALEvent evt;
     u8 *savePtr, *lastPtr;
     s32 saveTicks, lastTicks;
@@ -254,28 +254,28 @@ void alSeqNewMarker(ALSeq *seq, ALSeqMarker *m, u32 ticks) {
     }
 }
 
-s32 alSeqGetTicks(ALSeq *seq) {
+s32 alSeqGetTicks(ALSeq* seq) {
     return seq->lastTicks;
 }
 
-void alSeqSetLoc(ALSeq *seq, ALSeqMarker *m) {
+void alSeqSetLoc(ALSeq* seq, ALSeqMarker* m) {
     seq->curPtr = m->curPtr;
     seq->lastStatus = m->lastStatus;
     seq->lastTicks = m->lastTicks;
 }
 
-void alSeqGetLoc(ALSeq *seq, ALSeqMarker *m) {
+void alSeqGetLoc(ALSeq* seq, ALSeqMarker* m) {
     m->curPtr = seq->curPtr;
     m->lastStatus = seq->lastStatus;
     m->lastTicks = seq->lastTicks;
 }
 
 /* non-aligned byte reading routines */
-static u8 read8(ALSeq *seq) {
+static u8 read8(ALSeq* seq) {
     return *seq->curPtr++;
 }
 
-static s16 read16(ALSeq *seq) {
+static s16 read16(ALSeq* seq) {
     s16 tmp;
 
     tmp = *seq->curPtr++ << 8;
@@ -284,7 +284,7 @@ static s16 read16(ALSeq *seq) {
     return tmp;
 }
 
-static s32 read32(ALSeq *seq) {
+static s32 read32(ALSeq* seq) {
     s32 tmp;
 
     tmp = *seq->curPtr++ << 24;
@@ -295,7 +295,7 @@ static s32 read32(ALSeq *seq) {
     return tmp;
 }
 
-static s32 readVarLen(ALSeq *seq) {
+static s32 readVarLen(ALSeq* seq) {
     s32 value;
     s32 c;
 

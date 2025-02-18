@@ -10,14 +10,14 @@
 
 #define _osVirtualToPhysical(ptr)                                                                                      \
     if (ptr != NULL) {                                                                                                 \
-        ptr = (void *)osVirtualToPhysical(ptr);                                                                        \
+        ptr = (void*)osVirtualToPhysical(ptr);                                                                         \
     }                                                                                                                  \
     (void)0
 
 static OSTask tmp_task;
 
-static OSTask *_VirtualToPhysicalTask(OSTask *intp) {
-    OSTask *tp;
+static OSTask* _VirtualToPhysicalTask(OSTask* intp) {
+    OSTask* tp;
     tp = &tmp_task;
     bcopy(intp, tp, sizeof(OSTask));
 
@@ -31,8 +31,8 @@ static OSTask *_VirtualToPhysicalTask(OSTask *intp) {
     return tp;
 }
 
-void osSpTaskLoad(OSTask *intp) {
-    OSTask *tp;
+void osSpTaskLoad(OSTask* intp) {
+    OSTask* tp;
 
 #ifdef _DEBUG
     if ((intp->t.dram_stack != 0x0) && ((u32)intp->t.dram_stack & 0xf)) {
@@ -60,7 +60,7 @@ void osSpTaskLoad(OSTask *intp) {
         tp->t.ucode_data_size = tp->t.yield_data_size;
         intp->t.flags &= ~OS_TASK_YIELDED;
         if (tp->t.flags & OS_TASK_LOADABLE) {
-            tp->t.ucode = (u64 *)IO_READ((u32)intp->t.yield_data_ptr + OS_YIELD_DATA_SIZE - 4);
+            tp->t.ucode = (u64*)IO_READ((u32)intp->t.yield_data_ptr + OS_YIELD_DATA_SIZE - 4);
         }
     }
 
@@ -80,7 +80,7 @@ void osSpTaskLoad(OSTask *intp) {
     }
 }
 
-void osSpTaskStartGo(OSTask *tp) {
+void osSpTaskStartGo(OSTask* tp) {
     while (__osSpDeviceBusy()) {
     }
 

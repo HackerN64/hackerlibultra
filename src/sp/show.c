@@ -28,6 +28,6 @@
  *
  *   Shows a sprite so that it will be drawn at the next spUpdate().
  */
-void spShow(Sprite *sp) {
+void spShow(Sprite* sp) {
     spClearAttribute(sp, SP_HIDDEN);
 }

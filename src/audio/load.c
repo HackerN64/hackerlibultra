@@ -34,10 +34,10 @@ extern u32 cnt_index, adpcm_num, adpcm_cnt, adpcm_max, adpcm_min, lastCnt[];
 #define ADPCMFBYTES 9
 #define LFSAMPLES   4
 
-static Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags);
+static Acmd* _decodeChunk(Acmd* ptr, ALLoadFilter* f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags);
 
-Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
+Acmd* alAdpcmPull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd* p) {
+    Acmd* ptr = p;
     s16 inp;
     s32 tsam;
     s32 nframes;
@@ -52,7 +52,7 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
     s32 decoded = 0;
     s32 looped = 0;
 
-    ALLoadFilter *f = (ALLoadFilter *)filter;
+    ALLoadFilter* f = (ALLoadFilter*)filter;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -203,8 +203,8 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
     return ptr;
 }
 
-Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
+Acmd* alRaw16Pull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd* p) {
+    Acmd* ptr = p;
     s32 nbytes;
     s32 dramLoc;
     s32 dramAlign;
@@ -214,8 +214,8 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
     s32 nSam;
     s32 op;
 
-    ALLoadFilter *f = (ALLoadFilter *)filter;
-    ALFilter *a = (ALFilter *)filter;
+    ALLoadFilter* f = (ALLoadFilter*)filter;
+    ALFilter* a = (ALFilter*)filter;
 
     if (outCount == 0)
         return ptr;
@@ -344,13 +344,13 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd 
     return ptr;
 }
 
-s32 alLoadParam(void *filter, s32 paramID, void *param) {
-    ALLoadFilter *a = (ALLoadFilter *)filter;
-    ALFilter *f = (ALFilter *)filter;
+s32 alLoadParam(void* filter, s32 paramID, void* param) {
+    ALLoadFilter* a = (ALLoadFilter*)filter;
+    ALFilter* f = (ALFilter*)filter;
 
     switch (paramID) {
         case (AL_FILTER_SET_WAVETABLE):
-            a->table = (ALWaveTable *)param;
+            a->table = (ALWaveTable*)param;
             a->memin = (s32)a->table->base;
             a->sample = 0;
             switch (a->table->type) {
@@ -420,7 +420,7 @@ s32 alLoadParam(void *filter, s32 paramID, void *param) {
     }
 }
 
-Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags) {
+Acmd* _decodeChunk(Acmd* ptr, ALLoadFilter* f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags) {
 
     s32 dramAlign, dramLoc;
 

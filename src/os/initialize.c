@@ -23,7 +23,7 @@ u32 __osFinalrom;
 #else
 u32 __kmc_pt_mode;
 #if BUILD_VERSION >= VERSION_K
-void *__printfunc = NULL;
+void* __printfunc = NULL;
 #endif
 #endif
 
@@ -81,12 +81,12 @@ void INITIALIZE_FUNC() {
     while (__osSiRawWriteIo(PIF_RAM_END - 3, pifdata | 8)) {
         ; // todo: magic contant
     }
-    *(__osExceptionVector *)UT_VEC = *__osExceptionPreamble;
-    *(__osExceptionVector *)XUT_VEC = *__osExceptionPreamble;
-    *(__osExceptionVector *)ECC_VEC = *__osExceptionPreamble;
-    *(__osExceptionVector *)E_VEC = *__osExceptionPreamble;
-    osWritebackDCache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
-    osInvalICache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
+    *(__osExceptionVector*)UT_VEC = *__osExceptionPreamble;
+    *(__osExceptionVector*)XUT_VEC = *__osExceptionPreamble;
+    *(__osExceptionVector*)ECC_VEC = *__osExceptionPreamble;
+    *(__osExceptionVector*)E_VEC = *__osExceptionPreamble;
+    osWritebackDCache((void*)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
+    osInvalICache((void*)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
 #if BUILD_VERSION >= VERSION_J
     SPEED_PARAM_FUNC();
     osUnmapTLBAll();
@@ -133,20 +133,20 @@ void INITIALIZE_FUNC() {
         unsigned int c;
         unsigned int c1;
 #endif
-        unsigned int *src;
-        unsigned int *dst;
+        unsigned int* src;
+        unsigned int* dst;
         unsigned int monadr;
-        volatile unsigned int *mon;
-        volatile unsigned int *stat;
+        volatile unsigned int* mon;
+        volatile unsigned int* stat;
 
-        stat = (unsigned *)0xbff08004;
-        mon = (unsigned *)0xBFF00000;
+        stat = (unsigned*)0xbff08004;
+        mon = (unsigned*)0xBFF00000;
         if (*mon != 0x4B4D4300) {
             return;
         }
 
-        src = (unsigned *)__ptExceptionPreamble;
-        dst = (unsigned *)E_VEC;
+        src = (unsigned*)__ptExceptionPreamble;
+        dst = (unsigned*)E_VEC;
         *dst++ = *src++;
         *dst++ = *src++;
         *dst++ = *src++;
@@ -164,8 +164,8 @@ void INITIALIZE_FUNC() {
         if ((*stat & 0x10) == 0) {
             monadr = *(mon + 1);
             if (monadr != 0xBFF00000) {
-                unsigned int *src;
-                unsigned int *dst = monadr | 0x20000000;
+                unsigned int* src;
+                unsigned int* dst = monadr | 0x20000000;
                 unsigned int ct = 0x2000 / 4;
 
                 src = 0xBFF00000;

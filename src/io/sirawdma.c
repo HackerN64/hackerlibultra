@@ -12,7 +12,7 @@
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 
-s32 __osSiRawStartDma(s32 direction, void *dramAddr) {
+s32 __osSiRawStartDma(s32 direction, void* dramAddr) {
     assert(((u32)dramAddr & 0x3) == 0);
 
 #if BUILD_VERSION >= VERSION_J

@@ -47,7 +47,7 @@ void guRotateRPYF(float mf[4][4], float r, float p, float h) {
     mf[2][2] = cosr * cosp;
 }
 
-void guRotateRPY(Mtx *m, float r, float p, float h) {
+void guRotateRPY(Mtx* m, float r, float p, float h) {
     Matrix mf;
 
     guRotateRPYF(mf, r, p, h);

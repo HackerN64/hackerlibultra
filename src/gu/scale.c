@@ -21,7 +21,7 @@ void guScaleF(float mf[4][4], float x, float y, float z) {
     mf[3][3] = 1;
 }
 
-void guScale(Mtx *m, float x, float y, float z) {
+void guScale(Mtx* m, float x, float y, float z) {
     Matrix mf;
 
     guScaleF(mf, x, y, z);

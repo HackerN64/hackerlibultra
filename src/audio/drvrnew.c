@@ -79,7 +79,7 @@ input  output  fbcoef  ffcoef   gain     rate   depth     coef   */
 
 static s32 NULL_PARAMS[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-void _init_lpfilter(ALLowPass *lp) {
+void _init_lpfilter(ALLowPass* lp) {
     s32 i, temp;
     s16 fc;
     f64 ffc, fcoef;
@@ -101,11 +101,11 @@ void _init_lpfilter(ALLowPass *lp) {
     }
 }
 
-void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp) {
+void alFxNew(ALFx* r, ALSynConfig* c, ALHeap* hp) {
     u16 i, j, k;
-    s32 *param = 0;
-    ALFilter *f = (ALFilter *)r;
-    ALDelay *d;
+    s32* param = 0;
+    ALFilter* f = (ALFilter*)r;
+    ALDelay* d;
 
     alFilterNew(f, 0, alFxParam, AL_FX);
     f->handler = alFxPull;
@@ -199,8 +199,8 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp) {
     }
 }
 
-void alEnvmixerNew(ALEnvMixer *e, ALHeap *hp) {
-    alFilterNew((ALFilter *)e, alEnvmixerPull, alEnvmixerParam, AL_ENVMIX);
+void alEnvmixerNew(ALEnvMixer* e, ALHeap* hp) {
+    alFilterNew((ALFilter*)e, alEnvmixerPull, alEnvmixerParam, AL_ENVMIX);
 
     e->state = alHeapAlloc(hp, 1, sizeof(ENVMIX_STATE));
 
@@ -225,14 +225,14 @@ void alEnvmixerNew(ALEnvMixer *e, ALHeap *hp) {
     e->sources = 0;
 }
 
-void alLoadNew(ALLoadFilter *f, ALDMANew dmaNew, ALHeap *hp) {
+void alLoadNew(ALLoadFilter* f, ALDMANew dmaNew, ALHeap* hp) {
     s32 i;
 
     /*
      * init filter superclass
      */
 
-    alFilterNew((ALFilter *)f, alAdpcmPull, alLoadParam, AL_ADPCM);
+    alFilterNew((ALFilter*)f, alAdpcmPull, alLoadParam, AL_ADPCM);
 
     f->state = alHeapAlloc(hp, 1, sizeof(ADPCM_STATE));
     f->lstate = alHeapAlloc(hp, 1, sizeof(ADPCM_STATE));
@@ -247,8 +247,8 @@ void alLoadNew(ALLoadFilter *f, ALDMANew dmaNew, ALHeap *hp) {
     f->memin = 0;
 }
 
-void alResampleNew(ALResampler *r, ALHeap *hp) {
-    alFilterNew((ALFilter *)r, alResamplePull, alResampleParam, AL_RESAMPLE);
+void alResampleNew(ALResampler* r, ALHeap* hp) {
+    alFilterNew((ALFilter*)r, alResamplePull, alResampleParam, AL_RESAMPLE);
 
     /*
      * Init resampler state
@@ -265,26 +265,26 @@ void alResampleNew(ALResampler *r, ALHeap *hp) {
     /* state in the ucode is initialized by the A_INIT flag */
 }
 
-void alAuxBusNew(ALAuxBus *m, void *sources, s32 maxSources) {
-    alFilterNew((ALFilter *)m, alAuxBusPull, alAuxBusParam, AL_AUXBUS);
+void alAuxBusNew(ALAuxBus* m, void* sources, s32 maxSources) {
+    alFilterNew((ALFilter*)m, alAuxBusPull, alAuxBusParam, AL_AUXBUS);
     m->sourceCount = 0;
     m->maxSources = maxSources;
-    m->sources = (ALFilter **)sources;
+    m->sources = (ALFilter**)sources;
 }
 
-void alMainBusNew(ALMainBus *m, void *sources, s32 maxSources) {
-    alFilterNew((ALFilter *)m, alMainBusPull, alMainBusParam, AL_MAINBUS);
+void alMainBusNew(ALMainBus* m, void* sources, s32 maxSources) {
+    alFilterNew((ALFilter*)m, alMainBusPull, alMainBusParam, AL_MAINBUS);
     m->sourceCount = 0;
     m->maxSources = maxSources;
-    m->sources = (ALFilter **)sources;
+    m->sources = (ALFilter**)sources;
 }
 
-void alSaveNew(ALSave *f) {
+void alSaveNew(ALSave* f) {
     /*
      * init filter superclass
      */
 
-    alFilterNew((ALFilter *)f, alSavePull, alSaveParam, AL_SAVE);
+    alFilterNew((ALFilter*)f, alSavePull, alSaveParam, AL_SAVE);
 
     /*
      * init the save state, which is a virtual dram address

@@ -75,15 +75,15 @@ typedef struct {
 } __OSThreadprofile_s;
 
 typedef struct OSThread_s {
-    struct OSThread_s *next;     /* run/mesg queue link */
+    struct OSThread_s* next;     /* run/mesg queue link */
     OSPri priority;              /* run/mesg queue priority */
-    struct OSThread_s **queue;   /* queue thread is on */
-    struct OSThread_s *tlnext;   /* all threads queue link */
+    struct OSThread_s** queue;   /* queue thread is on */
+    struct OSThread_s* tlnext;   /* all threads queue link */
     u16 state;                   /* OS_STATE_* */
     u16 flags;                   /* flags for rmon */
     OSId id;                     /* id for debugging */
     int fp;                      /* thread has used fp unit */
-    __OSThreadprofile_s *thprof; /* workarea for thread profiler */
+    __OSThreadprofile_s* thprof; /* workarea for thread profiler */
     __OSThreadContext context;   /* register/interrupt mask */
 } OSThread;
 
@@ -139,14 +139,14 @@ typedef struct OSThread_s {
 
 /* Thread operations */
 
-extern void osCreateThread(OSThread *, OSId, void (*)(void *), void *, void *, OSPri);
-extern void osDestroyThread(OSThread *);
+extern void osCreateThread(OSThread*, OSId, void (*)(void*), void*, void*, OSPri);
+extern void osDestroyThread(OSThread*);
 extern void osYieldThread(void);
-extern void osStartThread(OSThread *);
-extern void osStopThread(OSThread *);
-extern OSId osGetThreadId(OSThread *);
-extern void osSetThreadPri(OSThread *, OSPri);
-extern OSPri osGetThreadPri(OSThread *);
+extern void osStartThread(OSThread*);
+extern void osStopThread(OSThread*);
+extern OSId osGetThreadId(OSThread*);
+extern void osSetThreadPri(OSThread*, OSPri);
+extern OSPri osGetThreadPri(OSThread*);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

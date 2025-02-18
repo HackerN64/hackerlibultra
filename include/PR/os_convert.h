@@ -70,15 +70,15 @@ extern "C" {
 
 /* OS_K?_TO_PHYSICAL macro bug fix for CodeWarrior */
 #ifndef __MWERKS__
-#define OS_K0_TO_PHYSICAL(x) (u32)(((char *)(x) - 0x80000000))
-#define OS_K1_TO_PHYSICAL(x) (u32)(((char *)(x) - 0xa0000000))
+#define OS_K0_TO_PHYSICAL(x) (u32)(((char*)(x) - 0x80000000))
+#define OS_K1_TO_PHYSICAL(x) (u32)(((char*)(x) - 0xa0000000))
 #else
-#define OS_K0_TO_PHYSICAL(x) ((char *)(x) - 0x80000000)
-#define OS_K1_TO_PHYSICAL(x) ((char *)(x) - 0xa0000000)
+#define OS_K0_TO_PHYSICAL(x) ((char*)(x) - 0x80000000)
+#define OS_K1_TO_PHYSICAL(x) ((char*)(x) - 0xa0000000)
 #endif
 
-#define OS_PHYSICAL_TO_K0(x) (void *)(((u32)(x) + 0x80000000))
-#define OS_PHYSICAL_TO_K1(x) (void *)(((u32)(x) + 0xa0000000))
+#define OS_PHYSICAL_TO_K0(x) (void*)(((u32)(x) + 0x80000000))
+#define OS_PHYSICAL_TO_K1(x) (void*)(((u32)(x) + 0xa0000000))
 
 /**************************************************************************
  *
@@ -94,8 +94,8 @@ extern "C" {
 
 /* Address translation routines and macros */
 
-extern u32 osVirtualToPhysical(void *);
-extern void *osPhysicalToVirtual(u32);
+extern u32 osVirtualToPhysical(void*);
+extern void* osPhysicalToVirtual(u32);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

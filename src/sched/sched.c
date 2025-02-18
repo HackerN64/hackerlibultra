@@ -50,17 +50,17 @@
 /*
  * private functions
  */
-static void __scMain(void *arg);
-static void __scHandleRetrace(OSSched *s);
-static void __scHandleRSP(OSSched *s);
-static void __scHandleRDP(OSSched *s);
+static void __scMain(void* arg);
+static void __scHandleRetrace(OSSched* s);
+static void __scHandleRSP(OSSched* s);
+static void __scHandleRDP(OSSched* s);
 
-static void __scAppendList(OSSched *s, OSScTask *t);
-OSScTask *__scTaskReady(OSScTask *t);
-static s32 __scTaskComplete(OSSched *s, OSScTask *t);
-static void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
-static void __scYield(OSSched *s);
-static s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
+static void __scAppendList(OSSched* s, OSScTask* t);
+OSScTask* __scTaskReady(OSScTask* t);
+static s32 __scTaskComplete(OSSched* s, OSScTask* t);
+static void __scExec(OSSched* sc, OSScTask* sp, OSScTask* dp);
+static void __scYield(OSSched* s);
+static s32 __scSchedule(OSSched* sc, OSScTask** sp, OSScTask** dp, s32 availRCP);
 
 /*
 #define SC_LOGGING 1
@@ -69,14 +69,14 @@ static s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
 #ifdef SC_LOGGING
 #define SC_LOG_LEN 32 * 1024
 static OSLog scLog;
-static OSLog *l = &scLog;
+static OSLog* l = &scLog;
 static u32 logArray[SC_LOG_LEN / sizeof(u32)];
 #endif
 
 /***********************************************************************
  * Scheduler API
  **********************************************************************/
-void osCreateScheduler(OSSched *sc, void *stack, OSPri priority, u8 mode, u8 numFields) {
+void osCreateScheduler(OSSched* sc, void* stack, OSPri priority, u8 mode, u8 numFields) {
     sc->curRSPTask = 0;
     sc->curRDPTask = 0;
     sc->clientList = 0;
@@ -107,14 +107,14 @@ void osCreateScheduler(OSSched *sc, void *stack, OSPri priority, u8 mode, u8 num
     osCreateLog(l, logArray, sizeof(logArray));
 #endif
 
-    osCreateThread(&sc->thread, 4, __scMain, (void *)sc, stack, priority);
+    osCreateThread(&sc->thread, 4, __scMain, (void*)sc, stack, priority);
     osStartThread(&sc->thread);
 }
 
 /*
  * Add a client to the scheduler.  Clients receive messages at retrace time
  */
-void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ) {
+void osScAddClient(OSSched* sc, OSScClient* c, OSMesgQueue* msgQ) {
     OSIntMask mask;
 
     mask = osSetIntMask(OS_IM_NONE);
@@ -126,9 +126,9 @@ void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ) {
     osSetIntMask(mask);
 }
 
-void osScRemoveClient(OSSched *sc, OSScClient *c) {
-    OSScClient *client = sc->clientList;
-    OSScClient *prev = 0;
+void osScRemoveClient(OSSched* sc, OSScClient* c) {
+    OSScClient* client = sc->clientList;
+    OSScClient* prev = 0;
     OSIntMask mask;
 
     mask = osSetIntMask(OS_IM_NONE);
@@ -148,22 +148,22 @@ void osScRemoveClient(OSSched *sc, OSScClient *c) {
     osSetIntMask(mask);
 }
 
-OSMesgQueue *osScGetCmdQ(OSSched *sc) {
+OSMesgQueue* osScGetCmdQ(OSSched* sc) {
     return &sc->cmdQ;
 }
 
 /***********************************************************************
  * Scheduler implementation
  **********************************************************************/
-static void __scMain(void *arg) {
+static void __scMain(void* arg) {
     OSMesg msg;
-    OSSched *sc = (OSSched *)arg;
-    OSScClient *client;
+    OSSched* sc = (OSSched*)arg;
+    OSScClient* client;
     static int count = 0;
 
     while (1) {
 
-        osRecvMesg(&sc->interruptQ, (OSMesg *)&msg, OS_MESG_BLOCK);
+        osRecvMesg(&sc->interruptQ, (OSMesg*)&msg, OS_MESG_BLOCK);
 
 #ifdef SC_LOGGING
         if (++count % 1024 == 0)
@@ -201,13 +201,13 @@ static void __scMain(void *arg) {
 static int dp_busy = 0;
 static int dpCount = 0;
 
-void __scHandleRetrace(OSSched *sc) {
-    OSScTask *rspTask;
-    OSScClient *client;
+void __scHandleRetrace(OSSched* sc) {
+    OSScTask* rspTask;
+    OSScClient* client;
     s32 i;
     s32 state;
-    OSScTask *sp = 0;
-    OSScTask *dp = 0;
+    OSScTask* sp = 0;
+    OSScTask* dp = 0;
 
     sc->frameCount++;
 
@@ -218,7 +218,7 @@ void __scHandleRetrace(OSSched *sc) {
     /*
      * Read the task command queue and schedule tasks
      */
-    while (osRecvMesg(&sc->cmdQ, (OSMesg *)&rspTask, OS_MESG_NOBLOCK) != -1) {
+    while (osRecvMesg(&sc->cmdQ, (OSMesg*)&rspTask, OS_MESG_NOBLOCK) != -1) {
         __scAppendList(sc, rspTask);
     }
 
@@ -251,7 +251,7 @@ void __scHandleRetrace(OSSched *sc) {
  * __scHandleRSP is called when an RSP task signals that it has
  * finished or yielded (at the hosts request)
  */
-void __scHandleRSP(OSSched *sc) {
+void __scHandleRSP(OSSched* sc) {
     OSScTask *t, *sp = 0, *dp = 0;
     s32 state;
 
@@ -295,7 +295,7 @@ void __scHandleRSP(OSSched *sc) {
  * __scHandleRDP is called when an RDP task signals that it has
  * finished
  */
-void __scHandleRDP(OSSched *sc) {
+void __scHandleRDP(OSSched* sc) {
     OSScTask *t, *sp = 0, *dp = 0;
     s32 state;
 
@@ -322,10 +322,10 @@ void __scHandleRDP(OSSched *sc) {
  * __scTaskReady checks to see if the graphics task is able to run
  * based on the current state of the RCP.
  */
-OSScTask *__scTaskReady(OSScTask *t) {
+OSScTask* __scTaskReady(OSScTask* t) {
     int rv = 0;
-    void *a;
-    void *b;
+    void* a;
+    void* b;
 
     if (t) {
         /*
@@ -350,7 +350,7 @@ OSScTask *__scTaskReady(OSScTask *t) {
  * operations have been performed) and sends the done message to the
  * client if it is.
  */
-s32 __scTaskComplete(OSSched *sc, OSScTask *t) {
+s32 __scTaskComplete(OSSched* sc, OSScTask* t) {
     int rv;
     static int firsttime = 1;
 
@@ -388,7 +388,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t) {
 /*
  * Place task on either the audio or graphics queue
  */
-void __scAppendList(OSSched *sc, OSScTask *t) {
+void __scAppendList(OSSched* sc, OSScTask* t) {
     long type = t->list.t.type;
 
     assert((type == M_AUDTASK) || (type == M_GFXTASK));
@@ -423,7 +423,7 @@ void __scAppendList(OSSched *sc, OSScTask *t) {
 /*
  *
  */
-void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp) {
+void __scExec(OSSched* sc, OSScTask* sp, OSScTask* dp) {
     int rv;
 
 #ifdef SC_LOGGING
@@ -465,7 +465,7 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp) {
     }
 }
 
-static void __scYield(OSSched *sc) {
+static void __scYield(OSSched* sc) {
 
 #ifdef SC_LOGGING
     osLogEvent(l, 503, 1, sc->curRSPTask);
@@ -488,10 +488,10 @@ static void __scYield(OSSched *sc) {
 /*
  * Schedules the tasks to be run on the RCP
  */
-s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP) {
+s32 __scSchedule(OSSched* sc, OSScTask** sp, OSScTask** dp, s32 availRCP) {
     s32 avail = availRCP;
-    OSScTask *gfx = sc->gfxListHead;
-    OSScTask *audio = sc->audioListHead;
+    OSScTask* gfx = sc->gfxListHead;
+    OSScTask* audio = sc->audioListHead;
 
 #ifdef SC_LOGGING
     osLogEvent(l, 517, 3, *sp, *dp, availRCP);

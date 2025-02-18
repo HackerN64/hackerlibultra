@@ -9,8 +9,8 @@
 
 #define BUFF_LEN 0x20
 
-static short _Ldunscale(short *pex, ldouble *px);
-static void _Genld(_Pft *px, char code, unsigned char *p, short nsig, short xexp);
+static short _Ldunscale(short* pex, ldouble* px);
+static void _Genld(_Pft* px, char code, unsigned char* p, short nsig, short xexp);
 
 static const ldouble pows[] = { 10e0L, 10e1L, 10e3L, 10e7L, 10e15L, 10e31L, 10e63L, 10e127L, 10e255L };
 
@@ -43,9 +43,9 @@ static const ldouble pows[] = { 10e0L, 10e1L, 10e3L, 10e7L, 10e15L, 10e31L, 10e6
 
 #define ALIGN(s, align) (((unsigned int)(s) + ((align) - 1)) & ~((align) - 1))
 
-void _Ldtob(_Pft *px, char code) {
+void _Ldtob(_Pft* px, char code) {
     char buff[BUFF_LEN];
-    char *p;
+    char* p;
     ldouble ldval;
     short err;
     short nsig;
@@ -159,8 +159,8 @@ void _Ldtob(_Pft *px, char code) {
     _Genld(px, code, p, nsig, xexp);
 }
 
-short _Ldunscale(short *pex, ldouble *px) {
-    unsigned short *ps = (unsigned short *)px;
+short _Ldunscale(short* pex, ldouble* px) {
+    unsigned short* ps = (unsigned short*)px;
     short xchar = (ps[_D0] & _DMASK) >> _DOFF;
 
     if (xchar == _DMAX) {
@@ -179,7 +179,7 @@ short _Ldunscale(short *pex, ldouble *px) {
     }
 }
 
-void _Genld(_Pft *px, char code, unsigned char *p, short nsig, short xexp) {
+void _Genld(_Pft* px, char code, unsigned char* p, short nsig, short xexp) {
     const unsigned char point = '.';
 
     if (nsig <= 0) {

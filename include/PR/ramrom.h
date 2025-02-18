@@ -106,7 +106,7 @@ typedef struct {
 #define HOST_DATA_ACK       17
 
 #ifdef _EMULATOR
-void __RamRomInit(int key, void *romaddr);
+void __RamRomInit(int key, void* romaddr);
 void __RamRomDestroy(int key);
 #endif /* _EMULATOR */
 

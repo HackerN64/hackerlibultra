@@ -50,7 +50,7 @@ extern "C" {
  */
 typedef struct {
     int status;
-    OSMesgQueue *queue;
+    OSMesgQueue* queue;
     int channel;
     u8 id[32];
     u8 label[32];
@@ -168,21 +168,21 @@ typedef struct {
 
 /* file system interface */
 
-extern s32 osPfsInitPak(OSMesgQueue *, OSPfs *, int);
-extern s32 osPfsRepairId(OSPfs *);
-extern s32 osPfsInit(OSMesgQueue *, OSPfs *, int);
-extern s32 osPfsReFormat(OSPfs *, OSMesgQueue *, int);
-extern s32 osPfsChecker(OSPfs *);
-extern s32 osPfsAllocateFile(OSPfs *, u16, u32, u8 *, u8 *, int, s32 *);
-extern s32 osPfsFindFile(OSPfs *, u16, u32, u8 *, u8 *, s32 *);
-extern s32 osPfsDeleteFile(OSPfs *, u16, u32, u8 *, u8 *);
-extern s32 osPfsReadWriteFile(OSPfs *, s32, u8, int, int, u8 *);
-extern s32 osPfsFileState(OSPfs *, s32, OSPfsState *);
-extern s32 osPfsGetLabel(OSPfs *, u8 *, int *);
-extern s32 osPfsSetLabel(OSPfs *, u8 *);
-extern s32 osPfsIsPlug(OSMesgQueue *, u8 *);
-extern s32 osPfsFreeBlocks(OSPfs *, s32 *);
-extern s32 osPfsNumFiles(OSPfs *, s32 *, s32 *);
+extern s32 osPfsInitPak(OSMesgQueue*, OSPfs*, int);
+extern s32 osPfsRepairId(OSPfs*);
+extern s32 osPfsInit(OSMesgQueue*, OSPfs*, int);
+extern s32 osPfsReFormat(OSPfs*, OSMesgQueue*, int);
+extern s32 osPfsChecker(OSPfs*);
+extern s32 osPfsAllocateFile(OSPfs*, u16, u32, u8*, u8*, int, s32*);
+extern s32 osPfsFindFile(OSPfs*, u16, u32, u8*, u8*, s32*);
+extern s32 osPfsDeleteFile(OSPfs*, u16, u32, u8*, u8*);
+extern s32 osPfsReadWriteFile(OSPfs*, s32, u8, int, int, u8*);
+extern s32 osPfsFileState(OSPfs*, s32, OSPfsState*);
+extern s32 osPfsGetLabel(OSPfs*, u8*, int*);
+extern s32 osPfsSetLabel(OSPfs*, u8*);
+extern s32 osPfsIsPlug(OSMesgQueue*, u8*);
+extern s32 osPfsFreeBlocks(OSPfs*, s32*);
+extern s32 osPfsNumFiles(OSPfs*, s32*, s32*);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

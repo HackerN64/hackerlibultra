@@ -8,7 +8,7 @@
 
 extern u32 __kmc_pt_mode;
 
-static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
+static void* proutSyncPrintf(void* str, const char* buf, size_t n) {
     size_t sent = 0;
 
     while (sent < n) {
@@ -17,9 +17,9 @@ static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
     return 1;
 }
 
-static volatile unsigned int *stat = (unsigned *)0xbff08004;
-static volatile unsigned int *wport = (unsigned *)0xbff08000;
-static volatile unsigned int *piok = (unsigned *)PHYS_TO_K1(PI_STATUS_REG);
+static volatile unsigned int* stat = (unsigned*)0xbff08004;
+static volatile unsigned int* wport = (unsigned*)0xbff08000;
+static volatile unsigned int* piok = (unsigned*)PHYS_TO_K1(PI_STATUS_REG);
 
 static void rmonPutchar(char c) {
     while (*piok & (PI_STATUS_DMA_BUSY | PI_STATUS_IO_BUSY)) {
@@ -31,11 +31,11 @@ static void rmonPutchar(char c) {
     *wport = c;
 }
 
-static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
+static void* kmc_proutSyncPrintf(void* str, const char* buf, int n) {
     int i;
     char c;
-    char *p;
-    char *q;
+    char* p;
+    char* q;
     char xbuf[128];
     static int column = 0;
 
@@ -78,12 +78,12 @@ static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
             rmonPutchar(*q++);
         }
     }
-    return (void *)1;
+    return (void*)1;
 }
 
 char NULSTR[] = "";
 
-const char *__os_error_message[] = {
+const char* __os_error_message[] = {
     NULSTR,
     "osCreateThread: stack pointer not aligned to 8 bytes (0x%x)",
     "osCreateThread: priority not in range [0-255] (%d)",
@@ -229,7 +229,7 @@ OSErrorHandler __kmcErrorHandler = kmcErrorHandler;
 static void kmcErrorHandler(s16 code, s16 numArgs, ...) {
     int ans;
     va_list ap;
-    char *fmt;
+    char* fmt;
 
     fmt = __os_error_message[code];
     va_start(ap, numArgs);

@@ -5,9 +5,9 @@
 // TODO: this comes from a header
 #ident "$Revision: 1.23 $"
 
-static void *proutSprintf(void *s, const char *buf, size_t n);
+static void* proutSprintf(void* s, const char* buf, size_t n);
 
-int sprintf(char *s, const char *fmt, ...) {
+int sprintf(char* s, const char* fmt, ...) {
     int ans;
     va_list ap;
     va_start(ap, fmt);
@@ -17,6 +17,6 @@ int sprintf(char *s, const char *fmt, ...) {
     }
     return ans;
 }
-static void *proutSprintf(void *s, const char *buf, size_t n) {
-    return (char *)memcpy(s, buf, n) + n;
+static void* proutSprintf(void* s, const char* buf, size_t n) {
+    return (char*)memcpy(s, buf, n) + n;
 }

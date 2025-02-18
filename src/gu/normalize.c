@@ -12,7 +12,7 @@
 
 #include "guint.h"
 
-void guNormalize(float *x, float *y, float *z) {
+void guNormalize(float* x, float* y, float* z) {
     float m;
 
     m = 1 / sqrtf((*x) * (*x) + (*y) * (*y) + (*z) * (*z));

@@ -5,9 +5,9 @@
 #include "PRinternal/macros.h"
 
 OSPiHandle LeoDiskHandle ALIGNED(0x8);
-OSPiHandle *__osDiskHandle;
+OSPiHandle* __osDiskHandle;
 
-OSPiHandle *osLeoDiskInit(void) {
+OSPiHandle* osLeoDiskInit(void) {
     u32 saveMask;
 
     LeoDiskHandle.type = DEVICE_TYPE_64DD;

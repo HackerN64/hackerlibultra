@@ -1,7 +1,7 @@
 #include "ultra64.h"
 #include "PR/os_internal_flash.h"
 
-s32 osFlashReadArray(OSIoMesg *mb, s32 priority, u32 page_num, void *dramAddr, u32 n_pages, OSMesgQueue *mq) {
+s32 osFlashReadArray(OSIoMesg* mb, s32 priority, u32 page_num, void* dramAddr, u32 n_pages, OSMesgQueue* mq) {
     u32 ret;
     u32 tmp;
     u32 end_page;

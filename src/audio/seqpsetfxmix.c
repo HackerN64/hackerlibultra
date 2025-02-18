@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alSeqpSetChlFXMix(ALSeqPlayer *seqp, u8 chan, u8 fxmix) {
+void alSeqpSetChlFXMix(ALSeqPlayer* seqp, u8 chan, u8 fxmix) {
     ALEvent evt;
 
     evt.type = AL_SEQP_MIDI_EVT;

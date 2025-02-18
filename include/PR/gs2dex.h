@@ -50,7 +50,7 @@ typedef struct {
     s16 frameY; /* upper-left position of transferred frame (s10.2) */
     u16 frameH; /* height of transferred frame (u10.2) */
 
-    u64 *imagePtr; /* texture source address on DRAM */
+    u64* imagePtr; /* texture source address on DRAM */
     u16 imageLoad; /* which to use, LoadBlock or  LoadTile */
     u8 imageFmt;   /* format of texel - G_IM_FMT_*  */
     u8 imageSiz;   /* size of texel - G_IM_SIZ_*   */
@@ -90,7 +90,7 @@ typedef struct {
     s16 frameY; /* upper-left position of transferred frame (s10.2) */
     u16 frameH; /* height of transferred frame (u10.2) */
 
-    u64 *imagePtr; /* texture source address on DRAM */
+    u64* imagePtr; /* texture source address on DRAM */
     u16 imageLoad; /* Which to use, LoadBlock or LoadTile? */
     u8 imageFmt;   /* format of texel - G_IM_FMT_*  */
     u8 imageSiz;   /* size of texel - G_IM_SIZ_*  */
@@ -177,7 +177,7 @@ typedef union {
 
 typedef struct {
     u32 type;      /* G_OBJLT_TXTRBLOCK divided into types */
-    u64 *image;    /* texture source address on DRAM */
+    u64* image;    /* texture source address on DRAM */
     u16 tmem;      /* loaded TMEM word address (8byteWORD) */
     u16 tsize;     /* Texture size, Specified by macro GS_TB_TSIZE() */
     u16 tline;     /* width of Texture 1-line, Specified by macro GS_TB_TLINE() */
@@ -191,7 +191,7 @@ typedef struct {
 
 typedef struct {
     u32 type;     /* G_OBJLT_TXTRTILE divided into types */
-    u64 *image;   /* texture source address on DRAM */
+    u64* image;   /* texture source address on DRAM */
     u16 tmem;     /* loaded TMEM word address (8byteWORD)*/
     u16 twidth;   /* width of Texture (Specified by macro GS_TT_TWIDTH()) */
     u16 theight;  /* height of Texture (Specified by macro GS_TT_THEIGHT()) */
@@ -205,7 +205,7 @@ typedef struct {
 
 typedef struct {
     u32 type;     /* G_OBJLT_TLUT divided into types */
-    u64 *image;   /* texture source address on DRAM */
+    u64* image;   /* texture source address on DRAM */
     u16 phead;    /* pallet number of load header (Between 256 and 511) */
     u16 pnum;     /* loading pallet number -1 */
     u16 zero;     /* Assign 0 all the time */
@@ -378,16 +378,16 @@ extern u64 gspS2DEX2_fifoTextStart[], gspS2DEX2_fifoTextEnd[];
 extern u64 gspS2DEX2_fifoDataStart[], gspS2DEX2_fifoDataEnd[];
 extern u64 gspS2DEX2_xbusTextStart[], gspS2DEX2_xbusTextEnd[];
 extern u64 gspS2DEX2_xbusDataStart[], gspS2DEX2_xbusDataEnd[];
-extern void guS2DInitBg(uObjBg *);
+extern void guS2DInitBg(uObjBg*);
 
 #ifdef F3DEX_GBI_2
 #define guS2DEmuBgRect1Cyc guS2D2EmuBgRect1Cyc /*Wrapper*/
 #define guS2DEmuSetScissor guS2D2EmuSetScissor /*Wrapper*/
 extern void guS2D2EmuSetScissor(u32, u32, u32, u32, u8);
-extern void guS2D2EmuBgRect1Cyc(Gfx **, uObjBg *);
+extern void guS2D2EmuBgRect1Cyc(Gfx**, uObjBg*);
 #else
 extern void guS2DEmuSetScissor(u32, u32, u32, u32, u8);
-extern void guS2DEmuBgRect1Cyc(Gfx **, uObjBg *);
+extern void guS2DEmuBgRect1Cyc(Gfx**, uObjBg*);
 #endif
 
 #ifdef _LANGUAGE_C_PLUS_PLUS

@@ -30,8 +30,8 @@ extern "C" {
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 
 /* Debug port */
-extern void __osSyncPutChars(int, int, const char *);
-extern int __osAtomicDec(unsigned int *p);
+extern void __osSyncPutChars(int, int, const char*);
+extern int __osAtomicDec(unsigned int* p);
 
 #endif /* _LANGUAGE_C */
 

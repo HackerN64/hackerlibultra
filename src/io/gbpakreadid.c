@@ -3,7 +3,7 @@
 #include "PRinternal/controller.h"
 #include "os_version.h"
 
-s32 osGbpakReadId(OSPfs *pfs, OSGbpakId *id, u8 *status) {
+s32 osGbpakReadId(OSPfs* pfs, OSGbpakId* id, u8* status) {
     s32 i;
     s32 ret;
     u8 isum;

@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alSeqpLoop(ALSeqPlayer *seqp, ALSeqMarker *start, ALSeqMarker *end, s32 count) {
+void alSeqpLoop(ALSeqPlayer* seqp, ALSeqMarker* start, ALSeqMarker* end, s32 count) {
     ALEvent evt;
 
     evt.type = AL_SEQP_LOOP_EVT;

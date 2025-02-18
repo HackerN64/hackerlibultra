@@ -48,24 +48,24 @@ extern f64 __pow(f64, f64);
 /*
  * prototypes for private enveloper functions
  */
-static Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p);
-static s16 _getRate(f64 vol, f64 tgt, s32 count, u16 *ratel);
+static Acmd* _pullSubFrame(void* filter, s16* inp, s16* outp, s32 outCount, s32 sampleOffset, Acmd* p);
+static s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel);
 
 static f32 _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel);
 
 /***********************************************************************
  * Enveloper filter public interfaces
  ***********************************************************************/
-Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
-    ALEnvMixer *e = (ALEnvMixer *)filter;
+Acmd* alEnvmixerPull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd* p) {
+    Acmd* ptr = p;
+    ALEnvMixer* e = (ALEnvMixer*)filter;
     s16 inp;
     s32 lastOffset;
     s32 thisOffset = sampleOffset;
     s32 samples;
     s16 loutp = 0;
     s32 fVol;
-    ALParam *thisParam;
+    ALParam* thisParam;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -90,8 +90,8 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
 
         switch (e->ctrlList->type) {
             case (AL_FILTER_START_VOICE_ALT): {
-                ALStartParamAlt *param = (ALStartParamAlt *)e->ctrlList;
-                ALFilter *f = (ALFilter *)e;
+                ALStartParamAlt* param = (ALStartParamAlt*)e->ctrlList;
+                ALFilter* f = (ALFilter*)e;
                 s32 tmp;
 
                 if (param->unity) {
@@ -130,7 +130,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
                         s32 i;
                     } data;
                     data.f = param->pitch;
-                    (*f->source->setParam)(f->source, AL_FILTER_SET_PITCH, (void *)data.i);
+                    (*f->source->setParam)(f->source, AL_FILTER_SET_PITCH, (void*)data.i);
                 }
 
             }
@@ -207,7 +207,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
                 break;
 
             case (AL_FILTER_START_VOICE): {
-                ALStartParam *p = (ALStartParam *)e->ctrlList;
+                ALStartParam* p = (ALStartParam*)e->ctrlList;
 
                 /*
                  * Changing to PLAYING (since the previous state was
@@ -231,10 +231,10 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
             } break;
 
             case (AL_FILTER_FREE_VOICE): {
-                ALSynth *drvr = &alGlobals->drvr;
-                ALFreeParam *param = (ALFreeParam *)e->ctrlList;
+                ALSynth* drvr = &alGlobals->drvr;
+                ALFreeParam* param = (ALFreeParam*)e->ctrlList;
                 param->pvoice->offset = 0;
-                _freePVoice(drvr, (PVoice *)param->pvoice);
+                _freePVoice(drvr, (PVoice*)param->pvoice);
             } break;
 
             default:
@@ -243,7 +243,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
                  * on down the chain
                  */
                 ptr = _pullSubFrame(e, &inp, &loutp, samples, sampleOffset, ptr);
-                (*e->filter.setParam)(&e->filter, e->ctrlList->type, (void *)e->ctrlList->data.i);
+                (*e->filter.setParam)(&e->filter, e->ctrlList->type, (void*)e->ctrlList->data.i);
                 break;
         }
         loutp += (samples << 1);
@@ -274,19 +274,19 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Ac
     return ptr;
 }
 
-s32 alEnvmixerParam(void *filter, s32 paramID, void *param) {
-    ALFilter *f = (ALFilter *)filter;
-    ALEnvMixer *e = (ALEnvMixer *)filter;
+s32 alEnvmixerParam(void* filter, s32 paramID, void* param) {
+    ALFilter* f = (ALFilter*)filter;
+    ALEnvMixer* e = (ALEnvMixer*)filter;
 
     switch (paramID) {
 
         case (AL_FILTER_ADD_UPDATE):
             if (e->ctrlTail) {
-                e->ctrlTail->next = (ALParam *)param;
+                e->ctrlTail->next = (ALParam*)param;
             } else {
-                e->ctrlList = (ALParam *)param;
+                e->ctrlList = (ALParam*)param;
             }
-            e->ctrlTail = (ALParam *)param;
+            e->ctrlTail = (ALParam*)param;
 
             break;
 
@@ -305,7 +305,7 @@ s32 alEnvmixerParam(void *filter, s32 paramID, void *param) {
             break;
 
         case (AL_FILTER_SET_SOURCE):
-            f->source = (ALFilter *)param;
+            f->source = (ALFilter*)param;
             break;
 
         default:
@@ -317,10 +317,10 @@ s32 alEnvmixerParam(void *filter, s32 paramID, void *param) {
 #if BUILD_VERSION < VERSION_J
 #line 350
 #endif
-static Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
-    ALEnvMixer *e = (ALEnvMixer *)filter;
-    ALFilter *source = e->filter.source;
+static Acmd* _pullSubFrame(void* filter, s16* inp, s16* outp, s32 outCount, s32 sampleOffset, Acmd* p) {
+    Acmd* ptr = p;
+    ALEnvMixer* e = (ALEnvMixer*)filter;
+    ALFilter* source = e->filter.source;
 
     /* filter must be playing and request non-zero output samples to pull. */
     if (e->motion != AL_PLAYING || !outCount)
@@ -374,7 +374,7 @@ static Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount, s32 
 #define EXP_MASK  0x7f800000
 #define MANT_MASK 0x807fffff
 
-f64 _frexpf(f64 value, s32 *eptr) {
+f64 _frexpf(f64 value, s32* eptr) {
     f64 absvalue;
 
     *eptr = 0;
@@ -410,7 +410,7 @@ f64 _ldexpf(f64 in, s32 ex) {
                     RWW 28jun95
 */
 
-static s16 _getRate(f64 vol, f64 tgt, s32 count, u16 *ratel) {
+static s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel) {
     s16 s;
 
     f64 invn = 1.0 / count, eps, a, fs, mant;

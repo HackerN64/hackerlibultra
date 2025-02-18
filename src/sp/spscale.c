@@ -28,7 +28,7 @@
  *
  *   Scales the sprite by a vertical and horizontal factor.
  */
-void spScale(Sprite *sp, float sx, float sy) {
+void spScale(Sprite* sp, float sx, float sy) {
 
     sp->scalex = sx;
     sp->scaley = sy;

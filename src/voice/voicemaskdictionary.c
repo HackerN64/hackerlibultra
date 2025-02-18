@@ -10,7 +10,7 @@
 #include "PR/os_voice.h"
 #include "voiceinternal.h"
 
-s32 osVoiceMaskDictionary(OSVoiceHandle *hd, u8 *pattern, int size) {
+s32 osVoiceMaskDictionary(OSVoiceHandle* hd, u8* pattern, int size) {
     s32 ret = 0;
     s32 i;
     s32 j;
@@ -43,7 +43,7 @@ s32 osVoiceMaskDictionary(OSVoiceHandle *hd, u8 *pattern, int size) {
         buf[ARRLEN(buf) - 1] = 0;
     }
 
-    ret = __osVoiceContWrite20(hd->__mq, hd->__channel, 0, (u8 *)&buf);
+    ret = __osVoiceContWrite20(hd->__mq, hd->__channel, 0, (u8*)&buf);
     if (ret == 0) {
         ret = __osVoiceCheckResult(hd, &stat);
         if (ret & 0xFF00) {

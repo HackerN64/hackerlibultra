@@ -65,7 +65,7 @@ float fsin(float x) {
     double result;
     int ix, xpt;
 
-    ix = *(int *)&x;
+    ix = *(int*)&x;
     xpt = (ix >> 22);
     xpt &= 0x1ff;
 

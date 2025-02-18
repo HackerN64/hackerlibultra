@@ -5,14 +5,14 @@
 #include "xstdio.h"
 #include "PR/rcp.h"
 
-extern void *__printfunc;
+extern void* __printfunc;
 
 #if BUILD_VERSION <= VERSION_J
 
 #ifndef _FINALROM
 extern u32 __kmc_pt_mode;
 
-static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
+static void* proutSyncPrintf(void* str, const char* buf, size_t n) {
     u32 sent = 0;
 
     while (sent < n) {
@@ -21,9 +21,9 @@ static void *proutSyncPrintf(void *str, const char *buf, size_t n) {
     return 1;
 }
 
-static volatile unsigned int *stat = (unsigned *)0xbff08004;
-static volatile unsigned int *wport = (unsigned *)0xbff08000;
-static volatile unsigned int *piok = (unsigned *)PHYS_TO_K1(PI_STATUS_REG);
+static volatile unsigned int* stat = (unsigned*)0xbff08004;
+static volatile unsigned int* wport = (unsigned*)0xbff08000;
+static volatile unsigned int* piok = (unsigned*)PHYS_TO_K1(PI_STATUS_REG);
 
 static void rmonPutchar(char c) {
     while (*piok & (PI_STATUS_DMA_BUSY | PI_STATUS_IO_BUSY)) {
@@ -35,11 +35,11 @@ static void rmonPutchar(char c) {
     *wport = c;
 }
 
-static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
+static void* kmc_proutSyncPrintf(void* str, const char* buf, int n) {
     int i;
     char c;
-    char *p;
-    char *q;
+    char* p;
+    char* q;
     char xbuf[128];
     static int column = 0;
 
@@ -82,11 +82,11 @@ static void *kmc_proutSyncPrintf(void *str, const char *buf, int n) {
             rmonPutchar(*q++);
         }
     }
-    return (void *)1;
+    return (void*)1;
 }
 #endif
 
-void osSyncPrintf(const char *fmt, ...) {
+void osSyncPrintf(const char* fmt, ...) {
     int ans;
     va_list ap;
 
@@ -101,7 +101,7 @@ void osSyncPrintf(const char *fmt, ...) {
 #endif
 }
 
-void rmonPrintf(const char *fmt, ...) {
+void rmonPrintf(const char* fmt, ...) {
     int ans;
     va_list ap;
 
@@ -116,7 +116,7 @@ void rmonPrintf(const char *fmt, ...) {
 
 #else
 
-void __osSyncVPrintf(const char *fmt, va_list ap) {
+void __osSyncVPrintf(const char* fmt, va_list ap) {
 
     int ans;
 #ifndef _FINALROM
@@ -126,7 +126,7 @@ void __osSyncVPrintf(const char *fmt, va_list ap) {
 #endif
 }
 
-void osSyncPrintf(const char *fmt, ...) {
+void osSyncPrintf(const char* fmt, ...) {
     int ans;
     va_list ap;
 
@@ -137,7 +137,7 @@ void osSyncPrintf(const char *fmt, ...) {
 #endif
 }
 
-void rmonPrintf(const char *fmt, ...) {
+void rmonPrintf(const char* fmt, ...) {
     int ans;
     va_list ap;
 

@@ -76,7 +76,7 @@ extern "C" {
 extern u32 osAiGetStatus(void);
 extern u32 osAiGetLength(void);
 extern s32 osAiSetFrequency(u32);
-extern s32 osAiSetNextBuffer(void *, u32);
+extern s32 osAiSetNextBuffer(void*, u32);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

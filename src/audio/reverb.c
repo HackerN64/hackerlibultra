@@ -28,7 +28,7 @@
 #ident "$Revision: 1.49 $"
 #ident "$Revision: 1.17 $"
 #define RANGE 2.0
-extern ALGlobals *alGlobals;
+extern ALGlobals* alGlobals;
 
 #ifdef AUD_PROFILE
 extern u32 cnt_index, reverb_num, reverb_cnt, reverb_max, reverb_min, lastCnt[];
@@ -45,21 +45,21 @@ extern u32 load_num, load_cnt, load_max, load_min, save_num, save_cnt, save_max,
         in = t;                                                                                                        \
     }
 
-Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p);
-Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
-Acmd *_saveBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
-Acmd *_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
-f32 _doModFunc(ALDelay *d, s32 count);
+Acmd* _loadOutputBuffer(ALFx* r, ALDelay* d, s32 buff, s32 incount, Acmd* p);
+Acmd* _loadBuffer(ALFx* r, s16* curr_ptr, s32 buff, s32 count, Acmd* p);
+Acmd* _saveBuffer(ALFx* r, s16* curr_ptr, s32 buff, s32 count, Acmd* p);
+Acmd* _filterBuffer(ALLowPass* lp, s32 buff, s32 count, Acmd* p);
+f32 _doModFunc(ALDelay* d, s32 count);
 
 static s32 L_INC[] = { L0_INC, L1_INC, L2_INC };
 
 /***********************************************************************
  * Reverb filter public interfaces
  ***********************************************************************/
-Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
-    Acmd *ptr = p;
-    ALFx *r = (ALFx *)filter;
-    ALFilter *source = r->filter.source;
+Acmd* alFxPull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd* p) {
+    Acmd* ptr = p;
+    ALFx* r = (ALFx*)filter;
+    ALFilter* source = r->filter.source;
     s16 i, buff1, buff2, input, output;
     s16 *in_ptr, *out_ptr, gain, *prev_out_ptr = 0;
     ALDelay *d, *pd;
@@ -146,10 +146,10 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
     return ptr;
 }
 
-s32 alFxParam(void *filter, s32 paramID, void *param) {
+s32 alFxParam(void* filter, s32 paramID, void* param) {
     if (paramID == AL_FILTER_SET_SOURCE) {
-        ALFilter *f = (ALFilter *)filter;
-        f->source = (ALFilter *)param;
+        ALFilter* f = (ALFilter*)filter;
+        f->source = (ALFilter*)param;
     }
     return 0;
 }
@@ -159,11 +159,11 @@ s32 alFxParam(void *filter, s32 paramID, void *param) {
  * verify the validity of the paramID or the param value. input and output
  * values must be 8 byte aligned, so round down any param passed.
  */
-s32 alFxParamHdl(void *filter, s32 paramID, void *param) {
-    ALFx *f = (ALFx *)filter;
+s32 alFxParamHdl(void* filter, s32 paramID, void* param) {
+    ALFx* f = (ALFx*)filter;
     s32 p = (paramID - 2) % 8;
     s32 s = (paramID - 2) / 8;
-    s32 val = *(s32 *)param;
+    s32 val = *(s32*)param;
 
 #define INPUT_PARAM       0
 #define OUTPUT_PARAM      1
@@ -224,10 +224,10 @@ s32 alFxParamHdl(void *filter, s32 paramID, void *param) {
     return 0;
 }
 
-Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p) {
-    Acmd *ptr = p;
+Acmd* _loadOutputBuffer(ALFx* r, ALDelay* d, s32 buff, s32 incount, Acmd* p) {
+    Acmd* ptr = p;
     s32 ratio, count, rbuff = AL_TEMP_2;
-    s16 *out_ptr;
+    s16* out_ptr;
     f32 fincount, fratio, delta;
     s32 ramalign = 0, length;
     static f32 val = 0.0, lastval = -10.0;
@@ -305,8 +305,8 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p) {
  * Cause count bytes of data at curr_ptr (within the delay line) to be
  * loaded into buff. (Buff is a dmem buffer)
  */
-Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p) {
-    Acmd *ptr = p;
+Acmd* _loadBuffer(ALFx* r, s16* curr_ptr, s32 buff, s32 count, Acmd* p) {
+    Acmd* ptr = p;
     s32 after_end, before_end;
     s16 *updated_ptr, *delay_end;
 
@@ -352,8 +352,8 @@ Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p) {
  * space. If the write goes past the end of r->base, it will wrap around
  * Cause count bytes of data at buff to be written to delay line, curr_ptr.
  */
-Acmd *_saveBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p) {
-    Acmd *ptr = p;
+Acmd* _saveBuffer(ALFx* r, s16* curr_ptr, s32 buff, s32 count, Acmd* p) {
+    Acmd* ptr = p;
     s32 after_end, before_end;
     s16 *updated_ptr, *delay_end;
 
@@ -386,8 +386,8 @@ Acmd *_saveBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p) {
     return ptr;
 }
 
-Acmd *_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p) {
-    Acmd *ptr = p;
+Acmd* _filterBuffer(ALLowPass* lp, s32 buff, s32 count, Acmd* p) {
+    Acmd* ptr = p;
 
     aSetBuffer(ptr++, 0, buff, buff, count << 1);
     aLoadADPCM(ptr++, 32, osVirtualToPhysical(lp->fcvec.fccoef));
@@ -405,7 +405,7 @@ Acmd *_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p) {
  * should go at it's full chorus. In otherwords, this function returns a number
  * of samples the output pointer should modulate backwards.
  */
-f32 _doModFunc(ALDelay *d, s32 count) {
+f32 _doModFunc(ALDelay* d, s32 count) {
     f32 val;
 
     /*

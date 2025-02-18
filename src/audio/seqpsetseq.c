@@ -22,7 +22,7 @@
 
 #include <libaudio.h>
 
-void alSeqpSetSeq(ALSeqPlayer *seqp, ALSeq *seq) {
+void alSeqpSetSeq(ALSeqPlayer* seqp, ALSeq* seq) {
     ALEvent evt;
 
     evt.type = AL_SEQP_SEQ_EVT;

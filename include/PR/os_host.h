@@ -144,14 +144,14 @@ extern void __osInitialize_emu(void);
 /* Game <> Host data transfer functions */
 
 extern s32 osTestHost(void);
-extern void osReadHost(void *, u32);
-extern void osWriteHost(void *, u32);
+extern void osReadHost(void*, u32);
+extern void osWriteHost(void*, u32);
 extern void osAckRamromRead(void);
 extern void osAckRamromWrite(void);
 
 /* RDB port operations */
 
-extern void osInitRdb(u8 *sendBuf, u32 sendSize);
+extern void osInitRdb(u8* sendBuf, u32 sendSize);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

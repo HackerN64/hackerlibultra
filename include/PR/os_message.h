@@ -50,18 +50,18 @@ typedef u32 OSEvent;
 /*
  * Structure for message
  */
-typedef void *OSMesg;
+typedef void* OSMesg;
 
 /*
  * Structure for message queue
  */
 typedef struct OSMesgQueue_s {
-    OSThread *mtqueue;   /* Queue to store threads blocked on empty mailboxes (receive) */
-    OSThread *fullqueue; /* Queue to store threads blocked on full mailboxes (send) */
+    OSThread* mtqueue;   /* Queue to store threads blocked on empty mailboxes (receive) */
+    OSThread* fullqueue; /* Queue to store threads blocked on full mailboxes (send) */
     s32 validCount;      /* Contains number of valid message */
     s32 first;           /* Points to first valid message */
     s32 msgCount;        /* Contains total # of messages */
-    OSMesg *msg;         /* Points to message buffer array */
+    OSMesg* msg;         /* Points to message buffer array */
 } OSMesgQueue;
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
@@ -139,14 +139,14 @@ typedef struct OSMesgQueue_s {
 
 /* Message operations */
 
-extern void osCreateMesgQueue(OSMesgQueue *, OSMesg *, s32);
-extern s32 osSendMesg(OSMesgQueue *, OSMesg, s32);
-extern s32 osJamMesg(OSMesgQueue *, OSMesg, s32);
-extern s32 osRecvMesg(OSMesgQueue *, OSMesg *, s32);
+extern void osCreateMesgQueue(OSMesgQueue*, OSMesg*, s32);
+extern s32 osSendMesg(OSMesgQueue*, OSMesg, s32);
+extern s32 osJamMesg(OSMesgQueue*, OSMesg, s32);
+extern s32 osRecvMesg(OSMesgQueue*, OSMesg*, s32);
 
 /* Event operations */
 
-extern void osSetEventMesg(OSEvent, OSMesgQueue *, OSMesg);
+extern void osSetEventMesg(OSEvent, OSMesgQueue*, OSMesg);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

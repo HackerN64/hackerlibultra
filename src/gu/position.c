@@ -60,7 +60,7 @@ void guPositionF(float mf[4][4], float r, float p, float h, float s, float x, fl
     mf[3][3] = 1.0;
 }
 
-void guPosition(Mtx *m, float r, float p, float h, float s, float x, float y, float z) {
+void guPosition(Mtx* m, float r, float p, float h, float s, float x, float y, float z) {
     float mf[4][4];
 
     guPositionF(mf, r, p, h, s, x, y, z);

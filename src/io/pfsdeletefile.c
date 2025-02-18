@@ -2,7 +2,7 @@
 #include "PR/os_internal.h"
 #include "PRinternal/controller.h"
 
-s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name) {
+s32 osPfsDeleteFile(OSPfs* pfs, u16 company_code, u32 game_code, u8* game_name, u8* ext_name) {
     s32 file_no;
 #if BUILD_VERSION < VERSION_J
     int k;
@@ -34,7 +34,7 @@ s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, 
         return PFS_ERR_INVALID;
     }
 #endif
-    ERRCK(__osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8 *)&dir));
+    ERRCK(__osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8*)&dir));
 
     startpage = dir.start_page.inode_t.page;
 
@@ -75,14 +75,14 @@ s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, 
     dir.status = DIR_STATUS_EMPTY;
 #endif
 
-    ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8 *)&dir, FALSE);
+    ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8*)&dir, FALSE);
 
     return ret;
 }
 
 #if BUILD_VERSION >= VERSION_J
 
-s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u8 bank, __OSInodeUnit *last_page) {
+s32 __osPfsReleasePages(OSPfs* pfs, __OSInode* inode, u8 start_page, u8 bank, __OSInodeUnit* last_page) {
     __OSInodeUnit next_page;
     __OSInodeUnit old_page;
     s32 ret = 0;
@@ -102,7 +102,7 @@ s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u8 bank, __
 
 #else
 
-s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u16 *sum, u8 bank, __OSInodeUnit *last_page,
+s32 __osPfsReleasePages(OSPfs* pfs, __OSInode* inode, u8 start_page, u16* sum, u8 bank, __OSInodeUnit* last_page,
                         int flag) {
     __OSInodeUnit next_page;
     __OSInodeUnit old_page;
@@ -152,7 +152,7 @@ s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u16 *sum, u
     *last_page = next_page;
     return 0;
 }
-s32 __osBlockSum(OSPfs *pfs, u8 page_no, u16 *sum, u8 bank) {
+s32 __osBlockSum(OSPfs* pfs, u8 page_no, u16* sum, u8 bank) {
     int i;
     s32 ret;
     u8 data[32];

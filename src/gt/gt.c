@@ -35,7 +35,7 @@
 /*
  * Set the cached RDP othermode word in the gt state structure.
  */
-void gtStateSetOthermode(Gfx *om, gtStateOthermode_t mode, int data) {
+void gtStateSetOthermode(Gfx* om, gtStateOthermode_t mode, int data) {
     int shift, length;
     u32 mask;
 

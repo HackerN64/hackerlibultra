@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alCSPSendMidi(ALCSPlayer *seqp, s32 ticks, u8 status, u8 byte1, u8 byte2) {
+void alCSPSendMidi(ALCSPlayer* seqp, s32 ticks, u8 status, u8 byte1, u8 byte2) {
     ALEvent evt;
     ALMicroTime deltaTime;
 

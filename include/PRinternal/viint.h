@@ -47,20 +47,20 @@ typedef struct {
 typedef struct {
     /* 0x0 */ u16 state;
     /* 0x2 */ u16 retraceCount;
-    /* 0x4 */ void *framep;
-    /* 0x8 */ OSViMode *modep;
+    /* 0x4 */ void* framep;
+    /* 0x8 */ OSViMode* modep;
     /* 0xC */ u32 control;
-    /* 0x10 */ OSMesgQueue *msgq;
+    /* 0x10 */ OSMesgQueue* msgq;
     /* 0x14 */ OSMesg msg;
     /* 0x18 */ __OSViScale x;
     /* 0x24 */ __OSViScale y;
 } __OSViContext; // 0x30 bytes
 
 void __osViSwapContext(void);
-extern __OSViContext *__osViCurr;
-extern __OSViContext *__osViNext;
+extern __OSViContext* __osViCurr;
+extern __OSViContext* __osViNext;
 extern u32 __additional_scanline;
-__OSViContext *__osViGetCurrentContext(void);
+__OSViContext* __osViGetCurrentContext(void);
 void __osViInit(void);
 extern OSDevMgr __osViDevMgr;
 #endif

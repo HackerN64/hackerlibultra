@@ -9,7 +9,7 @@
 #ident "$Revision: 1.23 $"
 
 #define isdigit(x) ((x >= '0' && x <= '9'))
-#define LDSIGN(x)  (((unsigned short *)&(x))[0] & 0x8000)
+#define LDSIGN(x)  (((unsigned short*)&(x))[0] & 0x8000)
 
 #define ATOI(dst, src)                                                                                                 \
     for (dst = 0; isdigit(*src); ++src) {                                                                              \
@@ -36,17 +36,17 @@
 static char spaces[] = "                                ";
 static char zeroes[] = "00000000000000000000000000000000";
 
-static void _Putfld(_Pft *px, va_list *pap, char code, char *ac);
+static void _Putfld(_Pft* px, va_list* pap, char code, char* ac);
 
-int _Printf(void *pfn(void *, const char *, size_t), void *arg, const char *fmt, va_list ap) {
+int _Printf(void* pfn(void*, const char*, size_t), void* arg, const char* fmt, va_list ap) {
     _Pft x;
 
     x.nchar = 0;
 
     while (1) {
-        const char *s;
+        const char* s;
         char c;
-        const char *t;
+        const char* t;
         static const char fchar[] = { ' ', '+', '-', '#', '0', '\0' };
         static const unsigned int fbit[] = { FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS, FLAGS_HASH, FLAGS_ZERO, 0 };
         char ac[32];
@@ -131,7 +131,7 @@ int _Printf(void *pfn(void *, const char *, size_t), void *arg, const char *fmt,
     return 0;
 }
 
-static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
+static void _Putfld(_Pft* px, va_list* pap, char code, char* ac) {
     px->n0 = px->nz0 = px->n1 = px->nz1 = px->n2 = px->nz2 = 0;
 
     switch (code) {
@@ -160,7 +160,7 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
                 ac[px->n0++] = ' ';
             }
 
-            px->s = (char *)&ac[px->n0];
+            px->s = (char*)&ac[px->n0];
 
             _Litob(px, code);
             break;
@@ -190,7 +190,7 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
                 }
             }
 
-            px->s = (char *)&ac[px->n0];
+            px->s = (char*)&ac[px->n0];
             _Litob(px, code);
             break;
         case 'e':
@@ -207,29 +207,29 @@ static void _Putfld(_Pft *px, va_list *pap, char code, char *ac) {
             else if (px->flags & FLAGS_SPACE)
                 ac[px->n0++] = ' ';
 
-            px->s = (char *)&ac[px->n0];
+            px->s = (char*)&ac[px->n0];
             _Ldtob(px, code);
             break;
 
         case 'n':
             if (px->qual == 'h') {
-                *va_arg(*pap, unsigned short *) = px->nchar;
+                *va_arg(*pap, unsigned short*) = px->nchar;
             } else if (px->qual == 'l') {
-                *va_arg(*pap, unsigned long *) = px->nchar;
+                *va_arg(*pap, unsigned long*) = px->nchar;
             } else if (px->qual == 'L') {
-                *va_arg(*pap, unsigned long long *) = px->nchar;
+                *va_arg(*pap, unsigned long long*) = px->nchar;
             } else {
-                *va_arg(*pap, unsigned int *) = px->nchar;
+                *va_arg(*pap, unsigned int*) = px->nchar;
             }
 
             break;
         case 'p':
-            px->v.ll = (long)va_arg(*pap, void *);
-            px->s = (char *)&ac[px->n0];
+            px->v.ll = (long)va_arg(*pap, void*);
+            px->s = (char*)&ac[px->n0];
             _Litob(px, 'x');
             break;
         case 's':
-            px->s = va_arg(*pap, char *);
+            px->s = va_arg(*pap, char*);
             px->n1 = strlen(px->s);
 
             if (px->prec >= 0 && px->prec < px->n1) {

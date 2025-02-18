@@ -23,9 +23,9 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 
-void *alHeapDBAlloc(u8 *file, s32 line, ALHeap *hp, s32 num, s32 size) {
+void* alHeapDBAlloc(u8* file, s32 line, ALHeap* hp, s32 num, s32 size) {
     s32 bytes;
-    u8 *ptr = 0;
+    u8* ptr = 0;
 
     bytes = (num * size + AL_CACHE_ALIGN) & ~AL_CACHE_ALIGN;
 
@@ -40,15 +40,15 @@ void *alHeapDBAlloc(u8 *file, s32 line, ALHeap *hp, s32 num, s32 size) {
         hp->cur += bytes;
 
 #ifdef _DEBUG
-        ((HeapInfo *)ptr)->magic = AL_HEAP_MAGIC;
-        ((HeapInfo *)ptr)->size = bytes;
-        ((HeapInfo *)ptr)->count = hp->count;
+        ((HeapInfo*)ptr)->magic = AL_HEAP_MAGIC;
+        ((HeapInfo*)ptr)->size = bytes;
+        ((HeapInfo*)ptr)->count = hp->count;
         if (file) {
-            ((HeapInfo *)ptr)->file = file;
-            ((HeapInfo *)ptr)->line = line;
+            ((HeapInfo*)ptr)->file = file;
+            ((HeapInfo*)ptr)->line = line;
         } else {
-            ((HeapInfo *)ptr)->file = (u8 *)"unknown";
-            ((HeapInfo *)ptr)->line = 0;
+            ((HeapInfo*)ptr)->file = (u8*)"unknown";
+            ((HeapInfo*)ptr)->line = 0;
         }
 
         ptr += sizeof(HeapInfo);

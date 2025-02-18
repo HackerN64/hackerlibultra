@@ -20,5 +20,5 @@
 
 #include "synthInternals.h"
 
-void alSynFreeFX(ALSynth *s, ALFxRef *fx) {
+void alSynFreeFX(ALSynth* s, ALFxRef* fx) {
 }

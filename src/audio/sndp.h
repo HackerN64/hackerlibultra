@@ -49,7 +49,7 @@ typedef enum {
 
 typedef struct {
     ALVoice voice;
-    ALSound *sound; /* sound referenced here */
+    ALSound* sound; /* sound referenced here */
     s16 priority;
     f32 pitch; /* current playback pitch                    */
     s32 state; /* play state for this sound                 */
@@ -64,38 +64,38 @@ typedef union {
 
     struct {
         s16 type;
-        ALSoundState *state;
+        ALSoundState* state;
     } common;
 
     struct {
         s16 type;
-        ALSoundState *state;
+        ALSoundState* state;
         s16 vol;
     } vol;
 
     struct {
         s16 type;
-        ALSoundState *state;
+        ALSoundState* state;
         f32 pitch;
     } pitch;
 
     struct {
         s16 type;
-        ALSoundState *state;
+        ALSoundState* state;
         ALPan pan;
     } pan;
 
     struct {
         s16 type;
-        ALSoundState *state;
+        ALSoundState* state;
         u8 mix;
     } fx;
 
 } ALSndpEvent;
 
-static ALMicroTime _sndpVoiceHandler(void *node);
-static void _handleEvent(ALSndPlayer *sndp, ALSndpEvent *event);
-static void _removeEvents(ALEventQueue *evtq, ALSoundState *state);
+static ALMicroTime _sndpVoiceHandler(void* node);
+static void _handleEvent(ALSndPlayer* sndp, ALSndpEvent* event);
+static void _removeEvents(ALEventQueue* evtq, ALSoundState* state);
 static s32 _DivS32ByF32(s32 i, f32 f);
 
 #endif

@@ -28,7 +28,7 @@
  * spSetZ()
  *
  */
-void spSetZ(Sprite *sp, s32 z) {
+void spSetZ(Sprite* sp, s32 z) {
 
 #ifdef DEBUG
     emPrintf("spSetZ (Sprite 0x%08x, (%d))\n", sp, z);
@@ -42,7 +42,7 @@ void spSetZ(Sprite *sp, s32 z) {
  *
  *   Moves a sprite on the screen.
  */
-void spMove(Sprite *sp, s32 x, s32 y) {
+void spMove(Sprite* sp, s32 x, s32 y) {
 
 #ifdef DEBUG
     emPrintf("spMove (Sprite 0x%08x, (%d,%d))\n", sp, x, y);
@@ -71,7 +71,7 @@ void spScissor(s32 xmin, s32 xmax, s32 ymin, s32 ymax) {
     scissor_ymax = ymax;
 }
 
-static int *prev_bmbuf = NULL;
+static int* prev_bmbuf = NULL;
 
 /*
  * drawbitmap()
@@ -82,11 +82,11 @@ static int *prev_bmbuf = NULL;
  *   will be used.
  */
 
-static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s32 yy, s32 fs, s32 ft, s32 sx, s32 sy) {
+static void drawbitmap(Gfx** glp, Sprite* s, Bitmap* b, s32 x, s32 y, s32 xx, s32 yy, s32 fs, s32 ft, s32 sx, s32 sy) {
     s32 rs, rt;
     s32 rxh, ryh;
     s32 rxl, ryl;
-    Gfx *gl;
+    Gfx* gl;
     s32 tex_width, tex_height;
     Gtexrect gt, *g;
     s32 s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod;
@@ -213,7 +213,7 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
                             gDPLoadBlock(gl++, G_TX_LOADTILE, 0, 0, tex_width * tex_height - 1, CALC_DXT(tex_width, 1));
                             gDPLoadSync(gl++);
 
-                            uv = ((unsigned char *)b->buf) + ((tex_width * tex_height) / 2) * b->LUToffset;
+                            uv = ((unsigned char*)b->buf) + ((tex_width * tex_height) / 2) * b->LUToffset;
 
                             for (j = 0; j <= (tex_height / 2); j++) {
                                 addr = uv + ((tex_height / 2) - 2 - j) * tex_width;
@@ -301,8 +301,8 @@ static void drawbitmap(Gfx **glp, Sprite *s, Bitmap *b, s32 x, s32 y, s32 xx, s3
 
 static u16 sp_attr = 0;
 
-void spInit(Gfx **glistp) {
-    Gfx *gl;
+void spInit(Gfx** glistp) {
+    Gfx* gl;
 
     gl = *glistp;
 
@@ -345,16 +345,16 @@ void spInit(Gfx **glistp) {
  *   so sprites with higher numbers will overwrite lower-numbered sprites.
  *
  */
-Gfx *spDraw(Sprite *s) {
+Gfx* spDraw(Sprite* s) {
     int i;
     s32 x, y;
     float sx, sy;
-    Bitmap *b;
-    Gfx *gl;
+    Bitmap* b;
+    Gfx* gl;
 #ifndef NDEBUG
-    Gfx *ogl;
+    Gfx* ogl;
 #endif
-    Gfx *dl_start;
+    Gfx* dl_start;
     s32 isx, isy;
     s32 tx, ty;
     s32 tx2, ty2;
@@ -653,8 +653,8 @@ Gfx *spDraw(Sprite *s) {
     return (dl_start);
 }
 
-void spFinish(Gfx **glistp) {
-    Gfx *gl;
+void spFinish(Gfx** glistp) {
+    Gfx* gl;
 
     gl = *glistp;
 

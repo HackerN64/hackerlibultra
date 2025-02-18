@@ -8,7 +8,7 @@
 
 #ifndef _FINALROM
 
-void __osSyncVPrintf(const char *fmt, va_list args);
+void __osSyncVPrintf(const char* fmt, va_list args);
 
 static u32 errorLogData[19] ALIGNED(0x8);
 static OSLog errorLog = {
@@ -24,7 +24,7 @@ OSErrorHandler __osCommonHandler = __commonErrorHandler;
 
 char NULSTR[] = "";
 
-const char *__os_error_message[] = {
+const char* __os_error_message[] = {
     NULSTR,
     "osCreateThread: stack pointer not aligned to 8 bytes (0x%x)",
     "osCreateThread: priority not in range [0-255] (%d)",
@@ -178,7 +178,7 @@ const char *__os_error_message[] = {
 
 void __commonErrorHandler(s16 code, s16 numArgs, ...) {
     va_list argPtr;
-    const char *fmt;
+    const char* fmt;
 
     fmt = __os_error_message[code];
     va_start(argPtr, numArgs);

@@ -20,6 +20,6 @@
 
 #include <libaudio.h>
 
-u8 alCSPGetChlPriority(ALCSPlayer *seqp, u8 chan) {
+u8 alCSPGetChlPriority(ALCSPlayer* seqp, u8 chan) {
     return seqp->chanState[chan].priority;
 }

@@ -118,21 +118,21 @@ typedef u8 ALPan;
  * Audio Library global routines
  ***********************************************************************/
 typedef struct ALLink_s {
-    struct ALLink_s *next;
-    struct ALLink_s *prev;
+    struct ALLink_s* next;
+    struct ALLink_s* prev;
 } ALLink;
 
-void alUnlink(ALLink *element);
-void alLink(ALLink *element, ALLink *after);
+void alUnlink(ALLink* element);
+void alLink(ALLink* element, ALLink* after);
 
-typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
-typedef ALDMAproc (*ALDMANew)(void *state);
+typedef s32 (*ALDMAproc)(s32 addr, s32 len, void* state);
+typedef ALDMAproc (*ALDMANew)(void* state);
 
-void alCopy(void *src, void *dest, s32 len);
+void alCopy(void* src, void* dest, s32 len);
 
 typedef struct {
-    u8 *base;
-    u8 *cur;
+    u8* base;
+    u8* cur;
     s32 len;
     s32 count;
 } ALHeap;
@@ -141,12 +141,12 @@ typedef struct {
 #define AL_HEAP_MAGIC 0x20736a73
 #define AL_HEAP_INIT  0
 
-void alHeapInit(ALHeap *hp, u8 *base, s32 len);
-void *alHeapDBAlloc(u8 *file, s32 line, ALHeap *hp, s32 num, s32 size);
-s32 alHeapCheck(ALHeap *hp);
+void alHeapInit(ALHeap* hp, u8* base, s32 len);
+void* alHeapDBAlloc(u8* file, s32 line, ALHeap* hp, s32 num, s32 size);
+s32 alHeapCheck(ALHeap* hp);
 
 #ifdef _DEBUG
-#define alHeapAlloc(hp, elem, size) alHeapDBAlloc((u8 *)__FILE__, __LINE__, (hp), (elem), (size))
+#define alHeapAlloc(hp, elem, size) alHeapDBAlloc((u8*)__FILE__, __LINE__, (hp), (elem), (size))
 #else
 #define alHeapAlloc(hp, elem, size) alHeapDBAlloc(0, 0, (hp), (elem), (size))
 #endif
@@ -163,7 +163,7 @@ s32 alHeapCheck(ALHeap *hp);
 #define AL_FX_CUSTOM    6
 
 typedef u8 ALFxId;
-typedef void *ALFxRef;
+typedef void* ALFxRef;
 
 /***********************************************************************
  * data structures for sound banks
@@ -211,16 +211,16 @@ typedef struct {
 } ALKeyMap;
 
 typedef struct {
-    ALADPCMloop *loop;
-    ALADPCMBook *book;
+    ALADPCMloop* loop;
+    ALADPCMBook* book;
 } ALADPCMWaveInfo;
 
 typedef struct {
-    ALRawLoop *loop;
+    ALRawLoop* loop;
 } ALRAWWaveInfo;
 
 typedef struct ALWaveTable_s {
-    u8 *base; /* ptr to start of wave data    */
+    u8* base; /* ptr to start of wave data    */
     s32 len;  /* length of data in bytes      */
     u8 type;  /* compression type             */
     u8 flags; /* offset/address flags         */
@@ -231,9 +231,9 @@ typedef struct ALWaveTable_s {
 } ALWaveTable;
 
 typedef struct ALSound_s {
-    ALEnvelope *envelope;
-    ALKeyMap *keyMap;
-    ALWaveTable *wavetable; /* offset to wavetable struct           */
+    ALEnvelope* envelope;
+    ALKeyMap* keyMap;
+    ALWaveTable* wavetable; /* offset to wavetable struct           */
     ALPan samplePan;
     u8 sampleVolume;
     u8 flags;
@@ -254,7 +254,7 @@ typedef struct {
     u8 vibDelay;    /* the delay for the tremelo osc        */
     s16 bendRange;  /* pitch bend range in cents            */
     s16 soundCount; /* number of sounds in this array       */
-    ALSound *soundArray[1];
+    ALSound* soundArray[1];
 } ALInstrument;
 
 typedef struct ALBank_s {
@@ -262,17 +262,17 @@ typedef struct ALBank_s {
     u8 flags;
     u8 pad;
     s32 sampleRate;             /* e.g. 44100, 22050, etc...       */
-    ALInstrument *percussion;   /* default percussion for GM       */
-    ALInstrument *instArray[1]; /* ARRAY of instruments            */
+    ALInstrument* percussion;   /* default percussion for GM       */
+    ALInstrument* instArray[1]; /* ARRAY of instruments            */
 } ALBank;
 
 typedef struct {          /* Note: sizeof won't be correct        */
     s16 revision;         /* format revision of this file         */
     s16 bankCount;        /* number of banks                      */
-    ALBank *bankArray[1]; /* ARRAY of bank offsets                */
+    ALBank* bankArray[1]; /* ARRAY of bank offsets                */
 } ALBankFile;
 
-void alBnkfNew(ALBankFile *f, u8 *table);
+void alBnkfNew(ALBankFile* f, u8* table);
 
 /***********************************************************************
  * Sequence Files
@@ -280,7 +280,7 @@ void alBnkfNew(ALBankFile *f, u8 *table);
 #define AL_SEQBANK_VERSION 'S1'
 
 typedef struct {
-    u8 *offset;
+    u8* offset;
     s32 len;
 } ALSeqData;
 
@@ -290,28 +290,28 @@ typedef struct {           /* Note: sizeof won't be correct        */
     ALSeqData seqArray[1]; /* ARRAY of sequence info               */
 } ALSeqFile;
 
-void alSeqFileNew(ALSeqFile *f, u8 *base);
+void alSeqFileNew(ALSeqFile* f, u8* base);
 
 /***********************************************************************
  * Synthesis driver stuff
  ***********************************************************************/
-typedef ALMicroTime (*ALVoiceHandler)(void *);
+typedef ALMicroTime (*ALVoiceHandler)(void*);
 
 typedef struct {
     s32 maxVVoices; /* obsolete */
     s32 maxPVoices;
     s32 maxUpdates;
     s32 maxFXbusses;
-    void *dmaproc;
-    ALHeap *heap;
+    void* dmaproc;
+    ALHeap* heap;
     s32 outputRate; /* output sample rate */
     ALFxId fxType;
-    s32 *params;
+    s32* params;
 } ALSynConfig;
 
 typedef struct ALPlayer_s {
-    struct ALPlayer_s *next;
-    void *clientData;       /* storage for client callback  */
+    struct ALPlayer_s* next;
+    void* clientData;       /* storage for client callback  */
     ALVoiceHandler handler; /* voice handler for player     */
     ALMicroTime callTime;   /* usec requested callback      */
     s32 samplesLeft;        /* usec remaining to callback   */
@@ -319,9 +319,9 @@ typedef struct ALPlayer_s {
 
 typedef struct ALVoice_s {
     ALLink node;
-    struct PVoice_s *pvoice;
-    ALWaveTable *table;
-    void *clientPrivate;
+    struct PVoice_s* pvoice;
+    ALWaveTable* table;
+    void* clientPrivate;
     s16 state;
     s16 priority;
     s16 fxBus;
@@ -335,20 +335,20 @@ typedef struct ALVoiceConfig_s {
 } ALVoiceConfig;
 
 typedef struct {
-    ALPlayer *head;    /* client list head                     */
+    ALPlayer* head;    /* client list head                     */
     ALLink pFreeList;  /* list of free physical voices         */
     ALLink pAllocList; /* list of allocated physical voices    */
     ALLink pLameList;  /* list of voices ready to be freed     */
     s32 paramSamples;
     s32 curSamples; /* samples from start of game           */
     ALDMANew dma;
-    ALHeap *heap;
+    ALHeap* heap;
 
-    struct ALParam_s *paramList;
+    struct ALParam_s* paramList;
 
-    struct ALMainBus_s *mainBus;
-    struct ALAuxBus_s *auxBus;       /* ptr to array of aux bus structs */
-    struct ALFilter_s *outputFilter; /* last filter in the filter chain */
+    struct ALMainBus_s* mainBus;
+    struct ALAuxBus_s* auxBus;       /* ptr to array of aux bus structs */
+    struct ALFilter_s* outputFilter; /* last filter in the filter chain */
 
     s32 numPVoices;
     s32 maxAuxBusses;
@@ -357,31 +357,31 @@ typedef struct {
                           at one time at output rate */
 } ALSynth;
 
-void alSynNew(ALSynth *s, ALSynConfig *config);
-void alSynDelete(ALSynth *s);
+void alSynNew(ALSynth* s, ALSynConfig* config);
+void alSynDelete(ALSynth* s);
 
-void alSynAddPlayer(ALSynth *s, ALPlayer *client);
-void alSynRemovePlayer(ALSynth *s, ALPlayer *client);
+void alSynAddPlayer(ALSynth* s, ALPlayer* client);
+void alSynRemovePlayer(ALSynth* s, ALPlayer* client);
 
-s32 alSynAllocVoice(ALSynth *s, ALVoice *v, ALVoiceConfig *vc);
-void alSynFreeVoice(ALSynth *s, ALVoice *voice);
+s32 alSynAllocVoice(ALSynth* s, ALVoice* v, ALVoiceConfig* vc);
+void alSynFreeVoice(ALSynth* s, ALVoice* voice);
 
-void alSynStartVoice(ALSynth *s, ALVoice *voice, ALWaveTable *w);
-void alSynStartVoiceParams(ALSynth *s, ALVoice *voice, ALWaveTable *w, f32 pitch, s16 vol, ALPan pan, u8 fxmix,
+void alSynStartVoice(ALSynth* s, ALVoice* voice, ALWaveTable* w);
+void alSynStartVoiceParams(ALSynth* s, ALVoice* voice, ALWaveTable* w, f32 pitch, s16 vol, ALPan pan, u8 fxmix,
                            ALMicroTime t);
-void alSynStopVoice(ALSynth *s, ALVoice *voice);
+void alSynStopVoice(ALSynth* s, ALVoice* voice);
 
-void alSynSetVol(ALSynth *s, ALVoice *v, s16 vol, ALMicroTime delta);
-void alSynSetPitch(ALSynth *s, ALVoice *voice, f32 ratio);
-void alSynSetPan(ALSynth *s, ALVoice *voice, ALPan pan);
-void alSynSetFXMix(ALSynth *s, ALVoice *voice, u8 fxmix);
-void alSynSetPriority(ALSynth *s, ALVoice *voice, s16 priority);
-s16 alSynGetPriority(ALSynth *s, ALVoice *voice);
+void alSynSetVol(ALSynth* s, ALVoice* v, s16 vol, ALMicroTime delta);
+void alSynSetPitch(ALSynth* s, ALVoice* voice, f32 ratio);
+void alSynSetPan(ALSynth* s, ALVoice* voice, ALPan pan);
+void alSynSetFXMix(ALSynth* s, ALVoice* voice, u8 fxmix);
+void alSynSetPriority(ALSynth* s, ALVoice* voice, s16 priority);
+s16 alSynGetPriority(ALSynth* s, ALVoice* voice);
 
-ALFxRef *alSynAllocFX(ALSynth *s, s16 bus, ALSynConfig *c, ALHeap *hp);
-ALFxRef alSynGetFXRef(ALSynth *s, s16 bus, s16 index);
-void alSynFreeFX(ALSynth *s, ALFxRef *fx);
-void alSynSetFXParam(ALSynth *s, ALFxRef fx, s16 paramID, void *param);
+ALFxRef* alSynAllocFX(ALSynth* s, s16 bus, ALSynConfig* c, ALHeap* hp);
+ALFxRef alSynGetFXRef(ALSynth* s, s16 bus, s16 index);
+void alSynFreeFX(ALSynth* s, ALFxRef* fx);
+void alSynSetFXParam(ALSynth* s, ALFxRef fx, s16 paramID, void* param);
 
 /***********************************************************************
  * Audio Library (AL) stuff
@@ -390,12 +390,12 @@ typedef struct {
     ALSynth drvr;
 } ALGlobals;
 
-extern ALGlobals *alGlobals;
+extern ALGlobals* alGlobals;
 
-void alInit(ALGlobals *glob, ALSynConfig *c);
-void alClose(ALGlobals *glob);
+void alInit(ALGlobals* glob, ALSynConfig* c);
+void alClose(ALGlobals* glob);
 
-Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen);
+Acmd* alAudioFrame(Acmd* cmdList, s32* cmdLen, s16* outBuf, s32 outLen);
 
 /***********************************************************************
  * Sequence Player stuff
@@ -519,7 +519,7 @@ enum AL_MIDImeta { AL_MIDI_META_TEMPO = 0x51, AL_MIDI_META_EOT = 0x2f };
 #define AL_CMIDI_CNTRL_LOOPCOUNT_BIG 105
 
 typedef struct {
-    u8 *curPtr;     /* ptr to the next event */
+    u8* curPtr;     /* ptr to the next event */
     s32 lastTicks;  /* sequence clock ticks (used by alSeqSetLoc) */
     s32 curTicks;   /* sequence clock ticks of next event (used by loop end test) */
     s16 lastStatus; /* the last status msg */
@@ -551,11 +551,11 @@ typedef struct {
 } ALEndEvent;
 
 typedef struct {
-    struct ALVoice_s *voice;
+    struct ALVoice_s* voice;
 } ALNoteEvent;
 
 typedef struct {
-    struct ALVoice_s *voice;
+    struct ALVoice_s* voice;
     ALMicroTime delta;
     u8 vol;
 } ALVolumeEvent;
@@ -565,8 +565,8 @@ typedef struct {
 } ALSeqpVolEvent;
 
 typedef struct {
-    ALSeqMarker *start;
-    ALSeqMarker *end;
+    ALSeqMarker* start;
+    ALSeqMarker* end;
     s32 count;
 } ALSeqpLoopEvent;
 
@@ -576,16 +576,16 @@ typedef struct {
 } ALSeqpPriorityEvent;
 
 typedef struct {
-    void *seq; /* pointer to a seq (could be an ALSeq or an ALCSeq). */
+    void* seq; /* pointer to a seq (could be an ALSeq or an ALCSeq). */
 } ALSeqpSeqEvent;
 
 typedef struct {
-    ALBank *bank;
+    ALBank* bank;
 } ALSeqpBankEvent;
 
 typedef struct {
-    struct ALVoiceState_s *vs;
-    void *oscState;
+    struct ALVoiceState_s* vs;
+    void* oscState;
     u8 chan;
 } ALOscEvent;
 
@@ -618,11 +618,11 @@ typedef struct {
     s32 eventCount;
 } ALEventQueue;
 
-void alEvtqNew(ALEventQueue *evtq, ALEventListItem *items, s32 itemCount);
-ALMicroTime alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt);
-void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, ALMicroTime delta);
-void alEvtqFlush(ALEventQueue *evtq);
-void alEvtqFlushType(ALEventQueue *evtq, s16 type);
+void alEvtqNew(ALEventQueue* evtq, ALEventListItem* items, s32 itemCount);
+ALMicroTime alEvtqNextEvent(ALEventQueue* evtq, ALEvent* evt);
+void alEvtqPostEvent(ALEventQueue* evtq, ALEvent* evt, ALMicroTime delta);
+void alEvtqFlush(ALEventQueue* evtq);
+void alEvtqFlushType(ALEventQueue* evtq, s16 type);
 
 #define AL_PHASE_ATTACK  0
 #define AL_PHASE_NOTEON  0
@@ -632,9 +632,9 @@ void alEvtqFlushType(ALEventQueue *evtq, s16 type);
 #define AL_PHASE_SUSTREL 4
 
 typedef struct ALVoiceState_s {
-    struct ALVoiceState_s *next; /* MUST be first                */
+    struct ALVoiceState_s* next; /* MUST be first                */
     ALVoice voice;
-    ALSound *sound;
+    ALSound* sound;
     ALMicroTime envEndTime; /* time of envelope segment end */
     f32 pitch;              /* currect pitch ratio          */
     f32 vibrato;            /* current value of the vibrato */
@@ -650,7 +650,7 @@ typedef struct ALVoiceState_s {
 } ALVoiceState;
 
 typedef struct {
-    ALInstrument *instrument; /* instrument assigned to this chan */
+    ALInstrument* instrument; /* instrument assigned to this chan */
     s16 bendRange;            /* pitch bend range in cents        */
     ALFxId fxId;              /* type of fx assigned to this chan */
     ALPan pan;                /* overall pan for this chan        */
@@ -662,9 +662,9 @@ typedef struct {
 } ALChanState;
 
 typedef struct ALSeq_s {
-    u8 *base;       /* ptr to start of sequence file   */
-    u8 *trackStart; /* ptr to first MIDI event         */
-    u8 *curPtr;     /* ptr to next event to read       */
+    u8* base;       /* ptr to start of sequence file   */
+    u8* trackStart; /* ptr to first MIDI event         */
+    u8* curPtr;     /* ptr to next event to read       */
     s32 lastTicks;  /* MIDI ticks for last event       */
     s32 len;        /* length of sequence in bytes     */
     f32 qnpt;       /* qrter notes / tick (1/division) */
@@ -678,16 +678,16 @@ typedef struct {
 } ALCMidiHdr;
 
 typedef struct ALCSeq_s {
-    ALCMidiHdr *base;      /* ptr to start of sequence file         */
+    ALCMidiHdr* base;      /* ptr to start of sequence file         */
     u32 validTracks;       /* set of flags, showing valid tracks    */
     f32 qnpt;              /* qrter notes / tick (1/division)       */
     u32 lastTicks;         /* keep track of ticks incase app wants  */
     u32 lastDeltaTicks;    /* number of delta ticks of last event   */
     u32 deltaFlag;         /* flag: set if delta's not subtracted   */
-    u8 *curLoc[16];        /* ptr to current track location,        */
+    u8* curLoc[16];        /* ptr to current track location,        */
                            /* may point to next event, or may point */
                            /* to a backup code                      */
-    u8 *curBUPtr[16];      /* ptr to next event if in backup mode   */
+    u8* curBUPtr[16];      /* ptr to next event if in backup mode   */
     u8 curBULen[16];       /* if > 0, then in backup mode           */
     u8 lastStatus[16];     /* for running status                    */
     u32 evtDeltaTicks[16]; /* delta time to next event              */
@@ -697,8 +697,8 @@ typedef struct {
     u32 validTracks;
     s32 lastTicks;
     u32 lastDeltaTicks;
-    u8 *curLoc[16];
-    u8 *curBUPtr[16];
+    u8* curLoc[16];
+    u8* curBUPtr[16];
     u8 curBULen[16];
     u8 lastStatus[16];
     u32 evtDeltaTicks[16];
@@ -713,22 +713,22 @@ typedef struct {
     s32 maxEvents;  /* max internal events to support   */
     u8 maxChannels; /* max MIDI channels to support (16)*/
     u8 debugFlags;  /* control which error get reported */
-    ALHeap *heap;   /* ptr to initialized heap          */
-    void *initOsc;
-    void *updateOsc;
-    void *stopOsc;
+    ALHeap* heap;   /* ptr to initialized heap          */
+    void* initOsc;
+    void* updateOsc;
+    void* stopOsc;
 } ALSeqpConfig;
 
-typedef ALMicroTime (*ALOscInit)(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 oscDepth, u8 oscDelay);
-typedef ALMicroTime (*ALOscUpdate)(void *oscState, f32 *updateVal);
-typedef void (*ALOscStop)(void *oscState);
+typedef ALMicroTime (*ALOscInit)(void** oscState, f32* initVal, u8 oscType, u8 oscRate, u8 oscDepth, u8 oscDelay);
+typedef ALMicroTime (*ALOscUpdate)(void* oscState, f32* updateVal);
+typedef void (*ALOscStop)(void* oscState);
 
 typedef struct {
     ALPlayer node; /* note: must be first in structure */
-    ALSynth *drvr; /* reference to the client driver   */
-    ALSeq *target; /* current sequence                 */
+    ALSynth* drvr; /* reference to the client driver   */
+    ALSeq* target; /* current sequence                 */
     ALMicroTime curTime;
-    ALBank *bank;  /* current ALBank                   */
+    ALBank* bank;  /* current ALBank                   */
     s32 uspt;      /* microseconds per tick            */
     s32 nextDelta; /* microseconds to next callback    */
     s32 state;
@@ -739,24 +739,24 @@ typedef struct {
     ALEvent nextEvent;
     ALEventQueue evtq;
     ALMicroTime frameTime;
-    ALChanState *chanState;   /* 16 channels for MIDI             */
-    ALVoiceState *vAllocHead; /* list head for allocated voices   */
-    ALVoiceState *vAllocTail; /* list tail for allocated voices   */
-    ALVoiceState *vFreeList;  /* list of free voice state structs */
+    ALChanState* chanState;   /* 16 channels for MIDI             */
+    ALVoiceState* vAllocHead; /* list head for allocated voices   */
+    ALVoiceState* vAllocTail; /* list tail for allocated voices   */
+    ALVoiceState* vFreeList;  /* list of free voice state structs */
     ALOscInit initOsc;
     ALOscUpdate updateOsc;
     ALOscStop stopOsc;
-    ALSeqMarker *loopStart;
-    ALSeqMarker *loopEnd;
+    ALSeqMarker* loopStart;
+    ALSeqMarker* loopEnd;
     s32 loopCount; /* -1 = loop forever, 0 = no loop   */
 } ALSeqPlayer;
 
 typedef struct {
     ALPlayer node;  /* note: must be first in structure */
-    ALSynth *drvr;  /* reference to the client driver   */
-    ALCSeq *target; /* current sequence                 */
+    ALSynth* drvr;  /* reference to the client driver   */
+    ALCSeq* target; /* current sequence                 */
     ALMicroTime curTime;
-    ALBank *bank;  /* current ALBank                   */
+    ALBank* bank;  /* current ALBank                   */
     s32 uspt;      /* microseconds per tick            */
     s32 nextDelta; /* microseconds to next callback    */
     s32 state;
@@ -767,10 +767,10 @@ typedef struct {
     ALEvent nextEvent;
     ALEventQueue evtq;
     ALMicroTime frameTime;
-    ALChanState *chanState;   /* 16 channels for MIDI             */
-    ALVoiceState *vAllocHead; /* list head for allocated voices   */
-    ALVoiceState *vAllocTail; /* list tail for allocated voices   */
-    ALVoiceState *vFreeList;  /* list of free voice state structs */
+    ALChanState* chanState;   /* 16 channels for MIDI             */
+    ALVoiceState* vAllocHead; /* list head for allocated voices   */
+    ALVoiceState* vAllocTail; /* list tail for allocated voices   */
+    ALVoiceState* vFreeList;  /* list of free voice state structs */
     ALOscInit initOsc;
     ALOscUpdate updateOsc;
     ALOscStop stopOsc;
@@ -779,56 +779,56 @@ typedef struct {
 /*
  * Sequence data representation routines
  */
-void alSeqNew(ALSeq *seq, u8 *ptr, s32 len);
-void alSeqNextEvent(ALSeq *seq, ALEvent *event);
-s32 alSeqGetTicks(ALSeq *seq);
-f32 alSeqTicksToSec(ALSeq *seq, s32 ticks, u32 tempo);
-u32 alSeqSecToTicks(ALSeq *seq, f32 sec, u32 tempo);
-void alSeqNewMarker(ALSeq *seq, ALSeqMarker *m, u32 ticks);
-void alSeqSetLoc(ALSeq *seq, ALSeqMarker *marker);
-void alSeqGetLoc(ALSeq *seq, ALSeqMarker *marker);
+void alSeqNew(ALSeq* seq, u8* ptr, s32 len);
+void alSeqNextEvent(ALSeq* seq, ALEvent* event);
+s32 alSeqGetTicks(ALSeq* seq);
+f32 alSeqTicksToSec(ALSeq* seq, s32 ticks, u32 tempo);
+u32 alSeqSecToTicks(ALSeq* seq, f32 sec, u32 tempo);
+void alSeqNewMarker(ALSeq* seq, ALSeqMarker* m, u32 ticks);
+void alSeqSetLoc(ALSeq* seq, ALSeqMarker* marker);
+void alSeqGetLoc(ALSeq* seq, ALSeqMarker* marker);
 /*
  * Compact Sequence data representation routines
  */
-void alCSeqNew(ALCSeq *seq, u8 *ptr);
-void alCSeqNextEvent(ALCSeq *seq, ALEvent *evt);
-s32 alCSeqGetTicks(ALCSeq *seq);
-f32 alCSeqTicksToSec(ALCSeq *seq, s32 ticks, u32 tempo);
-u32 alCSeqSecToTicks(ALCSeq *seq, f32 sec, u32 tempo);
-void alCSeqNewMarker(ALCSeq *seq, ALCSeqMarker *m, u32 ticks);
-void alCSeqSetLoc(ALCSeq *seq, ALCSeqMarker *marker);
-void alCSeqGetLoc(ALCSeq *seq, ALCSeqMarker *marker);
+void alCSeqNew(ALCSeq* seq, u8* ptr);
+void alCSeqNextEvent(ALCSeq* seq, ALEvent* evt);
+s32 alCSeqGetTicks(ALCSeq* seq);
+f32 alCSeqTicksToSec(ALCSeq* seq, s32 ticks, u32 tempo);
+u32 alCSeqSecToTicks(ALCSeq* seq, f32 sec, u32 tempo);
+void alCSeqNewMarker(ALCSeq* seq, ALCSeqMarker* m, u32 ticks);
+void alCSeqSetLoc(ALCSeq* seq, ALCSeqMarker* marker);
+void alCSeqGetLoc(ALCSeq* seq, ALCSeqMarker* marker);
 
 /*
  * Sequence Player routines
  */
 f32 alCents2Ratio(s32 cents);
 
-void alSeqpNew(ALSeqPlayer *seqp, ALSeqpConfig *config);
-void alSeqpDelete(ALSeqPlayer *seqp);
-void alSeqpSetSeq(ALSeqPlayer *seqp, ALSeq *seq);
-ALSeq *alSeqpGetSeq(ALSeqPlayer *seqp);
-void alSeqpPlay(ALSeqPlayer *seqp);
-void alSeqpStop(ALSeqPlayer *seqp);
-s32 alSeqpGetState(ALSeqPlayer *seqp);
-void alSeqpSetBank(ALSeqPlayer *seqp, ALBank *b);
-void alSeqpSetTempo(ALSeqPlayer *seqp, s32 tempo);
-s32 alSeqpGetTempo(ALSeqPlayer *seqp);
-s16 alSeqpGetVol(ALSeqPlayer *seqp); /* Master volume control */
-void alSeqpSetVol(ALSeqPlayer *seqp, s16 vol);
-void alSeqpLoop(ALSeqPlayer *seqp, ALSeqMarker *start, ALSeqMarker *end, s32 count);
+void alSeqpNew(ALSeqPlayer* seqp, ALSeqpConfig* config);
+void alSeqpDelete(ALSeqPlayer* seqp);
+void alSeqpSetSeq(ALSeqPlayer* seqp, ALSeq* seq);
+ALSeq* alSeqpGetSeq(ALSeqPlayer* seqp);
+void alSeqpPlay(ALSeqPlayer* seqp);
+void alSeqpStop(ALSeqPlayer* seqp);
+s32 alSeqpGetState(ALSeqPlayer* seqp);
+void alSeqpSetBank(ALSeqPlayer* seqp, ALBank* b);
+void alSeqpSetTempo(ALSeqPlayer* seqp, s32 tempo);
+s32 alSeqpGetTempo(ALSeqPlayer* seqp);
+s16 alSeqpGetVol(ALSeqPlayer* seqp); /* Master volume control */
+void alSeqpSetVol(ALSeqPlayer* seqp, s16 vol);
+void alSeqpLoop(ALSeqPlayer* seqp, ALSeqMarker* start, ALSeqMarker* end, s32 count);
 
-void alSeqpSetChlProgram(ALSeqPlayer *seqp, u8 chan, u8 prog);
-s32 alSeqpGetChlProgram(ALSeqPlayer *seqp, u8 chan);
-void alSeqpSetChlFXMix(ALSeqPlayer *seqp, u8 chan, u8 fxmix);
-u8 alSeqpGetChlFXMix(ALSeqPlayer *seqp, u8 chan);
-void alSeqpSetChlVol(ALSeqPlayer *seqp, u8 chan, u8 vol);
-u8 alSeqpGetChlVol(ALSeqPlayer *seqp, u8 chan);
-void alSeqpSetChlPan(ALSeqPlayer *seqp, u8 chan, ALPan pan);
-ALPan alSeqpGetChlPan(ALSeqPlayer *seqp, u8 chan);
-void alSeqpSetChlPriority(ALSeqPlayer *seqp, u8 chan, u8 priority);
-u8 alSeqpGetChlPriority(ALSeqPlayer *seqp, u8 chan);
-void alSeqpSendMidi(ALSeqPlayer *seqp, s32 ticks, u8 status, u8 byte1, u8 byte2);
+void alSeqpSetChlProgram(ALSeqPlayer* seqp, u8 chan, u8 prog);
+s32 alSeqpGetChlProgram(ALSeqPlayer* seqp, u8 chan);
+void alSeqpSetChlFXMix(ALSeqPlayer* seqp, u8 chan, u8 fxmix);
+u8 alSeqpGetChlFXMix(ALSeqPlayer* seqp, u8 chan);
+void alSeqpSetChlVol(ALSeqPlayer* seqp, u8 chan, u8 vol);
+u8 alSeqpGetChlVol(ALSeqPlayer* seqp, u8 chan);
+void alSeqpSetChlPan(ALSeqPlayer* seqp, u8 chan, ALPan pan);
+ALPan alSeqpGetChlPan(ALSeqPlayer* seqp, u8 chan);
+void alSeqpSetChlPriority(ALSeqPlayer* seqp, u8 chan, u8 priority);
+u8 alSeqpGetChlPriority(ALSeqPlayer* seqp, u8 chan);
+void alSeqpSendMidi(ALSeqPlayer* seqp, s32 ticks, u8 status, u8 byte1, u8 byte2);
 
 /* Maintain backwards compatibility with old routine names. */
 #define alSeqpSetProgram         alSeqpSetChlProgram
@@ -843,30 +843,30 @@ void alSeqpSendMidi(ALSeqPlayer *seqp, s32 ticks, u8 status, u8 byte1, u8 byte2)
 /*
  * Compressed Sequence Player routines
  */
-void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *config);
-void alCSPDelete(ALCSPlayer *seqp);
-void alCSPSetSeq(ALCSPlayer *seqp, ALCSeq *seq);
-ALCSeq *alCSPGetSeq(ALCSPlayer *seqp);
-void alCSPPlay(ALCSPlayer *seqp);
-void alCSPStop(ALCSPlayer *seqp);
-s32 alCSPGetState(ALCSPlayer *seqp);
-void alCSPSetBank(ALCSPlayer *seqp, ALBank *b);
-void alCSPSetTempo(ALCSPlayer *seqp, s32 tempo);
-s32 alCSPGetTempo(ALCSPlayer *seqp);
-s16 alCSPGetVol(ALCSPlayer *seqp);
-void alCSPSetVol(ALCSPlayer *seqp, s16 vol);
+void alCSPNew(ALCSPlayer* seqp, ALSeqpConfig* config);
+void alCSPDelete(ALCSPlayer* seqp);
+void alCSPSetSeq(ALCSPlayer* seqp, ALCSeq* seq);
+ALCSeq* alCSPGetSeq(ALCSPlayer* seqp);
+void alCSPPlay(ALCSPlayer* seqp);
+void alCSPStop(ALCSPlayer* seqp);
+s32 alCSPGetState(ALCSPlayer* seqp);
+void alCSPSetBank(ALCSPlayer* seqp, ALBank* b);
+void alCSPSetTempo(ALCSPlayer* seqp, s32 tempo);
+s32 alCSPGetTempo(ALCSPlayer* seqp);
+s16 alCSPGetVol(ALCSPlayer* seqp);
+void alCSPSetVol(ALCSPlayer* seqp, s16 vol);
 
-void alCSPSetChlProgram(ALCSPlayer *seqp, u8 chan, u8 prog);
-s32 alCSPGetChlProgram(ALCSPlayer *seqp, u8 chan);
-void alCSPSetChlFXMix(ALCSPlayer *seqp, u8 chan, u8 fxmix);
-u8 alCSPGetChlFXMix(ALCSPlayer *seqp, u8 chan);
-void alCSPSetChlPan(ALCSPlayer *seqp, u8 chan, ALPan pan);
-ALPan alCSPGetChlPan(ALCSPlayer *seqp, u8 chan);
-void alCSPSetChlVol(ALCSPlayer *seqp, u8 chan, u8 vol);
-u8 alCSPGetChlVol(ALCSPlayer *seqp, u8 chan);
-void alCSPSetChlPriority(ALCSPlayer *seqp, u8 chan, u8 priority);
-u8 alCSPGetChlPriority(ALCSPlayer *seqp, u8 chan);
-void alCSPSendMidi(ALCSPlayer *seqp, s32 ticks, u8 status, u8 byte1, u8 byte2);
+void alCSPSetChlProgram(ALCSPlayer* seqp, u8 chan, u8 prog);
+s32 alCSPGetChlProgram(ALCSPlayer* seqp, u8 chan);
+void alCSPSetChlFXMix(ALCSPlayer* seqp, u8 chan, u8 fxmix);
+u8 alCSPGetChlFXMix(ALCSPlayer* seqp, u8 chan);
+void alCSPSetChlPan(ALCSPlayer* seqp, u8 chan, ALPan pan);
+ALPan alCSPGetChlPan(ALCSPlayer* seqp, u8 chan);
+void alCSPSetChlVol(ALCSPlayer* seqp, u8 chan, u8 vol);
+u8 alCSPGetChlVol(ALCSPlayer* seqp, u8 chan);
+void alCSPSetChlPriority(ALCSPlayer* seqp, u8 chan, u8 priority);
+u8 alCSPGetChlPriority(ALCSPlayer* seqp, u8 chan);
+void alCSPSendMidi(ALCSPlayer* seqp, s32 ticks, u8 status, u8 byte1, u8 byte2);
 
 /* Maintain backwards compatibility with old routine names. */
 #define alCSPSetProgram         alCSPSetChlProgram
@@ -885,16 +885,16 @@ void alCSPSendMidi(ALCSPlayer *seqp, s32 ticks, u8 status, u8 byte1, u8 byte2);
 typedef struct {
     s32 maxSounds;
     s32 maxEvents;
-    ALHeap *heap;
+    ALHeap* heap;
 } ALSndpConfig;
 
 typedef struct {
     ALPlayer node; /* note: must be first in structure */
     ALEventQueue evtq;
     ALEvent nextEvent;
-    ALSynth *drvr; /* reference to the client driver   */
+    ALSynth* drvr; /* reference to the client driver   */
     s32 target;
-    void *sndState;
+    void* sndState;
     s32 maxSounds;
     ALMicroTime frameTime;
     ALMicroTime nextDelta; /* microseconds to next callback    */
@@ -903,29 +903,29 @@ typedef struct {
 
 typedef s16 ALSndId;
 
-void alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c);
-void alSndpDelete(ALSndPlayer *sndp);
+void alSndpNew(ALSndPlayer* sndp, ALSndpConfig* c);
+void alSndpDelete(ALSndPlayer* sndp);
 
-ALSndId alSndpAllocate(ALSndPlayer *sndp, ALSound *sound);
-void alSndpDeallocate(ALSndPlayer *sndp, ALSndId id);
+ALSndId alSndpAllocate(ALSndPlayer* sndp, ALSound* sound);
+void alSndpDeallocate(ALSndPlayer* sndp, ALSndId id);
 
-void alSndpSetSound(ALSndPlayer *sndp, ALSndId id);
-ALSndId alSndpGetSound(ALSndPlayer *sndp);
+void alSndpSetSound(ALSndPlayer* sndp, ALSndId id);
+ALSndId alSndpGetSound(ALSndPlayer* sndp);
 
-void alSndpPlay(ALSndPlayer *sndp);
-void alSndpPlayAt(ALSndPlayer *sndp, ALMicroTime delta);
-void alSndpStop(ALSndPlayer *sndp);
+void alSndpPlay(ALSndPlayer* sndp);
+void alSndpPlayAt(ALSndPlayer* sndp, ALMicroTime delta);
+void alSndpStop(ALSndPlayer* sndp);
 
-void alSndpSetVol(ALSndPlayer *sndp, s16 vol);
-void alSndpSetPitch(ALSndPlayer *sndp, f32 pitch);
-void alSndpSetPan(ALSndPlayer *sndp, ALPan pan);
-void alSndpSetPriority(ALSndPlayer *sndp, ALSndId id, u8 priority);
+void alSndpSetVol(ALSndPlayer* sndp, s16 vol);
+void alSndpSetPitch(ALSndPlayer* sndp, f32 pitch);
+void alSndpSetPan(ALSndPlayer* sndp, ALPan pan);
+void alSndpSetPriority(ALSndPlayer* sndp, ALSndId id, u8 priority);
 
-void alSndpSetFXMix(ALSndPlayer *sndp, u8 mix);
-s32 alSndpGetState(ALSndPlayer *sndp);
+void alSndpSetFXMix(ALSndPlayer* sndp, u8 mix);
+s32 alSndpGetState(ALSndPlayer* sndp);
 
 #ifndef _FINALROM
-void alParseAbiCL(Acmd *cmdList, u32 nbytes);
+void alParseAbiCL(Acmd* cmdList, u32 nbytes);
 #endif
 #ifdef _LANGUAGE_C_PLUS_PLUS
 }

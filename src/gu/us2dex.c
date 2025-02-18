@@ -22,7 +22,7 @@
  *frameW.  However, if  imageLoad == G_BGLT_LOADBLOCK and  *		only frameW is changed, another
  *call is unnecessary.
  */
-void guS2DInitBg(uObjBg *bg) {
+void guS2DInitBg(uObjBg* bg) {
     u16 tmemUse;
     u16 shift;
 #if BUILD_VERSION >= VERSION_J

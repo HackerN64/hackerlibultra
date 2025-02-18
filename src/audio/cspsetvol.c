@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alCSPSetVol(ALCSPlayer *seqp, s16 vol) {
+void alCSPSetVol(ALCSPlayer* seqp, s16 vol) {
     ALEvent evt;
 
     evt.type = AL_SEQP_VOL_EVT;

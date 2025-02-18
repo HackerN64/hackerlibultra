@@ -12,9 +12,9 @@
 static char ldigs[] = "0123456789abcdef";
 static char udigs[] = "0123456789ABCDEF";
 
-void _Litob(_Pft *px, char code) {
+void _Litob(_Pft* px, char code) {
     char buff[BUFF_LEN];
-    const char *digs;
+    const char* digs;
     int base;
     int i;
     unsigned long long ullval;

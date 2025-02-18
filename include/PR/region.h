@@ -80,8 +80,8 @@ extern "C" {
  * Structure for region header/control area
  */
 typedef struct _Region_s {
-    u8 *r_startBufferAddress; /* start address to data buffer */
-    u8 *r_endAddress;         /* end address of region */
+    u8* r_startBufferAddress; /* start address to data buffer */
+    u8* r_endAddress;         /* end address of region */
     s32 r_bufferSize;         /* size of buffers for this region */
     s32 r_bufferCount;        /* up to 32K entries; MSB is used for
                                  setting end-of-list/used */
@@ -100,11 +100,11 @@ typedef struct _Region_s {
  * Function prototypes
  *
  */
-extern void *osCreateRegion(void *, u32, u32, u32);
-extern void *osMalloc(void *);
-extern void osFree(void *, void *);
-extern s32 osGetRegionBufCount(void *);
-extern s32 osGetRegionBufSize(void *);
+extern void* osCreateRegion(void*, u32, u32, u32);
+extern void* osMalloc(void*);
+extern void osFree(void*, void*);
+extern s32 osGetRegionBufCount(void*);
+extern s32 osGetRegionBufSize(void*);
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 }

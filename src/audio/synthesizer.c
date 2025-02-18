@@ -31,23 +31,23 @@ extern u32 client_num, client_cnt, client_max, client_min;
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #endif
 
-static s32 __nextSampleTime(ALSynth *drvr, ALPlayer **client);
-static s32 _timeToSamplesNoRound(ALSynth *ALSynth, s32 micros);
+static s32 __nextSampleTime(ALSynth* drvr, ALPlayer** client);
+static s32 _timeToSamplesNoRound(ALSynth* ALSynth, s32 micros);
 
 /***********************************************************************
  * Synthesis driver public interfaces
  ***********************************************************************/
-void alSynNew(ALSynth *drvr, ALSynConfig *c) {
+void alSynNew(ALSynth* drvr, ALSynConfig* c) {
     s32 i;
-    ALVoice *vv;
-    PVoice *pv;
-    ALVoice *vvoices;
-    PVoice *pvoices;
-    ALHeap *hp = c->heap;
-    ALSave *save;
-    ALFilter *sources;
-    ALParam *params;
-    ALParam *paramPtr;
+    ALVoice* vv;
+    PVoice* pv;
+    ALVoice* vvoices;
+    PVoice* pvoices;
+    ALHeap* hp = c->heap;
+    ALSave* save;
+    ALFilter* sources;
+    ALParam* params;
+    ALParam* paramPtr;
 
     drvr->head = NULL;
     drvr->numPVoices = c->maxPVoices;
@@ -59,7 +59,7 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
 
     save = alHeapAlloc(hp, 1, sizeof(ALSave));
     alSaveNew(save);
-    drvr->outputFilter = (ALFilter *)save;
+    drvr->outputFilter = (ALFilter*)save;
 
     /*
      * allocate and initialize the auxilliary effects bus. at present
@@ -67,14 +67,14 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
      */
     drvr->auxBus = alHeapAlloc(hp, 1, sizeof(ALAuxBus));
     drvr->maxAuxBusses = 1;
-    sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter *));
+    sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter*));
     alAuxBusNew(drvr->auxBus, sources, c->maxPVoices);
 
     /*
      * allocate and initialize the main bus.
      */
     drvr->mainBus = alHeapAlloc(hp, 1, sizeof(ALMainBus));
-    sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter *));
+    sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter*));
     alMainBusNew(drvr->mainBus, sources, c->maxPVoices);
 
     if (c->fxType != AL_FX_NONE) {
@@ -101,7 +101,7 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
     pvoices = alHeapAlloc(hp, c->maxPVoices, sizeof(PVoice));
     for (i = 0; i < c->maxPVoices; i++) {
         pv = &pvoices[i];
-        alLink((ALLink *)pv, &drvr->pFreeList);
+        alLink((ALLink*)pv, &drvr->pFreeList);
         pv->vvoice = 0;
 
         alLoadNew(&pv->decoder, drvr->dma, hp);
@@ -115,7 +115,7 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
 
         alAuxBusParam(drvr->auxBus, AL_FILTER_ADD_SOURCE, &pv->envmixer);
 
-        pv->channelKnob = (ALFilter *)&pv->envmixer;
+        pv->channelKnob = (ALFilter*)&pv->envmixer;
     }
 
     alSaveParam(save, AL_FILTER_SET_SOURCE, drvr->mainBus);
@@ -139,15 +139,15 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c) {
  * frame interrupt. It is assumed to be an accurate time source for the
  * clients.
  */
-Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen) {
-    ALPlayer *client;
-    ALFilter *output;
-    ALSynth *drvr = &alGlobals->drvr;
+Acmd* alAudioFrame(Acmd* cmdList, s32* cmdLen, s16* outBuf, s32 outLen) {
+    ALPlayer* client;
+    ALFilter* output;
+    ALSynth* drvr = &alGlobals->drvr;
     s16 tmp = 0; /* Starting buffer in DMEM */
-    Acmd *cmdlEnd = cmdList;
-    Acmd *cmdPtr;
+    Acmd* cmdlEnd = cmdList;
+    Acmd* cmdPtr;
     s32 nOut;
-    s16 *lOutBuf = outBuf;
+    s16* lOutBuf = outBuf;
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -230,9 +230,9 @@ Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen) {
  * Synthesis driver private interfaces
  ***********************************************************************/
 
-ALParam *__allocParam() {
-    ALParam *update = 0;
-    ALSynth *drvr = &alGlobals->drvr;
+ALParam* __allocParam() {
+    ALParam* update = 0;
+    ALSynth* drvr = &alGlobals->drvr;
 
     if (drvr->paramList) {
         update = drvr->paramList;
@@ -242,18 +242,18 @@ ALParam *__allocParam() {
     return update;
 }
 
-void __freeParam(ALParam *param) {
-    ALSynth *drvr = &alGlobals->drvr;
+void __freeParam(ALParam* param) {
+    ALSynth* drvr = &alGlobals->drvr;
     param->next = drvr->paramList;
     drvr->paramList = param;
 }
 
-void _collectPVoices(ALSynth *drvr) {
-    ALLink *dl;
-    PVoice *pv;
+void _collectPVoices(ALSynth* drvr) {
+    ALLink* dl;
+    PVoice* pv;
 
     while ((dl = drvr->pLameList.next) != 0) {
-        pv = (PVoice *)dl;
+        pv = (PVoice*)dl;
 
         /* ### remove from mixer */
 
@@ -262,12 +262,12 @@ void _collectPVoices(ALSynth *drvr) {
     }
 }
 
-void _freePVoice(ALSynth *drvr, PVoice *pvoice) {
+void _freePVoice(ALSynth* drvr, PVoice* pvoice) {
     /*
      * move the voice from the allocated list to the lame list
      */
-    alUnlink((ALLink *)pvoice);
-    alLink((ALLink *)pvoice, &drvr->pLameList);
+    alUnlink((ALLink*)pvoice);
+    alLink((ALLink*)pvoice, &drvr->pLameList);
 }
 
 /*
@@ -275,19 +275,19 @@ void _freePVoice(ALSynth *drvr, PVoice *pvoice) {
   the truncation error produced by casting
   a float to an int.
 */
-s32 _timeToSamplesNoRound(ALSynth *synth, s32 micros) {
+s32 _timeToSamplesNoRound(ALSynth* synth, s32 micros) {
     f32 tmp = ((f32)micros) * synth->outputRate / 1000000.0 + 0.5;
 
     return (s32)tmp;
 }
 
-s32 _timeToSamples(ALSynth *synth, s32 micros) {
+s32 _timeToSamples(ALSynth* synth, s32 micros) {
     return _timeToSamplesNoRound(synth, micros) & ~0xf;
 }
 
-static s32 __nextSampleTime(ALSynth *drvr, ALPlayer **client) {
+static s32 __nextSampleTime(ALSynth* drvr, ALPlayer** client) {
     ALMicroTime delta = 0x7fffffff; /* max delta for s32 */
-    ALPlayer *cl;
+    ALPlayer* cl;
 #if BUILD_VERSION < VERSION_J // Adjust line numbers to match assert
 #line 306
 #endif

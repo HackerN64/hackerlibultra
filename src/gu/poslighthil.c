@@ -29,7 +29,7 @@
  */
 #define THRESH2 0.01
 #define THRESH3 0.1
-void guPosLightHilite(PositionalLight *pl1, PositionalLight *pl2, Light *l1, Light *l2, LookAt *l, Hilite *h,
+void guPosLightHilite(PositionalLight* pl1, PositionalLight* pl2, Light* l1, Light* l2, LookAt* l, Hilite* h,
                       float xEye, float yEye, float zEye, float xOb, float yOb, float zOb, float xUp, float yUp,
                       float zUp, int twidth, int theight) /* hilite txtr size*/
 {

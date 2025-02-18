@@ -12,7 +12,7 @@
 
 #include "guint.h"
 
-void guLookAtReflectF(float mf[4][4], LookAt *l, float xEye, float yEye, float zEye, float xAt, float yAt, float zAt,
+void guLookAtReflectF(float mf[4][4], LookAt* l, float xEye, float yEye, float zEye, float xAt, float yAt, float zAt,
                       float xUp, float yUp, float zUp) {
     float len, xLook, yLook, zLook, xRight, yRight, zRight;
 
@@ -94,7 +94,7 @@ void guLookAtReflectF(float mf[4][4], LookAt *l, float xEye, float yEye, float z
     mf[3][3] = 1;
 }
 
-void guLookAtReflect(Mtx *m, LookAt *l, float xEye, float yEye, float zEye, float xAt, float yAt, float zAt, float xUp,
+void guLookAtReflect(Mtx* m, LookAt* l, float xEye, float yEye, float zEye, float xAt, float yAt, float zAt, float xUp,
                      float yUp, float zUp) {
     float mf[4][4];
 

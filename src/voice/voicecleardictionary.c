@@ -15,7 +15,7 @@
 #include "PR/os_voice.h"
 #include "voiceinternal.h"
 
-s32 osVoiceClearDictionary(OSVoiceHandle *hd, u8 words) {
+s32 osVoiceClearDictionary(OSVoiceHandle* hd, u8 words) {
     s32 ret;
     u8 stat;
     u8 buf[4];
@@ -27,7 +27,7 @@ s32 osVoiceClearDictionary(OSVoiceHandle *hd, u8 words) {
         return CONT_ERR_VOICE_NO_RESPONSE;
     }
 
-    *(u32 *)buf = 0x02000000;
+    *(u32*)buf = 0x02000000;
     buf[2] = words;
 
     ERRCK(__osVoiceContWrite4(hd->__mq, hd->__channel, 0, buf));

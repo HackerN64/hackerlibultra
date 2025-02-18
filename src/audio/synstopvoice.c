@@ -22,9 +22,9 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 
-void alSynStopVoice(ALSynth *synth, ALVoice *v) {
-    ALParam *update;
-    ALFilter *f;
+void alSynStopVoice(ALSynth* synth, ALVoice* v) {
+    ALParam* update;
+    ALFilter* f;
 
     if (v->pvoice) {
 

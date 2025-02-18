@@ -42,7 +42,7 @@ struct bitmap {
 
     s16 t; /* Vertical offset into base	*/
 
-    void *buf; /* Pointer to bitmap data	*/
+    void* buf; /* Pointer to bitmap data	*/
                /* Don't re-load if new buf	*/
                /* is the same as the old one   */
                /* Skip if NULL */
@@ -74,7 +74,7 @@ struct sprite {
     s16 startTLUT; /* Lookup Table Entry Starting index */
     s16 nTLUT;     /* Total number of Lookup Table Entries */
 
-    int *LUT; /* Pointer to Lookup Table	*/
+    int* LUT; /* Pointer to Lookup Table	*/
 
     s16 istart; /* Starting bitmap index	*/
     s16 istep;  /* Bitmaps index step (see SP_INCY) */
@@ -88,11 +88,11 @@ struct sprite {
     u8 bmfmt;     /* Bitmap Format	 	*/
     u8 bmsiz;     /* Bitmap Texel Size		*/
 
-    Bitmap *bitmap; /* Pointer to first bitmap	*/
+    Bitmap* bitmap; /* Pointer to first bitmap	*/
 
-    Gfx *rsp_dl; /* Pointer to RSP display list	*/
+    Gfx* rsp_dl; /* Pointer to RSP display list	*/
 
-    Gfx *rsp_dl_next; /* Pointer to next RSP display entry	*/
+    Gfx* rsp_dl_next; /* Pointer to next RSP display entry	*/
 
     s16 frac_s, /* Fractional Texture offsets */
         frac_t; /* These have 5 fraction bits */
@@ -178,16 +178,16 @@ typedef struct sprite Sprite;
  * Function prototypes
  */
 
-void spSetAttribute(Sprite *sp, s32 attr);
-void spClearAttribute(Sprite *sp, s32 attr);
-void spMove(Sprite *sp, s32 x, s32 y);
-void spScale(Sprite *sp, f32 sx, f32 sy);
-void spSetZ(Sprite *sp, s32 z);
-void spColor(Sprite *sp, u8 red, u8 green, u8 blue, u8 alpha);
-Gfx *spDraw(Sprite *sp);
-void spInit(Gfx **glistp);
+void spSetAttribute(Sprite* sp, s32 attr);
+void spClearAttribute(Sprite* sp, s32 attr);
+void spMove(Sprite* sp, s32 x, s32 y);
+void spScale(Sprite* sp, f32 sx, f32 sy);
+void spSetZ(Sprite* sp, s32 z);
+void spColor(Sprite* sp, u8 red, u8 green, u8 blue, u8 alpha);
+Gfx* spDraw(Sprite* sp);
+void spInit(Gfx** glistp);
 void spScissor(s32 xmin, s32 xmax, s32 ymin, s32 ymax);
-void spFinish(Gfx **glistp);
+void spFinish(Gfx** glistp);
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 }

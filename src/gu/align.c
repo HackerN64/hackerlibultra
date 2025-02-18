@@ -64,7 +64,7 @@ void guAlignF(float mf[4][4], float a, float x, float y, float z) {
     }
 }
 
-void guAlign(Mtx *m, float a, float x, float y, float z) {
+void guAlign(Mtx* m, float a, float x, float y, float z) {
     Matrix mf;
 
     guAlignF(mf, a, x, y, z);

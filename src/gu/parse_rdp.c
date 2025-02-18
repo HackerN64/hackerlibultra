@@ -19,7 +19,7 @@
  */
 
 #ifndef _FINALROM
-void guParseRdpDL(u64 *rdp_dl, u64 nbytes, u8 flags) {
+void guParseRdpDL(u64* rdp_dl, u64 nbytes, u8 flags) {
     guDLPrintCB cntlBlk;
 
     cntlBlk.dataSize = nbytes;

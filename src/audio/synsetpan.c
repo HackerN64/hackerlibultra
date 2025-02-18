@@ -22,9 +22,9 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 
-void alSynSetPan(ALSynth *synth, ALVoice *v, u8 pan) {
-    ALParam *update;
-    ALFilter *f;
+void alSynSetPan(ALSynth* synth, ALVoice* v, u8 pan) {
+    ALParam* update;
+    ALFilter* f;
 
     if (v->pvoice) {
 

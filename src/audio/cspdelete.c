@@ -22,6 +22,6 @@
 
 #include <libaudio.h>
 
-void alCSPDelete(ALCSPlayer *seqp) {
+void alCSPDelete(ALCSPlayer* seqp) {
     alSynRemovePlayer(seqp->drvr, &seqp->node);
 }

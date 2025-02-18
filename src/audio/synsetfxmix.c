@@ -22,9 +22,9 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 
-void alSynSetFXMix(ALSynth *synth, ALVoice *v, u8 fxmix) {
-    ALParam *update;
-    ALFilter *f;
+void alSynSetFXMix(ALSynth* synth, ALVoice* v, u8 fxmix) {
+    ALParam* update;
+    ALFilter* f;
 
     if (v->pvoice) {
         /*

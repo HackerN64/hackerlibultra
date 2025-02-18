@@ -22,12 +22,12 @@
 
 #include <libaudio.h>
 
-s32 alSeqpGetChlProgram(ALSeqPlayer *seqp, u8 chan)
+s32 alSeqpGetChlProgram(ALSeqPlayer* seqp, u8 chan)
 
 {
     s32 i;
-    ALBank *b = seqp->bank;
-    ALInstrument *inst;
+    ALBank* b = seqp->bank;
+    ALInstrument* inst;
     ALChanState s;
 
     s = seqp->chanState[chan];

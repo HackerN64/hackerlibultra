@@ -45,7 +45,7 @@ void guS2DEmuSetScissor(u32 ulx, u32 uly, u32 lrx, u32 lry, u8 flag) {
 /*---------------------------------------------------------------------------*
  * Create texture load RDP commands
  *---------------------------------------------------------------------------*/
-static void tmemLoad_B(Gfx **pkt, u32 imagePtr, s16 loadLines, s16 tmemSH) {
+static void tmemLoad_B(Gfx** pkt, u32 imagePtr, s16 loadLines, s16 tmemSH) {
     /*
      * Load 16-bit texture of tmemSH word width starting from imagePtr
      * into the loadLines amount of lines of tmem.
@@ -74,7 +74,7 @@ static void tmemLoad_B(Gfx **pkt, u32 imagePtr, s16 loadLines, s16 tmemSH) {
     (*pkt)++;
 }
 
-static void tmemLoad_A(Gfx **pkt, u32 imagePtr, s16 loadLines, s16 tmemAdrs, s16 tmemSH) {
+static void tmemLoad_A(Gfx** pkt, u32 imagePtr, s16 loadLines, s16 tmemAdrs, s16 tmemSH) {
     /*
      * Load 16-bit texture of tmemSH word width starting from imagePtr into
      * the loadLines amount of lines of  the tmemAdrs of tmem.
@@ -92,7 +92,7 @@ static void tmemLoad_A(Gfx **pkt, u32 imagePtr, s16 loadLines, s16 tmemAdrs, s16
     tmemLoad_B(pkt, imagePtr, loadLines, tmemSH);
 }
 
-static void tmemLoad(Gfx **pkt, u32 *imagePtr, s16 *imageRemain, s16 drawLines, s16 flagBilerp) {
+static void tmemLoad(Gfx** pkt, u32* imagePtr, s16* imageRemain, s16 drawLines, s16 flagBilerp) {
     s16 loadLines = drawLines + flagBilerp;
     s16 iLoadable = (*imageRemain) - flagSplit;
 
@@ -166,7 +166,7 @@ static void tmemLoad(Gfx **pkt, u32 *imagePtr, s16 *imageRemain, s16 drawLines, 
 /*---------------------------------------------------------------------------*
  * Scalable BG serface draw process
  *---------------------------------------------------------------------------*/
-void guS2DEmuBgRect1Cyc(Gfx **pkt, uObjBg *bg) {
+void guS2DEmuBgRect1Cyc(Gfx** pkt, uObjBg* bg) {
     s16 frameX0, frameX1, framePtrY0, frameRemain;
     s16 imageX0, imageY0, imageSliceW, imageW;
     s32 imageYorig;
@@ -424,7 +424,7 @@ void guS2DEmuBgRect1Cyc(Gfx **pkt, uObjBg *bg) {
         (*pkt)++;
         /* [SetTile:0] */
         (*pkt)->words.w0 = rdpSetTile_w0;
-        ((u8 *)&((*pkt)->words.w0))[1] = (bg->s.imageFmt << 5) | (bg->s.imageSiz << 3);
+        ((u8*)&((*pkt)->words.w0))[1] = (bg->s.imageFmt << 5) | (bg->s.imageSiz << 3);
         (*pkt)->words.w1 = 0x0007c1f0 | (bg->s.imagePal << 20);
         (*pkt)++;
         /* [SetTileSize:7] */

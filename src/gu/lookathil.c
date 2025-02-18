@@ -12,7 +12,7 @@
 
 #include "guint.h"
 
-void guLookAtHiliteF(float mf[4][4], LookAt *l, Hilite *h, float xEye, float yEye, float zEye, float xAt, float yAt,
+void guLookAtHiliteF(float mf[4][4], LookAt* l, Hilite* h, float xEye, float yEye, float zEye, float xAt, float yAt,
                      float zAt, float xUp, float yUp, float zUp, float xl1, float yl1,
                      float zl1,                       /* light 1 direction */
                      float xl2, float yl2, float zl2, /* light 2 direction */
@@ -150,7 +150,7 @@ void guLookAtHiliteF(float mf[4][4], LookAt *l, Hilite *h, float xEye, float yEy
     mf[3][3] = 1;
 }
 
-void guLookAtHilite(Mtx *m, LookAt *l, Hilite *h, float xEye, float yEye, float zEye, float xAt, float yAt, float zAt,
+void guLookAtHilite(Mtx* m, LookAt* l, Hilite* h, float xEye, float yEye, float zEye, float xAt, float yAt, float zAt,
                     float xUp, float yUp, float zUp, float xl1, float yl1, float zl1, /* light 1 direction */
                     float xl2, float yl2, float zl2,                                  /* light 2 direction */
                     int twidth, int theight)                                          /* highlight txtr size*/

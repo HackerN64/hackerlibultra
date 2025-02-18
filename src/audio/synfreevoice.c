@@ -24,14 +24,14 @@
 
 #include <os.h>
 
-void alSynFreeVoice(ALSynth *drvr, ALVoice *voice) {
-    ALFilter *f;
-    ALFreeParam *update;
+void alSynFreeVoice(ALSynth* drvr, ALVoice* voice) {
+    ALFilter* f;
+    ALFreeParam* update;
 
     if (voice->pvoice) {
 
         if (voice->pvoice->offset) { /* if voice was stolen */
-            update = (ALFreeParam *)__allocParam();
+            update = (ALFreeParam*)__allocParam();
             ALFailIf(update == 0, ERR_ALSYN_NO_UPDATE);
 
             /*

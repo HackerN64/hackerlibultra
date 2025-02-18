@@ -14,7 +14,7 @@
 #include "guint.h"
 #include <ultratypes.h>
 
-void guPerspectiveF(float mf[4][4], u16 *perspNorm, float fovy, float aspect, float near, float far, float scale) {
+void guPerspectiveF(float mf[4][4], u16* perspNorm, float fovy, float aspect, float near, float far, float scale) {
     float cot;
     int i, j;
 
@@ -34,7 +34,7 @@ void guPerspectiveF(float mf[4][4], u16 *perspNorm, float fovy, float aspect, fl
         for (j = 0; j < 4; j++)
             mf[i][j] *= scale;
 
-    if (perspNorm != (u16 *)NULL) {
+    if (perspNorm != (u16*)NULL) {
         if (near + far <= 2.0) {
             *perspNorm = (u16)0xFFFF;
         } else {
@@ -45,7 +45,7 @@ void guPerspectiveF(float mf[4][4], u16 *perspNorm, float fovy, float aspect, fl
     }
 }
 
-void guPerspective(Mtx *m, u16 *perspNorm, float fovy, float aspect, float near, float far, float scale) {
+void guPerspective(Mtx* m, u16* perspNorm, float fovy, float aspect, float near, float far, float scale) {
     Matrix mf;
 
     guPerspectiveF(mf, perspNorm, fovy, aspect, near, far, scale);

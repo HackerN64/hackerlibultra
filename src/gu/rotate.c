@@ -61,7 +61,7 @@ void guRotateF(float mf[4][4], float a, float x, float y, float z) {
     mf[0][1] = ab + zxsine;
 }
 
-void guRotate(Mtx *m, float a, float x, float y, float z) {
+void guRotate(Mtx* m, float a, float x, float y, float z) {
     Matrix mf;
 
     guRotateF(mf, a, x, y, z);

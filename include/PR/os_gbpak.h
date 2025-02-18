@@ -85,12 +85,12 @@ typedef struct {
  */
 
 /* 64GB-PAK */
-extern s32 osGbpakInit(OSMesgQueue *, OSPfs *, int);
-extern s32 osGbpakPower(OSPfs *, s32);
-extern s32 osGbpakGetStatus(OSPfs *, u8 *);
-extern s32 osGbpakReadWrite(OSPfs *, u16, u16, u8 *, u16);
-extern s32 osGbpakReadId(OSPfs *, OSGbpakId *, u8 *);
-extern s32 osGbpakCheckConnector(OSPfs *, u8 *);
+extern s32 osGbpakInit(OSMesgQueue*, OSPfs*, int);
+extern s32 osGbpakPower(OSPfs*, s32);
+extern s32 osGbpakGetStatus(OSPfs*, u8*);
+extern s32 osGbpakReadWrite(OSPfs*, u16, u16, u8*, u16);
+extern s32 osGbpakReadId(OSPfs*, OSGbpakId*, u8*);
+extern s32 osGbpakCheckConnector(OSPfs*, u8*);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

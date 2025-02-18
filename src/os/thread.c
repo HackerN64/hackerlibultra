@@ -2,16 +2,16 @@
 #include "PRinternal/osint.h"
 
 struct __osThreadTail __osThreadTail = { NULL, -1 };
-OSThread *__osRunQueue = (OSThread *)&__osThreadTail;
-OSThread *__osActiveQueue = (OSThread *)&__osThreadTail;
-OSThread *__osRunningThread = NULL;
-OSThread *__osFaultedThread = NULL;
+OSThread* __osRunQueue = (OSThread*)&__osThreadTail;
+OSThread* __osActiveQueue = (OSThread*)&__osThreadTail;
+OSThread* __osRunningThread = NULL;
+OSThread* __osFaultedThread = NULL;
 
-void __osDequeueThread(register OSThread **queue, register OSThread *t) {
-    register OSThread *pred;
-    register OSThread *succ;
+void __osDequeueThread(register OSThread** queue, register OSThread* t) {
+    register OSThread* pred;
+    register OSThread* succ;
 
-    pred = (OSThread *)queue;
+    pred = (OSThread*)queue;
     succ = pred->next;
 
     while (succ != NULL) {

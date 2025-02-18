@@ -30,7 +30,7 @@ extern "C" {
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 
 /* routine for rdb port */
-extern u32 __osRdbSend(u8 *buf, u32 size, u32 type);
+extern u32 __osRdbSend(u8* buf, u32 size, u32 type);
 
 #endif /* _LANGUAGE_C */
 

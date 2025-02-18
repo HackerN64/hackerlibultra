@@ -2,34 +2,34 @@
 #define _OSINT_H
 #include "PR/os_internal.h"
 typedef struct __OSEventState {
-    OSMesgQueue *messageQueue;
+    OSMesgQueue* messageQueue;
     OSMesg message;
 } __OSEventState;
 extern struct __osThreadTail {
-    OSThread *next;
+    OSThread* next;
     OSPri priority;
 } __osThreadTail;
 
 // maybe should be in exceptasm.h?
-extern void __osEnqueueAndYield(OSThread **);
-extern void __osDequeueThread(OSThread **, OSThread *);
-extern void __osEnqueueThread(OSThread **, OSThread *);
-extern OSThread *__osPopThread(OSThread **);
+extern void __osEnqueueAndYield(OSThread**);
+extern void __osDequeueThread(OSThread**, OSThread*);
+extern void __osEnqueueThread(OSThread**, OSThread*);
+extern OSThread* __osPopThread(OSThread**);
 extern void __osDispatchThread(void);
 extern void __osCleanupThread(void);
 
 extern void __osSetTimerIntr(OSTime);
-extern OSTime __osInsertTimer(OSTimer *);
+extern OSTime __osInsertTimer(OSTimer*);
 extern void __osTimerInterrupt(void);
-extern u32 __osProbeTLB(void *);
+extern u32 __osProbeTLB(void*);
 extern int __osSpDeviceBusy(void);
 
-extern OSThread *__osRunningThread;
-extern OSThread *__osActiveQueue;
-extern OSThread *__osFaultedThread;
-extern OSThread *__osRunQueue;
+extern OSThread* __osRunningThread;
+extern OSThread* __osActiveQueue;
+extern OSThread* __osFaultedThread;
+extern OSThread* __osRunQueue;
 
-extern OSTimer *__osTimerList;
+extern OSTimer* __osTimerList;
 extern OSTimer __osBaseTimer;
 extern OSTime __osCurrentTime;
 extern u32 __osBaseCounter;
@@ -38,8 +38,8 @@ extern u32 __osTimerCounter;
 extern u32 __osShutdown;
 
 extern OSMesgQueue __osProfTimerQ;
-extern OSProf *__osProfileList;
-extern OSProf *__osProfileListEnd;
+extern OSProf* __osProfileList;
+extern OSProf* __osProfileListEnd;
 extern u32 __osProfileOverflowBin;
 
 extern __OSEventState __osEventStateTab[];
@@ -49,7 +49,7 @@ extern s32 __osAiDeviceBusy(void);
 extern int __osDpDeviceBusy(void);
 
 #ifndef _FINALROM
-extern void *__printfunc;
+extern void* __printfunc;
 #endif
 
 #endif

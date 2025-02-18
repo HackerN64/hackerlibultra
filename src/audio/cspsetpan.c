@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alCSPSetChlPan(ALCSPlayer *seqp, u8 chan, ALPan pan) {
+void alCSPSetChlPan(ALCSPlayer* seqp, u8 chan, ALPan pan) {
     ALEvent evt;
 
     evt.type = AL_SEQP_MIDI_EVT;

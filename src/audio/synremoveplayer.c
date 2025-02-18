@@ -21,9 +21,9 @@
 #include "synthInternals.h"
 #include <os_internal.h>
 
-void alSynRemovePlayer(ALSynth *drvr, ALPlayer *client) {
-    ALPlayer *thing;
-    ALPlayer *prev = 0;
+void alSynRemovePlayer(ALSynth* drvr, ALPlayer* client) {
+    ALPlayer* thing;
+    ALPlayer* prev = 0;
 
     if (drvr->head != 0) {
         OSIntMask mask = osSetIntMask(OS_IM_NONE);

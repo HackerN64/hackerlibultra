@@ -23,15 +23,15 @@
 #include <ultraerror.h>
 #include "cseq.h"
 
-static u32 __readVarLen(ALCSeq *s, u32 track);
-static u8 __getTrackByte(ALCSeq *s, u32 track);
-static u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event);
+static u32 __readVarLen(ALCSeq* s, u32 track);
+static u8 __getTrackByte(ALCSeq* s, u32 track);
+static u32 __alCSeqGetTrackEvent(ALCSeq* seq, u32 track, ALEvent* event);
 
-void alCSeqNew(ALCSeq *seq, u8 *ptr) {
+void alCSeqNew(ALCSeq* seq, u8* ptr) {
     u32 i, tmpOff, flagTmp;
 
     /* load the seqence pointed to by ptr   */
-    seq->base = (ALCMidiHdr *)ptr;
+    seq->base = (ALCMidiHdr*)ptr;
     seq->validTracks = 0;
     seq->lastDeltaTicks = 0;
     seq->lastTicks = 0;
@@ -46,7 +46,7 @@ void alCSeqNew(ALCSeq *seq, u8 *ptr) {
         {
             flagTmp = 1 << i;
             seq->validTracks |= flagTmp;
-            seq->curLoc[i] = (u8 *)((u32)ptr + tmpOff);
+            seq->curLoc[i] = (u8*)((u32)ptr + tmpOff);
             seq->evtDeltaTicks[i] = __readVarLen(seq, i);
             /*__alCSeqGetTrackEvent(seq,i); prime the event buffers  */
         } else
@@ -56,7 +56,7 @@ void alCSeqNew(ALCSeq *seq, u8 *ptr) {
     seq->qnpt = 1.0 / (f32)seq->base->division;
 }
 
-void alCSeqNextEvent(ALCSeq *seq, ALEvent *evt) {
+void alCSeqNextEvent(ALCSeq* seq, ALEvent* evt) {
     u32 i;
     u32 firstTime = 0xFFFFFFFF;
     u32 firstTrack;
@@ -94,7 +94,7 @@ void alCSeqNextEvent(ALCSeq *seq, ALEvent *evt) {
   reached the end of their data stream), then return FALSE
   to indicate that there is no next event.
 */
-char __alCSeqNextDelta(ALCSeq *seq, s32 *pDeltaTicks) {
+char __alCSeqNextDelta(ALCSeq* seq, s32* pDeltaTicks) {
     u32 i;
     u32 firstTime = 0xFFFFFFFF;
     u32 lastTicks = seq->lastDeltaTicks;
@@ -119,7 +119,7 @@ char __alCSeqNextDelta(ALCSeq *seq, s32 *pDeltaTicks) {
 }
 
 /* only call alCSeqGetTrackEvent with a valid track !! */
-static u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event) {
+static u32 __alCSeqGetTrackEvent(ALCSeq* seq, u32 track, ALEvent* event) {
     u32 offset;
     u8 status, loopCt, curLpCt, *tmpPtr;
 
@@ -212,24 +212,24 @@ static u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event) {
     return TRUE;
 }
 
-f32 alCSeqTicksToSec(ALCSeq *seq, s32 ticks, u32 tempo) {
+f32 alCSeqTicksToSec(ALCSeq* seq, s32 ticks, u32 tempo) {
     return ((f32)(((f32)(ticks) * (f32)(tempo)) / ((f32)(seq->base->division) * 1000000.0)));
 }
 
-u32 alCSeqSecToTicks(ALCSeq *seq, f32 sec, u32 tempo) {
+u32 alCSeqSecToTicks(ALCSeq* seq, f32 sec, u32 tempo) {
     return (u32)(((sec * 1000000.0) * seq->base->division) / tempo);
 }
 
-s32 alCSeqGetTicks(ALCSeq *seq) {
+s32 alCSeqGetTicks(ALCSeq* seq) {
     return seq->lastTicks;
 }
 
-void alCSeqNewMarker(ALCSeq *seq, ALCSeqMarker *m, u32 ticks) {
+void alCSeqNewMarker(ALCSeq* seq, ALCSeqMarker* m, u32 ticks) {
     ALEvent evt;
     ALCSeq tempSeq;
     s32 i;
 
-    alCSeqNew(&tempSeq, (u8 *)seq->base);
+    alCSeqNew(&tempSeq, (u8*)seq->base);
 
     do {
         m->validTracks = tempSeq.validTracks;
@@ -252,7 +252,7 @@ void alCSeqNewMarker(ALCSeq *seq, ALCSeqMarker *m, u32 ticks) {
     } while (tempSeq.lastTicks < ticks);
 }
 
-void alCSeqSetLoc(ALCSeq *seq, ALCSeqMarker *m) {
+void alCSeqSetLoc(ALCSeq* seq, ALCSeqMarker* m) {
     s32 i;
 
     seq->validTracks = m->validTracks;
@@ -268,7 +268,7 @@ void alCSeqSetLoc(ALCSeq *seq, ALCSeqMarker *m) {
     }
 }
 
-void alCSeqGetLoc(ALCSeq *seq, ALCSeqMarker *m) {
+void alCSeqGetLoc(ALCSeq* seq, ALCSeqMarker* m) {
     s32 i;
 
     m->validTracks = seq->validTracks;
@@ -285,7 +285,7 @@ void alCSeqGetLoc(ALCSeq *seq, ALCSeqMarker *m) {
 }
 
 /* non-aligned byte reading routines */
-static u8 __getTrackByte(ALCSeq *seq, u32 track) {
+static u8 __getTrackByte(ALCSeq* seq, u32 track) {
     u8 theByte;
 
     if (seq->curBULen[track]) {
@@ -329,7 +329,7 @@ static u8 __getTrackByte(ALCSeq *seq, u32 track) {
     return theByte;
 }
 
-static u32 __readVarLen(ALCSeq *seq, u32 track) {
+static u32 __readVarLen(ALCSeq* seq, u32 track) {
     u32 value;
     u32 c;
 

@@ -32,8 +32,8 @@ extern "C" {
 
 /* Routine for HW interrupt "handler" */
 #if BUILD_VERSION >= VERSION_J
-extern void __osSetHWIntrRoutine(OSHWIntr interrupt, s32 (*handler)(void), void *stackEnd);
-extern void __osGetHWIntrRoutine(OSHWIntr interrupt, s32 (**handler)(void), void **stackEnd);
+extern void __osSetHWIntrRoutine(OSHWIntr interrupt, s32 (*handler)(void), void* stackEnd);
+extern void __osGetHWIntrRoutine(OSHWIntr interrupt, s32 (**handler)(void), void** stackEnd);
 #else
 extern void __osSetHWIntrRoutine(OSHWIntr interrupt, s32 (*handler)(void));
 extern void __osGetHWIntrRoutine(OSHWIntr interrupt, s32 (**handler)(void));

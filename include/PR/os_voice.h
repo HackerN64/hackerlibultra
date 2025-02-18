@@ -25,7 +25,7 @@ extern "C" {
  */
 
 typedef struct {       /* Voice Recognition System */
-    OSMesgQueue *__mq; /* SI Message Queue */
+    OSMesgQueue* __mq; /* SI Message Queue */
     int __channel;     /* Controller Port # */
     s32 __mode;
     u8 cmd_status; /* Command Status */
@@ -83,16 +83,16 @@ typedef struct { /* Voice Recognition System */
  */
 
 /* Voice Recognition System */
-extern s32 osVoiceInit(OSMesgQueue *, OSVoiceHandle *, int);
-extern s32 osVoiceCheckWord(u8 *data);
-extern s32 osVoiceClearDictionary(OSVoiceHandle *, u8);
-extern s32 osVoiceControlGain(OSVoiceHandle *, s32, s32);
-extern s32 osVoiceSetWord(OSVoiceHandle *, u8 *);
-extern s32 osVoiceStartReadData(OSVoiceHandle *);
-extern s32 osVoiceStopReadData(OSVoiceHandle *);
-extern s32 osVoiceGetReadData(OSVoiceHandle *, OSVoiceData *);
-extern s32 osVoiceMaskDictionary(OSVoiceHandle *, u8 *, int);
-extern void osVoiceCountSyllables(u8 *, u32 *);
+extern s32 osVoiceInit(OSMesgQueue*, OSVoiceHandle*, int);
+extern s32 osVoiceCheckWord(u8* data);
+extern s32 osVoiceClearDictionary(OSVoiceHandle*, u8);
+extern s32 osVoiceControlGain(OSVoiceHandle*, s32, s32);
+extern s32 osVoiceSetWord(OSVoiceHandle*, u8*);
+extern s32 osVoiceStartReadData(OSVoiceHandle*);
+extern s32 osVoiceStopReadData(OSVoiceHandle*);
+extern s32 osVoiceGetReadData(OSVoiceHandle*, OSVoiceData*);
+extern s32 osVoiceMaskDictionary(OSVoiceHandle*, u8*, int);
+extern void osVoiceCountSyllables(u8*, u32*);
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

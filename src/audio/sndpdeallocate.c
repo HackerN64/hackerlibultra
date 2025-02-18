@@ -22,8 +22,8 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 
-void alSndpDeallocate(ALSndPlayer *sndp, ALSndId id) {
-    ALSoundState *sState = sndp->sndState;
+void alSndpDeallocate(ALSndPlayer* sndp, ALSndId id) {
+    ALSoundState* sState = sndp->sndState;
 
     ALFailIf((sState + id)->state != AL_STOPPED, ERR_ALSNDPDEALLOCATE);
 

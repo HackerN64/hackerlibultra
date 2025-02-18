@@ -27,16 +27,16 @@
 #ident "$Revision: 1.17 $"
 #endif
 
-void alSynStartVoiceParams(ALSynth *s, ALVoice *v, ALWaveTable *w, f32 pitch, s16 vol, ALPan pan, u8 fxmix,
+void alSynStartVoiceParams(ALSynth* s, ALVoice* v, ALWaveTable* w, f32 pitch, s16 vol, ALPan pan, u8 fxmix,
                            ALMicroTime t) {
-    ALStartParamAlt *update;
-    ALFilter *f;
+    ALStartParamAlt* update;
+    ALFilter* f;
 
     if (v->pvoice) {
         /*
          * get new update struct from the free list
          */
-        update = (ALStartParamAlt *)__allocParam();
+        update = (ALStartParamAlt*)__allocParam();
         ALFailIf(update == 0, ERR_ALSYN_NO_UPDATE);
 
 #if BUILD_VERSION >= VERSION_J

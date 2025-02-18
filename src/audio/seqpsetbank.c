@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alSeqpSetBank(ALSeqPlayer *seqp, ALBank *b) {
+void alSeqpSetBank(ALSeqPlayer* seqp, ALBank* b) {
     ALEvent evt;
 
     evt.type = AL_SEQP_BANK_EVT;

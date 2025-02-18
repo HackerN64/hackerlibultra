@@ -22,6 +22,6 @@
 
 #include <libaudio.h>
 
-ALCSeq *alCSPGetSeq(ALCSPlayer *seqp) {
+ALCSeq* alCSPGetSeq(ALCSPlayer* seqp) {
     return seqp->target;
 }

@@ -4,7 +4,7 @@
 #include <gu.h>
 
 #ifndef _FINALROM
-void alParseAbiCL(Acmd *cmdList, u32 nbytes) {
+void alParseAbiCL(Acmd* cmdList, u32 nbytes) {
     guDLPrintCB cntlBlk;
 
     cntlBlk.dataSize = nbytes;

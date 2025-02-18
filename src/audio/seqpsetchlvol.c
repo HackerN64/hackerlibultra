@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alSeqpSetChlVol(ALSeqPlayer *seqp, u8 chan, u8 vol) {
+void alSeqpSetChlVol(ALSeqPlayer* seqp, u8 chan, u8 vol) {
     ALEvent evt;
 
     evt.type = AL_SEQP_MIDI_EVT;

@@ -33,8 +33,8 @@ extern "C" {
 
 extern u32 __osSiGetStatus(void);
 extern s32 __osSiRawWriteIo(u32, u32);
-extern s32 __osSiRawReadIo(u32, u32 *);
-extern s32 __osSiRawStartDma(s32, void *);
+extern s32 __osSiRawReadIo(u32, u32*);
+extern s32 __osSiRawStartDma(s32, void*);
 
 #endif /* _LANGUAGE_C */
 

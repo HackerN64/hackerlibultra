@@ -20,9 +20,9 @@
 
 #include "sndp.h"
 
-ALSndId alSndpAllocate(ALSndPlayer *sndp, ALSound *sound) {
+ALSndId alSndpAllocate(ALSndPlayer* sndp, ALSound* sound) {
     ALSndId i;
-    ALSoundState *sState = sndp->sndState;
+    ALSoundState* sState = sndp->sndState;
 
     for (i = 0; i < sndp->maxSounds; i++) {
         if (!sState[i].sound) {

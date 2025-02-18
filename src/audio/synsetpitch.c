@@ -22,9 +22,9 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 
-void alSynSetPitch(ALSynth *synth, ALVoice *v, f32 pitch) {
-    ALParam *update;
-    ALFilter *f;
+void alSynSetPitch(ALSynth* synth, ALVoice* v, f32 pitch) {
+    ALParam* update;
+    ALFilter* f;
 
     if (v->pvoice) {
         /*

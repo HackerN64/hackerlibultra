@@ -31,7 +31,7 @@ extern "C" {
 
 /* For debugger use */
 
-extern OSThread *__osGetActiveQueue(void);
+extern OSThread* __osGetActiveQueue(void);
 
 #endif /* _LANGUAGE_C */
 

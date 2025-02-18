@@ -46,18 +46,18 @@ static struct Tile mipmap[MM_MAX_LEVEL + 1] ALIGNED(0x8);
 static struct texelSizeParams sizeParams[4] = { 16, 3, 1, 0, 8, 2, 2, 1, 4, 1, 4, 2, 2, 0, 8, 3 };
 
 static int max_mipmap;
-static unsigned char *tram;
+static unsigned char* tram;
 static int txlsize;
 static int errNo = 0;
 static int NA = 0;          /* Not applicable */
 static unsigned int length; /* total texels in mipmap */
 static int level;           /* total levels in mipmap */
 
-static void get3x3(struct Tile *tile, int *s, int *t, int *texel, int shift, int size);
-static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile, unsigned char pal,
+static void get3x3(struct Tile* tile, int* s, int* t, int* texel, int shift, int size);
+static void stuffDisplayList(Gfx** glistp, Image* im, char* tbuf, unsigned char startTile, unsigned char pal,
                              unsigned char cms, unsigned char cmt, unsigned char masks, unsigned char maskt,
                              unsigned char shifts, unsigned char shiftt);
-static void kernel(int i, int r1, int g1, int b1, int a1, float *r2, float *g2, float *b2, float *a2);
+static void kernel(int i, int r1, int g1, int b1, int a1, float* r2, float* g2, float* b2, float* a2);
 
 #define unpack_ia16(c, i, a) i = (c & 0xff00) >> 8, a = (c & 0xff)
 #define pack_ia16(i, a)      (i << 8) | a
@@ -101,7 +101,7 @@ static void kernel(int i, int r1, int g1, int b1, int a1, float *r2, float *g2, 
  * 	2		Texel format not supported, Fatal error		 *
  ************************************************************************/
 
-int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsigned char startTile, unsigned char pal,
+int guLoadTextureBlockMipMap(Gfx** glistp, unsigned char* tbuf, Image* im, unsigned char startTile, unsigned char pal,
                              unsigned char cms, unsigned char cmt, unsigned char masks, unsigned char maskt,
                              unsigned char shifts, unsigned char shiftt, unsigned char cfs, unsigned char cft) {
 
@@ -434,7 +434,7 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
 
                         case (G_IM_FMT_RGBA):
                             texel = pack_rgba(r1, g1, b1, a1);
-                            *(short *)((int)saddr ^ flip) = texel;
+                            *(short*)((int)saddr ^ flip) = texel;
                             break;
 
                         case (G_IM_FMT_YUV):
@@ -444,33 +444,33 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
 
                             if (im->siz == G_IM_SIZ_4b) {
                                 texel = pack_ci4(ci1);
-                                *(char *)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
+                                *(char*)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 texel = pack_ci8(ci1);
-                                *(char *)((int)saddr ^ flip) = texel;
+                                *(char*)((int)saddr ^ flip) = texel;
                             }
                             break;
 
                         case (G_IM_FMT_IA):
                             if (im->siz == G_IM_SIZ_4b) {
                                 texel = pack_ia4(i1, a1);
-                                *(char *)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
+                                *(char*)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 texel = pack_ia8(i1, a1);
-                                *(char *)((int)saddr ^ flip) = texel;
+                                *(char*)((int)saddr ^ flip) = texel;
                             } else if (im->siz == G_IM_SIZ_16b) {
                                 texel = pack_ia16(i1, a1);
-                                *(short *)((int)saddr ^ flip) = texel;
+                                *(short*)((int)saddr ^ flip) = texel;
                             }
                             break;
 
                         case (G_IM_FMT_I):
                             if (im->siz == G_IM_SIZ_4b) {
                                 texel = pack_i4(i1);
-                                *(char *)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
+                                *(char*)((int)saddr ^ flip) |= (s & 0x2) ? (texel) : (texel << 4);
                             } else if (im->siz == G_IM_SIZ_8b) {
                                 texel = pack_i8(i1);
-                                *(char *)((int)saddr ^ flip) = texel;
+                                *(char*)((int)saddr ^ flip) = texel;
                             }
                             break;
                     }
@@ -505,7 +505,7 @@ int guLoadTextureBlockMipMap(Gfx **glistp, unsigned char *tbuf, Image *im, unsig
  * 			2  4  1
  * 			1  2  1
  ******************************************************************************/
-static void kernel(int i, int r0, int g0, int b0, int a0, float *r2, float *g2, float *b2, float *a2) {
+static void kernel(int i, int r0, int g0, int b0, int a0, float* r2, float* g2, float* b2, float* a2) {
     if (i == 8) {
         *r2 += r0 * 4;
         *g2 += g0 * 4;
@@ -527,7 +527,7 @@ static void kernel(int i, int r0, int g0, int b0, int a0, float *r2, float *g2, 
 /********************************************************************
  Add entries for loading and rendering textures into the display list
 *********************************************************************/
-static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char startTile, unsigned char pal,
+static void stuffDisplayList(Gfx** glistp, Image* im, char* tbuf, unsigned char startTile, unsigned char pal,
                              unsigned char cms, unsigned char cmt, unsigned char masks, unsigned char maskt,
                              unsigned char shifts, unsigned char shiftt) {
     int tile;
@@ -539,13 +539,13 @@ static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char 
      * 4-bit textures are loaded in 8-bit chunks
      */
     if (im->siz == G_IM_SIZ_4b) {
-        gDPSetTextureImage((*glistp)++, im->fmt, G_IM_SIZ_8b, 1, osVirtualToPhysical((unsigned short *)tbuf));
+        gDPSetTextureImage((*glistp)++, im->fmt, G_IM_SIZ_8b, 1, osVirtualToPhysical((unsigned short*)tbuf));
         gDPSetTile((*glistp)++, im->fmt, G_IM_SIZ_8b, NA, 0, G_TX_LOADTILE, NA, NA, NA, NA, NA, NA, NA);
         /* Wait until all primitives are done */
         gDPLoadSync((*glistp)++);
         gDPLoadBlock((*glistp)++, G_TX_LOADTILE, 0, 0, length / 2, 0x0);
     } else {
-        gDPSetTextureImage((*glistp)++, im->fmt, im->siz, 1, osVirtualToPhysical((unsigned short *)tbuf));
+        gDPSetTextureImage((*glistp)++, im->fmt, im->siz, 1, osVirtualToPhysical((unsigned short*)tbuf));
         gDPSetTile((*glistp)++, im->fmt, im->siz, NA, 0, G_TX_LOADTILE, NA, NA, NA, NA, NA, NA, NA);
         /* Wait until all primitives are done */
         gDPLoadSync((*glistp)++);
@@ -584,14 +584,14 @@ static void stuffDisplayList(Gfx **glistp, Image *im, char *tbuf, unsigned char 
 /******************************************************************************
         Extract quad of texels for filtering.  Compute bank and row addresses.
 ******************************************************************************/
-static void get3x3(struct Tile *tile, int *s, int *t, int *texel, int shift, int size) {
+static void get3x3(struct Tile* tile, int* s, int* t, int* texel, int shift, int size) {
     int i;
     int bank, row;
     unsigned int addr;
     int overlap;
     unsigned char r, g, b, a;
     unsigned long tex;
-    struct Image *im;
+    struct Image* im;
     unsigned int ss, tt;
 
     for (i = 0; i < 9; i++) {

@@ -31,7 +31,7 @@ void guFrustumF(float mf[4][4], float l, float r, float b, float t, float n, flo
             mf[i][j] *= scale;
 }
 
-void guFrustum(Mtx *m, float l, float r, float b, float t, float n, float f, float scale) {
+void guFrustum(Mtx* m, float l, float r, float b, float t, float n, float f, float scale) {
     Matrix mf;
 
     guFrustumF(mf, l, r, b, t, n, f, scale);

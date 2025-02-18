@@ -115,7 +115,7 @@ typedef struct {
     Gfx rdpOthermode;
     u32 segBases[16]; /* table of segment base addrs (SEE NOTE!) */
     Vp viewport;      /* the viewport to use */
-    Gfx *rdpCmds;     /* block of RDP data, process if !NULL
+    Gfx* rdpCmds;     /* block of RDP data, process if !NULL
                        * block terminated by gDPEndDisplayList()
                        * (This is a segment address)
                        */
@@ -145,7 +145,7 @@ typedef struct {
     u8 vtxV0;         /* where to load verts? */
     u8 triCount;      /* how many tris? */
     u8 flag;
-    Gfx *rdpCmds; /* ptr (segment address) to RDP DL */
+    Gfx* rdpCmds; /* ptr (segment address) to RDP DL */
     Gfx rdpOthermode;
     Mtx transform; /* the transform matrix to use */
 } gtState_t;
@@ -164,7 +164,7 @@ typedef struct {
     u8 vtxV0;         /* where to load verts? */
     u8 triCount;      /* how many tris? */
     u8 flag;
-    Gfx *rdpCmds; /* ptr (segment address) to RDP DL */
+    Gfx* rdpCmds; /* ptr (segment address) to RDP DL */
     Gfx rdpOthermode;
 } gtStateL_t;
 
@@ -280,14 +280,14 @@ typedef enum {
  * the above modes, the 'data' field comes from gbi.h, it is the data
  * field for the equivalent gbi setothermode macro.
  */
-extern void gtStateSetOthermode(Gfx *om, gtStateOthermode_t mode, int data);
+extern void gtStateSetOthermode(Gfx* om, gtStateOthermode_t mode, int data);
 
 /*
  * This call dumps a turbo display list for use with gbi2mem and RSPSIM
  */
 #define GT_DUMPTURBO_HANGAFTER  64
 #define GT_DUMPTURBO_NOTEXTURES 128
-extern void gtDumpTurbo(OSTask *tp, u8 flags);
+extern void gtDumpTurbo(OSTask* tp, u8 flags);
 
 /*
  * Special macros to init othermode words to all 0's, a good default
@@ -295,7 +295,7 @@ extern void gtDumpTurbo(OSTask *tp, u8 flags);
  */
 #define gDPClearOtherMode(pkt)                                                                                         \
     {                                                                                                                  \
-        Gfx *_g = (Gfx *)(pkt);                                                                                        \
+        Gfx* _g = (Gfx*)(pkt);                                                                                         \
                                                                                                                        \
         _g->words.w0 = _SHIFTL(G_RDPSETOTHERMODE, 24, 8);                                                              \
         _g->words.w1 = 0x0;                                                                                            \
@@ -328,10 +328,10 @@ extern void gtDumpTurbo(OSTask *tp, u8 flags);
  *
  */
 typedef struct {
-    gtGlobState *gstatep; /* global state, usually NULL */
-    gtState *statep;      /* if this is NULL, end object processing */
-    Vtx *vtxp;            /* if this is NULL, use points in buffer */
-    gtTriN *trip;         /* if this is NULL, use tris in buffer */
+    gtGlobState* gstatep; /* global state, usually NULL */
+    gtState* statep;      /* if this is NULL, end object processing */
+    Vtx* vtxp;            /* if this is NULL, use points in buffer */
+    gtTriN* trip;         /* if this is NULL, use tris in buffer */
 } gtGfx_t;
 
 typedef union {

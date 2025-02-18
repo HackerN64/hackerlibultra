@@ -25,7 +25,7 @@ int guGetDPLoadTextureTileSz(int ult, int lrt) {
  *  load blocks for each line.  ~25% more dma traffic + memory for
  *  extra commands.
  */
-void guDPLoadTextureTile(Gfx *temp, void *timg, int texl_fmt, int texl_size, int img_width, int img_height, int uls,
+void guDPLoadTextureTile(Gfx* temp, void* timg, int texl_fmt, int texl_size, int img_width, int img_height, int uls,
                          int ult, int lrs, int lrt, int palette, int cms, int cmt, int masks, int maskt, int shifts,
                          int shiftt) {
     int line;
@@ -134,7 +134,7 @@ int guGetDPLoadTextureTile_4bSz(int ult, int lrt) {
  *  load blocks for each line.  ~25% more dma traffic + memory for
  *  extra commands.
  */
-void guDPLoadTextureTile_4b(Gfx *temp, void *timg, int texl_fmt, int img_width, int img_height, int uls, int ult,
+void guDPLoadTextureTile_4b(Gfx* temp, void* timg, int texl_fmt, int img_width, int img_height, int uls, int ult,
                             int lrs, int lrt, int palette, int cms, int cmt, int masks, int maskt, int shifts,
                             int shiftt) {
     int line;

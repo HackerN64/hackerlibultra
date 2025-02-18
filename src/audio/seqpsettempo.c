@@ -20,7 +20,7 @@
 
 #include <libaudio.h>
 
-void alSeqpSetTempo(ALSeqPlayer *seqp, s32 tempo) {
+void alSeqpSetTempo(ALSeqPlayer* seqp, s32 tempo) {
     ALEvent evt;
 
     evt.type = AL_SEQP_META_EVT;
