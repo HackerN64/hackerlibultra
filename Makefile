@@ -1,9 +1,11 @@
 # One of:
 # libgultra_rom, libgultra_d, libgultra
-# libultra_rom, libultra_d, libultra
 TARGET ?= libgultra_rom
 VERSION ?= L
 VERBOSE ?= 0
+
+# Use handwritten ASM implementations of select `gu` functions
+MGU_ASM ?= 1
 
 include util.mk
 
@@ -35,7 +37,7 @@ else
 endif
 
 BUILD_ROOT := build
-BUILD_DIR := $(BUILD_ROOT)/$(VERSION)/$(TARGET)
+BUILD_DIR := $(BUILD_ROOT)/
 BUILD_AR := $(BUILD_DIR)/$(TARGET).a
 
 WORKING_DIR := $(shell pwd)
@@ -43,7 +45,7 @@ WORKING_DIR := $(shell pwd)
 CPP := cpp -P
 AR := $(CROSS)ar
 
-VERSION_DEFINE := -DBUILD_VERSION=VERSION_$(VERSION) -DBUILD_VERSION_STRING=\"2.0$(VERSION)\"
+VERSION_DEFINE := -DBUILD_VERSION_STRING=\"2.0$(VERSION)\"
 
 ifeq ($(findstring _d,$(TARGET)),_d)
 DEBUGFLAG := -D_DEBUG
@@ -80,17 +82,15 @@ S_FILES  := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.s))
 
 # Versions J and below used the C matrix math implementations
 MGU_MATRIX_FILES := mtxcatf normalize scale translate
-ifneq ($(filter $(VERSION),D E F G H I J),)
-S_FILES := $(filter-out $(addprefix src/mgu/,$(MGU_MATRIX_FILES:=.s)),$(S_FILES))
-else
+ifeq ($(MGU_ASM), 1)
 C_FILES := $(filter-out $(addprefix src/gu/,$(MGU_MATRIX_FILES:=.c)),$(C_FILES))
+else
+S_FILES := $(filter-out $(addprefix src/mgu/,$(MGU_MATRIX_FILES:=.s)),$(S_FILES))
 endif
 
 C_O_FILES := $(foreach f,$(C_FILES:.c=.o),$(BUILD_DIR)/$f)
 S_O_FILES := $(foreach f,$(S_FILES:.s=.o),$(BUILD_DIR)/$f)
 O_FILES   := $(S_O_FILES) $(C_O_FILES)
-
-AR_OBJECTS := $(shell cat base/$(VERSION)/$(TARGET).txt)
 
 $(shell mkdir -p src $(foreach dir,$(SRC_DIRS),$(BUILD_DIR)/$(dir)))
 

@@ -125,10 +125,6 @@ extern void __osInitialize_emu(void);
 
 #endif /* _FINAL_ROM */
 
-#if BUILD_VERSION < VERSION_K
-#undef osInitialize
-#endif
-
 /**************************************************************************
  *
  * Extern variables

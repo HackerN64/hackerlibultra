@@ -2,11 +2,6 @@
 #include "assert.h"
 #include "PRinternal/siint.h"
 
-// Adjust line numbers to match assert
-#if BUILD_VERSION < VERSION_J
-#line 47
-#endif
-
 #define PIF_RAM_SIZE (PIF_RAM_END + 1 - PIF_RAM_START)
 
 // TODO: this comes from a header
@@ -15,15 +10,9 @@
 s32 __osSiRawStartDma(s32 direction, void* dramAddr) {
     assert(((u32)dramAddr & 0x3) == 0);
 
-#if BUILD_VERSION >= VERSION_J
     if (IO_READ(SI_STATUS_REG) & (SI_STATUS_DMA_BUSY | SI_STATUS_RD_BUSY)) {
         return -1;
     }
-#else
-    if (__osSiDeviceBusy()) {
-        return -1;
-    }
-#endif
 
     if (direction == OS_WRITE) {
         osWritebackDCache(dramAddr, PIF_RAM_SIZE);

@@ -170,12 +170,10 @@ static void drawbitmap(Gfx** glp, Sprite* s, Bitmap* b, s32 x, s32 y, s32 xx, s3
 #ifdef LOAD_TEX
     if (b->buf != prev_bmbuf) {
         switch (s->bmsiz) {
-#if BUILD_VERSION >= VERSION_J
             case G_IM_SIZ_DD:
                 gDPLoadTextureTile_4b(gl++, b->buf, s->bmfmt, tex_width, tex_height, b->s, b->t, b->s + b->width,
                                       b->t + b->actualHeight, 0, s_clamp, t_clamp, s_mask, t_mask, s_lod, t_lod);
                 break;
-#endif
             case G_IM_SIZ_4b:
                 if (s->attr & SP_TEXSHUF) {
                     gDPLoadTextureBlock_4bS(gl++, b->buf, s->bmfmt, tex_width, tex_height, 0, s_clamp, t_clamp, s_mask,
@@ -643,11 +641,6 @@ Gfx* spDraw(Sprite* s) {
 
     gSPEndDisplayList(gl++);
 
-#if BUILD_VERSION >= VERSION_J
-#line 722
-#else
-#line 714
-#endif
     assert((gl - ogl) < s->ndisplist);
     s->rsp_dl_next = gl;
     return (dl_start);
