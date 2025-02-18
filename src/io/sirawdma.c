@@ -2,8 +2,6 @@
 #include "assert.h"
 #include "PRinternal/siint.h"
 
-
-
 #define PIF_RAM_SIZE (PIF_RAM_END + 1 - PIF_RAM_START)
 
 // TODO: this comes from a header

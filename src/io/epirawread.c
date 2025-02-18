@@ -2,8 +2,6 @@
 #include "PR/ultraerror.h"
 #include "assert.h"
 
-
-
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 

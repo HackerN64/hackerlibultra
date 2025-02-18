@@ -2,8 +2,6 @@
 #include "assert.h"
 #include "PRinternal/siint.h"
 
-
-
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 
