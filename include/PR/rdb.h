@@ -77,7 +77,7 @@
 
 /* Structure for debug port */
 typedef struct {
-    unsigned type : 6;   /* 0: invalid, 1: print, 2: debug */
+    unsigned type   : 6; /* 0: invalid, 1: print, 2: debug */
     unsigned length : 2; /* 1, 2, or 3 */
     char buf[3];         /* character buffer */
 } rdbPacket;

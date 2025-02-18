@@ -15,4 +15,5 @@ BreakBeforeBinaryOperators: NonAssignment
 Cpp11BracedListStyle: false
 IndentCaseLabels: true
 AlignTrailingComments: true
+AlignConsecutiveBitFields: true
 UseTab: Never
