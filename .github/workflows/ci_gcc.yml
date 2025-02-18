@@ -33,3 +33,10 @@ jobs:
 
     - name: Build libgultra${{ matrix.suffix }} ${{ matrix.version }}
       run: make -j $(nproc) TARGET=libgultra${{ matrix.suffix }} VERSION=${{ matrix.version }}
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: patch
+        path: my_file.txt
+        retention-days: 5

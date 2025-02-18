@@ -74,7 +74,8 @@ def main():
         ):
             print(l)
 
-        print(subprocess.check_output("git diff".split(), text=True))
+        with open("changes.patch", "w+") as patchf:
+            patchf.write(subprocess.check_output("git diff".split(), text=True))
         exit(1)
 
 
