@@ -79,7 +79,7 @@ float fcos(float x) {
            the computations in double precision
         */
 
-        absx = ABS(x); 
+        absx = ABS(x);
 
         dx = absx;
 
