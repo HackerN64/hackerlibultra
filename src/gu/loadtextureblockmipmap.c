@@ -43,7 +43,7 @@ struct Tile {
 
 /* tram mipmaps */
 static struct Tile mipmap[MM_MAX_LEVEL + 1] ALIGNED(0x8);
-static struct texelSizeParams sizeParams[4] = { {16, 3, 1, 0}, {8, 2, 2, 1}, {4, 1, 4, 2}, {2, 0, 8, 3} };
+static struct texelSizeParams sizeParams[4] = { { 16, 3, 1, 0 }, { 8, 2, 2, 1 }, { 4, 1, 4, 2 }, { 2, 0, 8, 3 } };
 
 static int max_mipmap;
 static unsigned char* tram;

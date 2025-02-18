@@ -451,8 +451,7 @@ void __scExec(OSSched* sc, OSScTask* sp, OSScTask* dp) {
 #ifdef SC_LOGGING
         osLogEvent(l, 523, 3, dp, dp->list.t.output_buff, (u32)*dp->list.t.output_buff_size);
 #endif
-        assert(osDpSetNextBuffer(dp->list.t.output_buff,
-                               *dp->list.t.output_buff_size) == 0);
+        assert(osDpSetNextBuffer(dp->list.t.output_buff, *dp->list.t.output_buff_size) == 0);
 
         dp_busy = 1;
         dpCount = 0;

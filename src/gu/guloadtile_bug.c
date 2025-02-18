@@ -30,8 +30,8 @@ void guDPLoadTextureTile(Gfx* temp, void* timg, int texl_fmt, int texl_size, int
                          int shiftt) {
     int line;
     int tile_width, tile_height; /*
-                                                                  * in texels
-                                                                  */
+                                  * in texels
+                                  */
     int dxt;
     int sizeb = 0;
     int lineb;
