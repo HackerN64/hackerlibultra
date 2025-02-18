@@ -23,7 +23,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Install package requirements
-      run: sudo apt-get install -y clang-tools clang-format clang-tidy gcc-mips-linux-gnu binutils-mips-linux-gnu build-essential python3
+      run: sudo apt-get install -y clang-tools-19 clang-format-19 clang-tidy-19 gcc-mips-linux-gnu binutils-mips-linux-gnu build-essential python3
 
     - name: Verify formatting on all files
       run: python3 tools/check_format.py --verbose
