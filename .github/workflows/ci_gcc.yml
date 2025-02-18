@@ -37,6 +37,6 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
-        name: patch
-        path: my_file.txt
+        name: diff-patch
+        path: changes.patch
         retention-days: 5
