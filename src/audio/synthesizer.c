@@ -288,9 +288,6 @@ s32 _timeToSamples(ALSynth* synth, s32 micros) {
 static s32 __nextSampleTime(ALSynth* drvr, ALPlayer** client) {
     ALMicroTime delta = 0x7fffffff; /* max delta for s32 */
     ALPlayer* cl;
-#if BUILD_VERSION < VERSION_J // Adjust line numbers to match assert
-#line 306
-#endif
     assert(drvr->head);
 
     *client = 0;

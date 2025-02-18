@@ -11,26 +11,12 @@
 #include "PRinternal/macros.h"
 
 // TODO: these come from headers
-#if BUILD_VERSION >= VERSION_K
 #ident "$Revision: 1.4 $"
 // This revision was bumped down at K for some reason
 #ident "$Revision: 3.70 $"
 #ident "$Revision: 1.5 $"
 #ident "$Revision: 1.2 $"
 #ident "$Revision: 1.4 $"
-#elif BUILD_VERSION >= VERSION_J
-#ident "$Revision: 1.4 $"
-#ident "$Revision: 3.71 $"
-#ident "$Revision: 1.5 $"
-#ident "$Revision: 1.2 $"
-#ident "$Revision: 1.4 $"
-#else
-#ident "$Revision: 3.70 $"
-#ident "$Revision: 1.5 $"
-#ident "$Revision: 1.2 $"
-#ident "$Revision: 1.4 $"
-#ident "$Revision: 1.3 $"
-#endif
 
 static u32 RCPpc;
 static u32 oldIMEMvalue;

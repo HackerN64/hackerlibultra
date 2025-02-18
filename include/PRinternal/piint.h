@@ -101,14 +101,6 @@ extern OSMesgQueue __osPiAccessQueue;
 extern u32 __osPiAccessQueueEnabled;
 
 // These symbols were all renamed in 2.0J.
-#if BUILD_VERSION < VERSION_J
-#define __osEPiRawStartDma osEPiRawStartDma
-#define __osEPiRawReadIo   osEPiRawReadIo
-#define __osEPiRawWriteIo  osEPiRawWriteIo
-#define __osPiRawStartDma  osPiRawStartDma
-#define __osPiRawWriteIo   osPiRawWriteIo
-#define __osPiRawReadIo    osPiRawReadIo
-#endif
 
 int __osPiDeviceBusy(void);
 void __osDevMgrMain(void*);
@@ -135,8 +127,6 @@ OSMesgQueue* osPiGetCmdQueue(void);
     if (cHandle->var != pihandle->var)                                                                                 \
     IO_WRITE(reg, pihandle->var)
 
-#if BUILD_VERSION >= VERSION_J
-
 #define EPI_SYNC(pihandle, stat, domain)                                                                               \
                                                                                                                        \
     WAIT_ON_IOBUSY(stat);                                                                                              \
@@ -162,31 +152,5 @@ OSMesgQueue* osPiGetCmdQueue(void);
         cHandle->pulse = pihandle->pulse;                                                                              \
     }                                                                                                                  \
     (void)0
-
-#else
-
-#define EPI_SYNC(pihandle, stat, domain)                                                                               \
-                                                                                                                       \
-    WAIT_ON_IOBUSY(stat);                                                                                              \
-                                                                                                                       \
-    domain = pihandle->domain;                                                                                         \
-    if (__osCurrentHandle[domain] != pihandle) {                                                                       \
-        OSPiHandle* cHandle = __osCurrentHandle[domain];                                                               \
-        if (domain == PI_DOMAIN1) {                                                                                    \
-            UPDATE_REG(pihandle, PI_BSD_DOM1_LAT_REG, latency);                                                        \
-            UPDATE_REG(pihandle, PI_BSD_DOM1_PGS_REG, pageSize);                                                       \
-            UPDATE_REG(pihandle, PI_BSD_DOM1_RLS_REG, relDuration);                                                    \
-            UPDATE_REG(pihandle, PI_BSD_DOM1_PWD_REG, pulse);                                                          \
-        } else {                                                                                                       \
-            UPDATE_REG(pihandle, PI_BSD_DOM2_LAT_REG, latency);                                                        \
-            UPDATE_REG(pihandle, PI_BSD_DOM2_PGS_REG, pageSize);                                                       \
-            UPDATE_REG(pihandle, PI_BSD_DOM2_RLS_REG, relDuration);                                                    \
-            UPDATE_REG(pihandle, PI_BSD_DOM2_PWD_REG, pulse);                                                          \
-        }                                                                                                              \
-        __osCurrentHandle[domain] = pihandle;                                                                          \
-    }                                                                                                                  \
-    (void)0
-
-#endif
 
 #endif

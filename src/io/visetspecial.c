@@ -7,13 +7,9 @@
 #ident "$Revision: 1.17 $"
 
 // This value was incorrectly calculated until being fixed in 2.0J
-#if BUILD_VERSION >= VERSION_J
 #define OS_VI_SPECIAL_MAX                                                                                              \
     (OS_VI_GAMMA_ON | OS_VI_GAMMA_OFF | OS_VI_GAMMA_DITHER_ON | OS_VI_GAMMA_DITHER_OFF | OS_VI_DIVOT_ON                \
      | OS_VI_DIVOT_OFF | OS_VI_DITHER_FILTER_ON | OS_VI_DITHER_FILTER_OFF)
-#else
-#define OS_VI_SPECIAL_MAX OS_VI_DITHER_FILTER_OFF
-#endif
 
 /**
  * Configures VI "special features" to be applied on the next context swap.

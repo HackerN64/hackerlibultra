@@ -21,11 +21,9 @@ s32 osAiSetNextBuffer(void* bufPtr, u32 size) {
     static u8 hdwrBugFlag = FALSE;
     char* bptr;
 
-#if BUILD_VERSION >= VERSION_J
     if (__osAiDeviceBusy()) {
         return -1;
     }
-#endif
 
 #ifdef _DEBUG
     if ((u32)bufPtr & (8 - 1)) {
@@ -50,16 +48,6 @@ s32 osAiSetNextBuffer(void* bufPtr, u32 size) {
     } else {
         hdwrBugFlag = FALSE;
     }
-
-#if BUILD_VERSION < VERSION_J
-    //! @bug The __osAiDeviceBusy call should be above the hardware bug workaround to ensure that it was
-    //! only performed when a transfer was guaranteed to start. If this condition passes and this
-    //! function returns without submitting a buffer for DMA, the code above will lose track of when to
-    //! apply the workaround.
-    if (__osAiDeviceBusy()) {
-        return -1;
-    }
-#endif
 
     IO_WRITE(AI_DRAM_ADDR_REG, osVirtualToPhysical(bptr));
     IO_WRITE(AI_LEN_REG, size);
