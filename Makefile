@@ -37,7 +37,7 @@ else
 endif
 
 BUILD_ROOT := build
-BUILD_DIR := $(BUILD_ROOT)/$(TARGET)
+BUILD_DIR := $(BUILD_ROOT)/
 BUILD_AR := $(BUILD_DIR)/$(TARGET).a
 
 WORKING_DIR := $(shell pwd)
