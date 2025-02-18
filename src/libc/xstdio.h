@@ -30,13 +30,13 @@ typedef struct {
 } _Pft;
 
 #define FLAGS_SPACE 1
-#define FLAGS_PLUS 2
+#define FLAGS_PLUS  2
 #define FLAGS_MINUS 4
-#define FLAGS_HASH 8
-#define FLAGS_ZERO 16
+#define FLAGS_HASH  8
+#define FLAGS_ZERO  16
 
-int _Printf(void* pfn(void*,const char*,size_t), void *arg, const char *fmt, va_list ap);
-void _Litob(_Pft *px, char code);
+int _Printf(void* pfn(void*, const char*, size_t), void* arg, const char* fmt, va_list ap);
+void _Litob(_Pft* px, char code);
 void _Ldtob(_Pft* px, char code);
 
 #endif

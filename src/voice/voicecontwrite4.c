@@ -30,7 +30,9 @@ s32 __osVoiceContWrite4(OSMesgQueue* mq, int channel, u16 address, u8* buffer) {
             __osContLastCmd = CONT_CMD_WRITE4_VOICE;
             __osPfsLastChannel = channel;
 
-            for (i = 0; i < channel; i++) { *ptr++ = CONT_CMD_REQUEST_STATUS; }
+            for (i = 0; i < channel; i++) {
+                *ptr++ = CONT_CMD_REQUEST_STATUS;
+            }
 
             __osPfsPifRam.pifstatus = CONT_CMD_EXE;
 

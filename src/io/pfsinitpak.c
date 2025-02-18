@@ -50,7 +50,7 @@ s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
 #endif
             return ret;
         }
-        
+
 #if BUILD_VERSION < VERSION_J
         // Duplicated check
         else if (ret != 0) {
@@ -82,7 +82,7 @@ s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
     bcopy(id, pfs->id, BLOCKSIZE);
 #else
     for (k = 0; k < ARRLEN(pfs->id); k++) {
-        pfs->id[k] = ((u8 *)id)[k];
+        pfs->id[k] = ((u8*)id)[k];
     }
 #endif
 

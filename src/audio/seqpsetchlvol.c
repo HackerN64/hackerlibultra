@@ -20,16 +20,14 @@
 
 #include <libaudio.h>
 
-void alSeqpSetChlVol(ALSeqPlayer *seqp, u8 chan, u8 vol)
-{
-    ALEvent       evt;
+void alSeqpSetChlVol(ALSeqPlayer* seqp, u8 chan, u8 vol) {
+    ALEvent evt;
 
-    evt.type            = AL_SEQP_MIDI_EVT;
-    evt.msg.midi.ticks  = 0;
+    evt.type = AL_SEQP_MIDI_EVT;
+    evt.msg.midi.ticks = 0;
     evt.msg.midi.status = AL_MIDI_ControlChange | chan;
-    evt.msg.midi.byte1  = AL_MIDI_VOLUME_CTRL;
-    evt.msg.midi.byte2  = vol;
-                    
+    evt.msg.midi.byte1 = AL_MIDI_VOLUME_CTRL;
+    evt.msg.midi.byte2 = vol;
+
     alEvtqPostEvent(&seqp->evtq, &evt, 0);
 }
-

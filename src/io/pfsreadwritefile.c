@@ -2,9 +2,9 @@
 #include "PR/os_internal.h"
 #include "PRinternal/controller.h"
 
-#define CHECK_IPAGE(p)                                                                                        \
-    (((p).ipage >= pfs->inode_start_page) && ((p).inode_t.bank < pfs->banks) && ((p).inode_t.page >= 0x01) && \
-     ((p).inode_t.page < 0x80))
+#define CHECK_IPAGE(p)                                                                                                 \
+    (((p).ipage >= pfs->inode_start_page) && ((p).inode_t.bank < pfs->banks) && ((p).inode_t.page >= 0x01)             \
+     && ((p).inode_t.page < 0x80))
 
 static s32 __osPfsGetNextPage(OSPfs* pfs, u8* bank, __OSInode* inode, __OSInodeUnit* page) {
     s32 ret;

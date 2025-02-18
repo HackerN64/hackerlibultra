@@ -27,18 +27,16 @@
 #ident "$Revision: 1.17 $"
 #endif
 
-void alSynStartVoiceParams(ALSynth *s, ALVoice *v, ALWaveTable *w,
-                           f32 pitch, s16 vol, ALPan pan, u8 fxmix,
-                           ALMicroTime t)
-{
-    ALStartParamAlt  *update;
-    ALFilter    *f;
+void alSynStartVoiceParams(ALSynth* s, ALVoice* v, ALWaveTable* w, f32 pitch, s16 vol, ALPan pan, u8 fxmix,
+                           ALMicroTime t) {
+    ALStartParamAlt* update;
+    ALFilter* f;
 
     if (v->pvoice) {
         /*
          * get new update struct from the free list
          */
-        update = (ALStartParamAlt *)__allocParam();
+        update = (ALStartParamAlt*)__allocParam();
         ALFailIf(update == 0, ERR_ALSYN_NO_UPDATE);
 
 #if BUILD_VERSION >= VERSION_J
@@ -50,26 +48,23 @@ void alSynStartVoiceParams(ALSynth *s, ALVoice *v, ALWaveTable *w,
             fxmix = -fxmix;
         }
 #endif
-        
+
         /*
          * set offset and fxmix data
          */
-        update->delta  = s->paramSamples + v->pvoice->offset;
-        update->next   = 0;
-        update->type   = AL_FILTER_START_VOICE_ALT;
+        update->delta = s->paramSamples + v->pvoice->offset;
+        update->next = 0;
+        update->type = AL_FILTER_START_VOICE_ALT;
 
-        update->unity  = v->unityPitch;
-        update->pan    = pan;
+        update->unity = v->unityPitch;
+        update->pan = pan;
         update->volume = vol;
-        update->fxMix  = fxmix;
-        update->pitch  = pitch;
+        update->fxMix = fxmix;
+        update->pitch = pitch;
         update->samples = _timeToSamples(s, t);
-        update->wave    = w;
-        
+        update->wave = w;
+
         f = v->pvoice->channelKnob;
-        (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);        
+        (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);
     }
-    
 }
-
-

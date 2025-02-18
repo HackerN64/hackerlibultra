@@ -82,9 +82,9 @@ int __rmonReadMem(KKHeader* req) {
     }
 
     if (req->method == RMON_RSP) {
-        if (!((request->addr < SP_IMEM_START || (request->addr + request->nbytes) > SP_IMEM_END) ? FALSE : TRUE) &&
-        !((request->addr < SP_DMEM_START || (request->addr + request->nbytes) > SP_DMEM_END) ? FALSE : TRUE)) {
-                return TV_ERROR_INVALID_ADDRESS;
+        if (!((request->addr < SP_IMEM_START || (request->addr + request->nbytes) > SP_IMEM_END) ? FALSE : TRUE)
+            && !((request->addr < SP_DMEM_START || (request->addr + request->nbytes) > SP_DMEM_END) ? FALSE : TRUE)) {
+            return TV_ERROR_INVALID_ADDRESS;
         }
     } else if (osVirtualToPhysical((void*)request->addr) == (u32)-1) {
         return TV_ERROR_INVALID_ADDRESS;
@@ -121,8 +121,10 @@ int __rmonWriteMem(KKHeader* req) {
         return TV_ERROR_INVALID_CAPABILITY;
     }
 
-    if (((request->writeHeader.addr < SP_DMEM_START ||
-         (request->writeHeader.addr + request->writeHeader.nbytes) > 0x04FFFFFF) ? FALSE : TRUE)) {
+    if (((request->writeHeader.addr < SP_DMEM_START
+          || (request->writeHeader.addr + request->writeHeader.nbytes) > 0x04FFFFFF)
+             ? FALSE
+             : TRUE)) {
         int align;
         u32 word;
 

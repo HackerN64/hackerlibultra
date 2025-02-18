@@ -51,8 +51,7 @@ s32 osEepromRead(OSMesgQueue* mq, u8 address, u8* buffer) {
         return ret;
     }
 #else
-    if (ret != 0)
-    {
+    if (ret != 0) {
         __osSiRelAccess();
         return CONT_NO_RESPONSE_ERROR;
     } else {

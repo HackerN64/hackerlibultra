@@ -20,8 +20,7 @@
 
 #include <libaudio.h>
 
-void alCSPSetChlPriority(ALCSPlayer *seqp, u8 chan, u8 priority)
-{
+void alCSPSetChlPriority(ALCSPlayer* seqp, u8 chan, u8 priority) {
     ALEvent evt;
 
     evt.type = AL_SEQP_PRIORITY_EVT;

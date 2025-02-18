@@ -1,5 +1,6 @@
 #ifndef _FINALROM
 
+#include "stdlib.h"
 #include "PR/os_internal.h"
 #include "PR/rdb.h"
 #include "PRinternal/osint.h"

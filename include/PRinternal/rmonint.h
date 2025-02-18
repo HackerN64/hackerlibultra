@@ -13,45 +13,44 @@
 #define MIPS_SW_OPCODE 43
 
 #define MIPS_BREAK_OPCODE 0xD
-#define MIPS_BREAK_MASK 0xFC00003F
+#define MIPS_BREAK_MASK   0xFC00003F
 
-#define MIPS_BREAK(code) \
-    ((((code) & 0xFFFFF) << 6) | MIPS_BREAK_OPCODE)
+#define MIPS_BREAK(code) ((((code) & 0xFFFFF) << 6) | MIPS_BREAK_OPCODE)
 
 /* R4300 General Purpose Register Indices */
-#define GREG_IDX_ZERO   0
-#define GREG_IDX_AT     1
-#define GREG_IDX_T9     25
-#define GREG_IDX_K0     26
-#define GREG_IDX_GP     28
-#define GREG_IDX_RA     31
-#define GREG_IDX_LO     32
-#define GREG_IDX_HI     33
-#define GREG_IDX_CAUSE  34
-#define GREG_IDX_PC     35
-#define GREG_IDX_SR     36
+#define GREG_IDX_ZERO  0
+#define GREG_IDX_AT    1
+#define GREG_IDX_T9    25
+#define GREG_IDX_K0    26
+#define GREG_IDX_GP    28
+#define GREG_IDX_RA    31
+#define GREG_IDX_LO    32
+#define GREG_IDX_HI    33
+#define GREG_IDX_CAUSE 34
+#define GREG_IDX_PC    35
+#define GREG_IDX_SR    36
 
 /* RSP Scalar Register Indices */
-#define SREG_IDX_ZERO       0
-#define SREG_IDX_RA         31
-#define SREG_IDX_DRAM_ADDR  (32 + 0)
-#define SREG_IDX_MEM_ADDR   (32 + 1)
-#define SREG_IDX_RD_LEN     (32 + 2)
-#define SREG_IDX_PC         (32 + 3)
-#define SREG_IDX_WR_LEN     (32 + 4)
-#define SREG_IDX_STATUS     (32 + 5)
-#define SREG_IDX_DMA_FULL   (32 + 6)
-#define SREG_IDX_DMA_BUSY   (32 + 7)
+#define SREG_IDX_ZERO      0
+#define SREG_IDX_RA        31
+#define SREG_IDX_DRAM_ADDR (32 + 0)
+#define SREG_IDX_MEM_ADDR  (32 + 1)
+#define SREG_IDX_RD_LEN    (32 + 2)
+#define SREG_IDX_PC        (32 + 3)
+#define SREG_IDX_WR_LEN    (32 + 4)
+#define SREG_IDX_STATUS    (32 + 5)
+#define SREG_IDX_DMA_FULL  (32 + 6)
+#define SREG_IDX_DMA_BUSY  (32 + 7)
 
 /* RSP Vector Register Properties */
-#define VREG_NUM 32
+#define VREG_NUM  32
 #define VREG_SIZE 0x10
 
 /* rmon */
 
 #define RMON_MESG_CPU_BREAK 2
-#define RMON_MESG_SP_BREAK 4
-#define RMON_MESG_FAULT 8
+#define RMON_MESG_SP_BREAK  4
+#define RMON_MESG_FAULT     8
 
 #define RMON_CPU 0
 #define RMON_RSP 1

@@ -20,8 +20,6 @@
 
 #include "synthInternals.h"
 
-s16 alSynGetPriority(ALSynth *s, ALVoice *voice)
-{
+s16 alSynGetPriority(ALSynth* s, ALVoice* voice) {
     return voice->priority;
 }
-

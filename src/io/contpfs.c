@@ -213,7 +213,7 @@ s32 __osGetId(OSPfs* pfs) {
     bcopy(id, pfs->id, BLOCKSIZE);
 #else
     for (k = 0; k < ARRLEN(pfs->id); k++) {
-        pfs->id[k] = ((u8 *)id)[k];
+        pfs->id[k] = ((u8*)id)[k];
     }
 #endif
     pfs->version = id->version;
@@ -334,12 +334,11 @@ s32 __osPfsRWInode(OSPfs* pfs, __OSInode* inode, u8 flag, u8 bank) {
             }
         }
 #if BUILD_VERSION < VERSION_J
-        else
-        {
-            for (j = 0; j < PFS_ONE_PAGE; j++)
-            {
-                addr = ((u8 *)inode->inode_page + j * 32);
-                ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->minode_table + bank * PFS_ONE_PAGE + j, addr, FALSE);
+        else {
+            for (j = 0; j < PFS_ONE_PAGE; j++) {
+                addr = ((u8*)inode->inode_page + j * 32);
+                ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->minode_table + bank * PFS_ONE_PAGE + j, addr,
+                                       FALSE);
             }
         }
 #endif

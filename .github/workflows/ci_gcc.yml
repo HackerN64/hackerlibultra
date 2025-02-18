@@ -1,4 +1,4 @@
-# CI file for GCC/KMC builds
+# CI file for GCC builds
 
 name: Build GCC libgultra
 
@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [I, J, K, L] # [H, I, I_patch, J, K, L]
+        version: [L] # [H, I, I_patch, J, K, L]
         suffix: [~, _d, _rom]
 
     steps:
@@ -23,16 +23,10 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Install package requirements
-      run: sudo apt-get install -y binutils-mips-linux-gnu build-essential python3
+      run: sudo apt-get install -y clang-tools clang-format clang-tidy gcc-mips-linux-gnu binutils-mips-linux-gnu build-essential python3
 
-    - name: Get extra dependencies
-      uses: actions/checkout@v3
-      with:
-        repository: ${{ secrets.SECRETREPO }}
-        token: ${{ secrets.SECRETTOKEN }}
-        path: deps_repo
-    - name: Get the dependency
-      run: cp deps_repo/libultra/${{ matrix.version }}/* base/${{ matrix.version }}
+    - name: Verify formatting on all files
+      run: python3 tools/check_format.py --verbose
 
     - name: Setup
       run: make setup -j $(nproc) TARGET=libgultra${{ matrix.suffix }} VERSION=${{ matrix.version }}

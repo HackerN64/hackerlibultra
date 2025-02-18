@@ -2,46 +2,6 @@
 #include "assert.h"
 #include "PRinternal/siint.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Adjust line numbers to match assert
 #if BUILD_VERSION < VERSION_J
 #line 47

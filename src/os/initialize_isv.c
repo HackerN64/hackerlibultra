@@ -17,13 +17,13 @@ extern __osExceptionVector __isExpJP;
 
 void MonitorInitBreak(void);
 
-#define ISV_BASE        gISVDbgPrnAdrs
-#define ISV_MAGIC_ADDR  (ISV_BASE + 0x00)
-#define ISV_GET_ADDR    (ISV_BASE + 0x04)
-#define ISV_PUT_ADDR    (ISV_BASE + 0x14)
-#define ISV_BUFFER      (ISV_BASE + 0x20)
+#define ISV_BASE       gISVDbgPrnAdrs
+#define ISV_MAGIC_ADDR (ISV_BASE + 0x00)
+#define ISV_GET_ADDR   (ISV_BASE + 0x04)
+#define ISV_PUT_ADDR   (ISV_BASE + 0x14)
+#define ISV_BUFFER     (ISV_BASE + 0x20)
 
-#define ISV_BUFFER_LEN  (0x10000 - 0x20)
+#define ISV_BUFFER_LEN (0x10000 - 0x20)
 
 #define IS64_MAGIC 'IS64'
 

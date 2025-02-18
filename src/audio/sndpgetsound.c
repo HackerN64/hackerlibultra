@@ -20,8 +20,6 @@
 
 #include "sndp.h"
 
-ALSndId alSndpGetSound(ALSndPlayer *sndp)
-{
-    return (ALSndId) sndp->target;
+ALSndId alSndpGetSound(ALSndPlayer* sndp) {
+    return (ALSndId)sndp->target;
 }
-

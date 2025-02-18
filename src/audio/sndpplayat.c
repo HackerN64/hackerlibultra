@@ -20,13 +20,11 @@
 
 #include "sndp.h"
 
-void alSndpPlayAt(ALSndPlayer *sndp, ALMicroTime delta)
-{
+void alSndpPlayAt(ALSndPlayer* sndp, ALMicroTime delta) {
     ALSndpEvent evt;
-    ALSoundState  *sState = sndp->sndState;
+    ALSoundState* sState = sndp->sndState;
 
     evt.common.type = AL_SNDP_PLAY_EVT;
     evt.common.state = &sState[sndp->target];
-    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, delta);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent*)&evt, delta);
 }
-

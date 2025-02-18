@@ -18,7 +18,7 @@
    Boston, MA 02111-1307, USA.  */
 
 #ifndef _SGIDEFS_H
-#define _SGIDEFS_H	1
+#define _SGIDEFS_H 1
 
 /*
  * Definitions for the ISA level
@@ -37,8 +37,8 @@
  * 64bit code is essentially using the 32bit interface model just with
  * 64bit registers.
  */
-#define _MIPS_SIM_ABI32		1
-#define _MIPS_SIM_NABI32	2
-#define _MIPS_SIM_ABI64		3
+#define _MIPS_SIM_ABI32  1
+#define _MIPS_SIM_NABI32 2
+#define _MIPS_SIM_ABI64  3
 
 #endif /* sgidefs.h */

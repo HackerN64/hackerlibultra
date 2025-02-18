@@ -13,23 +13,21 @@
 #include <ultrahost.h>
 #include <gu.h>
 
-/* guParseString works in conjunction with dlprint which must be running on 
+/* guParseString works in conjunction with dlprint which must be running on
  * the host Indy. guParseString simply uses the hostio routines to send the
  * string to the Indy, and dlprint does all the parsing.
  */
 
 #ifndef _FINALROM
-void guParseString(char *StringPointer, u64 nbytes)
-{
-    guDLPrintCB    cntlBlk;
+void guParseString(char* StringPointer, u64 nbytes) {
+    guDLPrintCB cntlBlk;
 
     cntlBlk.dataSize = nbytes /* /8 + ((nbytes%8) != 0) */;
     cntlBlk.dlType = GU_PARSE_STRING_TYPE;
-    cntlBlk.paddr = osVirtualToPhysical((u64 *) StringPointer);
+    cntlBlk.paddr = osVirtualToPhysical((u64*)StringPointer);
 
-    osWriteHost(&cntlBlk,sizeof(cntlBlk));
-    osWriteHost((u64 *) StringPointer,nbytes);  
-        
+    osWriteHost(&cntlBlk, sizeof(cntlBlk));
+    osWriteHost((u64*)StringPointer, nbytes);
 }
 
 #endif

@@ -236,8 +236,9 @@ int __rmonStopThread(KKHeader* req) {
                     break;
                 }
                 pc--;
-                /* Check if the RSP is stopped in a branch delay slot, if it is step out of it. The RSP would otherwise
-                   lose information about whether the branch should or should not be taken when reading registers. */
+                /* Check if the RSP is stopped in a branch delay slot, if it is step out of it. The RSP
+                   would otherwise lose information about whether the branch should or should not be
+                   taken when reading registers. */
                 if (__rmonGetBranchTarget(RMON_RSP, RMON_TID_RSP, (void*)((u32)pc + SP_IMEM_START)) % 4 == 0) {
                     __rmonStepRCP();
                 }
@@ -302,11 +303,12 @@ int __rmonRunThread(KKHeader* req) {
                 __rmonWriteWordTo((u32*)SP_PC_REG, request->actions.vaddr - SP_IMEM_START);
             }
             if (request->actions.flags & KK_RUN_SSTEP) {
-                /* If the RSP is stopped at a branch step twice so as to not stop in a branch delay slot. */
+                /* If the RSP is stopped at a branch step twice so as to not stop in a branch delay
+                 * slot. */
                 if (__rmonGetBranchTarget(RMON_RSP, RMON_TID_RSP,
-                                          (void*)(__rmonReadWordAt((u32*)SP_PC_REG) + SP_IMEM_START)) %
-                        4 ==
-                    0) {
+                                          (void*)(__rmonReadWordAt((u32*)SP_PC_REG) + SP_IMEM_START))
+                        % 4
+                    == 0) {
                     __rmonStepRCP();
                 }
                 __rmonStepRCP();

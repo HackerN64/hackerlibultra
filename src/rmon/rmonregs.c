@@ -40,17 +40,17 @@ typedef union {
     u32 everything;
     struct {
         int opcode : 6;
-        int base : 5;
-        int rt : 5;
+        int base   : 5;
+        int rt     : 5;
         int offset : 16;
     } scalarop;
     struct {
-        int opcode : 6;
-        int base : 5;
-        int rt : 5;
-        int size : 5;
+        int opcode  : 6;
+        int base    : 5;
+        int rt      : 5;
+        int size    : 5;
         int element : 4;
-        int offset : 7;
+        int offset  : 7;
     } vectorop;
 } INSTRUCTION;
 

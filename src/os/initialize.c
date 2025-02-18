@@ -29,11 +29,11 @@ void* __printfunc = NULL;
 
 #if BUILD_VERSION >= VERSION_K
 
-#define INITIALIZE_FUNC __osInitialize_common
+#define INITIALIZE_FUNC  __osInitialize_common
 #define SPEED_PARAM_FUNC __createSpeedParam
 #else
 
-#define INITIALIZE_FUNC osInitialize
+#define INITIALIZE_FUNC  osInitialize
 #define SPEED_PARAM_FUNC createSpeedParam
 #if BUILD_VERSION >= VERSION_J
 static void ptstart(void);
@@ -69,7 +69,7 @@ void INITIALIZE_FUNC() {
     __osFinalrom = TRUE;
 #endif
 
-    __osSetSR(__osGetSR() | SR_CU1);    // enable fpu
+    __osSetSR(__osGetSR() | SR_CU1);                  // enable fpu
     __osSetFpcCsr(FPCSR_FS | FPCSR_EV | FPCSR_RM_RN); // flush denorm to zero, enable invalid operation
 #if BUILD_VERSION >= VERSION_K
     __osSetWatchLo(0x4900000);
@@ -95,8 +95,7 @@ void INITIALIZE_FUNC() {
     osMapTLBRdb();
     osPiRawReadIo(4, &clock); // Read clock rate from the ROM header
     clock &= ~0xf;
-    if (clock != 0)
-    {
+    if (clock != 0) {
         osClockRate = clock;
     }
 #endif
@@ -185,11 +184,9 @@ void INITIALIZE_FUNC() {
 
 #if !defined(_FINALROM) && BUILD_VERSION < VERSION_J
 void ptstart(void) {
-
 }
 #elif !defined(_FINALROM) && BUILD_VERSION < VERSION_K
 static void ptstart(void) {
-
 }
 #endif
 

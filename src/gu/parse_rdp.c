@@ -13,24 +13,22 @@
 #include <ultrahost.h>
 #include <gu.h>
 
-/* guParseRdpDL works in conjunction with dlprint which must be running on 
+/* guParseRdpDL works in conjunction with dlprint which must be running on
  * the host Indy. guParseRdpDL simple uses the hostio routines to send the
  * display list to the Indy, and dlprint does all the parsing.
  */
 
 #ifndef _FINALROM
-void guParseRdpDL(u64 *rdp_dl, u64 nbytes, u8 flags)
-{
-    guDLPrintCB    cntlBlk;
+void guParseRdpDL(u64* rdp_dl, u64 nbytes, u8 flags) {
+    guDLPrintCB cntlBlk;
 
     cntlBlk.dataSize = nbytes;
     cntlBlk.flags = flags;
     cntlBlk.dlType = GU_PARSE_RDP_TYPE;
     cntlBlk.paddr = osVirtualToPhysical(rdp_dl);
 
-    osWriteHost(&cntlBlk,sizeof(cntlBlk));
-    osWriteHost(rdp_dl,nbytes);  
-        
+    osWriteHost(&cntlBlk, sizeof(cntlBlk));
+    osWriteHost(rdp_dl, nbytes);
 }
 
 #endif

@@ -20,8 +20,6 @@
 
 #include <libaudio.h>
 
-s16 alSeqpGetVol(ALSeqPlayer *seqp)
-{
+s16 alSeqpGetVol(ALSeqPlayer* seqp) {
     return seqp->vol;
 }
-

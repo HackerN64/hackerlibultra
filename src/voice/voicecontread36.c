@@ -29,7 +29,9 @@ s32 __osVoiceContRead36(OSMesgQueue* mq, int channel, u16 address, u8* buffer) {
             __osContLastCmd = CONT_CMD_READ36_VOICE;
             __osPfsLastChannel = channel;
 
-            for (i = 0; i < channel; i++) { *ptr++ = CONT_CMD_REQUEST_STATUS; }
+            for (i = 0; i < channel; i++) {
+                *ptr++ = CONT_CMD_REQUEST_STATUS;
+            }
 
             __osPfsPifRam.pifstatus = CONT_CMD_EXE;
 
@@ -55,8 +57,8 @@ s32 __osVoiceContRead36(OSMesgQueue* mq, int channel, u16 address, u8* buffer) {
         ret = CHNL_ERR(*READ36FORMAT(ptr));
 
         if (ret == 0) {
-            if (__osVoiceContDataCrc(READ36FORMAT(ptr)->data, ARRLEN(READ36FORMAT(ptr)->data)) !=
-                READ36FORMAT(ptr)->datacrc) {
+            if (__osVoiceContDataCrc(READ36FORMAT(ptr)->data, ARRLEN(READ36FORMAT(ptr)->data))
+                != READ36FORMAT(ptr)->datacrc) {
                 ret = __osVoiceGetStatus(mq, channel, &status);
                 if (ret != 0) {
                     break;

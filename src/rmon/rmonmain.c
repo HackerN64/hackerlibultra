@@ -103,7 +103,6 @@ void rmonMain(void) {
     __rmonInit();
     __rmonActive = TRUE;
 
-
     state = 0, newChars = 0, inPointer = (void*)&inbuffer;
     for (;;) {
         OSMesg work;

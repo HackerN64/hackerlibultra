@@ -5,7 +5,7 @@
 // not included in final rom, but __osThreadSave is here for some reason
 OSThread __osThreadSave;
 
-extern OSThread *__osRunningThread;
+extern OSThread* __osRunningThread;
 extern u32 __osRdb_IP6_Empty;
 
 #ifndef _FINALROM

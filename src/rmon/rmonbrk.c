@@ -19,7 +19,7 @@
 #ident "$Revision: 1.3 $"
 #endif
 
-#define TMP_BP 0
+#define TMP_BP          0
 #define NUM_BREAKPOINTS 16
 
 typedef struct {

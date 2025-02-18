@@ -27,7 +27,7 @@ static void rmonPutchar(char c) {
 
     while (!(*stat & 4)) {
     }
-    
+
     *wport = c;
 }
 

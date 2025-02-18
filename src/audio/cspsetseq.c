@@ -22,8 +22,7 @@
 
 #include <libaudio.h>
 
-void alCSPSetSeq(ALCSPlayer *seqp, ALCSeq *seq)
-{
+void alCSPSetSeq(ALCSPlayer* seqp, ALCSeq* seq) {
     ALEvent evt;
 
     evt.type = AL_SEQP_SEQ_EVT;
@@ -31,4 +30,3 @@ void alCSPSetSeq(ALCSPlayer *seqp, ALCSeq *seq)
 
     alEvtqPostEvent(&seqp->evtq, &evt, 0);
 }
-

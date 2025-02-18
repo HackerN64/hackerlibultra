@@ -28,8 +28,6 @@
  *
  *   Clears attributes about a sprite.
  */
-void 
-spClearAttribute (Sprite *sp, s32 attr)
-{
+void spClearAttribute(Sprite* sp, s32 attr) {
     sp->attr &= ~attr;
 }

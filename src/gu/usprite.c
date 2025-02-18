@@ -13,27 +13,16 @@
 
 #include "gbi.h"
 
-void guSprite2DInit(uSprite *SpritePointer,   
-		    void *SourceImagePointer,
-		    void *TlutPointer,
-		    short Stride,
-		    short SubImageWidth,
-		    short SubImageHeight,
-		    char  SourceImageType,
-		    char  SourceImageBitSize,
-		    short SourceImageOffsetS,
-		    short SourceImageOffsetT)
-{
-  SpritePointer->s.SourceImagePointer = SourceImagePointer;
-  SpritePointer->s.TlutPointer        = TlutPointer;
-  SpritePointer->s.Stride             = Stride;
-  SpritePointer->s.SubImageWidth      = SubImageWidth;
-  SpritePointer->s.SubImageHeight     = SubImageHeight;
-  SpritePointer->s.SourceImageType    = SourceImageType;
-  SpritePointer->s.SourceImageBitSize = SourceImageBitSize;
-  SpritePointer->s.SourceImageOffsetS = SourceImageOffsetS;
-  SpritePointer->s.SourceImageOffsetT = SourceImageOffsetT;
-}		 
-		 
-		 
-		
+void guSprite2DInit(uSprite* SpritePointer, void* SourceImagePointer, void* TlutPointer, short Stride,
+                    short SubImageWidth, short SubImageHeight, char SourceImageType, char SourceImageBitSize,
+                    short SourceImageOffsetS, short SourceImageOffsetT) {
+    SpritePointer->s.SourceImagePointer = SourceImagePointer;
+    SpritePointer->s.TlutPointer = TlutPointer;
+    SpritePointer->s.Stride = Stride;
+    SpritePointer->s.SubImageWidth = SubImageWidth;
+    SpritePointer->s.SubImageHeight = SubImageHeight;
+    SpritePointer->s.SourceImageType = SourceImageType;
+    SpritePointer->s.SourceImageBitSize = SourceImageBitSize;
+    SpritePointer->s.SourceImageOffsetS = SourceImageOffsetS;
+    SpritePointer->s.SourceImageOffsetT = SourceImageOffsetT;
+}

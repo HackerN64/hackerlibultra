@@ -20,21 +20,18 @@
 
 #include <libaudio.h>
 
-void alSeqpSendMidi(ALSeqPlayer *seqp, s32 ticks, u8 status, u8 byte1,
-                    u8 byte2)
-{
-    ALEvent       evt;
+void alSeqpSendMidi(ALSeqPlayer* seqp, s32 ticks, u8 status, u8 byte1, u8 byte2) {
+    ALEvent evt;
     ALMicroTime deltaTime;
 
-    evt.type            = AL_SEQP_MIDI_EVT;
-    evt.msg.midi.ticks  = 0;
+    evt.type = AL_SEQP_MIDI_EVT;
+    evt.msg.midi.ticks = 0;
     evt.msg.midi.status = status;
-    evt.msg.midi.byte1  = byte1;
-    evt.msg.midi.byte2  = byte2;
+    evt.msg.midi.byte1 = byte1;
+    evt.msg.midi.byte2 = byte2;
     evt.msg.midi.duration = 0;
-    
-    deltaTime = ticks*seqp->uspt;
-                    
+
+    deltaTime = ticks * seqp->uspt;
+
     alEvtqPostEvent(&seqp->evtq, &evt, deltaTime);
 }
-
