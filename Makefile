@@ -4,7 +4,8 @@ TARGET ?= libgultra_rom
 VERSION ?= L
 VERBOSE ?= 0
 
-USE_MGU ?= 1
+# Use handwritten ASM implementations of select `gu` functions
+MGU_ASM ?= 1
 
 include util.mk
 
@@ -81,10 +82,10 @@ S_FILES  := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.s))
 
 # Versions J and below used the C matrix math implementations
 MGU_MATRIX_FILES := mtxcatf normalize scale translate
-ifeq ($(USE_MGU), 1)
-S_FILES := $(filter-out $(addprefix src/mgu/,$(MGU_MATRIX_FILES:=.s)),$(S_FILES))
-else
+ifeq ($(MGU_ASM), 1)
 C_FILES := $(filter-out $(addprefix src/gu/,$(MGU_MATRIX_FILES:=.c)),$(C_FILES))
+else
+S_FILES := $(filter-out $(addprefix src/mgu/,$(MGU_MATRIX_FILES:=.s)),$(S_FILES))
 endif
 
 C_O_FILES := $(foreach f,$(C_FILES:.c=.o),$(BUILD_DIR)/$f)
