@@ -80,7 +80,6 @@
  */
 #include "PR/os_internal.h"
 
-
 #define ADDRESS_CRC_MESSAGE_LENGTH 10
 #define ADDRESS_CRC_LENGTH         5
 #define ADDRESS_CRC_GENERATOR      0x15
@@ -172,4 +171,3 @@ u8 __osContDataCrc(u8* data) {
 
     return temp;
 }
-

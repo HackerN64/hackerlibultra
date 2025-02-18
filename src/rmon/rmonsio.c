@@ -1,6 +1,5 @@
 #include "PR/os_version.h"
 
-
 #ifndef _FINALROM
 
 #include "PR/os_internal.h"

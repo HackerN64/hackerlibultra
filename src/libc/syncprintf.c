@@ -7,7 +7,6 @@
 
 extern void* __printfunc;
 
-
 void __osSyncVPrintf(const char* fmt, va_list ap) {
 
     int ans;
@@ -41,4 +40,3 @@ void rmonPrintf(const char* fmt, ...) {
     va_end(ap);
 #endif
 }
-

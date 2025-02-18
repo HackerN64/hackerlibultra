@@ -20,7 +20,6 @@
 #include <gt.h>
 #include "PRinternal/macros.h"
 
-
 #undef PRINTF
 #define PRINTF rmonPrintf
 

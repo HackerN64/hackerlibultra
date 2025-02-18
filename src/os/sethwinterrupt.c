@@ -16,4 +16,3 @@ void __osSetHWIntrRoutine(OSHWIntr interrupt, s32 (*handler)(void), void* stackE
     __osHwIntTable[interrupt].stackEnd = stackEnd;
     __osRestoreInt(saveMask);
 }
-

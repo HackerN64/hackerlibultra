@@ -43,4 +43,3 @@ void guMtxCatL(Mtx* m, Mtx* n, Mtx* res) {
 
     guMtxF2L(resf, res);
 }
-

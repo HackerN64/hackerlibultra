@@ -4,7 +4,6 @@
 #include "PR/rcp.h"
 #include "PRinternal/osint.h"
 
-
 #define _osVirtualToPhysical(ptr)                                                                                      \
     if (ptr != NULL) {                                                                                                 \
         ptr = (void*)osVirtualToPhysical(ptr);                                                                         \

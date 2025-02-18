@@ -5,7 +5,6 @@
 
 #include "PRinternal/macros.h"
 
-
 static volatile unsigned int* ptwtmode = (unsigned*)0xbff08014;
 static volatile unsigned int* ptstat = (unsigned*)0xbff08004;
 static volatile unsigned int* ptport = (unsigned*)0xbff08000;
@@ -204,4 +203,3 @@ osWriteHost_ret:
     __osPiRelAccess();
     return;
 }
-

@@ -60,7 +60,7 @@ static void tmemLoad_B(Gfx** pkt, u32 imagePtr, s16 loadLines, s16 tmemSH) {
 
     /* [LoadTile] CMD=0x34 TILE=7 SH=TMEMW*16-1 TMEMH*4-1 */
     (*pkt)->words.w0 = (G_LOADTILE << 24) | 0x000000;
-/* addition 99/5/31(Y) */
+    /* addition 99/5/31(Y) */
     if (bgflg == 3)
         (*pkt)->words.w1 = 0x07000000 | (tmemSH - 1) << 16;
     else
@@ -178,7 +178,7 @@ void guS2DEmuBgRect1Cyc(Gfx** pkt, uObjBg* bg) {
     scaleW = bg->s.scaleW;
     scaleH = bg->s.scaleH;
 
-/* addition 99/05/31(Y) */
+    /* addition 99/05/31(Y) */
     bgflg = bg->s.imageSiz;
     if (scaleW == 0)
         scaleW = 1;
@@ -325,7 +325,7 @@ void guS2DEmuBgRect1Cyc(Gfx** pkt, uObjBg* bg) {
         //	o Clamp slice image width based on image source width.
         //	o Cut image width end number at TMEM Word boundary.
         //	o tmem width + 1 when start position not in agreement with Word boundary */
-/* addition 99/05/31(Y) */
+        /* addition 99/05/31(Y) */
         if (bgflg == 3) {
             tmemSize = 480;
             imageSliceWmax = 0x2800;
@@ -391,7 +391,7 @@ void guS2DEmuBgRect1Cyc(Gfx** pkt, uObjBg* bg) {
          *-------------------------------------------------*/
         /*	u32	rdpSetTimg_w0;
               u32	rdpSetTile_w0; */
-/* Addition 99/05/31(Y) */
+        /* Addition 99/05/31(Y) */
         if (bgflg == 3) {
             rdpSetTimg_w0 = (G_SETTIMG << 24) + 0x180000 + (imageSrcWsize >> 1) - 1;
             rdpSetTile_w0 = (G_SETTILE << 24) + 0x180000 + (tmemSliceWmax << 9);

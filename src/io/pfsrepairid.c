@@ -2,7 +2,6 @@
 #include "PR/os_internal.h"
 #include "PRinternal/controller.h"
 
-
 s32 osPfsRepairId(OSPfs* pfs) {
     s32 ret = 0;
 
@@ -18,4 +17,3 @@ s32 osPfsRepairId(OSPfs* pfs) {
 
     return ret;
 }
-

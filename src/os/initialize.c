@@ -25,7 +25,6 @@ u32 __kmc_pt_mode;
 void* __printfunc = NULL;
 #endif
 
-
 #define INITIALIZE_FUNC  __osInitialize_common
 #define SPEED_PARAM_FUNC __createSpeedParam
 
@@ -93,9 +92,7 @@ void INITIALIZE_FUNC() {
     IO_WRITE(AI_CONTROL_REG, AI_CONTROL_DMA_ON);
     IO_WRITE(AI_DACRATE_REG, AI_MAX_DAC_RATE - 1);
     IO_WRITE(AI_BITRATE_REG, AI_MAX_BIT_RATE - 1);
-
 }
-
 
 void __osInitialize_autodetect(void) {
 #ifndef _FINALROM

@@ -41,7 +41,6 @@ s32 osPfsInitPak(OSMesgQueue* queue, OSPfs* pfs, int channel) {
             pfs->status |= PFS_ID_BROKEN;
             return ret;
         }
-
     }
 
     if (!(id->deviceid & 1)) {

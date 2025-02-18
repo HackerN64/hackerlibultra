@@ -31,8 +31,7 @@ s32 osEepromRead(OSMesgQueue* mq, u8 address, u8* buffer) {
                 if (address >= EEP16K_MAXBLOCKS) {
                     // not technically possible
                     ret = CONT_RANGE_ERROR;
-                }
-                else {
+                } else {
                     __osEepromRead16K = 1;
                 }
                 break;
@@ -79,14 +78,12 @@ static void __osPackEepReadData(u8 address) {
     __OSContEepromFormat eepromformat;
     int i;
 
-
     __osEepPifRam.pifstatus = CONT_CMD_EXE;
 
     eepromformat.txsize = CONT_CMD_READ_EEPROM_TX;
     eepromformat.rxsize = CONT_CMD_READ_EEPROM_RX;
     eepromformat.cmd = CONT_CMD_READ_EEPROM;
     eepromformat.address = address;
-
 
     for (i = 0; i < MAXCONTROLLERS; i++) {
         *ptr++ = 0;

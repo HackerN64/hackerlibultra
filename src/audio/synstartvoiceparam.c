@@ -23,7 +23,6 @@
 #include <ultraerror.h>
 #include <os_internal.h>
 
-
 void alSynStartVoiceParams(ALSynth* s, ALVoice* v, ALWaveTable* w, f32 pitch, s16 vol, ALPan pan, u8 fxmix,
                            ALMicroTime t) {
     ALStartParamAlt* update;

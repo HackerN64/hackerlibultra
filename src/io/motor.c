@@ -130,4 +130,3 @@ s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
     pfs->status = PFS_MOTOR_INITIALIZED;
     return 0;
 }
-
