@@ -33,7 +33,7 @@ void guDPLoadTextureTile(Gfx* temp, void* timg, int texl_fmt, int texl_size, int
                                                                   * in texels
                                                                   */
     int dxt;
-    int sizeb;
+    int sizeb = 0;
     int lineb;
     int line_size;     /*
 
@@ -139,7 +139,6 @@ void guDPLoadTextureTile_4b(Gfx* temp, void* timg, int texl_fmt, int img_width, 
     int line;
     int tile_width, tile_height;
     int dxt;
-    int sizeb;
     int lineb;
     int line_size;
     int count;
@@ -149,7 +148,6 @@ void guDPLoadTextureTile_4b(Gfx* temp, void* timg, int texl_fmt, int img_width, 
 
     tile_width = (lrs - uls + 1) >> 1;
     tile_height = lrt - ult + 1;
-    sizeb = G_IM_SIZ_8b_BYTES;
     lineb = G_IM_SIZ_8b_LINE_BYTES;
     line_size = ((tile_width * lineb) + 7) >> 3;
     dxt = CALC_DXT_4b(tile_width);

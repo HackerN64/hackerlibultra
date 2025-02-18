@@ -493,7 +493,7 @@ int guLoadTextureBlockMipMap(Gfx** glistp, unsigned char* tbuf, Image* im, unsig
     /*
      * Add entries for texture loading and rendering in DL
      */
-    stuffDisplayList(glistp, im, tbuf, startTile, pal, cms, cmt, masks, maskt, shifts, shiftt);
+    stuffDisplayList(glistp, im, (char*)tbuf, startTile, pal, cms, cmt, masks, maskt, shifts, shiftt);
 
     return errNo;
 } /* end guLoadTextureBlockMipMap */

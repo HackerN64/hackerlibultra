@@ -250,11 +250,8 @@ void __freeParam(ALParam* param) {
 
 void _collectPVoices(ALSynth* drvr) {
     ALLink* dl;
-    PVoice* pv;
 
     while ((dl = drvr->pLameList.next) != 0) {
-        pv = (PVoice*)dl;
-
         /* ### remove from mixer */
 
         alUnlink(dl);
