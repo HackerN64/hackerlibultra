@@ -36,6 +36,7 @@ jobs:
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
+      if: failure()
       with:
         name: diff-patch
         path: changes.patch
