@@ -28,9 +28,6 @@ jobs:
     - name: Verify formatting on all files
       run: python3 tools/check_format.py --verbose
 
-    - name: Verify formatting on Modified files
-      run: python3 tools/check_format.py --verbose --compare-to origin/main
-
     - name: Setup
       run: make setup -j $(nproc) TARGET=libgultra${{ matrix.suffix }} VERSION=${{ matrix.version }}
 
