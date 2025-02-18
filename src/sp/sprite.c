@@ -641,7 +641,6 @@ Gfx* spDraw(Sprite* s) {
 
     gSPEndDisplayList(gl++);
 
-#line 722
     assert((gl - ogl) < s->ndisplist);
     s->rsp_dl_next = gl;
     return (dl_start);
