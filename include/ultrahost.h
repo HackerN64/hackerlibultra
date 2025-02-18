@@ -25,15 +25,15 @@ int __stdcall uhGload(int hfd, char *loadfile);
 
 #define execl execl_pt
 
-#define uhOpenGame uhOpenGame_pt
+#define uhOpenGame  uhOpenGame_pt
 #define uhCloseGame uhCloseGame_pt
 
-#define uhReadGame uhReadGame_pt
-#define uhWriteGame uhWriteGame_pt
-#define uhReadRamrom uhReadRamrom_pt
+#define uhReadGame    uhReadGame_pt
+#define uhWriteGame   uhWriteGame_pt
+#define uhReadRamrom  uhReadRamrom_pt
 #define uhWriteRamrom uhWriteRamrom_pt
-#define uhPartnerCmd uhPartnerCmd_pt
-#define uhGload uhGload_pt
+#define uhPartnerCmd  uhPartnerCmd_pt
+#define uhGload       uhGload_pt
 
 int uhPartnerCmd(int, char *);
 int uhGload(int, char *);
