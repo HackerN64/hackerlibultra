@@ -73,6 +73,8 @@ def main():
             "New git status",
         ):
             print(l)
+
+        print(subprocess.check_output("git diff".split(), text=True))
         exit(1)
 
 

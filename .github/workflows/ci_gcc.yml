@@ -26,7 +26,7 @@ jobs:
       run: sudo apt-get install -y clang-tools clang-format clang-tidy gcc-mips-linux-gnu binutils-mips-linux-gnu build-essential python3
 
     - name: Verify formatting on all files
-      run: python3 tools/check_format.py
+      run: python3 tools/check_format.py --verbose
 
     - name: Verify formatting on Modified files
       run: python3 tools/check_format.py --verbose --compare-to origin/main
