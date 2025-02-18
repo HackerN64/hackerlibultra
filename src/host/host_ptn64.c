@@ -5,7 +5,6 @@
 
 #include "PRinternal/macros.h"
 
-#if BUILD_VERSION >= VERSION_J || !defined(_FINALROM)
 
 static volatile unsigned int* ptwtmode = (unsigned*)0xbff08014;
 static volatile unsigned int* ptstat = (unsigned*)0xbff08004;
@@ -206,4 +205,3 @@ osWriteHost_ret:
     return;
 }
 
-#endif

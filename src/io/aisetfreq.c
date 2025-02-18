@@ -59,9 +59,6 @@ s32 osAiSetFrequency(u32 frequency) {
 
     IO_WRITE(AI_DACRATE_REG, dacRate - 1);
     IO_WRITE(AI_BITRATE_REG, bitRate - 1);
-#if BUILD_VERSION < VERSION_J
-    IO_WRITE(AI_CONTROL_REG, AI_CONTROL_DMA_ON);
-#endif
     // Return the true playback frequency (frequency = vid_clock / (dperiod + 1)), which may differ from
     // the target frequency.
     return osViClock / (s32)dacRate;

@@ -76,9 +76,7 @@ ALMicroTime _sndpVoiceHandler(void* node) {
         switch (sndp->nextEvent.type) {
             case (AL_SNDP_API_EVT):
                 evt.common.type = AL_SNDP_API_EVT;
-#if BUILD_VERSION >= VERSION_K
                 evt.common.state = (ALSoundState*)-1;
-#endif
                 alEvtqPostEvent(&sndp->evtq, (ALEvent*)&evt, sndp->frameTime);
                 break;
 
@@ -266,11 +264,6 @@ static void _removeEvents(ALEventQueue* evtq, ALSoundState* state) {
   very small pitch ratios can cause the reult to overflow,
   causing a floating point exception.
 */
-#if BUILD_VERSION == VERSION_J // Adjust line numbers to match assert
-#line 277
-#elif BUILD_VERSION < VERSION_J
-#line 278
-#endif
 static s32 _DivS32ByF32(s32 i, f32 f) {
 #define INT_MAX 2147483647 /* Should be in a limits.h file. */
     f64 rd;

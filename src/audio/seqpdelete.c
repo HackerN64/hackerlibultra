@@ -27,9 +27,6 @@ void alSeqpDelete(ALSeqPlayer* seqp) {
     /* sct 1/4/96 - If the sequence player isn't stopped, then you may end
        up with stuck notes.  Application should check state before calling
        this routine to be sure. */
-#if BUILD_VERSION < VERSION_J
-#line 31
-#endif
     assert(seqp->state == AL_STOPPED);
 
     alSynRemovePlayer(seqp->drvr, &seqp->node);

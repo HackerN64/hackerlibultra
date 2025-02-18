@@ -18,11 +18,9 @@ void guRotateF(float mf[4][4], float a, float x, float y, float z) {
     float sine;
     float cosine;
     float ab, bc, ca, t;
-#if BUILD_VERSION >= VERSION_K
     float xxsine;
     float yxsine;
     float zxsine;
-#endif
 
     guNormalize(&x, &y, &z);
     a *= dtor;
@@ -35,15 +33,9 @@ void guRotateF(float mf[4][4], float a, float x, float y, float z) {
 
     guMtxIdentF(mf);
 
-#if BUILD_VERSION >= VERSION_K
     xxsine = x * sine;
     yxsine = y * sine;
     zxsine = z * sine;
-#else
-#define xxsine (x * sine)
-#define yxsine (y * sine)
-#define zxsine (z * sine)
-#endif
 
     t = x * x;
     mf[0][0] = t + cosine * (1 - t);

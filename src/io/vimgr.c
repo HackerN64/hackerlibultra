@@ -6,9 +6,7 @@
 #include "PRinternal/osint.h"
 
 OSDevMgr __osViDevMgr = { 0 };
-#if BUILD_VERSION >= VERSION_J
 u32 __additional_scanline = 0;
-#endif
 static OSThread viThread;
 static STACK(viThreadStack, OS_VIM_STACKSIZE) ALIGNED(0x10);
 static OSMesgQueue viEventQueue ALIGNED(0x8);
@@ -33,9 +31,7 @@ void osCreateViManager(OSPri pri) {
         return;
     }
     __osTimerServicesInit();
-#if BUILD_VERSION >= VERSION_J
     __additional_scanline = 0;
-#endif
     osCreateMesgQueue(&viEventQueue, viEventBuf, ARRLEN(viEventBuf));
     viRetraceMsg.hdr.type = OS_MESG_TYPE_VRETRACE;
     viRetraceMsg.hdr.pri = OS_MESG_PRI_NORMAL;

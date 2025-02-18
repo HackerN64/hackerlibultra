@@ -82,9 +82,6 @@ Acmd* alEnvmixerPull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Ac
         samples = thisOffset - lastOffset;
         if (samples > outCount)
             break;
-#if BUILD_VERSION < VERSION_J
-#line 103
-#endif
         assert(samples >= 0);
         assert(samples <= AL_MAX_RSP_SAMPLES);
 
@@ -314,9 +311,6 @@ s32 alEnvmixerParam(void* filter, s32 paramID, void* param) {
     }
     return 0;
 }
-#if BUILD_VERSION < VERSION_J
-#line 350
-#endif
 static Acmd* _pullSubFrame(void* filter, s16* inp, s16* outp, s32 outCount, s32 sampleOffset, Acmd* p) {
     Acmd* ptr = p;
     ALEnvMixer* e = (ALEnvMixer*)filter;
