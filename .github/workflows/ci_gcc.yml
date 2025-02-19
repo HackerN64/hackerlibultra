@@ -23,7 +23,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Install package requirements
-      run: sudo apt-get install -y clang-tools clang-format clang-tidy gcc-mips-linux-gnu binutils-mips-linux-gnu build-essential python3
+      run: sudo apt-get install -y clang-tools-19 clang-format-19 clang-tidy-19 gcc-mips-linux-gnu binutils-mips-linux-gnu build-essential python3
 
     - name: Verify formatting on all files
       run: python3 tools/check_format.py --verbose
@@ -33,3 +33,11 @@ jobs:
 
     - name: Build libgultra${{ matrix.suffix }} ${{ matrix.version }}
       run: make -j $(nproc) TARGET=libgultra${{ matrix.suffix }} VERSION=${{ matrix.version }}
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: 'Changes to Apply'
+        path: changes.patch
+        retention-days: 5
