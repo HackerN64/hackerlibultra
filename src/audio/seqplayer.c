@@ -37,6 +37,7 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 #include <assert.h>
+#include <PRinternal/macros.h>
 #include "seqp.h"
 #include "seq.h"
 
@@ -539,7 +540,7 @@ void __handleMIDIMsg(ALSeqPlayer* seqp, ALEvent* event) {
              * NOTE: intentional fall-through for note on with zero
              * velocity
              */
-        // fall-through
+        FALLTHROUGH;
         case (AL_MIDI_NoteOff):
             vstate = __lookupVoice(seqp, key, chan);
             ALFlagFailIf(!vstate, (seqp->debugFlags & NOTE_OFF_ERR_MASK), ERR_ALSEQP_OFF_VOICE);
