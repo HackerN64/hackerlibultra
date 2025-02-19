@@ -43,6 +43,7 @@
 #include "seqp.h"
 #include "cseqp.h"
 #include "cseq.h"
+#include <PRinternal/macros.h>
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 static ALMicroTime __CSPVoiceHandler(void* node);
@@ -534,7 +535,7 @@ static void __CSPHandleMIDIMsg(ALCSPlayer* seqp, ALEvent* event) {
              * velocity (Should never happen with compact midi sequence,
              * but could happen with real time midi.)
              */
-        // fall-through
+        FALLTHROUGH;
         case (AL_MIDI_NoteOff):
             vstate = __lookupVoice((ALSeqPlayer*)seqp, key, chan);
             ALFlagFailIf(!vstate, seqp->debugFlags & NOTE_OFF_ERR_MASK, ERR_ALSEQP_OFF_VOICE);

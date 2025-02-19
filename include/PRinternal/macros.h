@@ -9,6 +9,8 @@
 
 #define UNUSED __attribute__((unused))
 
+#define FALLTHROUGH __attribute__((fallthrough))
+
 #ifndef __GNUC__
 #define __attribute__(x)
 #endif

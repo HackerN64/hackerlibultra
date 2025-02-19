@@ -34,7 +34,7 @@ void guDPLoadTextureTile(Gfx* temp, void* timg, int texl_fmt, int texl_size, int
                                   */
     int dxt;
     int sizeb = 0;
-    int lineb;
+    int lineb = 0;
     int line_size;     /*
 
                                                 * in 64-bit words
