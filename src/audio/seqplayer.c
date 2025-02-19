@@ -540,7 +540,7 @@ void __handleMIDIMsg(ALSeqPlayer* seqp, ALEvent* event) {
              * NOTE: intentional fall-through for note on with zero
              * velocity
              */
-        FALLTHROUGH;
+            FALLTHROUGH;
         case (AL_MIDI_NoteOff):
             vstate = __lookupVoice(seqp, key, chan);
             ALFlagFailIf(!vstate, (seqp->debugFlags & NOTE_OFF_ERR_MASK), ERR_ALSEQP_OFF_VOICE);
