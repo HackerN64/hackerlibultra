@@ -26,10 +26,7 @@ s32 osEepromWrite(OSMesgQueue* mq, u8 address, u8* buffer) {
                 }
                 break;
             case CONT_EEPROM | CONT_EEP16K:
-                if (0) {
-                    // not technically possible
-                    ret = CONT_RANGE_ERROR;
-                } else if (__osEepromRead16K) {
+                if (__osEepromRead16K) {
                     __osEepromRead16K = 0;
                     __osSiRelAccess();
                     osEepromRead(mq, (address ^ 1), temp);

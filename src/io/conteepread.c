@@ -28,12 +28,7 @@ s32 osEepromRead(OSMesgQueue* mq, u8 address, u8* buffer) {
                 }
                 break;
             case CONT_EEPROM | CONT_EEP16K:
-                if (0) {
-                    // not technically possible
-                    ret = CONT_RANGE_ERROR;
-                } else {
-                    __osEepromRead16K = 1;
-                }
+                __osEepromRead16K = 1;
                 break;
             default:
                 ret = CONT_NO_RESPONSE_ERROR;
