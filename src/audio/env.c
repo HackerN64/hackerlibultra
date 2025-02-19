@@ -482,7 +482,7 @@ static s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel) {
         }
     }
 
-    a = (a * a * a * a);
+    a = (a * a * a * a * a * a * a * a);
     s = (s16)a;
     *ratel = (s16)(0xffff * (a - (f32)s));
 
