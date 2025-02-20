@@ -10,41 +10,45 @@ static OSPifRam __MotorDataBuf[MAXCONTROLLERS];
 
 s32 __osMotorAccess(OSPfs* pfs, s32 flag) {
     int i;
-    s32 ret;
+    s32 ret = 0;
     u8* ptr = (u8*)&__MotorDataBuf[pfs->channel];
 
     if (!(pfs->status & PFS_MOTOR_INITIALIZED)) {
         return 5;
     }
 
-    __osSiGetAccess();
-    __MotorDataBuf[pfs->channel].pifstatus = CONT_CMD_EXE;
-    ptr += pfs->channel;
+    if (__osControllerTypes[pfs->channel] == CONT_TYPE_GCN) {
+        __osGamecubeRumbleEnabled[pfs->channel] = flag;
+        __osContLastCmd = CONT_CMD_END;
+    } else {
+        __osSiGetAccess();
+        __MotorDataBuf[pfs->channel].pifstatus = CONT_CMD_EXE;
+        ptr += pfs->channel;
 
-    for (i = 0; i < BLOCKSIZE; i++) {
-        READFORMAT(ptr)->data[i] = flag;
-    }
+        for (i = 0; i < BLOCKSIZE; i++) {
+            READFORMAT(ptr)->data[i] = flag;
+        }
 
-    __osContLastCmd = CONT_CMD_END;
-    __osSiRawStartDma(OS_WRITE, &__MotorDataBuf[pfs->channel]);
-    osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
-    ret = __osSiRawStartDma(OS_READ, &__MotorDataBuf[pfs->channel]);
-    osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
+        __osContLastCmd = CONT_CMD_END;
+        __osSiRawStartDma(OS_WRITE, &__MotorDataBuf[pfs->channel]);
+        osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
+        ret = __osSiRawStartDma(OS_READ, &__MotorDataBuf[pfs->channel]);
+        osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
 
-    ret = READFORMAT(ptr)->rxsize & CHNL_ERR_MASK;
-    if (!ret) {
-        if (!flag) {
-            if (READFORMAT(ptr)->datacrc != 0) {
-                ret = PFS_ERR_CONTRFAIL;
-            }
-        } else {
-            if (READFORMAT(ptr)->datacrc != 0xEB) {
-                ret = PFS_ERR_CONTRFAIL;
+        ret = READFORMAT(ptr)->rxsize & CHNL_ERR_MASK;
+        if (!ret) {
+            if (!flag) {
+                if (READFORMAT(ptr)->datacrc != 0) {
+                    ret = PFS_ERR_CONTRFAIL;
+                }
+            } else {
+                if (READFORMAT(ptr)->datacrc != 0xEB) {
+                    ret = PFS_ERR_CONTRFAIL;
+                }
             }
         }
+        __osSiRelAccess();
     }
-
-    __osSiRelAccess();
 
     return ret;
 }
@@ -81,50 +85,52 @@ s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
     pfs->activebank = 0xFF;
     pfs->status = 0;
 
-    ret = SELECT_BANK(pfs, 0xFE);
+    if (__osControllerTypes[pfs->channel] != CONT_TYPE_GCN) {
+        ret = SELECT_BANK(pfs, 0xFE);
 
-    if (ret == PFS_ERR_NEW_PACK) {
+        if (ret == PFS_ERR_NEW_PACK) {
+            ret = SELECT_BANK(pfs, 0x80);
+        }
+
+        if (ret != 0) {
+            return ret;
+        }
+
+        ret = __osContRamRead(mq, channel, CONT_BLOCK_DETECT, temp);
+
+        if (ret == PFS_ERR_NEW_PACK) {
+            ret = PFS_ERR_CONTRFAIL;
+        }
+
+        if (ret != 0) {
+            return ret;
+        } else if (temp[31] == 254) {
+            return PFS_ERR_DEVICE;
+        }
+
         ret = SELECT_BANK(pfs, 0x80);
-    }
+        if (ret == PFS_ERR_NEW_PACK) {
+            ret = PFS_ERR_CONTRFAIL;
+        }
 
-    if (ret != 0) {
-        return ret;
-    }
+        if (ret != 0) {
+            return ret;
+        }
 
-    ret = __osContRamRead(mq, channel, CONT_BLOCK_DETECT, temp);
+        ret = __osContRamRead(mq, channel, CONT_BLOCK_DETECT, temp);
+        if (ret == PFS_ERR_NEW_PACK) {
+            ret = PFS_ERR_CONTRFAIL;
+        }
 
-    if (ret == PFS_ERR_NEW_PACK) {
-        ret = PFS_ERR_CONTRFAIL;
-    }
+        if (ret != 0) {
+            return ret;
+        } else if (temp[31] != 0x80) {
+            return PFS_ERR_DEVICE;
+        }
 
-    if (ret != 0) {
-        return ret;
-    } else if (temp[31] == 254) {
-        return PFS_ERR_DEVICE;
-    }
-
-    ret = SELECT_BANK(pfs, 0x80);
-    if (ret == PFS_ERR_NEW_PACK) {
-        ret = PFS_ERR_CONTRFAIL;
-    }
-
-    if (ret != 0) {
-        return ret;
-    }
-
-    ret = __osContRamRead(mq, channel, CONT_BLOCK_DETECT, temp);
-    if (ret == PFS_ERR_NEW_PACK) {
-        ret = PFS_ERR_CONTRFAIL;
-    }
-
-    if (ret != 0) {
-        return ret;
-    } else if (temp[31] != 0x80) {
-        return PFS_ERR_DEVICE;
-    }
-
-    if (!(pfs->status & PFS_MOTOR_INITIALIZED)) {
-        __osMakeMotorData(channel, &__MotorDataBuf[channel]);
+        if (!(pfs->status & PFS_MOTOR_INITIALIZED)) {
+            __osMakeMotorData(channel, &__MotorDataBuf[channel]);
+        }
     }
 
     pfs->status = PFS_MOTOR_INITIALIZED;
