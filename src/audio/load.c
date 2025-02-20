@@ -260,7 +260,7 @@ Acmd* alRaw16Pull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd*
             /*
              * What to compute.
              */
-            nSam = MIN(outCount, (int)(f->loop.end - f->loop.start));
+            nSam = MIN((u32)outCount, f->loop.end - f->loop.start);
             nbytes = nSam << 1;
 
             /*
