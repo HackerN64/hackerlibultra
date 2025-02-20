@@ -63,14 +63,14 @@ typedef struct {
 } OSContPad;
 
 typedef struct {
-	u16     button;
-	s8      stick_x;		/* -80 <= stick_x <= 80 */
-	s8      stick_y;		/* -80 <= stick_y <= 80 */
-	s8      c_stick_x;
-	s8      c_stick_y;
-	u8      l_trig;
-	u8      r_trig;
-	u8	errno;
+    u16 button;
+    s8 stick_x; /* -80 <= stick_x <= 80 */
+    s8 stick_y; /* -80 <= stick_y <= 80 */
+    s8 c_stick_x;
+    s8 c_stick_y;
+    u8 l_trig;
+    u8 r_trig;
+    u8 errno;
 } OSContPadEx;
 
 typedef struct {
@@ -166,20 +166,20 @@ typedef struct {
 
 /* Gamecube controller buttons */
 
-#define CONT_GCN_GET_ORIGIN  0x2000
-#define CONT_GCN_START       0x1000
-#define CONT_GCN_Y           0x0800
-#define CONT_GCN_X           0x0400
-#define CONT_GCN_B           0x0200
-#define CONT_GCN_A           0x0100
-#define CONT_GCN_USE_ORIGIN  0x0080
-#define CONT_GCN_L           0x0040
-#define CONT_GCN_R           0x0020
-#define CONT_GCN_Z           0x0010
-#define CONT_GCN_UP          0x0008
-#define CONT_GCN_DOWN        0x0004
-#define CONT_GCN_RIGHT       0x0002
-#define CONT_GCN_LEFT        0x0001
+#define CONT_GCN_GET_ORIGIN 0x2000
+#define CONT_GCN_START      0x1000
+#define CONT_GCN_Y          0x0800
+#define CONT_GCN_X          0x0400
+#define CONT_GCN_B          0x0200
+#define CONT_GCN_A          0x0100
+#define CONT_GCN_USE_ORIGIN 0x0080
+#define CONT_GCN_L          0x0040
+#define CONT_GCN_R          0x0020
+#define CONT_GCN_Z          0x0010
+#define CONT_GCN_UP         0x0008
+#define CONT_GCN_DOWN       0x0004
+#define CONT_GCN_RIGHT      0x0002
+#define CONT_GCN_LEFT       0x0001
 
 /* Controller error number */
 

@@ -98,8 +98,7 @@ typedef struct {
     /* 0x4 */ u8 data[EEPROM_BLOCK_SIZE];
 } __OSContEepromFormat;
 
-typedef struct
-{
+typedef struct {
     /* 0x0 */ u8 dummy;
     /* 0x1 */ u8 txsize;
     /* 0x2 */ u8 rxsize;

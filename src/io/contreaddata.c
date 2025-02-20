@@ -37,12 +37,13 @@ void osContGetReadData(OSContPad* data) {
             readformatgcn = *(__OSContGCNShortPollFormat*)ptr;
             data->stick_x = ((s32)readformatgcn.stick_x) - 128;
             data->stick_y = ((s32)readformatgcn.stick_y) - 128;
-            data->button = __osTranslateGCNButtons(readformatgcn.button, readformatgcn.c_stick_x, readformatgcn.c_stick_y);
+            data->button =
+                __osTranslateGCNButtons(readformatgcn.button, readformatgcn.c_stick_x, readformatgcn.c_stick_y);
             ptr += sizeof(__OSContGCNShortPollFormat);
         } else {
             readformat = *(__OSContReadFormat*)ptr;
             data->errno = CHNL_ERR(readformat);
-            
+
             if (data->errno != 0) {
                 continue;
             }
@@ -80,7 +81,7 @@ void osContGetReadDataEx(OSContPadEx* data) {
         } else {
             readformat = *(__OSContReadFormat*)ptr;
             data->errno = CHNL_ERR(readformat);
-            
+
             if (data->errno != 0) {
                 continue;
             }
@@ -201,4 +202,3 @@ static u16 __osTranslateGCNButtons(u16 input, s32 c_stick_x, s32 c_stick_y) {
 
     return ret;
 }
-
