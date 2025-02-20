@@ -28,7 +28,7 @@ void alSndpNew(ALSndPlayer* sndp, ALSndpConfig* c) {
     u8* ptr;
     ALEvent evt;
     ALSoundState* sState;
-    s32 i;
+    u32 i;
 
     /*
      * Init member variables
@@ -39,7 +39,7 @@ void alSndpNew(ALSndPlayer* sndp, ALSndpConfig* c) {
     sState = (ALSoundState*)alHeapAlloc(c->heap, 1, c->maxSounds * sizeof(ALSoundState));
     sndp->sndState = sState;
 
-    for (i = 0; i < c->maxSounds; i++)
+    for (i = 0; i < (u32)c->maxSounds; i++)
         sState[i].sound = 0;
 
     /*
