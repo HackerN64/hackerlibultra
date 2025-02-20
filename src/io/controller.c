@@ -6,6 +6,8 @@
 OSPifRam __osContPifRam;
 u8 __osContLastCmd;
 u8 __osMaxControllers;
+u8 __osControllerTypes[MAXCONTROLLERS];
+u8 __osGamecubeRumbleEnabled[MAXCONTROLLERS];
 
 OSTimer __osEepromTimer;
 OSMesgQueue __osEepromTimerQ ALIGNED(0x8);
@@ -67,6 +69,13 @@ void __osContGetInitData(u8* pattern, OSContStatus* data) {
         }
 
         data->type = requestHeader.typel << 8 | requestHeader.typeh;
+
+        if (data->type & CONT_GCN) {
+            __osControllerTypes[i] = CONT_TYPE_GCN;
+        } else {
+            __osControllerTypes[i] = CONT_TYPE_N64;
+        }
+
         data->status = requestHeader.status;
         bits |= 1 << i;
     }
