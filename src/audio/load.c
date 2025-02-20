@@ -220,7 +220,7 @@ Acmd* alRaw16Pull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd*
     if (outCount == 0)
         return ptr;
 
-    if ((outCount + f->sample > (int)(f->loop.end)) && (f->loop.count != 0)) {
+    if (((u32)(outCount + f->sample) > f->loop.end) && (f->loop.count != 0)) {
 
         nSam = f->loop.end - f->sample;
         nbytes = nSam << 1;
