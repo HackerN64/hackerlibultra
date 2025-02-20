@@ -64,7 +64,7 @@ Acmd* alAdpcmPull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd*
     inp = AL_DECODER_IN;
     aLoadADPCM(ptr++, f->bookSize, K0_TO_PHYS(f->table->waveInfo.adpcmWave.book->book));
 
-    looped = ((int)(outCount + f->sample) > (int)(f->loop.end)) && (f->loop.count != 0);
+    looped = ((u32)(outCount + f->sample) > f->loop.end) && (f->loop.count != 0);
     if (looped)
         nSam = f->loop.end - f->sample;
     else
@@ -127,7 +127,7 @@ Acmd* alAdpcmPull(void* filter, s16* outp, s32 outCount, s32 sampleOffset, Acmd*
             /*
              * What's left to compute.
              */
-            nSam = MIN(outCount, (int)(f->loop.end - f->loop.start));
+            nSam = MIN((u32)outCount, f->loop.end - f->loop.start);
             tsam = nSam - ADPCMFSIZE + f->lastsam;
             if (tsam < 0)
                 tsam = 0;
