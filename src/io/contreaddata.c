@@ -34,36 +34,6 @@ void osContGetReadData(OSContPad* data) {
 
     for (i = 0; i < __osMaxControllers; i++, data++) {
         if (__osControllerTypes[i] == CONT_TYPE_GCN) {
-            readformatgcn = *(__OSContGCNShortPollFormat*)ptr;
-            data->stick_x = ((s32)readformatgcn.stick_x) - 128;
-            data->stick_y = ((s32)readformatgcn.stick_y) - 128;
-            data->button =
-                __osTranslateGCNButtons(readformatgcn.button, readformatgcn.c_stick_x, readformatgcn.c_stick_y);
-            ptr += sizeof(__OSContGCNShortPollFormat);
-        } else {
-            readformat = *(__OSContReadFormat*)ptr;
-            data->errno = CHNL_ERR(readformat);
-
-            if (data->errno != 0) {
-                continue;
-            }
-
-            data->button = readformat.button;
-            data->stick_x = readformat.stick_x;
-            data->stick_y = readformat.stick_y;
-            ptr += sizeof(__OSContReadFormat);
-        }
-    }
-}
-
-void osContGetReadDataEx(OSContPadEx* data) {
-    u8* ptr = (u8*)__osContPifRam.ramarray;
-    __OSContReadFormat readformat;
-    __OSContGCNShortPollFormat readformatgcn;
-    int i;
-
-    for (i = 0; i < __osMaxControllers; i++, data++) {
-        if (__osControllerTypes[i] == CONT_TYPE_GCN) {
             s32 stick_x, stick_y, c_stick_x, c_stick_y;
             readformatgcn = *(__OSContGCNShortPollFormat*)ptr;
             stick_x = ((s32)readformatgcn.stick_x) - 128;
