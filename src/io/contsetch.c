@@ -21,3 +21,20 @@ s32 osContSetCh(u8 ch) {
     __osSiRelAccess();
     return ret;
 }
+
+s32 osContSetMask(u8 mask) {
+    s32 ret = 0;
+    s32 i;
+
+    __osSiGetAccess();
+
+    if (mask > (CONT_P1 | CONT_P2 | CONT_P3 | CONT_P4)) {
+        __osControllerMask = CONT_P1 | CONT_P2 | CONT_P3 | CONT_P4;
+    } else {
+        __osControllerMask = mask;
+    }
+
+    __osContLastCmd = CONT_CMD_END;
+    __osSiRelAccess();
+    return ret;
+}

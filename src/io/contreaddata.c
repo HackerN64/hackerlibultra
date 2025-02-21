@@ -29,6 +29,9 @@ void osContGetReadData(OSContPad* data) {
     int i;
 
     for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContReadFormat), data++) {
+        if ((__osControllerMask & (1 << i)) == 0) {
+            continue;
+        }
         readformat = *(__OSContReadFormat*)ptr;
         data->errno = CHNL_ERR(readformat);
 
@@ -61,6 +64,9 @@ static void __osPackReadData(void) {
     readformat.stick_y = -1;
 
     for (i = 0; i < __osMaxControllers; i++) {
+        if ((__osControllerMask & (1 << i)) == 0) {
+            continue;
+        }
         *(__OSContReadFormat*)ptr = readformat;
         ptr += sizeof(__OSContReadFormat);
     }
