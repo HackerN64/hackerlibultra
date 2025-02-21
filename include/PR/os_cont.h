@@ -67,6 +67,33 @@ typedef struct {
 } OSContPad;
 
 typedef struct {
+    struct {
+        u16 l_jpad;
+        u16 r_jpad;
+        u16 d_jpad;
+        u16 u_jpad;
+        u16 z_trig;
+        u16 r_trig;
+        u16 l_trig;
+        u16 a_button;
+        u16 b_button;
+        u16 x_button;
+        u16 y_button;
+        u16 start_button;
+        u16 get_origin;
+        u16 use_origin;
+    } buttonMap;
+
+    u8 cStickDeadzone;
+    struct {
+        u16 left;
+        u16 right;
+        u16 down;
+        u16 up;
+    } cStickMap;
+} OSContButtonMap;
+
+typedef struct {
     void* address;     /* Ram pad Address:  11 bits */
     u8 databuffer[32]; /* address of the data buffer */
     u8 addressCrc;     /* CRC code for address */
