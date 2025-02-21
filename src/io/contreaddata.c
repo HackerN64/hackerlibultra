@@ -7,7 +7,7 @@ static void __osPackReadData(void);
 static u16 __osTranslateGCNButtons(u16, s32, s32);
 static u16 __osTranslateN64Buttons(u16);
 
-OSContButtonMap __osDefaultControllerMap = {
+static OSContButtonMap __osDefaultControllerMap = {
     .buttonMap = {
         .l_jpad = L_JPAD,
         .r_jpad = R_JPAD,
@@ -33,7 +33,7 @@ OSContButtonMap __osDefaultControllerMap = {
     },
 };
 
-OSContButtonMap *__osContCurButtonMap = &__osDefaultControllerMap;
+static OSContButtonMap *__osContCurButtonMap = &__osDefaultControllerMap;
 
 s32 osContStartReadData(OSMesgQueue* mq) {
     s32 ret = 0;
@@ -138,7 +138,7 @@ static void __osPackReadData(void) {
     *ptr = CONT_CMD_END;
 }
 
-void osContSetGCNMapping(OSContButtonMap* contMap) {
+void osContSetControllerMap(OSContButtonMap* contMap) {
     __osContCurButtonMap = contMap;
 }
 
