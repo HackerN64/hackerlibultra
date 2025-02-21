@@ -65,6 +65,7 @@ static void __osPackReadData(void) {
 
     for (i = 0; i < __osMaxControllers; i++) {
         if ((__osControllerMask & (1 << i)) == 0) {
+            *ptr++ = CONT_CMD_NOP;
             continue;
         }
         *(__OSContReadFormat*)ptr = readformat;
