@@ -33,7 +33,7 @@ static OSContButtonMap __osDefaultControllerMap = {
     },
 };
 
-static OSContButtonMap *__osContCurButtonMap = &__osDefaultControllerMap;
+static OSContButtonMap* __osContCurButtonMap = &__osDefaultControllerMap;
 
 s32 osContStartReadData(OSMesgQueue* mq) {
     s32 ret = 0;
@@ -259,4 +259,3 @@ static u16 __osTranslateN64Buttons(u16 input) {
 
     return ret;
 }
-
