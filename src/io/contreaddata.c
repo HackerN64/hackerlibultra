@@ -142,6 +142,10 @@ void osContSetControllerMap(OSContButtonMap* contMap) {
     __osContCurButtonMap = contMap;
 }
 
+void osContResetControllerMap(void) {
+    __osContCurButtonMap = &__osDefaultControllerMap;
+}
+
 static u16 __osTranslateGCNButtons(u16 input, s32 c_stick_x, s32 c_stick_y) {
     u16 ret = 0;
 
