@@ -22,19 +22,35 @@ s32 osContSetCh(u8 ch) {
     return ret;
 }
 
-s32 osContSetMask(u8 mask) {
+/*
+ * Use a mask to detect controller channels instead, allowing the PIF to skip channels instead of
+ * spending time reading data.
+ * This does not work on iQue Player.
+ */
+s32 osContSetMask(u8 ch) {
     s32 ret = 0;
-    s32 i;
 
+#ifdef BBPLAYER
+        return ret;
+#else
     __osSiGetAccess();
 
-    if (mask > (CONT_P1 | CONT_P2 | CONT_P3 | CONT_P4)) {
-        __osControllerMask = CONT_P1 | CONT_P2 | CONT_P3 | CONT_P4;
+    if ((ch == 0) || (ch > (CONT_P1 | CONT_P2 | CONT_P3 | CONT_P4))) {
+        __osControllerMask = (CONT_P1 | CONT_P2 | CONT_P3 | CONT_P4);
+        __osMaxControllers = MAXCONTROLLERS;
     } else {
-        __osControllerMask = mask;
+        __osControllerMask = ch;
+        for (s32 i = 0; i < MAXCONTROLLERS; i++) {
+            if (ch & (1 << i)) {
+                __osMaxControllers = i;
+            }
+        }
+        __osMaxControllers++;
     }
 
     __osContLastCmd = CONT_CMD_END;
     __osSiRelAccess();
     return ret;
+#endif
 }
+
