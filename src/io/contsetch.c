@@ -31,7 +31,7 @@ s32 osContSetMask(u8 ch) {
     s32 ret = 0;
 
 #ifdef BBPLAYER
-        return ret;
+    return ret;
 #else
     __osSiGetAccess();
 
@@ -53,4 +53,3 @@ s32 osContSetMask(u8 ch) {
     return ret;
 #endif
 }
-
