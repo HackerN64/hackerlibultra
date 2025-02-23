@@ -70,6 +70,7 @@ void __osPfsRequestData(u8 cmd) {
 
     for (i = 0; i < __osMaxControllers; i++) {
         if ((__osControllerMask & (1 << i)) == 0) {
+            // See __osPackReadData in contreaddata.c for an explanation for this behavior.
             requestformat.txsize = CONT_CMD_NOP;
             requestformat.rxsize = CONT_CMD_NOP;
             requestformat.cmd = 0;
