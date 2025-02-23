@@ -12,7 +12,7 @@ void __assert(const char* exp, const char* filename, int line) {
 #endif
 }
 
-void __assertf(const char* exp, const char *filename, int line, const char *fmt, ...) {
+void __assertf(const char* exp, const char* filename, int line, const char* fmt, ...) {
 #ifndef _FINALROM
     va_list args;
 
@@ -26,4 +26,3 @@ void __assertf(const char* exp, const char *filename, int line, const char *fmt,
     __assertBreak(); // Doesn't actually do anything, but is needed for matching
 #endif
 }
-
