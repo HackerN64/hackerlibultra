@@ -25,12 +25,12 @@ void MonitorInitBreak(void);
 
 #define ISV_BUFFER_LEN (0x10000 - 0x20)
 
-#define IS64_MAGIC 'IS64'
+#define IS64_MAGIC 0x49533634 // 'IS64'
 
 __osExceptionVector ramOldVector ALIGNED(0x8);
 u32 gISVFlag;
 u16 gISVChk;
-u32 gISVDbgPrnAdrs;
+u32 gISVDbgPrnAdrs = 0x13FF0000;
 u32 leoComuBuffAdd;
 
 static OSPiHandle* is_Handle;
@@ -97,78 +97,31 @@ static void* is_proutSyncPrintf(void* arg, const u8* str, u32 count) {
     return 1;
 }
 
-int __checkHardware_isv(void) {
-    u32 i = 0;
-    u32 data;
-    u32 save[4];
-    OSPiHandle* hnd = osCartRomInit();
-
-    gISVDbgPrnAdrs = 0;
-    leoComuBuffAdd = 0;
-    gISVFlag = IS64_MAGIC;
-    gISVChk = 0;
-
-    for (i = 0; i < 4; i++) {
-        osEPiReadIo(hnd, 0xB0000100 + i * 4, &save[i]);
-    }
-
-#ifndef __GNU__ // BUG: data is used uninitialized for GCC
-    data = 0;
-#endif
-    osEPiWriteIo(hnd, 0xB000010C, data);
-    data = IS64_MAGIC;
-    osEPiWriteIo(hnd, 0xB0000100, IS64_MAGIC);
-
-    for (i = 0; i < 0x20000; i++) {
-        osEPiReadIo(hnd, 0xB000010C, &data);
-        if (data == IS64_MAGIC) {
-            data = 0;
-            osEPiWriteIo(hnd, 0xB0000100, data);
-            gISVChk |= 1;
-            osEPiReadIo(hnd, 0xB0000104, &gISVDbgPrnAdrs);
-            osEPiReadIo(hnd, 0xB0000108, &leoComuBuffAdd);
-            break;
-        }
-    }
-
-    for (i = 0; i < 4; i++) {
-        osEPiWriteIo(hnd, 0xB0000100 + i * 4, save[i]);
-    }
-
-    osEPiReadIo(hnd, 0xBFF00000, &data);
-
-    gISVChk |= ((data == IS64_MAGIC) ? 2 : 0);
-
-    return (gISVChk != 0) ? TRUE : FALSE;
-}
-
 void __osInitialize_isv(void) {
     void (*fn)(void);
     OSPiHandle* hnd;
     s32 pad;
     s32 pad2;
 
-    if (gISVFlag == IS64_MAGIC || __checkHardware_isv()) {
-        if (gISVDbgPrnAdrs != 0) {
-            __printfunc = is_proutSyncPrintf;
-            isPrintfInit();
-        }
-        if (gISVChk & 2) {
-            hnd = osCartRomInit();
+    if (gISVDbgPrnAdrs != 0) {
+        __printfunc = is_proutSyncPrintf;
+        isPrintfInit();
+    }
+    if (gISVChk & 2) {
+        hnd = osCartRomInit();
 
-            ramOldVector = *(__osExceptionVector*)E_VEC;
-            *(__osExceptionVector*)E_VEC = __isExpJP;
+        ramOldVector = *(__osExceptionVector*)E_VEC;
+        *(__osExceptionVector*)E_VEC = __isExpJP;
 
-            osWritebackDCache(&ramOldVector, 0x10);
-            osInvalICache(&ramOldVector, 0x10);
-            osWritebackDCache(0x80000000, 0x190);
-            osInvalICache(0x80000000, 0x190);
-            osEPiReadIo(hnd, 0xBFF00010, (u32*)&fn);
-            fn();
-        }
-        if (gISVChk & 2) {
-            MonitorInitBreak();
-        }
+        osWritebackDCache(&ramOldVector, 0x10);
+        osInvalICache(&ramOldVector, 0x10);
+        osWritebackDCache(0x80000000, 0x190);
+        osInvalICache(0x80000000, 0x190);
+        osEPiReadIo(hnd, 0xBFF00010, (u32*)&fn);
+        fn();
+    }
+    if (gISVChk & 2) {
+        MonitorInitBreak();
     }
 }
 
