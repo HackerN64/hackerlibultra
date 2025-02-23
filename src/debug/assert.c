@@ -19,6 +19,7 @@ void __assertf(const char* exp, const char *filename, int line, const char *fmt,
 
     osSyncPrintf("\nASSERTION FAULT: %s, %d: \"%s\"\n", filename, line, exp);
     osSyncPrintf(fmt, args);
+    osSyncPrintf("\n");
 
     va_end(args);
     __assertBreak(); // Doesn't actually do anything, but is needed for matching
