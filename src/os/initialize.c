@@ -96,14 +96,6 @@ void INITIALIZE_FUNC() {
 
 void __osInitialize_autodetect(void) {
 #ifndef _FINALROM
-    if (__checkHardware_msp()) {
-        __osInitialize_msp();
-    } else if (__checkHardware_kmc()) {
-        __osInitialize_kmc();
-    } else if (__checkHardware_isv()) {
-        __osInitialize_isv();
-    } else {
-        __osInitialize_emu();
-    }
+    __osInitialize_isv();
 #endif
 }
