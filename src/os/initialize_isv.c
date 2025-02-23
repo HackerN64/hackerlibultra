@@ -30,7 +30,7 @@ void MonitorInitBreak(void);
 __osExceptionVector ramOldVector ALIGNED(0x8);
 u32 gISVFlag;
 u16 gISVChk;
-u32 gISVDbgPrnAdrs;
+u32 gISVDbgPrnAdrs = 0x13FF0000;
 u32 leoComuBuffAdd;
 
 static OSPiHandle* is_Handle;
@@ -103,27 +103,25 @@ void __osInitialize_isv(void) {
     s32 pad;
     s32 pad2;
 
-    if (gISVFlag == IS64_MAGIC) {
-        if (gISVDbgPrnAdrs != 0) {
-            __printfunc = is_proutSyncPrintf;
-            isPrintfInit();
-        }
-        if (gISVChk & 2) {
-            hnd = osCartRomInit();
+    if (gISVDbgPrnAdrs != 0) {
+        __printfunc = is_proutSyncPrintf;
+        isPrintfInit();
+    }
+    if (gISVChk & 2) {
+        hnd = osCartRomInit();
 
-            ramOldVector = *(__osExceptionVector*)E_VEC;
-            *(__osExceptionVector*)E_VEC = __isExpJP;
+        ramOldVector = *(__osExceptionVector*)E_VEC;
+        *(__osExceptionVector*)E_VEC = __isExpJP;
 
-            osWritebackDCache(&ramOldVector, 0x10);
-            osInvalICache(&ramOldVector, 0x10);
-            osWritebackDCache(0x80000000, 0x190);
-            osInvalICache(0x80000000, 0x190);
-            osEPiReadIo(hnd, 0xBFF00010, (u32*)&fn);
-            fn();
-        }
-        if (gISVChk & 2) {
-            MonitorInitBreak();
-        }
+        osWritebackDCache(&ramOldVector, 0x10);
+        osInvalICache(&ramOldVector, 0x10);
+        osWritebackDCache(0x80000000, 0x190);
+        osInvalICache(0x80000000, 0x190);
+        osEPiReadIo(hnd, 0xBFF00010, (u32*)&fn);
+        fn();
+    }
+    if (gISVChk & 2) {
+        MonitorInitBreak();
     }
 }
 
