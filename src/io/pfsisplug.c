@@ -70,13 +70,13 @@ void __osPfsRequestData(u8 cmd) {
 
     for (i = 0; i < __osMaxControllers; i++) {
         if ((__osControllerMask & (1 << i)) == 0) {
-            readformat.txsize = CONT_CMD_NOP;
-            readformat.rxsize = CONT_CMD_NOP;
-            readformat.cmd = 0;
+            requestformat.txsize = CONT_CMD_NOP;
+            requestformat.rxsize = CONT_CMD_NOP;
+            requestformat.cmd = 0;
         } else {
-            readformat.txsize = CONT_CMD_REQUEST_STATUS_TX;
-            readformat.rxsize = CONT_CMD_REQUEST_STATUS_RX;
-            readformat.cmd = cmd;
+            requestformat.txsize = CONT_CMD_REQUEST_STATUS_TX;
+            requestformat.rxsize = CONT_CMD_REQUEST_STATUS_RX;
+            requestformat.cmd = cmd;
         }
         *((__OSContRequesFormat*)ptr) = requestformat;
         ptr += sizeof(__OSContRequesFormat);

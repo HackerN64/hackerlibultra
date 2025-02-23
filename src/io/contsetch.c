@@ -7,19 +7,7 @@
  * to multiple direct SI devices.
  */
 s32 osContSetCh(u8 ch) {
-    s32 ret = 0;
-
-    __osSiGetAccess();
-
-    if (ch > MAXCONTROLLERS) {
-        __osMaxControllers = MAXCONTROLLERS;
-    } else {
-        __osMaxControllers = ch;
-    }
-
-    __osContLastCmd = CONT_CMD_END;
-    __osSiRelAccess();
-    return ret;
+    return osContSetMask((1 << ch) - 1);
 }
 
 /*
