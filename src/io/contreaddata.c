@@ -53,6 +53,7 @@ void osContGetReadData(OSContPad* data) {
             data->errno = CHNL_ERR(readformat);
 
             if (data->errno != 0) {
+                ptr += sizeof(__OSContReadFormat);
                 continue;
             }
 
