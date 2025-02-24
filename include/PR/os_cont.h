@@ -59,6 +59,10 @@ typedef struct {
     u16 button;
     s8 stick_x; /* -80 <= stick_x <= 80 */
     s8 stick_y; /* -80 <= stick_y <= 80 */
+    s8 c_stick_x;
+    s8 c_stick_y;
+    u8 l_trig;
+    u8 r_trig;
     u8 errno;
 } OSContPad;
 
@@ -102,6 +106,7 @@ typedef struct {
 #define CONT_ABSOLUTE    0x0001
 #define CONT_RELATIVE    0x0002
 #define CONT_JOYPORT     0x0004
+#define CONT_GCN         0x0008
 #define CONT_EEPROM      0x8000
 #define CONT_EEP16K      0x4000
 #define CONT_TYPE_MASK   0x1f07
@@ -149,6 +154,25 @@ typedef struct {
 #define L_CBUTTONS   CONT_C
 #define R_CBUTTONS   CONT_F
 #define D_CBUTTONS   CONT_D
+#define GCN_X_BUTTON 0x0040
+#define GCN_Y_BUTTON 0x0080
+
+/* Gamecube controller buttons */
+
+#define CONT_GCN_GET_ORIGIN 0x2000
+#define CONT_GCN_START      0x1000
+#define CONT_GCN_Y          0x0800
+#define CONT_GCN_X          0x0400
+#define CONT_GCN_B          0x0200
+#define CONT_GCN_A          0x0100
+#define CONT_GCN_USE_ORIGIN 0x0080
+#define CONT_GCN_L          0x0040
+#define CONT_GCN_R          0x0020
+#define CONT_GCN_Z          0x0010
+#define CONT_GCN_UP         0x0008
+#define CONT_GCN_DOWN       0x0004
+#define CONT_GCN_RIGHT      0x0002
+#define CONT_GCN_LEFT       0x0001
 
 /* Controller error number */
 
@@ -160,6 +184,9 @@ typedef struct {
 #define CONT_ERR_VOICE_MEMORY      13
 #define CONT_ERR_VOICE_WORD        14
 #define CONT_ERR_VOICE_NO_RESPONSE 15
+
+#define CONT_TYPE_N64 0
+#define CONT_TYPE_GCN 1
 
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 
