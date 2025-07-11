@@ -118,9 +118,9 @@ static void __osPackReadData(void) {
     readformatgcn.txsize = CONT_CMD_GCN_SHORTPOLL_TX;
     readformatgcn.rxsize = CONT_CMD_GCN_SHORTPOLL_RX;
     readformatgcn.cmd = CONT_CMD_GCN_SHORTPOLL;
-    // The "Normal" value for this byte.
-    //  Other values are valid, but do not return all the button/stick values we want.
-    //  Source: https://github.com/NicoHood/Nintendo/blob/e4130ff38039f125d94c5aee7469724dd2965a56/src/Gamecube.c#L189-L195
+    // Changing the analog mode only changes how some of the analog values are arranged in the packet.
+    //  Mode 3 is considered "Normal" mode, and doesn't read the analog A/B buttons (on supported controllers).
+    //  Source: https://github.com/dolphin-emu/dolphin/blob/f76ab863266d012281e52bceda355bc72f36edb8/Source/Core/Core/HW/SI/SI_DeviceGCController.cpp#L185-L228
     readformatgcn.analog_mode = 3;
     readformatgcn.rumble = 0;
     readformatgcn.button = 0xFFFF;
