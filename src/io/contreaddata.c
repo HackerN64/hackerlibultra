@@ -63,6 +63,9 @@ void osContGetReadData(OSContPad* data) {
         if (__osControllerTypes[i] == CONT_TYPE_GCN) {
             s32 stick_x, stick_y, c_stick_x, c_stick_y;
             readformatgcn = *(__OSContGCNShortPollFormat*)ptr;
+            // The analog stick data is encoded unsigned, with (0, 0) being the bottom left of the stick plane,
+            //  compared to the N64 where (0, 0) is the center. We correct it here so that the end user does not
+            //  have to account for this discrepancy.
             stick_x = ((s32)readformatgcn.stick_x) - 128;
             stick_y = ((s32)readformatgcn.stick_y) - 128;
             data->stick_x = stick_x;
