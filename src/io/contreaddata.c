@@ -3,6 +3,8 @@
 #include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
+#define GCN_C_STICK_THRESHOLD 38
+
 static void __osPackReadData(void);
 static u16 __osTranslateGCNButtons(u16, s32, s32);
 static u16 __osTranslateN64Buttons(u16);
@@ -83,6 +85,7 @@ void osContGetReadData(OSContPad* data) {
             data->errno = CHNL_ERR(readformat);
 
             if (data->errno != 0) {
+                ptr += sizeof(__OSContReadFormat);
                 continue;
             }
 
