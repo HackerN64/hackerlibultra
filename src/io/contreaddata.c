@@ -118,6 +118,9 @@ static void __osPackReadData(void) {
     readformatgcn.txsize = CONT_CMD_GCN_SHORTPOLL_TX;
     readformatgcn.rxsize = CONT_CMD_GCN_SHORTPOLL_RX;
     readformatgcn.cmd = CONT_CMD_GCN_SHORTPOLL;
+    // The "Normal" value for this byte.
+    //  Other values are valid, but do not return all the button/stick values we want.
+    //  Source: https://github.com/NicoHood/Nintendo/blob/e4130ff38039f125d94c5aee7469724dd2965a56/src/Gamecube.c#L189-L195
     readformatgcn.analog_mode = 3;
     readformatgcn.rumble = 0;
     readformatgcn.button = 0xFFFF;
