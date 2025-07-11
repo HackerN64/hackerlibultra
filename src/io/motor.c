@@ -19,7 +19,6 @@ s32 __osMotorAccess(OSPfs* pfs, s32 flag) {
 
     if (__osControllerTypes[pfs->channel] == CONT_TYPE_GCN) {
         __osGamecubeRumbleEnabled[pfs->channel] = flag;
-        __osContLastCmd = CONT_CMD_END;
     } else {
         __osSiGetAccess();
         __MotorDataBuf[pfs->channel].pifstatus = CONT_CMD_EXE;
