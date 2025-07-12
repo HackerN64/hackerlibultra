@@ -126,7 +126,8 @@ static void __osPackReadData(void) {
     readformatgcn.cmd = CONT_CMD_GCN_SHORTPOLL;
     // Changing the analog mode only changes how some of the analog values are arranged in the packet.
     //  Mode 3 is considered "Normal" mode, and doesn't read the analog A/B buttons (on supported controllers).
-    //  Source: https://github.com/dolphin-emu/dolphin/blob/f76ab863266d012281e52bceda355bc72f36edb8/Source/Core/Core/HW/SI/SI_DeviceGCController.cpp#L185-L228
+    //  Source:
+    //  https://github.com/dolphin-emu/dolphin/blob/f76ab863266d012281e52bceda355bc72f36edb8/Source/Core/Core/HW/SI/SI_DeviceGCController.cpp#L185-L228
     readformatgcn.analog_mode = 3;
     readformatgcn.rumble = 0;
     readformatgcn.button = 0xFFFF;
