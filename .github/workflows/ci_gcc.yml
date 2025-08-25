@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [libultra, libultra_d, libultra_rom]
+        target: [libultra, libultra_d, libultra_rom]
 
     steps:
     - name: Checkout repository
@@ -27,8 +27,8 @@ jobs:
     - name: Verify formatting on all files
       run: python3 tools/check_format.py --verbose
 
-    - name: Build ${{ matrix.version }}
-      run: make -j $(nproc) VERSION=${{ matrix.version }}
+    - name: Build ${{ matrix.target }}
+      run: make -j $(nproc) TARGET=${{ matrix.target }}
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
