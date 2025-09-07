@@ -76,8 +76,8 @@ void osContGetReadData(OSContPad* data) {
                 //  have to account for this discrepancy.
                 if (!__osControllerCenters[i].initialized) {
                     __osControllerCenters[i].initialized = TRUE;
-                    __osControllerCenters[i].stick_x   = readformatgcn.stick_x;
-                    __osControllerCenters[i].stick_y   = readformatgcn.stick_y;
+                    __osControllerCenters[i].stick_x = readformatgcn.stick_x;
+                    __osControllerCenters[i].stick_y = readformatgcn.stick_y;
                     __osControllerCenters[i].c_stick_x = readformatgcn.c_stick_x;
                     __osControllerCenters[i].c_stick_y = readformatgcn.c_stick_y;
                 }
