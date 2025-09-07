@@ -102,8 +102,8 @@ void __osLogWrite(OSLog* log, s16 code, s16 numArgs, va_list argPtr) {
     hdr->argCount = numArgs;
     hdr->eventID = code;
 
-    for (int i = 0; i < numArgs; i++) {
-        *args++ = va_arg(argPtr, int);
+    for (s32 i = 0; i < numArgs; i++) {
+        *args++ = va_arg(argPtr, s32);
     }
 
     if (__osLogOKtoWrite) {
