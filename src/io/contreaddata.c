@@ -82,12 +82,12 @@ void osContGetReadData(OSContPad* data) {
                     __osControllerCenters[i].c_stick_y = readformatgcn.c_stick_y;
                 }
 
-                stick_x = ((s32)readformatgcn.stick_x) - __osControllerCenters[i].stick_x;
-                stick_y = ((s32)readformatgcn.stick_y) - __osControllerCenters[i].stick_y;
+                stick_x = CLAMP_S8(((s32)readformatgcn.stick_x) - __osControllerCenters[i].stick_x);
+                stick_y = CLAMP_S8(((s32)readformatgcn.stick_y) - __osControllerCenters[i].stick_y);
                 data->stick_x = stick_x;
                 data->stick_y = stick_y;
-                c_stick_x = ((s32)readformatgcn.c_stick_x) - __osControllerCenters[i].c_stick_x;
-                c_stick_y = ((s32)readformatgcn.c_stick_y) - __osControllerCenters[i].c_stick_y;
+                c_stick_x = CLAMP_S8(((s32)readformatgcn.c_stick_x) - __osControllerCenters[i].c_stick_x);
+                c_stick_y = CLAMP_S8(((s32)readformatgcn.c_stick_y) - __osControllerCenters[i].c_stick_y);
                 data->c_stick_x = c_stick_x;
                 data->c_stick_y = c_stick_y;
                 data->button = __osTranslateGCNButtons(readformatgcn.button, c_stick_x, c_stick_y);

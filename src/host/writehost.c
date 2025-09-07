@@ -10,8 +10,6 @@ static int writeHostInitialized = FALSE;
 static OSMesgQueue writeHostMesgQueue ALIGNED(0x8);
 static OSMesg writeHostMesgBuf[1];
 
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-
 void osWriteHost(void* dramAddr, u32 nbytes) {
     u8* tPtr = dramAddr;
     u32 sent;
@@ -32,7 +30,7 @@ void osWriteHost(void* dramAddr, u32 nbytes) {
     }
 
     while (nbytes != 0) {
-        count = MIN(nbytes, 0x8000);
+        count = MIN(nbytes, 0x8000U);
 
         dCount[0] = (count & 0xFF0000) >> 0x10;
         dCount[1] = (count & 0xFF00) >> 8;
