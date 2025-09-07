@@ -12,7 +12,7 @@ void* osMalloc(void* region) {
 
 #ifdef _DEBUG
     assert(rp != NULL);
-    if (((char*)rp + ALIGN(sizeof(OSRegion), rp->r_alignSize)) != rp->r_startBufferAddress) {
+    if (((u8*)rp + ALIGN(sizeof(OSRegion), rp->r_alignSize)) != rp->r_startBufferAddress) {
         __osError(ERR_OSMALLOC, 1, region);
         return NULL;
     }
