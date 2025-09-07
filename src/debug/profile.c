@@ -33,7 +33,7 @@ static OSThread __osProfileIOThread;
 void osProfSendWord(u32 word);
 
 void __osProfileIO(void* arg) {
-    s32 totalBytes;
+    u32 totalBytes;
     u32 bytesThisBlock;
     u32 ct;
     u8* sendPtr;
