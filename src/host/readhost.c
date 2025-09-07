@@ -13,7 +13,7 @@ u32 __osRdb_Read_Data_Buf;
 u32 __osRdb_Read_Data_Ct;
 
 void osReadHost(void* dramAddr, u32 nbytes) {
-    char tstr[4];
+    u8 tstr[4];
     u32 sent = 0;
 
     if (!readHostInitialized) {
