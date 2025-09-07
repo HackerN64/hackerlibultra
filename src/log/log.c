@@ -83,14 +83,13 @@ void osFlushLog(OSLog* log) {
 }
 
 void __osLogWrite(OSLog* log, s16 code, s16 numArgs, va_list argPtr) {
-    int i;
     u32 saveEnable;
     u32 buf[19];
     u32* bufp;
     OSLogItem* hdr;
-    s32* args;
-    s32* dest;
-    int numLongs;
+    u32* args;
+    u32* dest;
+    u32 numLongs;
 
     bufp = buf;
     hdr = buf;
@@ -103,14 +102,14 @@ void __osLogWrite(OSLog* log, s16 code, s16 numArgs, va_list argPtr) {
     hdr->argCount = numArgs;
     hdr->eventID = code;
 
-    for (i = 0; i < numArgs; i++) {
+    for (int i = 0; i < numArgs; i++) {
         *args++ = va_arg(argPtr, int);
     }
 
     if (__osLogOKtoWrite) {
         if ((log->writeOffset + numLongs) < (log->len >> 2)) {
             dest = log->base + log->writeOffset;
-            for (i = 0; i < numLongs; i++) {
+            for (u32 i = 0; i < numLongs; i++) {
                 *dest++ = *bufp++;
             }
             log->writeOffset += numLongs;
