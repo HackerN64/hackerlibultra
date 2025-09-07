@@ -13,7 +13,7 @@ void osFree(void* region, void* addr) {
 
 #ifdef _DEBUG
     assert((region != NULL) && (addr != NULL));
-    if (((char*)rp + ALIGN(sizeof(OSRegion), rp->r_alignSize)) != rp->r_startBufferAddress) {
+    if (((u8*)rp + ALIGN(sizeof(OSRegion), rp->r_alignSize)) != rp->r_startBufferAddress) {
         __osError(ERR_OSFREE_REGION, 1, region);
         return;
     }
