@@ -29,7 +29,6 @@ extern "C" {
 #define RMON_DBG_BUF_SIZE 2048
 #define RMON_STACKSIZE    0x1000
 
-extern void rmonMain(void*);
 extern void rmonPrintf(const char*, ...);
 
 #ifdef _LANGUAGE_C_PLUS_PLUS

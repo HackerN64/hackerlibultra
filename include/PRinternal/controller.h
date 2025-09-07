@@ -98,6 +98,22 @@ typedef struct {
     /* 0x4 */ u8 data[EEPROM_BLOCK_SIZE];
 } __OSContEepromFormat;
 
+typedef struct {
+    /* 0x0 */ u8 dummy;
+    /* 0x1 */ u8 txsize;
+    /* 0x2 */ u8 rxsize;
+    /* 0x3 */ u8 cmd;
+    /* 0x4 */ u8 analog_mode;
+    /* 0x5 */ u8 rumble;
+    /* 0x6 */ u16 button;
+    /* 0x8 */ u8 stick_x;
+    /* 0x9 */ u8 stick_y;
+    /* 0xA */ u8 c_stick_x;
+    /* 0xB */ u8 c_stick_y;
+    /* 0xC */ u8 l_trig;
+    /* 0xD */ u8 r_trig;
+} __OSContGCNShortPollFormat;
+
 // Joybus commands
 // from: http://en64.shoutwiki.com/wiki/SI_Registers_Detailed#CONT_CMD_Usage
 #define CONT_CMD_REQUEST_STATUS 0
@@ -113,6 +129,7 @@ typedef struct {
 #define CONT_CMD_SWRITE_VOICE   13
 #define CONT_CMD_CHANNEL_RESET  0xFD
 #define CONT_CMD_RESET          0xFF
+#define CONT_CMD_GCN_SHORTPOLL  0x40
 
 // Bytes transmitted for each joybus command
 #define CONT_CMD_REQUEST_STATUS_TX 1
@@ -127,6 +144,7 @@ typedef struct {
 #define CONT_CMD_WRITE4_VOICE_TX   7
 #define CONT_CMD_SWRITE_VOICE_TX   3
 #define CONT_CMD_RESET_TX          1
+#define CONT_CMD_GCN_SHORTPOLL_TX  3
 
 // Bytes received for each joybus command
 #define CONT_CMD_REQUEST_STATUS_RX 3
@@ -141,6 +159,7 @@ typedef struct {
 #define CONT_CMD_WRITE4_VOICE_RX   1
 #define CONT_CMD_SWRITE_VOICE_RX   1
 #define CONT_CMD_RESET_RX          3
+#define CONT_CMD_GCN_SHORTPOLL_RX  8
 
 #define CONT_CMD_NOP 0xff
 #define CONT_CMD_END 0xfe // indicates end of a command
@@ -215,6 +234,8 @@ extern OSPifRam __osEepPifRam;
 extern OSPifRam __osContPifRam;
 extern OSPifRam __osPfsPifRam;
 extern u8 __osMaxControllers;
+extern u8 __osControllerTypes[MAXCONTROLLERS];
+extern u8 __osGamecubeRumbleEnabled[MAXCONTROLLERS];
 
 // some version of this almost certainly existed since there's plenty of times where it's used right
 // before a return 0
