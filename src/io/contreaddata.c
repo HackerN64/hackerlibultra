@@ -9,6 +9,8 @@ static void __osPackReadData(void);
 static u16 __osTranslateGCNButtons(u16, s32, s32);
 static u16 __osTranslateN64Buttons(u16);
 
+static OSContCenterMapping __osControllerCenters[MAXCONTROLLERS] = { 0 };
+
 static OSContButtonMap __osDefaultControllerMap = {
     .buttonMap = {
         .l_jpad = L_JPAD,
@@ -64,21 +66,37 @@ void osContGetReadData(OSContPad* data) {
     for (i = 0; i < __osMaxControllers; i++, data++) {
         if (__osControllerTypes[i] == CONT_TYPE_GCN) {
             s32 stick_x, stick_y, c_stick_x, c_stick_y;
+
             readformatgcn = *(__OSContGCNShortPollFormat*)ptr;
-            // The analog stick data is encoded unsigned, with (0, 0) being the bottom left of the stick plane,
-            //  compared to the N64 where (0, 0) is the center. We correct it here so that the end user does not
-            //  have to account for this discrepancy.
-            stick_x = ((s32)readformatgcn.stick_x) - 128;
-            stick_y = ((s32)readformatgcn.stick_y) - 128;
-            data->stick_x = stick_x;
-            data->stick_y = stick_y;
-            c_stick_x = ((s32)readformatgcn.c_stick_x) - 128;
-            c_stick_y = ((s32)readformatgcn.c_stick_y) - 128;
-            data->c_stick_x = c_stick_x;
-            data->c_stick_y = c_stick_y;
-            data->button = __osTranslateGCNButtons(readformatgcn.button, c_stick_x, c_stick_y);
-            data->l_trig = readformatgcn.l_trig;
-            data->r_trig = readformatgcn.r_trig;
+            data->errno = CHNL_ERR(readformatgcn);
+
+            if (data->errno == 0) {
+                // The analog stick data is encoded unsigned, with (0, 0) being the bottom left of the stick plane,
+                //  compared to the N64 where (0, 0) is the center. We correct it here so that the end user does not
+                //  have to account for this discrepancy.
+                if (!__osControllerCenters[i].initialized) {
+                    __osControllerCenters[i].initialized = TRUE;
+                    __osControllerCenters[i].stick_x   = readformatgcn.stick_x;
+                    __osControllerCenters[i].stick_y   = readformatgcn.stick_y;
+                    __osControllerCenters[i].c_stick_x = readformatgcn.c_stick_x;
+                    __osControllerCenters[i].c_stick_y = readformatgcn.c_stick_y;
+                }
+
+                stick_x = ((s32)readformatgcn.stick_x) - __osControllerCenters[i].stick_x;
+                stick_y = ((s32)readformatgcn.stick_y) - __osControllerCenters[i].stick_y;
+                data->stick_x = stick_x;
+                data->stick_y = stick_y;
+                c_stick_x = ((s32)readformatgcn.c_stick_x) - __osControllerCenters[i].c_stick_x;
+                c_stick_y = ((s32)readformatgcn.c_stick_y) - __osControllerCenters[i].c_stick_y;
+                data->c_stick_x = c_stick_x;
+                data->c_stick_y = c_stick_y;
+                data->button = __osTranslateGCNButtons(readformatgcn.button, c_stick_x, c_stick_y);
+                data->l_trig = readformatgcn.l_trig;
+                data->r_trig = readformatgcn.r_trig;
+            } else {
+                __osControllerCenters[i].initialized = FALSE;
+            }
+
             ptr += sizeof(__OSContGCNShortPollFormat);
         } else {
             readformat = *(__OSContReadFormat*)ptr;

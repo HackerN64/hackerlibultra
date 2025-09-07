@@ -94,6 +94,14 @@ typedef struct {
 } OSContButtonMap;
 
 typedef struct {
+    s8 initialized;
+    u8 stick_x;
+    u8 stick_y;
+    u8 c_stick_x;
+    u8 c_stick_y;
+} OSContCenterMapping;
+
+typedef struct {
     void* address;     /* Ram pad Address:  11 bits */
     u8 databuffer[32]; /* address of the data buffer */
     u8 addressCrc;     /* CRC code for address */
