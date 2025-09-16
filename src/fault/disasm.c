@@ -1,9 +1,7 @@
+#include <os.h>
 #include <PR/ultratypes.h>
 #include <stdio.h>
 
-#include "sm64.h"
-#include "macros.h"
-#include "farcall.h"
 #include "disasm.h"
 #include "map_parser.h"
 

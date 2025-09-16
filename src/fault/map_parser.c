@@ -1,9 +1,7 @@
 #include <ultra64.h>
-#include <macros.h>
 #include <PR/os_internal_error.h>
 #include <stdarg.h>
 #include <string.h>
-#include "game/memory.h"
 
 #include "map_parser.h"
 #include "symtable.h"

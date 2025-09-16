@@ -15,6 +15,8 @@ extern void audio_signal_game_loop_tick(void);
 extern void stop_sounds_in_continuous_banks(void);
 extern void read_controller_inputs(s32 threadID);
 
+static OSFaultContext __osCurrentFaultContext;
+
 // Configurable Defines
 #define X_KERNING 6
 #define GLYPH_WIDTH 8
@@ -87,15 +89,6 @@ char *gFpcsrDesc[6] = {
 
 static u32 sProgramPosition = 0;
 static u16 gCrashScreenTextColor = 0xFFFF;
-static struct {
-    OSThread thread;
-    u64 stack[THREAD2_STACK / sizeof(u64)];
-    OSMesgQueue mesgQueue;
-    OSMesg mesg;
-    u16 *framebuffer;
-    u16 width;
-    u16 height;
-} gCrashScreen;
 
 static void set_text_color(u32 r, u32 g, u32 b) {
     gCrashScreenTextColor = GPACK_RGBA5551(r, g, b, 255);
@@ -109,13 +102,13 @@ void crash_screen_draw_rect(s32 x, s32 y, s32 w, s32 h) {
     u16 *ptr;
     s32 i, j;
 
-    ptr = gCrashScreen.framebuffer + gCrashScreen.width * y + x;
+    ptr = __osCurrentFaultContext.cfb + __osCurrentFaultContext.width * y + x;
     for (i = 0; i < h; i++) {
         for (j = 0; j < w; j++) {
             *ptr = 0x0001;
             ptr++;
         }
-        ptr += gCrashScreen.width - w;
+        ptr += __osCurrentFaultContext.width - w;
     }
 }
 
@@ -130,7 +123,7 @@ void crash_screen_draw_glyph(s32 x, s32 y, s32 glyph) {
 
     data = &sCrashScreenFont[((glyph&0xF)*GLYPH_HEIGHT * 2) + (glyph >= 64)];
 
-    ptr = gCrashScreen.framebuffer + gCrashScreen.width * y + x;
+    ptr = __osCurrentFaultContext.cfb + __osCurrentFaultContext.width * y + x;
 
     u16 color = gCrashScreenTextColor;
 
@@ -146,7 +139,7 @@ void crash_screen_draw_glyph(s32 x, s32 y, s32 glyph) {
             ptr++;
             bit >>= 1;
         }
-        ptr += gCrashScreen.width - (GLYPH_WIDTH);
+        ptr += __osCurrentFaultContext.width - (GLYPH_WIDTH);
     }
 }
 
@@ -169,7 +162,7 @@ void crash_screen_print_with_newlines(s32 x, s32 y, const s32 xNewline, const ch
         ptr = crashScreenBuf;
 
         while (*ptr && size-- > 0) {
-            if (xOffset >= SCREEN_WIDTH - (xNewline + X_KERNING)) {
+            if (xOffset >= __osCurrentFaultContext.width - (xNewline + X_KERNING)) {
                 y += 10;
                 xOffset = xNewline;
             }
@@ -240,7 +233,7 @@ void crash_screen_print_float_reg(s32 x, s32 y, s32 regNum, void *addr) {
 
 void crash_screen_print_fpcsr(u32 fpcsr) {
     s32 i;
-    u32 bit = BIT(17);
+    u32 bit = FPCSR_CE;
 
     crash_screen_print(100, 220, "FPCSR:%08XH", fpcsr);
     for (i = 0; i < 6; i++) {
@@ -335,7 +328,7 @@ void draw_crash_log(void) {
 }
 #endif
 
-void draw_stacktrace(OSThread *thread, UNUSED s32 cause) {
+void draw_stacktrace(OSThread *thread,  s32 cause) {
     __OSThreadContext *tc = &thread->context;
 
     crash_screen_draw_rect(0, 20, 320, 240);
@@ -435,7 +428,7 @@ void draw_disasm(OSThread *thread) {
     osWritebackDCacheAll();
 }
 
-void draw_assert(UNUSED OSThread *thread) {
+void draw_assert( OSThread *thread) {
     crash_screen_draw_rect(0, 20, 320, 240);
 
     crash_screen_print(LEFT_MARGIN, 25, "Assert");
@@ -467,27 +460,27 @@ void draw_crash_screen(OSThread *thread) {
         cause = 17;
     }
 
-    if (gPlayer1Controller->buttonPressed & R_TRIG) {
-        crashPage++;
-        if (crashPage == PAGE_ASSERTS && tc->cause != EXC_SYSCALL) crashPage++;
-        updateBuffer = TRUE;
-    }
-    if (gPlayer1Controller->buttonPressed & (L_TRIG | Z_TRIG)) {
-        crashPage--;
-        if (crashPage == PAGE_ASSERTS && tc->cause != EXC_SYSCALL) crashPage--;
-        updateBuffer = TRUE;
-    }
+    // if (gPlayer1Controller->buttonPressed & R_TRIG) {
+    //     crashPage++;
+    //     if (crashPage == PAGE_ASSERTS && tc->cause != EXC_SYSCALL) crashPage++;
+    //     updateBuffer = TRUE;
+    // }
+    // if (gPlayer1Controller->buttonPressed & (L_TRIG | Z_TRIG)) {
+    //     crashPage--;
+    //     if (crashPage == PAGE_ASSERTS && tc->cause != EXC_SYSCALL) crashPage--;
+    //     updateBuffer = TRUE;
+    // }
 
-    if (crashPage == PAGE_DISASM) {
-        if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
-            sProgramPosition += 4;
-            updateBuffer = TRUE;
-        }
-        if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
-            sProgramPosition -= 4;
-            updateBuffer = TRUE;
-        }
-    }
+    // if (crashPage == PAGE_DISASM) {
+    //     if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
+    //         sProgramPosition += 4;
+    //         updateBuffer = TRUE;
+    //     }
+    //     if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
+    //         sProgramPosition -= 4;
+    //         updateBuffer = TRUE;
+    //     }
+    // }
 
     if ((crashPage >= PAGE_COUNT) && (crashPage != 255)) {
         crashPage = 0;
@@ -512,7 +505,7 @@ void draw_crash_screen(OSThread *thread) {
 
         osWritebackDCacheAll();
         osViBlack(FALSE);
-        osViSwapBuffer(gCrashScreen.framebuffer);
+        osViSwapBuffer(__osCurrentFaultContext.cfb);
         updateBuffer = FALSE;
     }
 }
@@ -534,15 +527,14 @@ void osFaultMain(void *arg) {
     OSMesg mesg;
     OSThread *thread = NULL;
 
-    osSetEventMesg(OS_EVENT_CPU_BREAK, &gCrashScreen.mesgQueue, (OSMesg) 1);
-    osSetEventMesg(OS_EVENT_FAULT,     &gCrashScreen.mesgQueue, (OSMesg) 2);
+    osSetEventMesg(OS_EVENT_CPU_BREAK, &__osCurrentFaultContext.mesgQueue, (OSMesg) 1);
+    osSetEventMesg(OS_EVENT_FAULT,     &__osCurrentFaultContext.mesgQueue, (OSMesg) 2);
     while (TRUE) {
         if (thread == NULL) {
-            osRecvMesg(&gCrashScreen.mesgQueue, &mesg, 1);
+            osRecvMesg(&__osCurrentFaultContext.mesgQueue, &mesg, 1);
             thread = get_crashed_thread();
-            gCrashScreen.framebuffer = (RGBA16 *) gFramebuffers[sRenderedFramebuffer];
             if (thread) {
-                gCrashScreen.thread.priority = 15;
+                __osCurrentFaultContext.thread.priority = 15;
                 crash_screen_sleep(200);
                 audio_signal_game_loop_tick();
                 crash_screen_sleep(200);
@@ -553,27 +545,24 @@ void osFaultMain(void *arg) {
                 continue;
             }
         } else {
-            if (gControllerBits) {
-#if ENABLE_RUMBLE
-                block_until_rumble_pak_free();
-#endif
-                osContStartReadDataEx(&gSIEventMesgQueue);
-            }
-            read_controller_inputs(THREAD_2_CRASH_SCREEN);
+//             if (gControllerBits) {
+// #if ENABLE_RUMBLE
+//                 block_until_rumble_pak_free();
+// #endif
+//                 osContStartReadDataEx(&gSIEventMesgQueue);
+//             }
+            read_controller_inputs(FAULT_THREAD);
             draw_crash_screen(thread);
         }
     }
 }
 
 void osCreateFaultHandler(void) {
-    gCrashScreen.framebuffer = (RGBA16 *) gFramebuffers[sRenderedFramebuffer];
-    gCrashScreen.width = SCREEN_WD;
-    gCrashScreen.height = SCREEN_HT;
-    osCreateMesgQueue(&gCrashScreen.mesgQueue, &gCrashScreen.mesg, 1);
-    osCreateThread(&gCrashScreen.thread, FAULT_THREAD, thread2_crash_screen, NULL,
-                   (u8 *) gCrashScreen.stack + sizeof(gCrashScreen.stack),
+    osCreateMesgQueue(&__osCurrentFaultContext.mesgQueue, &__osCurrentFaultContext.mesg, 1);
+    osCreateThread(&__osCurrentFaultContext.thread, FAULT_THREAD, osFaultMain, NULL,
+                   (u8 *) __osCurrentFaultContext.stack + sizeof(__osCurrentFaultContext.stack),
                    OS_PRIORITY_APPMAX
                   );
-    osStartThread(&gCrashScreen.thread);
+    osStartThread(&__osCurrentFaultContext.thread);
 }
 

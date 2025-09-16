@@ -1,12 +1,8 @@
 #include <ultra64.h>
-#include <macros.h>
 #include <string.h>
-
-#include "config/config_debug.h"
 
 #include "map_parser.h"
 #include "symtable.h"
-#include "segment_symbols.h"
 #include "stacktrace.h"
 #include "disasm.h"
 
@@ -25,15 +21,15 @@ static u8 is_top_of_stack(u32 ra) {
 }
 
 static u8 is_text_addr(u32 addr) {
-    if ((addr >= (u32)_mainSegmentStart) && (addr <= (u32)_mainSegmentTextEnd)) {
-        return TRUE;
-    }
-    else if ((addr >= (u32)_engineSegmentStart) && (addr <= (u32)_engineSegmentTextEnd)) {
-        return TRUE;
-    }
-    else if ((addr >= (u32)_goddardSegmentStart) && (addr <= (u32)_goddardSegmentTextEnd)) {
-        return TRUE;
-    }
+    // if ((addr >= (u32)_mainSegmentStart) && (addr <= (u32)_mainSegmentTextEnd)) {
+    //     return TRUE;
+    // }
+    // else if ((addr >= (u32)_engineSegmentStart) && (addr <= (u32)_engineSegmentTextEnd)) {
+    //     return TRUE;
+    // }
+    // else if ((addr >= (u32)_goddardSegmentStart) && (addr <= (u32)_goddardSegmentTextEnd)) {
+    //     return TRUE;
+    // }
 
     return FALSE;
 }
