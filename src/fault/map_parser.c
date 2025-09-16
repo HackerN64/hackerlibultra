@@ -10,7 +10,7 @@
 
 #define UNKNOWN_SYMBOL "???"
 
-char* __symbolize(void *vaddr, char *buf, int size, u32 andOffset) {
+char* __symbolize(void* vaddr, char* buf, int size, u32 andOffset) {
     symtable_header_t symt = symt_open();
     if (symt.head[0]) {
         u32 addr = (u32)vaddr;
@@ -23,7 +23,7 @@ char* __symbolize(void *vaddr, char *buf, int size, u32 andOffset) {
         symtable_entry_t ALIGNED16 entry;
         // Read the symbol name
         symt_entry_fetch(&symt, &entry, idx);
-        char *func = symt_entry_func(&symt, &entry, addr, buf, size-12);
+        char* func = symt_entry_func(&symt, &entry, addr, buf, size - 12);
         char lbuf[12];
         if (andOffset) {
             sprintf(lbuf, "+0x%lx", addr - ADDRENTRY_ADDR(a));
@@ -38,9 +38,9 @@ char* __symbolize(void *vaddr, char *buf, int size, u32 andOffset) {
     return buf;
 }
 
-char *parse_map(u32 addr, u32 andOffset) {
+char* parse_map(u32 addr, u32 andOffset) {
     static char map_name[64] ALIGNED16;
-    char *ret = map_name;
+    char* ret = map_name;
 
     __symbolize((u32*)addr, map_name, sizeof(map_name), andOffset);
 
@@ -52,7 +52,7 @@ char *parse_map(u32 addr, u32 andOffset) {
 
 symtable_info_t get_symbol_info(u32 addr) {
     static char filebuf[100];
-    void *vaddr = (void *)addr;
+    void* vaddr = (void*)addr;
     symtable_header_t symt = symt_open();
 
     if (symt.head[0]) {
@@ -75,7 +75,7 @@ symtable_info_t get_symbol_info(u32 addr) {
 
         return info;
     }
-    return (symtable_info_t){.line = -1};
+    return (symtable_info_t){ .line = -1 };
 }
 
 #endif // DEBUG_EXPORT_SYMBOLS

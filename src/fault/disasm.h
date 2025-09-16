@@ -60,7 +60,7 @@ typedef union {
     Insn i;
     CzInsn f;
     BranchInsn b;
-    u32  d;
+    u32 d;
 } InsnData;
 
 typedef struct PACKED {
@@ -78,11 +78,10 @@ typedef struct PACKED {
     u8 name[10];
 } COPzInsnTemplate;
 
-#define OP_COP0 0b010000
-#define OP_COP1 0b010001
+#define OP_COP0   0b010000
+#define OP_COP1   0b010001
 #define OP_BRANCH 0b000001 // technically "REGIMM"
 
-extern char *insn_disasm(InsnData *insn);
-extern u8 insn_is_jal(Insn *i);
-extern u8 insn_is_jalr(Insn *i);
-
+extern char* insn_disasm(InsnData* insn);
+extern u8 insn_is_jal(Insn* i);
+extern u8 insn_is_jalr(Insn* i);

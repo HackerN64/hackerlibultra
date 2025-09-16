@@ -34,8 +34,8 @@ static u8 is_text_addr(u32 addr) {
     return FALSE;
 }
 
-static void add_entry_to_stack(u32 addr, u32 ra, symtable_info_t *info) {
-    StackFrame *frame = &stack[stackIdx++];
+static void add_entry_to_stack(u32 addr, u32 ra, symtable_info_t* info) {
+    StackFrame* frame = &stack[stackIdx++];
 
     frame->func = addr;
     frame->offset = info->func_offset;
@@ -44,7 +44,7 @@ static void add_entry_to_stack(u32 addr, u32 ra, symtable_info_t *info) {
     sprintf(frame->funcname, "%s", info->func);
 }
 
-char *get_stack_entry(u32 idx) {
+char* get_stack_entry(u32 idx) {
     static char stackbuf[100];
 
     sprintf(stackbuf, "%08X: %s:%d", stack[idx].func, stack[idx].funcname, stack[idx].line);
@@ -52,11 +52,11 @@ char *get_stack_entry(u32 idx) {
     return stackbuf;
 }
 
-u32 generate_stack(OSThread *thread) {
+u32 generate_stack(OSThread* thread) {
     static u32 breadcrumb = 0;
     symtable_header_t symt = symt_open();
 
-    __OSThreadContext *tc = &thread->context;
+    __OSThreadContext* tc = &thread->context;
 
     u32 sp = tc->sp;
     breadcrumb = tc->ra;
@@ -90,7 +90,7 @@ u32 generate_stack(OSThread *thread) {
             if (info.distance == 0) {
                 u32 jal = *(u32*)(val + CALLSITE_OFFSET);
 
-                if (insn_is_jal((Insn *) &jal)) {
+                if (insn_is_jal((Insn*)&jal)) {
                     u32 jalTarget = 0x80000000 | ((jal & 0x03FFFFFF) * 4);
 
                     // make sure JAL is to the current func
@@ -98,7 +98,7 @@ u32 generate_stack(OSThread *thread) {
                         add_entry_to_stack(val + CALLSITE_OFFSET, breadcrumb, &info);
                         breadcrumb = val;
                     }
-                } else if (insn_is_jalr((Insn *) &jal)) {
+                } else if (insn_is_jalr((Insn*)&jal)) {
                     // Always add a JALR to the stack, in absence of a better heuristic
                     add_entry_to_stack(val + CALLSITE_OFFSET, breadcrumb, &info);
                     breadcrumb = val;

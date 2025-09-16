@@ -11,7 +11,6 @@ typedef struct {
     OSContPad pad;
     u32 width;
     u32 height;
-    u16 *cfb;
+    u16* cfb;
     u64 stack[100];
 } OSFaultContext;
-
