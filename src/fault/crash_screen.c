@@ -180,7 +180,7 @@ void crash_screen_print_with_newlines(s32 x, s32 y, const s32 xNewline, const ch
     char* ptr;
     u32 glyph;
     s32 size;
-    s32 xOffset = x;
+    u32 xOffset = x;
 
     va_list args;
     va_start(args, fmt);
@@ -568,6 +568,11 @@ OSThread* get_crashed_thread(void) {
 void osFaultMain(void* arg) {
     OSMesg mesg;
     OSThread* thread = NULL;
+    OSFaultProgramArguments *args = (OSFaultProgramArguments *)arg;
+
+    __osCurrentFaultContext.width = args->width;
+    __osCurrentFaultContext.height = args->height;
+    __osCurrentFaultContext.cfb = args->cfb;
 
     osSetEventMesg(OS_EVENT_CPU_BREAK, &__osCurrentFaultContext.mesgQueue, (OSMesg)1);
     osSetEventMesg(OS_EVENT_FAULT, &__osCurrentFaultContext.mesgQueue, (OSMesg)2);

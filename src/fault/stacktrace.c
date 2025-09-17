@@ -1,14 +1,11 @@
 #include <ultra64.h>
 #include <string.h>
+#include <PRinternal/osint.h>
 
 #include "map_parser.h"
 #include "symtable.h"
 #include "stacktrace.h"
 #include "disasm.h"
-
-extern void __osCleanupThread();
-
-#if defined(DEBUG_EXPORT_SYMBOLS) && defined(DEBUG_FULL_STACK_TRACE)
 
 static StackFrame stack[STACK_LINE_COUNT];
 static u32 stackIdx;
@@ -20,6 +17,7 @@ static u8 is_top_of_stack(u32 ra) {
     return (ra == ((u32)__osCleanupThread));
 }
 
+// TODO: 
 static u8 is_text_addr(u32 addr) {
     // if ((addr >= (u32)_mainSegmentStart) && (addr <= (u32)_mainSegmentTextEnd)) {
     //     return TRUE;
@@ -45,9 +43,9 @@ static void add_entry_to_stack(u32 addr, u32 ra, symtable_info_t* info) {
 }
 
 char* get_stack_entry(u32 idx) {
-    static char stackbuf[100];
+    static char stackbuf[256];
 
-    sprintf(stackbuf, "%08X: %s:%d", stack[idx].func, stack[idx].funcname, stack[idx].line);
+    sprintf(stackbuf, "%08lX: %s:%d", stack[idx].func, stack[idx].funcname, stack[idx].line);
 
     return stackbuf;
 }
@@ -113,5 +111,3 @@ u32 generate_stack(OSThread* thread) {
 
     return stackIdx;
 }
-
-#endif // DEBUG_EXPORT_SYMBOLS && DEBUG_FULL_STACK_TRACE

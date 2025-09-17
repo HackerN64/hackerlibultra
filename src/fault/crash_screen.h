@@ -14,3 +14,9 @@ typedef struct {
     u16* cfb;
     u64 stack[100];
 } OSFaultContext;
+
+typedef struct {
+    u32 width;
+    u32 height;
+    u16 *cfb;
+} OSFaultProgramArguments;
