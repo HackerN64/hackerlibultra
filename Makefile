@@ -98,7 +98,7 @@ AR        := $(CROSS)ar
 
 # Do NOT depend on system-installed headers! If you need to make a header change,
 # test it in your source first!
-INCLUDE_DIRS += $(WORKING_DIR)/include $(WORKING_DIR)/include/PR $(WORKING_DIR)/include/compiler/modern_gcc $(BUILD_DIR) $(BUILD_DIR)/include $(WORKING_DIR)/src $(WORKING_DIR)
+INCLUDE_DIRS += $(WORKING_DIR)/include $(WORKING_DIR)/include/PR $(WORKING_DIR)/include/libc $(BUILD_DIR) $(BUILD_DIR)/include $(WORKING_DIR)/src $(WORKING_DIR)
 
 GBIDEFINE := -DF3DEX_GBI_2
 
