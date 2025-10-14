@@ -220,6 +220,13 @@ typedef struct {
 #define CONT_ERR_VOICE_WORD        14
 #define CONT_ERR_VOICE_NO_RESPONSE 15
 
+// Controller mask values
+#define CONT_P1 (1 << 0)
+#define CONT_P2 (1 << 1)
+#define CONT_P3 (1 << 2)
+#define CONT_P4 (1 << 3)
+
+// Controller types
 #define CONT_TYPE_N64 0
 #define CONT_TYPE_GCN 1
 
@@ -236,6 +243,7 @@ typedef struct {
  * Extern variables
  *
  */
+extern u8 __osControllerMask;
 
 /**************************************************************************
  *
@@ -252,6 +260,7 @@ extern s32 osContStartReadData(OSMesgQueue*);
 #ifndef _HW_VERSION_1
 extern s32 osContSetCh(u8);
 #endif
+extern s32 osContSetMask(u8 ch);
 extern void osContGetQuery(OSContStatus*);
 extern void osContGetReadData(OSContPad*);
 
