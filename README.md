@@ -1,29 +1,16 @@
-# ultralib
+# hackerultralib
 
-Reverse engineering of libultra
+Configurable modern N64 operating system, designed for game modding.
 
-## Compatibility
+Based on [ultralib](https://github.com/decompals/ultralib/).
 
-Currently this repo supports building the following versions:
+This repo builds `libgultra.a`, `libgultra_d.a`, or `libgultra_rom.a`, with modern MIPS GCC.
 
-| IDO / GCC  | `libultra.a` / `libgultra.a` | `libultra_d.a` / `libgultra_d.a` | `libultra_rom.a` / `libgultra_rom.a` |
-| -          | :-: | :-: | :-: |
-| 2.0E       | :x: / N/A | :x: / N/A | :x: / N/A |
-| 2.0F       | :x: / N/A | :x: / N/A | :x: / N/A |
-| 2.0G       | :x: / N/A | :x: / N/A | :x: / N/A |
-| 2.0H       | N/A / :x: | N/A / :x: | N/A / :x: |
-| 2.0I       | :heavy_check_mark: / :heavy_check_mark: | :x: / :heavy_check_mark: | :heavy_check_mark: / :heavy_check_mark: |
-| 2.0I_patch | :x: / :x: | :x: / :x: | :x: / :x: |
-| 2.0J       | :heavy_check_mark: / :heavy_check_mark: | :x: / :heavy_check_mark: | :heavy_check_mark: / :heavy_check_mark: |
-| 2.0K       | :heavy_check_mark: / :heavy_check_mark: | :x: / :heavy_check_mark: | :heavy_check_mark: / :heavy_check_mark: |
-| 2.0L       | :heavy_check_mark: / :heavy_check_mark: | :x: / :heavy_check_mark: | :heavy_check_mark: / :heavy_check_mark: |
-| ique_v1.5  | :x: | :x: | :x: |
-
-## Preparation
-
-After cloning the repo, put a copy of the target archive(s) in their correct version folder in `base/`.
-For example, if your target archive is libgultra_rom.a 2.0L then you'd place it in `base/L/`.
-If you will be building without a target archive by setting `COMPARE=0` then you can skip this step.
+## Features
+ - Latest revision of libultra
+ - Built-in GC controller support
+ - Button remapping support
+ - Various performance improvements
 
 ## Build dependencies
 
@@ -31,48 +18,29 @@ The build process requires the following packages:
 
 - build-essential
 - python3
-- binutils-mips-linux-gnu (libultra* only)
+- binutils-mips-linux-gnu
+- gcc-mips-linux-gnu
 
 Under Debian / Ubunutu you can install them with the following commands:
 
 ```bash
 sudo apt update
-sudo apt install build-essential python3
+sudo apt install build-essential python3 binutils-mips-linux-gnu gcc-mips-linux-gnu
 ```
 
-If building any libultra you can install binutils-mips-linux-gnu with:
-
-```bash
-sudo apt install binutils-mips-linux-gnu
-```
+For other distros, refer to the HackerSM64 [Installing Dependencies](https://github.com/HackerN64/HackerSM64/wiki/Installing-Dependencies) page, since package names will differ.
 
 ## Building
+Simply run `make`, and the final library will be at `build/libgultra_rom.a`.
 
-Run make setup with the proper flags set followed by make with optional jobs.
-For example, if building the 2.0L PC archive you'd do the following: 
+For building other targets, set the `TARGET` variable in the command:
+- `make TARGET=libgultra_d`
 
-- `make VERSION=L TARGET=libgultra_rom setup`
-- `make VERSION=L TARGET=libgultra_rom`
+## Integrate your Decomp
+To integrate hackerlibultra in a new modding-friendly decomp repo, there are a few steps:
 
-Every target flag combination requires separate a setup command.
+1. Have all your libultra functions split out and labeled.
+2. Copy the built library from this repo to yours (or make it a submodule/subtree)
+3. Use the headers in this repo's `include/PR`, as new functions and modified structs have been introduced.
+4. Make sure the game builds with all the changes
 
-If building without an target archive, than you can use `COMPARE=0` like the the following:
-
-- `make VERSION=L TARGET=libgultra_rom COMPARE=0 setup`
-- `make VERSION=L TARGET=libgultra_rom COMPARE=0`
-
-note that running setup without `COMPARE=0` and no archive will result in an error,
-and only needs to be run once instead of per target flag combination
-
-If building for use with modern linkers, than you can use `MODERN_LD=1` like the following:
-
-- `make VERSION=L TARGET=libgultra_rom MODERN_LD=1 setup`
-- `make VERSION=L TARGET=libgultra_rom MODERN_LD=1`
-
-note that running with `MODERN_LD=1` will automatically set `COMPARE=0`.
-
-It is also possible to build archives using modern gcc by using `MODERN_GCC=1` like the following:
-
-- `make VERSION=L TARGET=libgultra_rom MODERN_GCC=1`
-
-note that running with `MODERN_GCC=1` will automatically set `COMPARE=0` and `MODERN_LD=0`.
