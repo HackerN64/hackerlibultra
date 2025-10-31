@@ -12,6 +12,7 @@ u8 __osGamecubeRumbleEnabled[MAXCONTROLLERS];
 OSTimer __osEepromTimer;
 OSMesgQueue __osEepromTimerQ ALIGNED(0x8);
 OSMesg __osEepromTimerMsg;
+u8 __osControllerMask;
 
 s32 __osContinitialized = FALSE;
 
@@ -27,6 +28,7 @@ s32 osContInit(OSMesgQueue* mq, u8* bitpattern, OSContStatus* data) {
     }
 
     __osContinitialized = TRUE;
+    __osControllerMask = CONT_P1 | CONT_P2 | CONT_P3 | CONT_P4;
 
     t = osGetTime();
     if (t < OS_USEC_TO_CYCLES(500000)) {
