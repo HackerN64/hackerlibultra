@@ -62,6 +62,8 @@
 extern "C" {
 #endif
 
+#define PACKED __attribute__((packed))
+
 #include <PR/ultratypes.h>
 
 /**************************************************************************
