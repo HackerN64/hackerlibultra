@@ -107,7 +107,7 @@ DEF_INC_CFLAGS = $(foreach i,$(INCLUDE_DIRS),-I$(i)) $(C_DEFINES)
 
 WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unused-function -Wno-unused-parameter -Wno-unused-variable -Wno-builtin-declaration-mismatch
 WARNINGS += -Wno-int-conversion -Wno-incompatible-pointer-types -Wno-implicit-function-declaration # TODO: Try adjusting code to remove these
-CFLAGS := -G 0 -c -nostdinc -march=vr4300 -mfix4300 -mabi=32 -mips3 -mno-abicalls -mdivide-breaks -fno-PIC -fno-common -ffreestanding -fbuiltin -fno-builtin-sinf -fno-builtin-cosf -funsigned-char $(WARNINGS)
+CFLAGS := -G 0 -c -nostdinc -march=vr4300 -mfix4300 -mabi=32 -mips3 -mno-abicalls -mdivide-breaks -fno-PIC -fno-common -ffreestanding -fbuiltin -fno-builtin-sinf -fno-builtin-cosf -funsigned-char $(OPT_FLAGS) $(WARNINGS)
 CFLAGS += -fno-strict-aliasing # TODO: Try adjusting code to remove this
 CFLAGS += -D_MIPS_SZLONG=32 -D__USE_ISOC99 $(C_DEFINES) $(DEF_INC_CFLAGS)
 
